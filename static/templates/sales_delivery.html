@@ -43,10 +43,10 @@
 			<tr>
 				<th class="col_10"><input type="text" id="productID_{{value.items.14.1}}" value={{value.items.3.1}}></th>
 				<th class="col_30"><input type="text" id="product_name_{{value.items.14.1}}"  value={{value.items.4.1}}></th>
-				<th class="col_10"><input type="text" id="order_amount_{{value.items.14.1}}"  value={{value.items.5.1}}></th>
-				<th class="col_10"><input type="text" id="delivery_amount_{{value.items.14.1}}"  value={{value.items.6.1}}></th>
-				<th class="col_10"><input type="text" id="price_{{value.items.14.1}}"  value={{value.items.7.1}}></th>
-				<th class="col_10"><input type="text" id="fee_{{value.items.14.1}}"  value={{value.items.8.1}}></th>
+				<th class="col_10"><input type="number" id="order_amount_{{value.items.14.1}}"  value={{value.items.5.1}}></th>
+				<th class="col_10"><input type="number" id="delivery_amount_{{value.items.14.1}}"  value={{value.items.6.1}}></th>
+				<th class="col_10"><input type="number" id="price_{{value.items.14.1}}"  value={{value.items.7.1}}></th>
+				<th class="col_10"><input type="number" id="fee_{{value.items.14.1}}"  value={{value.items.8.1}}></th>
 				<th class="col_20"><input type="text" id="notes_{{value.items.14.1}}"  value={{value.items.9.1}}></th>
 			</tr>
 	{% endfor %}
@@ -103,7 +103,7 @@
               success : function(data) {    
                 if(data==1){
                 	alert("删除成功");
-                   	window.location.href='/sales/delivery/';
+                   	window.location.href='/sales/delivery_list/1';
                 }else{
                   alert("删除失败:"+data.message);
                 }

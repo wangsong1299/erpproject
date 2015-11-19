@@ -18,15 +18,15 @@
  			<label for="customer_name">客户名</label>
  			<input type="text" id="customer_name"  required />
  			<label for="product_name">产品名称</label>
- 			<input type="text" id="product_name" />
- 			<label for="create_time">日期</label>
- 			<input type="text" id="create_time" onClick="WdatePicker()"/>
+ 			<input type="text" id="product_name" style="width:40%"/>
  		</div>
  		<div class="head_row">
  			<label for="contacts">联系人</label>
  			<input type="text" id="contacts" />
  			<label for="contacts_phone">联系电话</label>
- 			<input type="text" id="contacts_phone" />
+ 			<input type="number" id="contacts_phone" />
+ 			<label for="create_time">日期</label>
+ 			<input type="text" id="create_time" onClick="WdatePicker()"/>
  		</div>
 
 	<table class="quotation_table">
@@ -38,7 +38,7 @@
 		<tr>
 			<td class="col_1">所用材料</td>
 			<td class="col_2"> <input type="text" id="material"></td>
-			<td class="col_3"> <input type="text" id="material_price"></td>
+			<td class="col_3"> <input type="number" id="material_price"></td>
 		</tr>
 		<tr>
 			<td class="col_1">尺寸</td>
@@ -46,38 +46,38 @@
 				<label for="size">104以内</label><input type="radio" name="size" value="1">
 				<label for="size">120以内</label><input type="radio" name="size" value="2">
 			</td>
-			<td class="col_3"><input type="text" id="size_price"></td>
+			<td class="col_3"><input type="number" id="size_price"></td>
 		</tr>
 		<tr>
 			<td class="col_1">瓦楞用料</td>
 			<td class="col_2"> <input type="text" id="wl_material"></td>
-			<td class="col_3"> <input type="text" id="wl_material_price"></td>
+			<td class="col_3"> <input type="number" id="wl_material_price"></td>
 		</tr>
 		<tr>
 			<td class="col_1">数目</td>
 			<td class="col_2">
 				<label for="amount">0-500</label><input type="radio" name="amount" value="1">
 				<label for="amount">500-1000</label><input type="radio" name="amount" value="2">
-				<label for="amount">1000-3000</label><input type="radio" name="amount" value="3">
+				<label for="amount">1000-3000</label><input type="radio" name="amount" value="3"><br>
 				<label for="amount">3000-6000</label><input type="radio" name="amount" value="4">
 				<label for="amount">6000以上</label><input type="radio" name="amount" value="5">
 			</td>
-			<td class="col_3"> <input type="text" id="amount_price"></td>
+			<td class="col_3"> <input type="number" id="amount_price"></td>
 		</tr>
 		<tr>
 			<td class="col_1">印刷费</td>
 			<td class="col_2"> <input type="text" id="print_fee"></td>
-			<td class="col_3"> <input type="text" id="print_fee_price"></td>
+			<td class="col_3"> <input type="number" id="print_fee_price"></td>
 		</tr>
 		<tr>
 			<td class="col_1">印刷色数</td>
 			<td class="col_2"> <input type="text" id="print_color"></td>
-			<td class="col_3"> <input type="text" id="print_color_price"></td>
+			<td class="col_3"> <input type="number" id="print_color_price"></td>
 		</tr>
 		<tr>
 			<td class="col_1">印刷配件</td>
 			<td class="col_2"> <input type="text" id="print_parts"></td>
-			<td class="col_3"> <input type="text" id="print_parts_price"></td>
+			<td class="col_3"> <input type="number" id="print_parts_price"></td>
 		</tr>
 		<tr>
 			<td class="col_1">表面处理</td>
@@ -88,38 +88,39 @@
 				<label for="surface">吸塑</label><input type="radio" name="surface" value="4">
 				<label for="surface">其他</label><input type="radio" name="surface" value="5">
 			</td>
-			<td class="col_3"> <input type="text" id="surface_price"></td>
+			<td class="col_3"> <input type="number" id="surface_price"></td>
 		</tr>
 		<tr>
 			<td class="col_1">烫金</td>
 			<td class="col_2"> <input type="text" id="tangjin"></td>
-			<td class="col_3"> <input type="text" id="tangjin_price"></td>
+			<td class="col_3"> <input type="number" id="tangjin_price"></td>
 		</tr>
 		<tr>
 			<td class="col_1">撒粉</td>
 			<td class="col_2"> <input type="text" id="safen"></td>
-			<td class="col_3"> <input type="text" id="safen_price"></td>
+			<td class="col_3"> <input type="number" id="safen_price"></td>
 		</tr>
 		<tr>
 			<td class="col_1">外箱</td>
 			<td class="col_2"> <input type="text" id="packing_box"></td>
-			<td class="col_3"> <input type="text" id="packing_box_price"></td>
+			<td class="col_3"> <input type="number" id="packing_box_price"></td>
 		</tr>
 		<tr>
 			<td class="col_1">包装费</td>
 			<td class="col_2"> <input type="text" id="packing_fee"></td>
-			<td class="col_3"> <input type="text" id="packing_fee_price"></td>
+			<td class="col_3"> <input type="number" id="packing_fee_price"></td>
 		</tr>
 		<tr>
 			<td class="col_1">运费</td>
 			<td class="col_2"> <input type="text" id="transportation_fee"></td>
-			<td class="col_3"> <input type="text" id="transportation_fee_price"></td>
+			<td class="col_3"> <input type="number" id="transportation_fee_price"></td>
 		</tr>
 	</table>
 
  		<div class="head_row">
  			<label class="col_1">合计</label>
- 			<input type="text" id="total_fee">
+ 			<input type="number" id="total_fee">
+ 			<label class="col_1">元</label>
  		</div>
 
  		<div class="head_row" style="margin-bottom:40px">
@@ -224,6 +225,8 @@
 					alert("联系人不能为空");
 				}else if(contacts_phone.length==0){
 					alert("联系人电话不能为空");
+				}else if(contacts_phone.length!=11){
+					alert("联系人电话不是手机格式");
 				}else{
 					  $.ajax({
 	                      type : "POST",

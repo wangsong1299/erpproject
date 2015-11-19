@@ -15,10 +15,10 @@
  		<div class="line2">
 							印刷订单
 				</div>	
- 		<div class="head_row" style="height:80px">
- 			<label for="customer_name">订单</label>
- 			 <div id="bcTarget"></div>
- 		</div>
+	<div class="head_row" style="height:70px" id="bcTarget_row">
+		<label for="customer_name" style="width:150px">订单号条形码:</label>
+		<iframe src="" frameborder="0" id="barcode_iframe"></iframe>
+	</div>
  	<table class="order_table" style="margin-top: 20px;" id="order_table">
 		<tr>
 			<th class="col_10">客户名<span class="red">*</span></th>
@@ -32,7 +32,7 @@
 			<th class="col_10">传真</th>
 			<td class="col_20"> <input type="text" id="fax" ></td>
 			<th class="col_10">qq</th>
-			<td class="col_20"> <input type="text" id="qq" ></td>
+			<td class="col_20"> <input type="number" id="qq" ></td>
 			<th class="col_10">日期<span class="red">*</span></th>
 			<td class="col_30"> <input type="text" id="create_time" onClick="WdatePicker()"></td>
 		</tr>
@@ -53,10 +53,10 @@
 			<th class="col_12">版费</th>			
 		</tr>
 		<tr>
-			<th class="col_12"><input type="text" id="amount"  ></th>
-			<th class="col_12"><input type="text" id="price" ></th>
-			<th class="col_12"><input type="text" id="fee" ></th>
-			<th class="col_12"><input type="text" id="edition_fee" ></th>		
+			<th class="col_12"><input type="number" id="amount"  ></th>
+			<th class="col_12"><input type="number" id="price" ></th>
+			<th class="col_12"><input type="number" id="fee" ></th>
+			<th class="col_12"><input type="number" id="edition_fee" ></th>		
 		</tr>
 	</table>
 	 <table class="order_table">
@@ -67,8 +67,8 @@
 			<th class="col_12">产品用料</th>				
 		</tr>
 		<tr>
-			<th class="col_12"><input type="text" id="total_fee"  ></th>
-			<th class="col_12"><input type="text" id="deadline"  ></th>
+			<th class="col_12"><input type="number" id="total_fee"  ></th>
+			<th class="col_12"><input type="text" id="deadline" onClick="WdatePicker()"></th>
 			<th class="col_12"><input type="text" id="feilin"  ></th>
 			<th class="col_12"><input type="text" id="material" ></th>			
 		</tr>
@@ -194,23 +194,15 @@
 //条形码
 
 		var productID2={{productID}};
-		var zero_length=8-parseInt(String(productID2).length);
-		var zero_query='';
-		for(i=0;i<zero_length;i++){
-			zero_query=zero_query+'0';
-		};
-		var newcode=zero_query+productID2;
-		$("#bcTarget").barcode(newcode,"code11");
+		var barcode_src='/barcode/'+productID2;
+		$("#barcode_iframe").attr("src",barcode_src);
+
 
 		$("#productID").blur(function(){
 				var productID2=$("#productID").val();
-				var zero_length=8-parseInt(String(productID2).length);
-				var zero_query='';
-				for(i=0;i<zero_length;i++){
-					zero_query=zero_query+'0';
-				};
-				var newcode=zero_query+productID2;
-				$("#bcTarget").barcode(newcode,"code11");
+				var barcode_src='/barcode/'+productID2;
+				$("#barcode_iframe").attr("src",barcode_src);
+
 		})
 
 		$("#fee").focus(function(){

@@ -7,4 +7,9 @@
     .main{width:750px;}
     table{font-size: 12px}
 
+    label{font-size: 14px;}
+    .head_row>input{border: none;background: transparent;}
+
+	.quotation_table{width: 80%}
+	.delivery_table{width: 80%}
 }

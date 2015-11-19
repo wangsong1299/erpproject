@@ -13,10 +13,10 @@
  		<div class="line2">
 							印刷订单
 				</div>	
- 		<div class="head_row" style="height:80px">
- 			<label for="customer_name">订单</label>
- 			 <div id="bcTarget"></div>
- 		</div>
+	<div class="head_row" style="height:70px" id="bcTarget_row">
+		<label for="customer_name">条形码:</label>
+		<iframe src="" frameborder="0" id="barcode_iframe"></iframe>
+	</div>
  	<table class="order_table" style="margin-top: 20px;" id="order_table">
 		<tr>
 			<th class="col_10">客户名<span class="red">*</span></th>
@@ -24,13 +24,13 @@
 			<th class="col_10">联系人<span class="red">*</span></th>
 			<td class="col_20"> <input type="text" id="contacts" value={{ records.1}} ></td>
 			<th class="col_10">电话<span class="red">*</span></th>
-			<td class="col_30"> <input type="text" id="contacts_phone" value={{ records.2}} ></td>
+			<td class="col_30"> <input type="number" id="contacts_phone" value={{ records.2}} ></td>
 		</tr>
 		<tr>
 			<th class="col_10">传真</th>
 			<td class="col_20"> <input type="text" id="fax" value={{ records.3}} ></td>
 			<th class="col_10">qq</th>
-			<td class="col_20"> <input type="text" id="qq" value={{ records.4}} ></td>
+			<td class="col_20"> <input type="number" id="qq" value={{ records.4}} ></td>
 			<th class="col_10">日期<span class="red">*</span></th>
 			<td class="col_30"> <input type="text" id="create_time" value={{ records.5}} onClick="WdatePicker()" ></td>
 		</tr>
@@ -51,10 +51,10 @@
 			<th class="col_12">版费</th>			
 		</tr>
 		<tr>
-			<th class="col_12"><input type="text" id="amount" value={{ records.8}} ></th>
-			<th class="col_12"><input type="text" id="price" value={{ records.9}} ></th>
-			<th class="col_12"><input type="text" id="fee" value={{ records.10}} ></th>
-			<th class="col_12"><input type="text" id="edition_fee" value={{ records.11}} ></th>		
+			<th class="col_12"><input type="number" id="amount" value={{ records.8}} ></th>
+			<th class="col_12"><input type="number" id="price" value={{ records.9}} ></th>
+			<th class="col_12"><input type="number" id="fee" value={{ records.10}} ></th>
+			<th class="col_12"><input type="number" id="edition_fee" value={{ records.11}} ></th>		
 		</tr>
 	</table>
 	 <table class="order_table">
@@ -65,8 +65,8 @@
 			<th class="col_12">产品用料</th>				
 		</tr>
 		<tr>
-			<th class="col_12"><input type="text" id="total_fee" value={{ records.12}} ></th>
-			<th class="col_12"><input type="text" id="deadline" value={{ records.13}} ></th>
+			<th class="col_12"><input type="number" id="total_fee" value={{ records.12}} ></th>
+			<th class="col_12"><input type="text" id="deadline" value={{ records.13}}  onClick="WdatePicker()"></th>
 			<th class="col_12"><input type="text" id="feilin" value={{ records.14}} ></th>
 			<th class="col_12"><input type="text" id="material" value={{ records.15}} ></th>			
 		</tr>
@@ -124,9 +124,6 @@
 		//var productID= {{productID|safe}};
 		//var piplineID=productID;
 
-		var width=$("#order_table").width();
-		$(".order_table").css("width",width);
-
 		 var href =window.location.href.split("/");
 		 var id = href[5];
 
@@ -139,7 +136,7 @@
               success : function(data) {    
                 if(data==1){
                 	alert("删除成功");
-                   	window.location.href='/sales/order/';
+                   	window.location.href='/sales/order_list/1';
                 }else{
                   alert("删除失败:"+data.message);
                 }
@@ -151,6 +148,7 @@
 		//show页
 		var order_show={{ order_show }};
 		if(order_show){
+			console.log(productID2);
 			var order_img_iframe_src = '/upload_show/'+productID2;
 			$("#order_img_iframe").attr("src",order_img_iframe_src);
 			$('input').attr('disabled',true);
@@ -226,23 +224,14 @@
 //条形码
 
 		var productID2={{ records.7}};
-		var zero_length=8-parseInt(String(productID2).length);
-		var zero_query='';
-		for(i=0;i<zero_length;i++){
-			zero_query=zero_query+'0';
-		};
-		var newcode=zero_query+productID2;
-		$("#bcTarget").barcode(newcode,"code11");
+		var barcode_src='/barcode/'+productID2;
+		$("#barcode_iframe").attr("src",barcode_src);
+
 
 		$("#productID").blur(function(){
 				var productID2=$("#productID").val();
-				var zero_length=8-parseInt(String(productID2).length);
-				var zero_query='';
-				for(i=0;i<zero_length;i++){
-					zero_query=zero_query+'0';
-				};
-				var newcode=zero_query+productID2;
-				$("#bcTarget").barcode(newcode,"code11");
+				var barcode_src='/barcode/'+productID2;
+				$("#barcode_iframe").attr("src",barcode_src);
 		})
 
 		$("#fee").focus(function(){

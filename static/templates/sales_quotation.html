@@ -19,15 +19,15 @@
  			<label for="customer_name">客户名</label>
  			<input type="text" id="customer_name" value={{ records.0}} />
  			<label for="product_name">产品名称</label>
- 			<input type="text" id="product_name" value={{ records.1}} />
- 			<label for="create_time">日期</label>
- 			<input type="text" id="create_time" onClick="WdatePicker()"/>
+ 			<input type="text" id="product_name" value={{ records.1}} style="width:40%">
  		</div>
  		<div class="head_row">
  			<label for="contacts">联系人</label>
  			<input type="text" id="contacts" value={{ records.3}} />
  			<label for="contacts_phone">联系电话</label>
  			<input type="text" id="contacts_phone" value={{ records.4}} />
+ 			<label for="create_time">日期</label>
+ 			<input type="text" id="create_time" onClick="WdatePicker()"/>
  		</div>
 
 	<table class="quotation_table">
@@ -121,9 +121,10 @@
  		<div class="head_row">
  			<label class="col_1">合计</label>
  			<input type="text" id="total_fee" value={{ records.31}}>
+ 			<label class="col_1">元</label>
  		</div>
 
- 		<div class="head_row" style="margin-bottom:40px">
+ 		<div class="head_row last_row" style="margin-bottom:40px">
  		   <button type="submit" class="btn btn-primary" id="delete">删除</button>
  		   <button type="submit" class="btn btn-primary" id="modify">修改</button>
  		   <button type="submit" class="btn btn-primary" id="print" onclick="javascript:window.print()" />打印</button>
@@ -172,7 +173,7 @@
               success : function(data) {    
                 if(data==1){
                 	alert("删除成功");
-                   	window.location.href='/sales/quotation/';
+                   	window.location.href='/sales/quotation_list/1';
                 }else{
                   alert("删除失败:"+data.message);
                 }
