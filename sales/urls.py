@@ -29,7 +29,7 @@ urlpatterns = patterns('',
 
   #订单
     # 新建报价单  
-    url(r'^order/$', views.order_list),
+    url(r'^order_list/(\d{1,6})/$', views.order_list),
     # 新建报价单  
     url(r'^order_new/$', views.order_new),
     # 报价单单页（显示）
@@ -50,7 +50,7 @@ urlpatterns = patterns('',
 ##########################################################
   #送货单
     # 送货单列表  
-    url(r'^delivery/$', views.delivery_list),
+    url(r'^delivery_list/(\d{1,6})/$', views.delivery_list),
     # 新建送货单  
     url(r'^delivery_new/(\d{1})/$', views.delivery_new),
     # 报价单单页（显示）
@@ -72,7 +72,7 @@ urlpatterns = patterns('',
  ##########################################################
   #施工单
     # 施工单  
-    url(r'^process/$', views.process_list),
+    url(r'^process_list/(\d{1,6})/$', views.process_list),
     # 新建施工单  
     url(r'^process_new/$', views.process_new),
     # 施工单单页（显示）
@@ -89,7 +89,7 @@ urlpatterns = patterns('',
  ##########################################################
   #成本单
     # 新建成本单  
-    url(r'^cost/$', views.cost_list),
+    url(r'^cost_list/(\d{1,6})/$', views.cost_list),
 
     url(r'^get_details_from_process/$', views.get_details_from_process),
 

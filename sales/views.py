@@ -370,7 +370,21 @@ def get_quotationID_by_customer(request):
 
 #订单
 #订单单列表
-def order_list(request):
+def get_order_list(records):
+	a={}
+	i=0
+	for r in records:
+		b={}
+		b[0]=r.customer
+		b[1]=r.product_name
+		b[2]=r.create_time
+		b[3]=r.productID
+		b[4]=r.id
+		a[i]=b
+		i=i+1
+	return a
+
+def order_list(request,num):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
 	quotation=False
@@ -378,22 +392,36 @@ def order_list(request):
 	delivery=False
 	process=False
 	cost=False
+	a={}
+	pre_click=False
+	later_click=False
 	if not is_login:
 		return HttpResponseRedirect("/")
 	else:
-		records=Order.objects.all()
-		a={}
-		i=0
-		for r in records:
-			b={}
-			b[0]=r.customer
-			b[1]=r.product_name
-			b[2]=r.create_time
-			b[3]=r.productID
-			b[4]=r.id
-			a[i]=b
-			i=i+1
-		return render_to_response("sales_list.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,"quotation":quotation,'order':order,'delivery':delivery,'process':process,'cost':cost})
+		records_all=Order.objects.all()
+		page_all=int(len(records_all))/10+1
+		num=int(num)
+		if(num==1):			
+			if((len(records_all)<11)):	
+				records=Order.objects.all()
+				a=get_order_list(records)
+			else:
+				records=Order.objects.all()[0:9]
+				a=get_order_list(records)
+		else:
+			if(num==page_all):
+				last=int(page_all-1)*10
+				records=Order.objects.all()[last:]
+				a=get_order_list(records)
+			else:
+				first=int(num)*10
+				records=Order.objects.all()[first:int(first+9)]
+				a=get_order_list(records)
+		if(num>1):
+			pre_click=True
+		if(num<int(page_all)):
+			later_click=True
+		return render_to_response("sales_list.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,"quotation":quotation,'order':order,'delivery':delivery,'process':process,'cost':cost,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click)})
 
 def order_new(request):
 	is_login=request.session.get('is_login',False)
@@ -639,7 +667,22 @@ def get_orderID_by_customer(request):
 #################################################################################
 #送货单
 #订单单列表
-def delivery_list(request):
+def get_delivery_list(records):
+	a={}
+	i=0
+	for r in records:
+		b={}
+		b[0]=r.deliveryID
+		b[1]=r.product_name
+		b[2]=r.order_amount
+		b[3]=r.delivery_amount
+		b[4]=r.fee
+		b[5]=r.id
+		a[i]=b
+		i=i+1
+	return a
+
+def delivery_list(request,num):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
 	quotation=False
@@ -647,23 +690,37 @@ def delivery_list(request):
 	delivery=True
 	process=False
 	cost=False
+	a={}
+	pre_click=False
+	later_click=False
 	if not is_login:
 		return HttpResponseRedirect("/")
 	else:
-		records=Delivery.objects.all()
-		a={}
-		i=0
-		for r in records:
-			b={}
-			b[0]=r.deliveryID
-			b[1]=r.product_name
-			b[2]=r.order_amount
-			b[3]=r.delivery_amount
-			b[4]=r.fee
-			b[5]=r.id
-			a[i]=b
-			i=i+1
-		return render_to_response("sales_list.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,"quotation":quotation,'order':order,'delivery':delivery,'process':process,'cost':cost})
+		records_all=Delivery.objects.all()
+		page_all=int(len(records_all))/10+1
+		num=int(num)
+		if(num==1):			
+			if((len(records_all)<11)):	
+				records=Delivery.objects.all()
+				a=get_delivery_list(records)
+			else:
+				records=Delivery.objects.all()[0:9]
+				a=get_delivery_list(records)
+		else:
+			if(num==page_all):
+				last=int(page_all-1)*10
+				records=Delivery.objects.all()[last:]
+				a=get_delivery_list(records)
+			else:
+				first=int(num)*10
+				records=Delivery.objects.all()[first:int(first+9)]
+				a=get_delivery_list(records)
+		if(num>1):
+			pre_click=True
+		if(num<int(page_all)):
+			later_click=True
+		return render_to_response("sales_list.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,"quotation":quotation,'order':order,'delivery':delivery,'process':process,'cost':cost,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click)})
+
 
 def delivery_new(request,choice):
 	is_login=request.session.get('is_login',False)
@@ -890,7 +947,21 @@ def get_details_from_order(request):
 ################################################################################
 #施工单
 #报价单列表
-def process_list(request):
+def get_process_list(records):
+	a={}
+	i=0
+	for r in records:
+		b={}
+		b[1]=r.customer
+		b[2]=r.product_name
+		b[3]=r.create_time
+		b[4]=r.finished
+		b[0]=r.productID
+		a[i]=b
+		i=i+1
+	return a
+
+def process_list(request,num):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
 	quotation=False
@@ -898,22 +969,36 @@ def process_list(request):
 	delivery=False
 	process=True
 	cost=False
+	a={}
+	pre_click=False
+	later_click=False
 	if not is_login:
 		return HttpResponseRedirect("/")
 	else:
-		records=Process.objects.all()
-		a={}
-		i=0
-		for r in records:
-			b={}
-			b[1]=r.customer
-			b[2]=r.product_name
-			b[3]=r.create_time
-			b[4]=r.finished
-			b[0]=r.productID
-			a[i]=b
-			i=i+1
-		return render_to_response("sales_list.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,"quotation":quotation,'order':order,'delivery':delivery,'process':process,'cost':cost})
+		records_all=Process.objects.all()
+		page_all=int(len(records_all))/10+1
+		num=int(num)
+		if(num==1):			
+			if((len(records_all)<11)):	
+				records=Process.objects.all()
+				a=get_process_list(records)
+			else:
+				records=Process.objects.all()[0:9]
+				a=get_process_list(records)
+		else:
+			if(num==page_all):
+				last=int(page_all-1)*10
+				records=Process.objects.all()[last:]
+				a=get_process_list(records)
+			else:
+				first=int(num)*10
+				records=Process.objects.all()[first:int(first+9)]
+				a=get_process_list(records)
+		if(num>1):
+			pre_click=True
+		if(num<int(page_all)):
+			later_click=True
+		return render_to_response("sales_list.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,"quotation":quotation,'order':order,'delivery':delivery,'process':process,'cost':cost,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click)})
 
 
 def process_new(request):
@@ -1224,7 +1309,22 @@ def get_processID_by_customer(request):
 ################################################################################
 
 #成本单列表
-def cost_list(request):
+#报价单列表
+def get_cost_list(records):
+	a={}
+	i=0
+	for r in records:
+		b={}
+		b[0]=r.productID
+		b[1]=r.customer
+		b[2]=r.product_name
+		b[3]=r.total_fee
+		b[4]=r.id
+		a[i]=b
+		i=i+1
+	return a
+
+def cost_list(request,num):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
 	quotation=False
@@ -1232,22 +1332,36 @@ def cost_list(request):
 	delivery=False
 	process=False
 	cost=True
+	a={}
+	pre_click=False
+	later_click=False
 	if not is_login:
 		return HttpResponseRedirect("/")
 	else:
-		records=Cost.objects.all()
-		a={}
-		i=0
-		for r in records:
-			b={}
-			b[0]=r.productID
-			b[1]=r.customer
-			b[2]=r.product_name
-			b[3]=r.total_fee
-			b[4]=r.id
-			a[i]=b
-			i=i+1
-		return render_to_response("sales_list.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,"quotation":quotation,'order':order,'delivery':delivery,'process':process,'cost':cost})
+		records_all=Cost.objects.all()
+		page_all=int(len(records_all))/10+1
+		num=int(num)
+		if(num==1):			
+			if((len(records_all)<11)):	
+				records=Cost.objects.all()
+				a=get_cost_list(records)
+			else:
+				records=Cost.objects.all()[0:9]
+				a=get_cost_list(records)
+		else:
+			if(num==page_all):
+				last=int(page_all-1)*10
+				records=Cost.objects.all()[last:]
+				a=get_cost_list(records)
+			else:
+				first=int(num)*10
+				records=Process.objects.all()[first:int(first+9)]
+				a=get_process_list(records)
+		if(num>1):
+			pre_click=True
+		if(num<int(page_all)):
+			later_click=True
+		return render_to_response("sales_list.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,"quotation":quotation,'order':order,'delivery':delivery,'process':process,'cost':cost,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click)})
 
 
 def cost_new(request):
