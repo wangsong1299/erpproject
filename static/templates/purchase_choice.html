@@ -1,0 +1,136 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+{% block head %}
+<link rel="stylesheet" href="{% static "erp/css/purchase.css" %}">
+{% endblock %}
+
+
+		{% block subtitle %}
+				<div class="line2">
+							印刷采购单
+				</div>	
+		{% endblock %}
+
+
+ {% block main %}
+ <div class="main" style="overflow:hidden" id="purchase_home"> 
+ <div class="purchase_part">
+ 		<h2>新建采购单</h2>
+ 		<div class="head_row">
+ 			<label for="productID" style="width:180px">产品ID（订单号）</label>
+ 			<input  type="text" id="productID"><br>
+ 		 </div>
+ 		<div class="head_row">
+ 			 <label for="product_name" style="width:180px">请输入产品名称 </label>
+ 			<input  type="text" id="product_name"><br>
+ 		 </div>
+ 		<div class="head_row">
+ 			 <label for="customer_name" style="width:180px">请输入客户名称 </label>
+ 			<input  type="text" id="customer_name"><br>
+ 		</div>
+ 		<div class="head_row" style="margin-bottom:40px">
+ 			<button type="submit" class="btn btn-primary" id="go_purchase" style="margin-left:220px">点击生成采购单</button>
+ 		</div>
+ </div>	
+
+<div class="purchase_part">
+		<h2>采购单查询</h2>
+	 	<div class="head_row">
+ 			<label for="productID2" style="width:180px">产品ID（订单号）</label>
+ 			<input  type="text" id="productID2"><br>
+ 		 </div>
+ 		<div class="head_row">
+ 			 <label for="product_name2" style="width:180px">请输入产品名称 </label>
+ 			<input  type="text" id="product_name2"><br>
+ 		 </div>
+ 		<div class="head_row">
+ 			 <label for="customer_name2" style="width:180px">请输入客户名称 </label>
+ 			<input  type="text" id="customer_name2"><br>
+ 		</div>
+ 		<div class="head_row" style="margin-bottom:40px">
+ 			<button type="submit" class="btn btn-primary" id="find_purchase" style="margin-left:220px">点击查询采购单</button>
+ 		</div>
+</div>
+
+</div>
+ 
+ {% endblock %}
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#purchase_box").show();
+		$("#purchase_aside").addClass('subtitle_focus');
+
+//新建采购单	
+		$("#go_purchase").click(function(){
+			var productID=$("#productID").val();
+			var product_name=$.trim($("#product_name").val());
+			var customer=$.trim($("#customer_name").val());
+
+			if((customer=='')&&(product_name=='')&&(productID=='')){
+				alert("请至少填写ID和名字和客户中的一个");
+			}else if(productID!=''){
+				window.location.href='/purchase/fill/'+productID;
+			}else if(product_name!=''){
+				$.ajax({
+                      type : "POST",
+                      url : "/purchase/get_productID_by_product/",
+                      data:{'product_name':product_name},
+                      dataType : "json",
+                      success : function(data){  
+                          window.location.href='/purchase/fill/'+data;
+                      }
+                })
+			}else if(customer!=''){
+				$.ajax({
+                      type : "POST",
+                      url : "/purchase/get_productID_by_customer/",
+                      data:{'customer':customer},
+                      dataType : "json",
+                      success : function(data){  
+                       		window.location.href='/purchase/fill/'+data;
+                      }
+                })
+			}
+
+
+		})
+
+//查询采购单	
+		$("#find_purchase").click(function(){
+			var productID=$("#productID2").val();
+			var product_name=$.trim($("#product_name2").val());
+			var customer=$.trim($("#customer_name2").val());
+			
+			if((customer=='')&&(product_name=='')&&(productID=='')){
+				alert("请至少填写ID和名字和客户中的一个");
+			}else if(productID!=''){
+				window.location.href='/purchase/search/'+productID;
+			}else if(product_name!=''){
+				$.ajax({
+                      type : "POST",
+                      url : "/purchase/get_productID_by_product/",
+                      data:{'product_name':product_name},
+                      dataType : "json",
+                      success : function(data){  
+                      		window.location.href='/purchase/search/'+data;
+                      }
+                })
+			}else if(customer!=''){
+				$.ajax({
+                      type : "POST",
+                      url : "/purchase/get_productID_by_customer/",
+                      data:{'customer':customer},
+                      dataType : "json",
+                      success : function(data){  
+                      		window.location.href='/purchase/search/'+data;
+                      }
+                })
+			}
+		})
+
+	})</script>
+
+{% endblock %}

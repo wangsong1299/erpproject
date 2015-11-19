@@ -1,0 +1,10 @@
+@media print {
+    .aside{display: none}
+    .footer{display: none}
+    .header2{display: none}
+    .line2{display: none}
+    .last_row{display: none}
+    .main{width:750px;}
+    table{font-size: 12px}
+
+}

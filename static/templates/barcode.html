@@ -1,0 +1,39 @@
+{% load admin_static %}{% load firstof from future %}<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<head>
+<meta charset="utf-8" />
+<script type="text/javascript" src="{% static "admin/js/jquery.js" %}">
+</script>
+<script type="text/javascript" src="{% static "erp/js/jquery-barcode.js" %}">
+</script>
+<style>
+*{margin:0;padding:0}
+</style>
+</head>
+<body>
+<div id="bcTarget" style="width:150px;height:66px"></div>
+<script type="text/javascript">
+$(document).ready(function(){
+
+	var code = {{ code }};
+
+	var zero_length=8-parseInt(String(code).length);
+	if(zero_length<0){
+		$("#bcTarget").html("无法生成条形码");
+	}else{
+		var zero_query='';
+		for(i=0;i<zero_length;i++){
+			zero_query=zero_query+'0';
+		};
+		var newcode=zero_query+code;
+		console.log(code);
+		$("#bcTarget").barcode(newcode,"code11");
+	}
+	
+	
+  	
+    
+})
+</script>
+</body>
+</html>

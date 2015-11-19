@@ -1,0 +1,133 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+
+
+		{% block subtitle %}
+				<div class="line2">
+							员工列表
+				</div>	
+		{% endblock %}
+
+
+ {% block main %}
+ <div class="main" style="overflow:hidden">
+ 		<div class="setting_box" style="width:50%">
+ 			 <div class="form-group">
+			    <label for="InputPhone">手机号</label>
+			    <input type="text" class="form-control" id="InputPhone" placeholder="手机号" value={{records.1}}>
+			  </div>
+			  <div class="form-group">
+			    <label for="InputNickname">昵称</label>
+			    <input type="text" class="form-control" id="InputNickname" placeholder="昵称" value={{records.2}}>
+			  </div>
+			  <div class="form-group">
+			    <label for="InputPassword">密码</label>
+			    <input type="text" class="form-control" id="InputPassword" placeholder="Password">
+			  </div>
+			   <div class="form-group">
+			   	<label for="InputSexy">性别</label><br/>
+			    <label class="radio-inline">
+				  <input type="radio" name="inlineRadioOptions" id="InputSexy" value="1"> 男
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="inlineRadioOptions" id="InputSexy" value="2"> 女
+				</label>
+				<label class="radio-inline">
+				  <input type="radio" name="inlineRadioOptions" id="InputSexy" value="0"> 保密
+				</label>
+			  </div>
+			  <div class="form-group">
+			    <label for="InputQq">qq</label>
+			    <input type="text" class="form-control" id="InputQq" placeholder="qq" value={{records.3}}>
+			  </div>
+			  <div class="form-group">
+			    <label for="InputRole">角色</label>
+				   <select class="form-control" id='InputRole'>
+					  <option value='0'>系统管理员</option>
+					  <option value='1'>公司领导</option>
+					  <option value='2'>部门经理</option>
+					  <option value='3'>操作员</option>
+					</select>
+			  </div>
+			  <div class="form-group">
+			    <label for="InputDepartment">部门</label>
+				   <select class="form-control" id='InputDepartment'>
+					  <option value='0'>销售部</option>
+					  <option value='1'>管理部</option>
+					  <option value='2'>财务部</option>
+					  <option value='3'>生产部</option>
+					</select>
+			  </div>
+			  <div class="form-group">
+			    <label for="InputPermission">权限</label>
+			    <input type="text" class="form-control" id="InputPermission" placeholder="暂时不用填" disabled>
+			  </div>
+
+			   <button type="submit" class="btn btn-default" id="submit">修改</button>
+
+
+
+ 		</div>
+
+  </div>
+ 
+ {% endblock %}
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#users_box").show();	
+		var href =window.location.href.split("/");
+		var id=href[4];
+
+		var sexy = {{records.4}};
+ 		$("input[id=InputSexy]").each(function(a,b){
+                if($(b).val()==sexy){//判断值
+                    $(b).attr("checked",true);
+                }
+		});
+		var role={{records.5}};
+ 		$("#InputRole>option").each(function(a,b){
+ 			if($(b).val()==role){//判断值
+                    $(b).attr("selected",true);
+                }                
+		});
+		var department={{records.6}};
+ 		$("#InputDepartment>option").each(function(a,b){
+ 			if($(b).val()==role){//判断值
+                    $(b).attr("selected",true);
+                }                
+		});
+
+		$("#submit").click(function(){
+			var phone=$.trim($("#InputPhone").val());
+			var password=$.trim($("#InputPassword").val());
+			var nickname=$.trim($("#InputNickname").val());
+			var sexy=$.trim($("#InputSexy").val());
+			var qq=$.trim($("#InputQq").val());
+			var role=$.trim($("#InputRole").val());
+			var department=$.trim($("#InputDepartment").val());
+			var permission = 1;
+			  $.ajax({
+	              type : "POST",
+	              url : "/users/modify_user/",
+	              data:{'phone':phone,'password':password,'nickname':nickname,'sexy':sexy,'qq':qq,'role':role,'department':department,'permission':permission,'id':id},
+	              dataType : "json",
+	              success : function(data) {    
+	                if(data==1){
+	                	alert("修改成功");
+	                   window.location.reload();
+	                }else{
+	                  alert("修改失败:"+data.message);
+	                }
+	              }
+	          })
+			
+		})
+
+
+
+	})</script>
+
+{% endblock %}

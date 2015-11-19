@@ -1,0 +1,199 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+{% block head %}
+<link rel="stylesheet" href="{% static "erp/css/storage.css" %}">
+{% endblock %}
+
+
+		{% block subtitle %}
+				<div class="line2">
+							库存管理
+				</div>	
+	
+		{% endblock %}
+
+
+ {% block main %}
+ <div class="main" style="overflow:hidden">
+	<h2>产品库存</h2>
+	<table class="storage_table" style="margin-top:20px">
+		<tr>
+			<th class="col_10">收货单位<span class="red">*</span></th>
+			<th class="col_20">产品名称<span class="red">*</span></th>
+			<th class="col_10">规格</th>
+			<th class="col_10">库存数目<span class="red">*</span></th>
+			<th class="col_10">入库时间<span class="red">*</span></th>
+			<th class="col_10">出库时间</th>
+			<th class="col_20">备注</th>
+			<th class="col_10">修改</th>
+			<th class="col_10">删除</th>
+		</tr>
+		{% for key, value in records.items %}
+
+		<tr>
+			<th class="col_10"><input type="text" id="customer_name_{{ value.items.8.1 }}" value={{ value.items.0.1 }}></th>
+			<th class="col_20"><input type="text" id="product_name_{{ value.items.8.1 }}" value={{ value.items.1.1 }}></th>
+			<th class="col_10"><input type="text" id="size_{{ value.items.8.1 }}" value={{ value.items.2.1 }}></th>
+			<th class="col_10"><input type="text" id="amount_{{ value.items.8.1 }}" value={{ value.items.3.1 }}></th>
+			<th class="col_10"><input type="text" id="in_time_{{ value.items.8.1 }}" value={{ value.items.4.1 }} onClick="WdatePicker()"></th>
+			<th class="col_10"><input type="text" id="out_time_{{ value.items.8.1 }}" value={{ value.items.5.1 }} onClick="WdatePicker()"></th>
+			<th class="col_20"><input type="text" id="notes_{{ value.items.8.1 }}" value={{ value.items.6.1 }}></th>
+			<th class="col_10"><input type="button" value="修改" name='modify_storage' class="modify_storage_{{ value.items.8.1 }}" id="modify_storage_{{ value.items.7.1 }}"></th>
+			<th class="col_10"><input type="button" value="删除" class="delete_storage" id="delete_storage_{{ value.items.7.1 }}"></th>
+		</tr>
+	{% endfor %}
+
+	</table>
+ 		<div class="head_row" style="margin-bottom:40px">
+ 		   <button type="submit" class="btn btn-primary" id="search">查询库存</button>
+ 		</div>
+
+ 		<div class="head_row" id="search_box" style="display:none">
+ 			<label for="customer_name">收货单位</label>
+ 			<input type="text" id="customer_name" />
+ 			<label for="product_name">产品名称</label>
+ 			<input type="text" id="product_name" />
+ 			 <button type="submit" class="btn btn-primary" id="find_storage" style="margin-left:20px;">查询</button>
+  		</div>
+
+	<table class="storage_table" style="margin-top:20px" id="find_storage_table">
+		<tr>
+			<th class="col_10">收货单位</th>
+			<th class="col_20">产品名称</th>
+			<th class="col_10">规格</th>
+			<th class="col_10">库存数目</th>
+			<th class="col_10">入库时间</th>
+			<th class="col_10">出库时间</th>
+			<th class="col_20">备注</th>
+			<th class="col_10">修改</th>
+			<th class="col_10">删除</th>
+		</tr>
+		<tr>
+			<th class="col_10"><input type="text" id="customer_name_100"></th>
+			<th class="col_20"><input type="text" id="product_name_100"></th>
+			<th class="col_10"><input type="text" id="size_100"></th>
+			<th class="col_10"><input type="text" id="amount_100"></th>
+			<th class="col_10"><input type="text" id="in_time_100" onClick="WdatePicker()"></th>
+			<th class="col_10"><input type="text" id="out_time_100" onClick="WdatePicker()"></th>
+			<th class="col_20"><input type="text" id="notes_100"></th>
+			<th class="col_10"><input type="button" value="修改" name='modify_storage' class="modify_storage_100"></th>
+			<th class="col_10"><input type="button" value="删除" class="delete_storage"></th>
+		</tr>
+	</table>
+
+
+  </div>
+ 
+ {% endblock %}
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#storage_box").show();	
+		$("#storage_1").addClass('subtitle_focus');
+
+
+
+		$('input[name=modify_storage]').click(function(){
+			var num = $(this).attr('class').split("_")[2];
+			var productID=$(this).attr("id").split("_")[2];
+			var customer=$("#customer_name_"+num).val();
+			var product_name=$("#product_name_"+num).val();
+			var size=$("#size_"+num).val();
+			var amount=$("#amount_"+num).val();
+			var in_time=$("#in_time_"+num).val();
+			var out_time=$("#out_time_"+num).val();
+			var notes=$("#notes_"+num).val();
+
+			  $.ajax({
+	              type : "POST",
+	              url : "/storage/modify_storage/",
+	              data:{'productID':productID,'customer':customer,'product_name':product_name,'size':size,'amount':amount,'in_time':in_time,'out_time':out_time,'notes':notes},
+	              dataType : "json",
+	              success : function(data) {    
+	                if(data==1){
+	                	alert("修改成功");
+	                   window.location.reload();
+	                }else{
+	                  alert("修改失败:"+data.message);
+	                }
+	              }
+	          })
+		})
+
+		$(".delete_storage").click(function(){
+			var productID=$(this).attr("id").split("_")[2];
+			$.ajax({
+	              type : "POST",
+	              url : "/storage/delete_storage/",
+	              data:{'productID':productID},
+	              dataType : "json",
+	              success : function(data) {    
+	                if(data==1){
+	                	alert("删除成功");
+	                   window.location.reload();
+	                }else{
+	                  alert("删除失败:"+data.message);
+	                }
+	              }
+	          })
+
+		})
+
+		$("#search").click(function(){
+			$("#search_box").slideDown(1000);
+		})
+
+		$("#find_storage").click(function(){
+				var customer=$.trim($("#customer_name").val());
+				var product_name=$.trim($("#product_name").val());
+				$("#find_storage_table").show();
+
+				if((product_name=='')&&(customer=='')){
+					alert("请至少填写客户和产品中的一个");
+				}else if(customer!=''){
+					$.ajax({
+	                      type : "POST",
+	                      url : "/storage/get_storageID_by_customer/",
+	                      data:{'customer':customer},
+	                      dataType : "json",
+	                      success : function(data){  
+	                      		$("#customer_name_100").val(data[0]);
+								$("#product_name_100").val(data[1]);
+								$("#size_100").val(data[2]);
+								$("#amount_100").val(data[3]);
+								$("#in_time_100").val(data[4]);
+								$("#out_time_100").val(data[5]);
+								$("#notes_100").val(data[6]);
+								$(".modify_storage_100").attr("id",'modify_storage_'+data[7]);
+								$(".delete_storage").attr("id",'modify_storage_'+data[7]);
+	                      }
+	                })
+				}else if(product_name!=''){
+					$.ajax({
+	                      type : "POST",
+	                      url : "/storage/get_storageID_by_product/",
+	                      data:{'product_name':product_name},
+	                      dataType : "json",
+	                      success : function(data){  
+	                      		$("#customer_name_100").val(data[0]);
+								$("#product_name_100").val(data[1]);
+								$("#size_100").val(data[2]);
+								$("#amount_100").val(data[3]);
+								$("#in_time_100").val(data[4]);
+								$("#out_time_100").val(data[5]);
+								$("#notes_100").val(data[6]);
+								$(".modify_storage_100").attr("id",'modify_storage_'+data[7]);
+								$(".delete_storage").attr("id",'modify_storage_'+data[7]);
+	                      }
+	                })
+				}
+			})
+
+
+
+
+	})</script>
+
+{% endblock %}

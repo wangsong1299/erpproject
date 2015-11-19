@@ -1,0 +1,13 @@
+*.pyc
+finance/migrations/*
+media/*
+support/*
+purchase/migrations/*
+sales/migrations/*
+users/migrations/*
+customer/migrations/*
+statistics/migrations/*
+storage/migrations/*
+work/migrations/*
+static/admin/*
+alert/migrations/*

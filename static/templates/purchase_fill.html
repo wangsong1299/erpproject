@@ -1,0 +1,317 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+{% block head %}
+<link rel="stylesheet" href="{% static "erp/css/purchase.css" %}">
+{% endblock %}
+
+
+		{% block subtitle %}
+									<div class="line2">
+							印刷采购单
+				</div>	
+
+		{% endblock %}
+
+
+ {% block main %}
+ <div class="main" style="overflow:hidden">
+		{% ifequal process_step 1 %}
+		<h2>单工序采购单</h2>
+ 		<div class="head_row" style="height:80px">
+ 			<label for="customer_name">产品号:</label>
+ 			 <div id="bcTarget"></div>
+ 		</div>
+		 <table class="purchase_table" style="margin-top: 20px;">
+			<tr>
+				<th class="col_10">客户名</th>
+				<td class="col_20"> <input type="text" id="customer_name" value={{ records.0 }}></td>
+				<th class="col_10">产品名称</th>
+				<td class="col_20"> <input type="text" id="product_name" value={{ records.1 }}></td>
+				<th class="col_10">日期</th>
+				<td class="col_30"> <input type="text" id="create_time" value={{ records.2 }} onClick="WdatePicker()"></td>
+			</tr>
+		</table>
+		 <table class="purchase_table">
+			 <tr>
+			 	<th class="col_10">表面处理</th>
+				<td class="col_90"> <input type="text" id="surface" value={{ records.3 }}></td>
+			</tr>
+			<tr>
+			<th class="col_10">原料名称</th>
+				<td class="col_90"> <input type="text" id="material" value={{ records.4 }} ></td>
+			</tr>
+			<tr>
+			<th class="col_10">大料张数</th>
+				<td class="col_90"> <input type="text" id="daliao" value={{ records.5 }} ></td>
+			</tr>
+			<tr>
+			<th class="col_10">开料尺寸</th>
+				<td class="col_90"> <input type="text" id="size" value={{ records.6 }} ></td>
+			</tr>
+		</table>
+		<table class="purchase_table" >
+			<tr>
+				<th class="col_10">瓦楞要求</th>
+				<th class="col_10">开料尺寸</th>
+				<td class="col_20"> <input type="text" id="wl_size" value={{ records.7 }}></td>
+				<th class="col_10">所开筒尺寸</th>
+				<td class="col_20"> <input type="text" id="wl_size2" value={{ records.8 }}></td>
+				<th class="col_10">粗细瓦楞</th>
+				<td class="col_20"> <input type="text" id="wl_thin" value={{ records.9 }}></td>
+			</tr>
+			<tr>
+				<th class="col_10">瓦楞要求</th>
+				<th class="col_10">废纸用料</th>
+				<td class="col_20"> <input type="text" id="wl_feizhi"  value={{ records.10 }} ></td>
+				<th class="col_10">瓦楞用料</th>
+				<td class="col_20"> <input type="text" id="wl_waleng" value={{ records.11 }} ></td>
+				<th class="col_10">裱料情况</th>
+				<td class="col_20"> <input type="text" id="wl_biaoliao" value={{ records.12 }} ></td>
+			</tr>
+		</table>
+	
+ 		<div class="head_row" style="margin-bottom:40px">
+ 		   <button type="submit" class="btn btn-primary" id="purchase_fill_single">点击生成采购单</button>
+ 		</div>
+
+		 {% endifequal %}  
+
+	{% ifequal process_step 2 %}
+		<h2>多工序采购单</h2>
+		 <div class="head_row" style="height:80px">
+ 			<label for="customer_name">产品号:</label>
+ 			 <div id="bcTarget"></div>
+ 		</div>
+		<table class="purchase_table">
+			<tr>
+				<th class="col_20">采购项目<span class="red">*</span></th>
+				<th class="col_10">单价<span class="red">*</span></th>
+				<th class="col_10">数目<span class="red">*</span></th>
+				<th class="col_10">总金额<span class="red">*</span></th>
+				<th class="col_10">供应商<span class="red">*</span></th>
+				<th class="col_10">联系人<span class="red">*</span></th>
+				<th class="col_10">联系电话<span class="red">*</span></th>
+				<th class="col_20">备注</th>
+			</tr>
+			<tr>
+				<th class="col_20"><input type="text" id="col1_1" name="count"></th>
+				<th class="col_10"><input type="text" id="col2_1"></th>
+				<th class="col_10"><input type="text" id="col3_1"></th>
+				<th class="col_10"><input type="text" id="col4_1" name="total_fee"></th>
+				<th class="col_10"><input type="text" id="col5_1"></th>
+				<th class="col_10"><input type="text" id="col6_1"></th>
+				<th class="col_10"><input type="text" id="col7_1"></th>
+				<th class="col_20"><input type="text" id="col8_1"></th>
+			</tr>
+			<tr>
+				<th class="col_20"><input type="text" id="col1_2" name="count"></th>
+				<th class="col_10"><input type="text" id="col2_2"></th>
+				<th class="col_10"><input type="text" id="col3_2"></th>
+				<th class="col_10"><input type="text" id="col4_2" name="total_fee"></th>
+				<th class="col_10"><input type="text" id="col5_2"></th>
+				<th class="col_10"><input type="text" id="col6_2"></th>
+				<th class="col_10"><input type="text" id="col7_2"></th>
+				<th class="col_20"><input type="text" id="col8_2"></th>
+			</tr>
+			<tr>
+				<th class="col_20"><input type="text" id="col1_3" name="count"></th>
+				<th class="col_10"><input type="text" id="col2_3"></th>
+				<th class="col_10"><input type="text" id="col3_3"></th>
+				<th class="col_10"><input type="text" id="col4_3" name="total_fee"></th>
+				<th class="col_10"><input type="text" id="col5_3"></th>
+				<th class="col_10"><input type="text" id="col6_3"></th>
+				<th class="col_10"><input type="text" id="col7_3"></th>
+				<th class="col_20"><input type="text" id="col8_3"></th>
+			</tr>
+			<tr>
+				<th class="col_20"><input type="text" id="col1_4" name="count"></th>
+				<th class="col_10"><input type="text" id="col2_4"></th>
+				<th class="col_10"><input type="text" id="col3_4"></th>
+				<th class="col_10"><input type="text" id="col4_4" name="total_fee"></th>
+				<th class="col_10"><input type="text" id="col5_4"></th>
+				<th class="col_10"><input type="text" id="col6_4"></th>
+				<th class="col_10"><input type="text" id="col7_4"></th>
+				<th class="col_20"><input type="text" id="col8_4"></th>
+			</tr>
+			<tr>
+				<th class="col_20"><input type="text" id="col1_5" name="count"></th>
+				<th class="col_10"><input type="text" id="col2_5"></th>
+				<th class="col_10"><input type="text" id="col3_5"></th>
+				<th class="col_10"><input type="text" id="col4_5" name="total_fee"></th>
+				<th class="col_10"><input type="text" id="col5_5"></th>
+				<th class="col_10"><input type="text" id="col6_5"></th>
+				<th class="col_10"><input type="text" id="col7_5"></th>
+				<th class="col_20"><input type="text" id="col8_5"></th>
+			</tr>
+			<tr>
+				<th class="col_20"><input type="text" id="col1_6" name="count"></th>
+				<th class="col_10"><input type="text" id="col2_6"></th>
+				<th class="col_10"><input type="text" id="col3_6"></th>
+				<th class="col_10"><input type="text" id="col4_6" name="total_fee"></th>
+				<th class="col_10"><input type="text" id="col5_6"></th>
+				<th class="col_10"><input type="text" id="col6_6"></th>
+				<th class="col_10"><input type="text" id="col7_6"></th>
+				<th class="col_20"><input type="text" id="col8_6"></th>
+			</tr>
+			<tr>
+				<th class="col_20"><input type="text" id="col1_7" name="count"></th>
+				<th class="col_10"><input type="text" id="col2_7"></th>
+				<th class="col_10"><input type="text" id="col3_7"></th>
+				<th class="col_10"><input type="text" id="col4_7" name="total_fee"></th>
+				<th class="col_10"><input type="text" id="col5_7"></th>
+				<th class="col_10"><input type="text" id="col6_7"></th>
+				<th class="col_10"><input type="text" id="col7_7"></th>
+				<th class="col_20"><input type="text" id="col8_7"></th>
+			</tr>
+
+		</table>
+		 <div class="head_row" style="margin-bottom:40px">
+ 		   <button type="submit" class="btn btn-primary" id="purchase_fill_multiple">点击生成采购单</button>
+ 		</div>
+
+
+			<!--
+
+			<div class="purchase_box" style="display:none">
+				<label for="length">项数：</label>
+			<input type="text" id='length'>
+			<input type="button" id="showtables" value="点击生成表格">
+			</div>
+	-->
+
+	{% endifequal %}  
+
+  </div>
+ 
+ {% endblock %}
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#purchase_box").show();
+		$("#purchase_aside").addClass('subtitle_focus');
+		var multi_length=0;
+
+		var href =window.location.href.split("/");
+		var productID=href[5];
+
+//条形码
+		var zero_length=8-parseInt(productID.length);
+		var zero_query='';
+		for(i=0;i<zero_length;i++){
+			zero_query=zero_query+'0';
+		};
+		var newcode=zero_query+productID;
+		$("#bcTarget").barcode(newcode,"code11");
+
+//录入单工序表
+		$("#purchase_fill_single").click(function(){
+			var customer=$.trim($("#customer_name").val());
+			var product_name=$.trim($("#product_name").val());
+			var create_time=$.trim($("#create_time").val());
+			var surface=$.trim($("#surface").val());
+			var material=$.trim($("#material").val());
+			var daliao=$.trim($("#daliao").val());
+			var size=$.trim($("#size").val());	
+			var wl_size=$.trim($("#wl_size").val());
+			var wl_size2=$.trim($("#wl_size2").val());
+			var wl_thin=$.trim($("#wl_thin").val());
+			var wl_feizhi=$.trim($("#wl_feizhi").val());
+			var wl_waleng=$.trim($("#wl_waleng").val());
+			var wl_biaoliao=$.trim($("#wl_biaoliao").val());
+			var notes=$.trim($("#notes").val());
+
+			  $.ajax({
+			  	type : "POST",
+			  	url : "/purchase/fill_single/",
+			  	data:{'productID':productID,'customer':customer,'create_time':create_time,'product_name':product_name,'surface':surface,'notes':notes,'material':material,'daliao':daliao,'size':size,'wl_size':wl_size,'wl_size2':wl_size2,'wl_feizhi':wl_feizhi,'wl_thin':wl_thin,'wl_waleng':wl_waleng,'wl_biaoliao':wl_biaoliao},
+			  	dataType : "json",
+			  	success : function(data) {    
+	                if(data==1){
+	                	alert("录入成功");
+	                   window.location.reload();
+	                }else{
+	                  alert("录入失败:"+data.message);
+	                }
+	              }
+	          })
+		})
+ //多工序表格生成
+ /*
+		$("#showtables").click(function(){
+			multi_length=$("#length").val();
+			if(multi_length==''){
+				alert('请输入采购的项目数');
+			}else{
+				$(".purchase_box").show();
+				for(var i=0;i<multi_length;i++){
+					var html='<div>\
+					<div class="col-md-3 ws-8"><input type="text" id="col1_'+i+'"></div>\
+					<div class="col-md-3 ws-8"><input type="text" id="col2_'+i+'"></div>\
+					<div class="col-md-3 ws-8"><input type="text" id="col3_'+i+'"></div>\
+					<div class="col-md-3 ws-8"><input type="text" id="col4_'+i+'"></div>\
+					<div class="col-md-3 ws-8"><input type="text" id="col5_'+i+'"></div>\
+					<div class="col-md-3 ws-8"><input type="text" id="col6_'+i+'"></div>\
+					<div class="col-md-3 ws-8"><input type="text" id="col7_'+i+'"></div>\
+					<div class="col-md-3 ws-8"><input type="text" id="col8_'+i+'"></div>\
+				</div>';
+					$(".purchase_box").append(html);
+				}
+			}
+		})*/
+//多工序提交
+		$("#purchase_fill_multiple").click(function(){
+			var maxnum=0;
+
+			$("input[name=count]").each(function(a,b){
+				var temp = $.trim($(b).val());
+				if(temp.length!=0){
+					var num = $(b).attr("id").split("_")[1];
+					if(num>maxnum){
+						maxnum=num;
+					}
+				}
+			});
+
+			var count=0;
+			for(var i=1;i<=maxnum;i++){
+				var col1=$.trim($("#col1_"+i).val());
+				var col2=$.trim($("#col2_"+i).val());
+				var col3=$.trim($("#col3_"+i).val());
+				var col4=$.trim($("#col4_"+i).val());
+				var col5=$.trim($("#col5_"+i).val());
+				var col6=$.trim($("#col6_"+i).val());
+				var col7=$.trim($("#col7_"+i).val());
+				var col8=$.trim($("#col8_"+i).val());
+				$.ajax({
+				  	type : "POST",
+				  	url : "/purchase/fill_multiple/",
+				  	data:{'productID':productID,'col1':col1,'col2':col2,'col3':col3,'col4':col4,'col5':col5,'col6':col6,'col7':col7,'col8':col8},
+				  	dataType : "json",
+				  	success : function(data) {    
+		                if(data==1){
+		             		count=count+1;
+		                }else{
+		                  alert("第"+i+"条项目录入失败");
+		                }
+
+	                	if(count==maxnum){
+							alert("录入成功");
+						}
+		              }
+	          })
+			}
+
+		})
+
+ //自动计算和
+ $("input[name=total_fee]").focus(function(){
+ 	var num=$(this).attr('id').split("_")[1];
+ 	var sum=$("#col2_"+num).val()*$("#col3_"+num).val();
+ 	$(this).val(sum);
+ })
+
+	})</script>
+
+{% endblock %}

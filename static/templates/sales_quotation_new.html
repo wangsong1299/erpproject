@@ -1,0 +1,249 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "erp/css/sales.css" %}">
+{% endblock %}
+
+			{% block inner_header %}
+					
+			{% endblock %}			
+
+ {% block main %}
+ <div class="main" style="overflow:hidden">
+ 		<div class="line2">
+							销售：报价单
+				</div>	
+ 		<div class="head_row">
+ 			<label for="customer_name">客户名</label>
+ 			<input type="text" id="customer_name"  required />
+ 			<label for="product_name">产品名称</label>
+ 			<input type="text" id="product_name" />
+ 			<label for="create_time">日期</label>
+ 			<input type="text" id="create_time" onClick="WdatePicker()"/>
+ 		</div>
+ 		<div class="head_row">
+ 			<label for="contacts">联系人</label>
+ 			<input type="text" id="contacts" />
+ 			<label for="contacts_phone">联系电话</label>
+ 			<input type="text" id="contacts_phone" />
+ 		</div>
+
+	<table class="quotation_table">
+		<tr>
+			<th class="col_1">报价项</th>
+			<th class="col_2">报价内容</th>
+			<th class="col_3">报价价格</th>
+		</tr>
+		<tr>
+			<td class="col_1">所用材料</td>
+			<td class="col_2"> <input type="text" id="material"></td>
+			<td class="col_3"> <input type="text" id="material_price"></td>
+		</tr>
+		<tr>
+			<td class="col_1">尺寸</td>
+			<td class="col_2"> 
+				<label for="size">104以内</label><input type="radio" name="size" value="1">
+				<label for="size">120以内</label><input type="radio" name="size" value="2">
+			</td>
+			<td class="col_3"><input type="text" id="size_price"></td>
+		</tr>
+		<tr>
+			<td class="col_1">瓦楞用料</td>
+			<td class="col_2"> <input type="text" id="wl_material"></td>
+			<td class="col_3"> <input type="text" id="wl_material_price"></td>
+		</tr>
+		<tr>
+			<td class="col_1">数目</td>
+			<td class="col_2">
+				<label for="amount">0-500</label><input type="radio" name="amount" value="1">
+				<label for="amount">500-1000</label><input type="radio" name="amount" value="2">
+				<label for="amount">1000-3000</label><input type="radio" name="amount" value="3">
+				<label for="amount">3000-6000</label><input type="radio" name="amount" value="4">
+				<label for="amount">6000以上</label><input type="radio" name="amount" value="5">
+			</td>
+			<td class="col_3"> <input type="text" id="amount_price"></td>
+		</tr>
+		<tr>
+			<td class="col_1">印刷费</td>
+			<td class="col_2"> <input type="text" id="print_fee"></td>
+			<td class="col_3"> <input type="text" id="print_fee_price"></td>
+		</tr>
+		<tr>
+			<td class="col_1">印刷色数</td>
+			<td class="col_2"> <input type="text" id="print_color"></td>
+			<td class="col_3"> <input type="text" id="print_color_price"></td>
+		</tr>
+		<tr>
+			<td class="col_1">印刷配件</td>
+			<td class="col_2"> <input type="text" id="print_parts"></td>
+			<td class="col_3"> <input type="text" id="print_parts_price"></td>
+		</tr>
+		<tr>
+			<td class="col_1">表面处理</td>
+			<td class="col_2">
+				<label for="surface">腹膜</label><input type="radio" name="surface" value="1">
+				<label for="surface">上光</label><input type="radio" name="surface" value="2">
+				<label for="surface">UV</label><input type="radio" name="surface" value="3">
+				<label for="surface">吸塑</label><input type="radio" name="surface" value="4">
+				<label for="surface">其他</label><input type="radio" name="surface" value="5">
+			</td>
+			<td class="col_3"> <input type="text" id="surface_price"></td>
+		</tr>
+		<tr>
+			<td class="col_1">烫金</td>
+			<td class="col_2"> <input type="text" id="tangjin"></td>
+			<td class="col_3"> <input type="text" id="tangjin_price"></td>
+		</tr>
+		<tr>
+			<td class="col_1">撒粉</td>
+			<td class="col_2"> <input type="text" id="safen"></td>
+			<td class="col_3"> <input type="text" id="safen_price"></td>
+		</tr>
+		<tr>
+			<td class="col_1">外箱</td>
+			<td class="col_2"> <input type="text" id="packing_box"></td>
+			<td class="col_3"> <input type="text" id="packing_box_price"></td>
+		</tr>
+		<tr>
+			<td class="col_1">包装费</td>
+			<td class="col_2"> <input type="text" id="packing_fee"></td>
+			<td class="col_3"> <input type="text" id="packing_fee_price"></td>
+		</tr>
+		<tr>
+			<td class="col_1">运费</td>
+			<td class="col_2"> <input type="text" id="transportation_fee"></td>
+			<td class="col_3"> <input type="text" id="transportation_fee_price"></td>
+		</tr>
+	</table>
+
+ 		<div class="head_row">
+ 			<label class="col_1">合计</label>
+ 			<input type="text" id="total_fee">
+ 		</div>
+
+ 		<div class="head_row" style="margin-bottom:40px">
+ 		   <button type="submit" class="btn btn-primary" id="submit">点击生成报价单</button>
+ 		    <button type="submit" class="btn btn-primary" id="sum">点击计算总金额</button>
+ 		</div>
+
+
+
+  </div>
+ 
+ {% endblock %}
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#sales_box").show();	
+		$("#quotation").addClass('subtitle_focus');
+
+
+		var date=new Date();
+		var newdate= date.getFullYear()+'-'+(parseInt(date.getMonth())+1)+'-'+date.getDate();
+		$("#create_time").val(newdate);
+
+		$("#sum").click(function(){
+			var material_price=$.trim($("#material_price").val());
+			var size_price=$.trim($("#size_price").val());
+			var wl_material_price=$.trim($("#wl_material_price").val());
+			var amount_price=$.trim($("#amount_price").val());
+			var print_fee_price=$.trim($("#print_fee_price").val());
+			var print_color_price=$.trim($("#print_color_price").val());
+			var print_parts_price=$.trim($("#print_parts_price").val());
+			var surface_price=$.trim($("#surface_price").val());
+			var tangjin_price=$.trim($("#tangjin_price").val());
+			var safen_price=$.trim($("#safen_price").val());
+			var packing_box_price=$.trim($("#packing_box_price").val());
+			var packing_fee_price=$.trim($("#packing_fee_price").val());
+			var transportation_fee_price=$.trim($("#transportation_fee_price").val());
+			if(material_price==''){material_price=0;}
+			if(size_price==''){size_price=0;}
+			if(amount_price==''){amount_price=0;}
+			if(wl_material_price==''){wl_material_price=0;}
+			if(print_fee_price==''){print_fee_price=0;}
+			if(print_color_price==''){print_color_price=0;}
+			if(print_parts_price==''){print_parts_price=0;}
+			if(surface_price==''){surface_price=0;}
+			if(tangjin_price==''){tangjin_price=0;}
+			if(safen_price==''){safen_price=0;}
+			if(packing_box_price==''){packing_box_price=0;}
+			if(packing_fee_price==''){packing_fee_price=0;}
+			if(transportation_fee_price==''){transportation_fee_price=0;}
+			var sum=parseInt(material_price)+parseInt(size_price)+parseInt(wl_material_price)+parseInt(amount_price)+parseInt(print_fee_price)+parseInt(print_color_price)+parseInt(print_parts_price)+parseInt(surface_price)+parseInt(tangjin_price)+parseInt(safen_price)+parseInt(packing_fee_price)+parseInt(packing_box_price)+parseInt(transportation_fee_price);
+			$("#total_fee").val(sum);
+			$("#total_fee").addClass('sum');
+		})
+
+		$("#submit").click(function(){
+			var total_fee=$("#total_fee").val();
+			if(total_fee==''){
+				alert("请点击左边按钮计算出总金额");
+			}else{
+				var customer=$.trim($("#customer_name").val());
+				var product_name=$.trim($("#product_name").val());
+				var create_time=$.trim($("#create_time").val());
+				var contacts=$.trim($("#contacts").val());
+				var contacts_phone=$.trim($("#contacts_phone").val());
+
+				var material_price=$.trim($("#material_price").val());
+				var size_price=$.trim($("#size_price").val());
+				var wl_material_price=$.trim($("#wl_material_price").val());
+				var amount_price=$.trim($("#amount_price").val());
+				var print_fee_price=$.trim($("#print_fee_price").val());
+				var print_color_price=$.trim($("#print_color_price").val());
+				var print_parts_price=$.trim($("#print_parts_price").val());
+				var surface_price=$.trim($("#surface_price").val());
+				var tangjin_price=$.trim($("#tangjin_price").val());
+				var safen_price=$.trim($("#safen_price").val());
+				var packing_box_price=$.trim($("#packing_box_price").val());
+				var packing_fee_price=$.trim($("#packing_fee_price").val());
+				var transportation_fee_price=$.trim($("#transportation_fee_price").val());
+
+				var material=$.trim($("#material").val());
+				var size=$.trim($("input[name='size']:checked").val());
+				var wl_material=$.trim($("#wl_material").val());
+				var amount=$.trim($("input[name='amount']:checked").val());
+				var print_fee=$.trim($("#print_fee").val());
+				var print_color=$.trim($("#print_color").val());
+				var print_parts=$.trim($("#print_parts").val());
+				var surface=$.trim($("input[name='surface']:checked").val());
+				var tangjin=$.trim($("#tangjin").val());
+				var safen=$.trim($("#safen").val());
+				var packing_box=$.trim($("#packing_box").val());
+				var packing_fee=$.trim($("#packing_fee").val());
+				var transportation_fee=$.trim($("#transportation_fee").val());
+
+				if(customer.length==0){
+					alert("客户名不能为空");
+				}else if(product_name.length==0){
+					alert("产品名不能为空");
+				}else if(contacts.length==0){
+					alert("联系人不能为空");
+				}else if(contacts_phone.length==0){
+					alert("联系人电话不能为空");
+				}else{
+					  $.ajax({
+	                      type : "POST",
+	                      url : "/sales/fill_quotation/",
+	                      data:{'total_fee':total_fee,'customer':customer,'product_name':product_name,'create_time':create_time,'contacts':contacts,'contacts_phone':contacts_phone,'material_price':material_price,'size_price':size_price,'wl_material_price':wl_material_price,'amount_price':amount_price,'print_fee_price':print_fee_price,'print_color_price':print_color_price,'print_parts_price':print_parts_price,'surface_price':surface_price,'tangjin_price':tangjin_price,'safen_price':safen_price,'packing_box_price':packing_box_price,'packing_fee_price':packing_fee_price,'transportation_fee_price':transportation_fee_price,'material':material,'size':size,'wl_material':wl_material,'amount':amount,'print_fee':print_fee,'print_color':print_color,'print_parts':print_parts,'surface':surface,'tangjin':tangjin,'safen':safen,'packing_box':packing_box,'packing_fee':packing_fee,'transportation_fee':transportation_fee},
+	                      dataType : "json",
+	                      success : function(data) {    
+	                        if(data==1){
+	                        	alert("录入成功");
+	                           window.location.href='/sales/quotation/';
+	                        }else{
+	                          alert("录入失败:"+data.message);
+	                        }
+	                      }
+	                  })
+				}
+
+			}
+		})
+
+	})</script>
+
+{% endblock %}

@@ -1,0 +1,101 @@
+*{margin:0;padding:0;}
+.content{width: 100%;height: auto;overflow: hidden;min-height: 350px;}
+a {text-decoration:none;}
+body{background: #fff;color: #343434}
+
+.block{margin-left: auto;margin-right: auto;left: 0;right:0;width:1280px;height: 100%;}
+.block2{margin-left: auto;margin-right: auto;left: 0;right:0;width:1280px;height: 100%;}
+
+.header {
+    height: 80px;
+}
+.header2 {
+    background: #0861af none repeat scroll 0 0;
+    height: 30px;
+    width: 100%;
+}
+
+.box{width: 200px;height: 150px;float: left;margin-left: 20px;margin-top: 20px;border-radius: 20px;background: #00a8ec;cursor: pointer;position: relative;}
+.box span {
+    bottom: 0.5em;
+    font-size: 1em;
+    font-weight: normal;
+    left: 0.5em;
+    position: absolute;
+    z-index: 8;
+    color: white
+}
+
+.btn-primary{background:#0861af}
+
+
+.line{width: 100%;height: 30px;}
+.login{width: 60px;height:28px;float: right;margin-right: 50px;line-height: 28px;color:#f1f1f1;font-size: 12.5px;cursor: pointer;text-align: center;}
+.line2{width: 100%;height: 80px;line-height: 80px;text-align: center;font-size: 40px}
+
+/*侧边框*/
+.aside{width: 200px;float: left;background:#e0e9f6;min-height: 400px;margin-top: 20px;margin-left: 30px;border:#e0e9f6 solid 1px;margin-bottom: 0px}
+.aside>.title{width: 100%;float: left;height: 35px;line-height: 38px;font-size: 22px;text-align: left;cursor: pointer;margin-top:15px;margin-bottom: 5px;}
+.aside>.title>.info_icon{width: 20px;float: left;height: 20px;cursor: pointer;margin-top:10px;margin-left: 30px;margin-right: 10px;}
+.aside .subtitle{width: 197px;float: left;margin-left:0px;height: 30px;line-height: 32px;font-size: 16px;cursor: pointer;border-left: #e0e9f6 solid 5px;text-indent: 55px;color:#343434;}
+.aside .subtitle_focus{background: #F6F0DA;border-left: #CE9D39 solid 5px;color:#0861AF;}
+.aside .subtitle:hover{background: #F6F0DA;border-left: #CE9D39 solid 5px;color:#0861AF;}
+.aside>.inner_box{float: left;}
+/*右边显示区域*/
+.main{height:auto;min-height: 500px;width: 1000px;float: left;margin-left: 20px;margin-top: 20px;margin-bottom: 55px}
+
+/*footer*/
+.footer{height: 305px; background: #ECECEC;margin-bottom: -25px;}
+.col{width: 220px;height: 170px;float: left;margin-left: 50px;margin-top: 35px;}
+.split_footer{width: 1px;height: 170px;float: left;margin-left: 1px;margin-top: 35px;background: url(../img/split_footer.png);}
+.col>.title{width: 125px;height: 35px;line-height: 30px;font-size:16px;text-align: left;border-bottom: #0861af 3px solid;color:#014bab}
+.col>.text{width: 100%;height: 35px;line-height: 35px;text-align: left;color: #8f8580;}
+.icp{width: 100%;float: left;margin-top: 45px;text-align: center;font-size: 16px;line-height: 30px;height: 30px;color:#8f8580;}
+
+
+
+.signin_box {
+    background: white;
+    height: 300px;
+    left: 0;
+    margin-left: auto;
+    margin-right: auto;
+    position: fixed;
+    right: 0;
+    top: 150px;
+    width: 400px;
+    z-index: 1001;
+    border-radius: 20px;
+    padding: 10px;
+
+}
+
+
+.setting_box{width: 80%;float: left;height: auto;margin-left: 15%;margin-top: 20px;}
+.order_box{width: 95%;float: left;height: auto;margin-left: 20px;margin-top:20px;}
+.order_box>.row>div{border: solid 0.5px #000;border-top: none;border-bottom: none;height:30px;}
+.order_box>.row{border: solid 0.5px #000;height: 30px;}
+.order_box input{border: none;width: 100%;}
+
+.col_ws{width: 12.5%}
+.col_ws_7{width: 37.5%}
+
+/*施工单*/
+.process_box{width: 95%;float: left;height: auto;margin-left: 20px;margin-top:20px;}
+.process_box>.row>div{border: solid 0.5px #000;border-top: none;height:30px;}
+.process_box>.row{border: solid 0.5px #000;height: 30px;}
+.process_box>.row2>div{border: solid 0.5px #000;border-top: none;height:60px;}
+.process_box>.row2{border: solid 0.5px #000;height: 60px;}
+.process_box>.row input{border: none;width: 100%;height: 25px}
+.process_box>.row2 input{border: none;width: 100%;height: 50px}
+.process_box textarea{width: 100%;height: 120px;}
+.process_box>.row input[type='checkbox']{border: none;width: 30px;height: 25px}
+
+/*送货单*/
+.delivery_box{width: 95%;float: left;height: auto;margin-left: 20px;margin-top:20px;}
+.delivery_box>.row>div{border: solid 0.5px #000;border-top: none;border-bottom: none;height:30px;}
+.delivery_box>.row{border: solid 0.5px #000;height: 30px;}
+.delivery_box input{border: none;width: 100%;}
+
+#bcTarget{width:150px;height: 66px}
+.red{color:red;}

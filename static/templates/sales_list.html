@@ -1,0 +1,638 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "erp/css/sales.css" %}">
+{% endblock %}
+
+{% block inner_header %}
+{% endblock %}
+
+ {% block main %}
+ <div class="main" style="overflow:hidden">
+ 		
+ 				<div class="line2">
+					{% if quotation %}
+							报价单列表	
+					{% endif %}	
+					{% if order %}
+							订单列表	
+					{% endif %}	
+					{% if delivery %}
+							送货单列表	
+					{% endif %}	
+					{% if process %}
+							施工单列表	
+					{% endif %}	
+					{% if cost %}
+							成本单列表	
+					{% endif %}	
+
+				</div>	
+
+	{% if quotation %}
+	 <div class="head_row">
+ 		   <button type="submit" class="btn btn-primary" id="find_quotation">查询报价单</button>
+ 		   <div class="searchbar">			
+			  <input class="input-medium search-query" id="quotation_search" type="text" placeholder="客户/产品名">
+			</div>
+  		   <button type="submit" class="btn btn-primary" id="new">新建报价单</button>
+ 	</div>
+ 	<div class="list_hr" style="margin-top:20px"></div>
+	<table class="list_table" style="margin-top: 5px;">
+		<tr>
+			<th class="col_1">客户名</th>
+			<th class="col_1">产品名</th>
+			<th class="col_2">产生时间</th>
+			<th class="col_2">总金额</th>
+			<th class="col_2">修改</th>
+			<th class="col_2">删除</th>
+		</tr>
+	</table>
+ 	<div class="list_hr" style="margin-top:5px"></div>
+
+	<table class="list_table">
+	{% for key, value in records.items %}
+
+		<tr>
+		  <th class="col_1"> <a href='/sales/quotation/{{ value.items.4.1 }}/' style="cursor:pointer">{{ value.items.0.1 }}</a></th>
+		  <th class="col_1">{{ value.items.1.1 }}</th>
+		  <th class="col_2">{{ value.items.2.1 }}</th>
+		  <th class="col_2">{{ value.items.3.1 }}</th>
+		  <th class="col_2"><input type="button" value="修改" class="modify_quotation" id="modify_quotation_{{ value.items.4.1 }}"></th>
+		  <th class="col_2"><input type="button" value="删除" class="delete_quotation" id="delete_quotation_{{ value.items.4.1 }}"></th>
+		</tr>
+	{% endfor %}		
+	</table>
+	 <div class="head_row">
+		   <button type="submit" class="btn btn-primary" id="later_click">下一页</button>
+ 		   <button type="submit" class="btn btn-primary" id="pre_click">上一页</button>
+ 	</div>
+
+
+ 	{% endif %}	
+<!-- 订单 -->
+	{% if order %}
+	 <div class="head_row">
+ 		   <button type="submit" class="btn btn-primary" id="find_order">查询订单</button>
+ 		   <div class="searchbar">			
+			  <input class="input-medium search-query" id="order_search" type="text" placeholder="客户/产品名">
+			</div>
+  		   <button type="submit" class="btn btn-primary" id="new">新建订单</button>
+  		   <a href="../../media/download/1.zip"><button type="submit" class="btn btn-primary">导出订单</button></a>
+  		   
+ 	</div>
+ 	<div class="list_hr" style="margin-top:20px"></div>
+	<table class="list_table" style="margin-top: 5px;">
+		<tr>
+			<th class="col_1">客户名</th>
+			<th class="col_1">产品名</th>
+			<th class="col_2">产生时间</th>
+			<th class="col_2">客户订单号</th>
+			<th class="col_2">修改</th>
+			<th class="col_2">删除</th>
+		</tr>
+	</table>
+ 	<div class="list_hr" style="margin-top:5px"></div>
+
+	<table class="list_table">
+	{% for key, value in records.items %}
+
+		<tr>
+		  <th class="col_1"> <a href='/sales/order/{{ value.items.4.1 }}/' style="cursor:pointer">{{ value.items.0.1 }}</a></th>
+		  <th class="col_1">{{ value.items.1.1 }}</th>
+		  <th class="col_2">{{ value.items.2.1 }}</th>
+		  <th class="col_2">{{ value.items.3.1 }}</th>
+		  <th class="col_2"><input type="button" value="修改" class="modify_order" id="modify_order_{{ value.items.4.1 }}"></th>
+		  <th class="col_2"><input type="button" value="删除" class="delete_order" id="modify_order_{{ value.items.4.1 }}"></th>
+		</tr>
+	{% endfor %}
+
+		
+	</table>
+
+	{% endif %}	
+
+<!-- 送货单单 -->
+	{% if delivery %}
+	 <div class="head_row">
+ 		   <button type="submit" class="btn btn-primary" id="find_delivery">查询送货单</button>
+ 		   <div class="searchbar">			
+			  <input class="input-medium search-query" id="delivery_search" type="text" placeholder="送货单号/产品名">
+			</div>
+  		   <button type="submit" class="btn btn-primary" id="new">新建送货单</button>
+ 	</div>
+ 	<div class="list_hr" style="margin-top:20px"></div>
+	<table class="list_table" style="margin-top: 5px;">
+		<tr>
+			<th class="col_3">送货单号</th>
+			<th class="col_1">产品名</th>
+			<th class="col_3">订单数目</th>
+			<th class="col_3">送货数目</th>
+			<th class="col_1">金额</th>
+			<th class="col_2">修改</th>
+			<th class="col_2">删除</th>
+		</tr>
+	</table>
+ 	<div class="list_hr" style="margin-top:5px"></div>
+
+	<table class="list_table">
+	{% for key, value in records.items %}
+
+		<tr>
+		  <th class="col_3"> <a href='/sales/delivery/{{ value.items.0.1 }}/' style="cursor:pointer">{{ value.items.0.1 }}</a></th>
+		  <th class="col_1">{{ value.items.1.1 }}</th>
+		  <th class="col_3">{{ value.items.2.1 }}</th>
+		  <th class="col_3">{{ value.items.3.1 }}</th>
+		  <th class="col_1">{{ value.items.4.1 }}</th>
+		  <th class="col_2"><input type="button" value="修改" class="modify_delivery" id="modify_delivery_{{ value.items.0.1 }}"></th>
+		  <th class="col_2"><input type="button" value="删除" class="delete_delivery" id="modify_delivery_{{ value.items.0.1 }}"></th>
+		</tr>
+	{% endfor %}
+
+		
+	</table>
+
+ 		 <div class="head_row" id="delivery_choice_box" style="margin-bottom:40px;display:none;height:200px;">
+ 			<div for="choice1">常规送货单<input type="radio" id="choice1" name="choice" value="1" /></div>
+<br>
+			<div for="choice2">东川游泳馆设备有限公司送货单<input type="radio" id="choice2" name="choice" value="2" /></div>
+ 			<br>
+ 			<div for="choice3">杰力进出口有限公司送货单<input type="radio" id="choice3" name="choice" value="3" /></div>
+ 			<br><br>
+ 			<button type="submit" class="btn btn-primary" id="choice_model">选择送货单模板</button>
+ 		</div>	
+	{% endif %}	
+<!-- 施工单单 -->
+	{% if process %}
+	 <div class="head_row">
+ 		   <button type="submit" class="btn btn-primary" id="find_process">查询施工单</button>
+ 		   <div class="searchbar">			
+			  <input class="input-medium search-query" id="process_search" type="text" placeholder="客户/产品名">
+			</div>
+  		   <button type="submit" class="btn btn-primary" id="new">新建施工单</button>
+ 	</div>
+ 	<div class="list_hr" style="margin-top:20px"></div>
+	<table class="list_table" style="margin-top: 5px;">
+		<tr>
+			<th class="col_3">施工单号</th>
+			<th class="col_1">客户名</th>
+			<th class="col_3">产品名</th>
+			<th class="col_3">开单时间</th>
+			<th class="col_1">是否完成</th>
+			<th class="col_2">修改</th>
+			<th class="col_2">删除</th>
+		</tr>
+	</table>
+ 	<div class="list_hr" style="margin-top:5px"></div>
+
+	<table class="list_table">
+	{% for key, value in records.items %}
+
+		<tr>
+		  <th class="col_3"> <a href='/sales/process/{{ value.items.0.1 }}/' style="cursor:pointer">{{ value.items.0.1 }}</a></th>
+		  <th class="col_1">{{ value.items.1.1 }}</th>
+		  <th class="col_3">{{ value.items.2.1 }}</th>
+		  <th class="col_3">{{ value.items.3.1 }}</th>
+		  <th class="col_1">{{ value.items.4.1 }}</th>
+		  <th class="col_2"><input type="button" value="修改" class="modify_process" id="modify_process_{{ value.items.0.1 }}"></th>
+		  <th class="col_2"><input type="button" value="删除" class="delete_process" id="modify_process_{{ value.items.0.1 }}"></th>
+		</tr>
+	{% endfor %}
+
+		
+	</table>
+
+	{% endif %}	
+
+<!-- 成本单 -->
+	{% if cost %}
+	 <div class="head_row">
+ 		   <button type="submit" class="btn btn-primary" id="find_cost">查询成本单</button>
+ 		   <div class="searchbar">			
+			  <input class="input-medium search-query" id="cost_search" type="text" placeholder="客户/产品名">
+			</div>
+  		   <button type="submit" class="btn btn-primary" id="new">新建成本单</button>
+ 	</div>
+ 	<div class="list_hr" style="margin-top:20px"></div>
+	<table class="list_table" style="margin-top: 5px;">
+		<tr>
+			<th class="col_1">订单号</th>
+			<th class="col_1">客户名</th>
+			<th class="col_2">产品名</th>
+			<th class="col_2">总金额</th>
+			<th class="col_2">修改</th>
+			<th class="col_2">删除</th>
+		</tr>
+	</table>
+ 	<div class="list_hr" style="margin-top:5px"></div>
+
+	<table class="list_table">
+	{% for key, value in records.items %}
+
+		<tr>
+		  <th class="col_1"> <a href='/sales/cost/{{ value.items.0.1 }}/' style="cursor:pointer">{{ value.items.0.1 }}</a></th>
+		  <th class="col_1">{{ value.items.1.1 }}</th>
+		  <th class="col_2">{{ value.items.2.1 }}</th>
+		  <th class="col_2">{{ value.items.3.1 }}</th>
+		  <th class="col_2"><input type="button" value="修改" class="modify_cost" id="modify_cost_{{ value.items.0.1 }}"></th>
+		  <th class="col_2"><input type="button" value="删除" class="delete_cost" id="delete_cost_{{ value.items.0.1 }}"></th>
+		</tr>
+	{% endfor %}
+
+	</table>
+
+	{% endif %}	
+
+
+
+  </div>
+ 
+ {% endblock %}
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#sales_box").show();	
+		$("#search").click(function(){
+			if($("#search_box").is(":visible")){
+				$("#search_box").slideUp(1000);
+			}else{
+				$("#search_box").slideDown(1000);
+			}	
+		})
+
+//////////////////////////////报价单js//////////////////////////////////////
+
+		{% if quotation %}
+			$("#quotation").addClass('subtitle_focus');	
+			$("#new").click(function(){
+				window.location.href="/sales/quotation_new/";
+			})
+
+			$(".modify_quotation").click(function(){
+				var id=$(this).attr("id").split("_")[2];
+				window.location.href="/sales/quotation_modify/"+id;
+			})
+		
+			$(".delete_quotation").click(function(){
+				var id=$(this).attr("id").split("_")[2];
+					$.ajax({
+	                  type : "POST",
+	                  url : "/sales/delete_quotation/",
+	                  data:{'id':id},
+	                  dataType : "json",
+	                  success : function(data) {    
+	                    if(data==1){
+	                    	alert("删除成功");
+	                       window.location.reload();
+	                    }else{
+	                      alert("删除失败:"+data.message);
+	                    }
+	                  }
+	             })
+			})
+
+
+			$("#find_quotation").click(function(){
+				var quotation_search=$.trim($("#quotation_search").val());
+
+				if(quotation_search==''){
+					alert("请至少填写客户和产品中的一个");
+				}else{
+					$.ajax({
+	                      type : "POST",
+	                      url : "/sales/get_quotationID_by_customer/",
+	                      data:{'customer':quotation_search},
+	                      dataType : "json",
+	                      success : function(data){  
+	                      		if(data!=0){
+	                      			window.location.href='/sales/quotation/'+data;
+	                      		}else{
+	                      			$.ajax({
+					                      type : "POST",
+					                      url : "/sales/get_quotationID_by_product/",
+					                      data:{'product_name':quotation_search},
+					                      dataType : "json",
+					                      success : function(data){ 
+					                      		if(data!=0){
+					                      			window.location.href='/sales/quotation/'+data;
+					                      		}else{
+					                      			alert("没有相关报价单");
+					                      		}				                      		
+					                      }
+					                })
+	                      		}
+	                      		
+	                      }
+	                })
+				}
+			})
+
+ 			var href=window.location.href.split("/")[5];
+ 			console.log(href);
+ 			var pre_click={{pre_click}}
+ 			if(pre_click){
+ 				var pre_num=parseInt(href)-1;
+ 				$("#pre_click").click(function(){
+	 				window.location.href='/sales/quotation_list/'+pre_num;
+	 			})
+ 			}else{
+ 				$("#pre_click").attr('disabled',true);
+ 			}
+ 			 var later_click={{later_click}}
+ 			if(later_click){
+ 				var later_num=parseInt(href)+1;
+ 				$("#later_click").click(function(){
+	 				window.location.href='/sales/quotation_list/'+later_num;
+	 			})
+ 			}else{
+ 				$("#later_click").attr('disabled',true);
+ 			}
+
+		{% endif %}	
+
+//////////////////////////////订单js//////////////////////////////////////
+		{% if order %}
+			$("#order").addClass('subtitle_focus');	
+			$("#new").click(function(){
+				window.location.href="/sales/order_new/";
+			})
+
+			$(".modify_order").click(function(){
+				var id=$(this).attr("id").split("_")[2];
+				window.location.href="/sales/order_modify/"+id;
+			})
+		
+			$(".delete_order").click(function(){
+				var id=$(this).attr("id").split("_")[2];
+					$.ajax({
+	                  type : "POST",
+	                  url : "/sales/delete_order/",
+	                  data:{'id':id},
+	                  dataType : "json",
+	                  success : function(data) {    
+	                    if(data==1){
+	                    	alert("删除成功");
+	                       window.location.reload();
+	                    }else{
+	                      alert("删除失败:"+data.message);
+	                    }
+	                  }
+	             })
+			})
+
+
+			$("#find_order").click(function(){
+				var order_search=$.trim($("#order_search").val());
+			
+				if(order_search==''){
+					alert("请至少填写客户和产品中的一个");
+				}else{
+					$.ajax({
+	                      type : "POST",
+	                      url : "/sales/get_orderID_by_customer/",
+	                      data:{'customer':order_search},
+	                      dataType : "json",
+	                      success : function(data){  
+	                      		if(data!=0){
+	                      			window.location.href='/sales/order/'+data;
+	                      		}else{
+	                      			$.ajax({
+					                      type : "POST",
+					                      url : "/sales/get_orderID_by_product/",
+					                      data:{'product_name':order_search},
+					                      dataType : "json",
+					                      success : function(data){ 
+					                      		if(data!=0){
+					                      			window.location.href='/sales/order/'+data;
+					                      		}else{
+					                      			alert("没有相关订单");
+					                      		}					                      		
+					                      }
+					                })
+	                      		}        		
+	                      }
+	                })
+				} 
+			})
+
+		{% endif %}	
+//////////////////////////////施工单js//////////////////////////////////////
+		{% if delivery %}
+			$("#delivery").addClass('subtitle_focus');	
+			$("#new").click(function(){
+				$("#delivery_choice_box").slideDown(1000);
+
+				$("#choice_model").click(function(){
+					var choice=$(":radio:checked").val(); 
+					window.location.href="/sales/delivery_new/"+choice;
+				})
+			})
+
+
+			$(".modify_delivery").click(function(){
+				var id=$(this).attr("id").split("_")[2];
+				window.location.href="/sales/delivery_modify/"+id;
+			})
+
+			$(".delete_delivery").click(function(){
+				var id=$(this).attr("id").split("_")[2];
+					$.ajax({
+	                  type : "POST",
+	                  url : "/sales/delete_delivery/",
+	                  data:{'deliveryID':id},
+	                  dataType : "json",
+	                  success : function(data) {    
+	                    if(data==1){
+	                    	alert("删除成功");
+	                       window.location.reload();
+	                    }else{
+	                      alert("删除失败:"+data.message);
+	                    }
+	                  }
+	             })
+			})
+
+
+			$("#find_delivery").click(function(){
+				var delivery_search=$.trim($("#delivery_search").val());
+
+				if(delivery_search==''){
+					alert("请至少填写送货单号和产品中的一个");
+				}else{
+					$.ajax({
+	                      type : "POST",
+	                      url : "/sales/get_deliveryID_by_deliveryID/",
+	                      data:{'deliveryID':delivery_search},
+	                      dataType : "json",
+	                      success : function(data){  
+	                      	if(data!=0){
+	                      		window.location.href='/sales/delivery/'+data;
+	                      	}else{
+	                      			$.ajax({
+					                      type : "POST",
+					                      url : "/sales/get_deliveryID_by_product/",
+					                      data:{'product_name':delivery_search},
+					                      dataType : "json",
+					                      success : function(data){  
+					                      	if(data!=0){
+					                      		window.location.href='/sales/delivery/'+data;
+					                      	}else{
+					                      		alert("没有相关送货单");
+					                      	}        		
+					                      }
+					                })
+	                      	}        		
+	                      }
+	                })
+
+				} 
+			})
+		{% endif %}	
+
+
+/////////////////////////////施工单js//////////////////////////////////////
+
+		{% if process %}
+			$("#process").addClass('subtitle_focus');	
+			$("#new").click(function(){
+				window.location.href="/sales/process_new/";
+			})
+
+			$(".modify_process").click(function(){
+				var id=$(this).attr("id").split("_")[2];
+				window.location.href="/sales/process_modify/"+id;
+			})
+		
+			$(".delete_process").click(function(){
+				var id=$(this).attr("id").split("_")[2];
+					$.ajax({
+	                  type : "POST",
+	                  url : "/sales/delete_process/",
+	                  data:{'id':id},
+	                  dataType : "json",
+	                  success : function(data) {    
+	                    if(data==1){
+	                    	alert("删除成功");
+	                       window.location.reload();
+	                    }else{
+	                      alert("删除失败:"+data.message);
+	                    }
+	                  }
+	             })
+			})
+
+
+			$("#find_process").click(function(){
+				var process_search=$.trim($("#process_search").val());
+
+				if(process_search==''){
+					alert("请至少填写客户和产品中的一个");
+				}else{
+					$.ajax({
+	                      type : "POST",
+	                      url : "/sales/get_processID_by_customer/",
+	                      data:{'customer':process_search},
+	                      dataType : "json",
+	                      success : function(data){ 
+	                      		if(data!=0){
+	                      			window.location.href='/sales/process/'+data;
+	                      		}else{
+	                      			$.ajax({
+					                      type : "POST",
+					                      url : "/sales/get_processID_by_product/",
+					                      data:{'product_name':process_search},
+					                      dataType : "json",
+					                      success : function(data){  
+					                      		if(data!=0){
+					                      			window.location.href='/sales/process/'+data;
+					                      		}else{
+					                      			alert("没有相关施工单");
+					                      		} 
+					                      }
+					                })
+
+	                      		}                   		
+	                      }
+	                })
+				}
+			})
+		{% endif %}	
+
+/////////////////////////////成本单js//////////////////////////////////////
+
+
+		{% if cost %}
+			$("#cost").addClass('subtitle_focus');	
+			$("#new").click(function(){
+				window.location.href="/sales/cost_new/";
+			})
+
+			$(".modify_cost").click(function(){
+				var id=$(this).attr("id").split("_")[2];
+				window.location.href="/sales/cost_modify/"+id;
+			})
+		
+			$(".delete_cost").click(function(){
+				var id=$(this).attr("id").split("_")[2];
+					$.ajax({
+	                  type : "POST",
+	                  url : "/sales/delete_cost/",
+	                  data:{'id':id},
+	                  dataType : "json",
+	                  success : function(data) {    
+	                    if(data==1){
+	                    	alert("删除成功");
+	                       window.location.reload();
+	                    }else{
+	                      alert("删除失败:"+data.message);
+	                    }
+	                  }
+	             })
+			})
+
+
+			$("#find_cost").click(function(){
+				var cost_search=$.trim($("#cost_search").val());
+	
+				if(cost_search==''){
+					alert("请至少填写客户和产品中的一个");
+				}else{
+					$.ajax({
+	                      type : "POST",
+	                      url : "/sales/get_costID_by_customer/",
+	                      data:{'customer':cost_search},
+	                      dataType : "json",
+	                      success : function(data){ 
+	                      		if(data!=0){
+	                      			window.location.href='/sales/cost/'+data;
+	                      		}else{
+	                      			$.ajax({
+					                      type : "POST",
+					                      url : "/sales/get_costID_by_product/",
+					                      data:{'product_name':cost_search},
+					                      dataType : "json",
+					                      success : function(data){  
+					                      	if(data!=0){
+					                      		window.location.href='/sales/cost/'+data;
+					                      	}else{
+					                      		alert("没有相关成本单");
+					                      	}		                      		
+					                      }
+					                })
+	                      		}
+	                      		
+	                      }
+	                })
+
+				} 
+			})
+		{% endif %}	
+
+
+
+	})</script>
+
+{% endblock %}

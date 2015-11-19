@@ -1,0 +1,222 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+{% block head %}
+<link rel="stylesheet" href="{% static "erp/css/customer.css" %}">
+{% endblock %}
+
+
+		{% block subtitle %}
+				<div class="line2">
+							供应商和应付
+				</div>	
+		{% endblock %}
+
+
+ {% block main %}
+ <div class="main" style="overflow:hidden">
+
+	   	<table class="customer_table" style="margin-top: 20px;" >
+				<tr>
+					<th class="col_10">供应商</th>
+					<th class="col_10">联系人</th>
+					<th class="col_10">联系电话</th>
+					<th class="col_10">采购产品</th>
+					<th class="col_10">数目</th>
+					<th class="col_10">单价</th>
+					<th class="col_10">金额</th>
+					<th class="col_10">日期</th>
+					<th class="col_10">备注</th>
+					<th class="col_5">修改</th>
+					<th class="col_5">删除</th>
+				</tr>
+
+	{% for key, value in records.items %}
+				<tr>
+					<th class="col_10">{{ value.items.0.1 }}</th>
+					<th class="col_10">{{ value.items.1.1 }}</th>
+					<th class="col_10">{{ value.items.2.1 }}</th>
+					<th class="col_10">{{ value.items.3.1 }}</th>
+					<th class="col_10">{{ value.items.4.1 }}</th>
+					<th class="col_10">{{ value.items.5.1 }}</th>
+					<th class="col_10">{{ value.items.6.1 }}</th>
+					<th class="col_10">{{ value.items.7.1 }}</th>
+					<th class="col_10">{{ value.items.8.1 }}</th>
+					<th class="col_10"><input type="button" value="修改" class="modify_supplier" id="modify_supplier_{{ value.items.9.1 }}"></th>
+					<th class="col_10"><input type="button" value="删除" class="delete_supplier" id="delete_supplier_{{ value.items.9.1 }}"></th>
+				</tr>
+
+	{% endfor %}
+
+		</table>
+
+		<div class="head_row" style="margin-bottom:40px">
+		   <button type="submit" class="btn btn-primary" id="search">查询供应商单</button>
+		</div>
+
+<!--修改框-->
+	<div class="" id="supplier_modify_box" style="display:none">
+		<h2>修改客户单</h2>
+ 		<table class="customer_table" style="margin-top: 20px;" >
+			<tr>
+					<th class="col_10">供应商</th>
+					<th class="col_10">联系人</th>
+					<th class="col_10">联系电话</th>
+					<th class="col_20">原料名称</th>
+					<th class="col_10">数目</th>
+					<th class="col_10">单价</th>
+					<th class="col_10">金额</th>
+					<th class="col_10">日期</th>
+					<th class="col_10">备注</th>
+			</tr>
+			<tr>
+				<th class="col_10"><input type="text" id="modify_col1"></th>
+				<th class="col_10"><input type="text" id="modify_col2"></th>
+				<th class="col_10"><input type="text" id="modify_col3"></th>
+				<th class="col_20"><input type="text" id="modify_col4"></th>
+				<th class="col_10"><input type="text" id="modify_col5"></th>
+				<th class="col_10"><input type="text" id="modify_col6"></th>
+				<th class="col_10"><input type="text" id="modify_col7"></th>
+				<th class="col_10"><input type="text" id="modify_col8" onClick="WdatePicker()"></th>
+				<th class="col_10"><input type="text" id="modify_col8"></th>
+			</tr>
+	</table>
+		 <div class="head_row" style="margin-bottom:40px">
+		   <button type="submit" class="btn btn-primary modify_submit">修改</button>
+		</div>
+	</div>
+
+
+		<div class="head_row" id="search_box" style="margin-bottom:40px;display:none">
+			<label for="supplier_name" style="width:180px">请输入供应商名</label>
+			<input type="text" id="supplier_name">
+			<label for="product_name" style="width:180px">或原料名称</label>
+			<input type="text" id="product_name">
+ 		   <button type="submit" class="btn btn-primary" id="find_supplier">查询</button>
+ 		</div>	
+
+
+  </div>
+ 
+ {% endblock %}
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#customer_box").show();	
+		$("#customer_2").addClass('subtitle_focus');
+
+		//修改供应商
+		$(".modify_supplier").click(function(){
+			var id=$(this).attr("id").split("_")[2];
+			$.ajax({
+			  	type : "POST",
+			  	url : "/customer/get_supplierdetails_by_piplineID/",
+			  	data:{'id':id},
+			  	dataType : "json",
+			  	success : function(data) {    
+			  		$("#supplier_modify_box").show();
+			  		$("#modify_col1").val(data[0]);
+			  		$("#modify_col2").val(data[1]);
+			  		$("#modify_col3").val(data[2]);
+			  		$("#modify_col4").val(data[3]);
+			  		$("#modify_col5").val(data[4]);
+			  		$("#modify_col6").val(data[5]);
+			  		$("#modify_col7").val(data[6]);
+			  		$("#modify_col8").val(data[7]);
+			  		$("#modify_col9").val(data[8]);
+					var modify_id="modify_submit_"+data[9];
+					$('.modify_submit').attr("id",modify_id);
+
+
+	              }
+    	    })
+		})
+ 	//修改对账单
+ 		$(".modify_submit").click(function(){
+ 					var id=$(this).attr("id").split("_")[2];
+					var col1=$.trim($("#modify_col1").val());
+					var col2=$.trim($("#modify_col2").val());
+					var col3=$.trim($("#modify_col3").val());
+					var col4=$.trim($("#modify_col4").val());
+					var col5=$.trim($("#modify_col5").val());
+					var col6=$.trim($("#modify_col6").val());
+					var col7=$.trim($("#modify_col7").val());
+					var col8=$.trim($("#modify_col8").val());
+					var col9=$.trim($("#modify_col9").val());
+					$.ajax({
+					  	type : "POST",
+					  	url : "/customer/modify_supplier/",
+					  	data:{'col1':col1,'col2':col2,'col3':col3,'col4':col4,'col5':col5,'col6':col6,'col7':col7,'col8':col8,'col9':col9,'id':id},
+					  	dataType : "json",
+					  	success : function(data) {    
+			                if(data==1){
+			             		alert("修改成功");
+			             		window.location.reload();
+			                }else{
+			                  alert("修改失败："+data.message);
+			                }
+			              }
+	        	    })
+			})
+
+  		$("#search").click(function(){
+			if($("#search_box").is(":visible")){
+				$("#search_box").slideUp(1000);
+			}else{
+				$("#search_box").slideDown(1000);
+			}	
+		})
+
+
+ 		//删除对账单
+		$(".delete_supplier").click(function(){
+			var id=$(this).attr("id").split("_")[2];
+			$.ajax({
+			  	type : "POST",
+			  	url : "/customer/delete_supplier/",
+			  	data:{'id':id},
+			  	dataType : "json",
+			  	success : function(data) {    
+			  		if(data==1){
+			  			alert("删除成功");
+			  			window.location.reload();
+			  		}
+	              }
+    	    })
+		})
+
+ 	//查询对账单	
+		$("#find_supplier").click(function(){
+			var supplier=$.trim($("#supplier_name").val());
+			var material_name=$.trim($("#material_name").val());
+
+			if((material_name=='')&&(supplier=='')){
+				alert("请至少填写供应商和原料中的一个");
+			}else if(supplier!=''){
+				$.ajax({
+                      type : "POST",
+                      url : "/customer/get_supplierID_by_supplier/",
+                      data:{'supplier':supplier},
+                      dataType : "json",
+                      success : function(data){  
+                      		window.location.href='/customer/supplier_search/'+data;
+                      }
+                })
+			}else if(material_name!=''){
+				$.ajax({
+                      type : "POST",
+                      url : "/customer/get_supplierID_by_material/",
+                      data:{'material_name':material_name},
+                      dataType : "json",
+                      success : function(data){  
+                      		window.location.href='/customer/supplier_search/'+data;
+                      }
+                })
+			}
+		})
+
+
+	})</script>
+
+{% endblock %}

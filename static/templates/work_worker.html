@@ -1,0 +1,264 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+{% block head %}
+<link rel="stylesheet" href="{% static "erp/css/work.css" %}">
+{% endblock %}
+
+
+		{% block subtitle %}
+				<div class="line2">
+							员工计件
+				</div>	
+		{% endblock %}
+
+
+ {% block main %}
+ <div class="main" style="overflow:hidden">
+
+   	<table class="worker_table" style="margin-top: 20px;" >
+			<tr>
+				<th class="col_10">姓名</th>
+				<th class="col_20">产品名称</th>
+				<th class="col_10">操作流水</th>
+				<th class="col_10">计件个数</th>
+				<th class="col_10">计件工资</th>
+				<th class="col_10">日期</th>
+				<th class="col_10">备注</th>
+				<th class="col_10">修改</th>
+				<th class="col_10">删除</th>
+			</tr>
+
+{% for key, value in records.items %}
+			<tr>
+				<th class="col_10">{{ value.items.1.1 }}</th>
+				<th class="col_20">{{ value.items.2.1 }}</th>
+				<th class="col_10" id="pipline_step_{{ value.items.10.1 }}">{{ value.items.3.1 }}</th>
+				<th class="col_10">{{ value.items.4.1 }}</th>
+				<th class="col_10">{{ value.items.5.1 }}</th>
+				<th class="col_10">{{ value.items.6.1 }}</th>
+				<th class="col_10">{{ value.items.7.1 }}</th>
+				<th class="col_10"><input type="button" value="修改" class="modify_worker" id="modify_worker_{{ value.items.9.1 }}"></th>
+				<th class="col_10"><input type="button" value="删除" class="delete_worker" id="delete_worker_{{ value.items.9.1 }}"></th>
+			</tr>
+{% endfor %}
+
+	</table>
+
+	<div class="head_row" style="margin-bottom:40px">
+	   <button type="submit" class="btn btn-primary" id="search">查询员工计件</button>
+	</div>
+
+
+
+<!--修改框-->
+	<div class="" id="worker_modify_box" style="display:none">
+		<h2>修改员工计件</h2>
+ 		<table class="worker_table" style="margin-top: 20px;" >
+			<tr>
+				<th class="col_20">姓名</th>
+				<th class="col_20">产品名称</th>
+				<th class="col_10">操作流水</th>
+				<th class="col_10">计件个数</th>
+				<th class="col_10">计件工资</th>
+				<th class="col_10">日期</th>
+				<th class="col_20">备注</th>
+			</tr>
+			<tr>
+				<th class="col_20"><input type="text" id="modify_col1"></th>
+				<th class="col_20"><input type="text" id="modify_col2"></th>
+				<th class="col_10"><input type="text" id="modify_col3" class='modify_pipline_step'></th>
+				<th class="col_10"><input type="text" id="modify_col4"></th>
+				<th class="col_10"><input type="text" id="modify_col5"></th>
+				<th class="col_10"><input type="text" id="modify_col6" onClick="WdatePicker()"></th>
+				<th class="col_20"><input type="text" id="modify_col7"></th>
+			</tr>
+	</table>
+	 <div class="head_row" style="margin-bottom:40px">
+		   <button type="submit" class="btn btn-primary modify_submit">修改</button>
+		</div>
+	</div>
+
+ 		<div class="head_row" id="search_box" style="margin-bottom:40px;display:none">
+			<label for="worker_name" style="width:180px">请输入员工名</label>
+			<input type="text" id="worker_name">
+			<label for="product_name" style="width:180px">或产品名称</label>
+			<input type="text" id="product_name">
+ 		   <button type="submit" class="btn btn-primary" id="find_worker">查询</button>
+ 		</div>	
+
+
+ 		 <div class="pipline_step_pop pop_box">
+ 			<h2>当前选择：</h2>
+ 			 <div class="pop_row">
+ 			 	 	<label for="">材料到货</label>
+ 					<input type="radio" id="" name="pipline_step" value="1"  />
+ 					<label for="">胶印</label>
+ 					<input type="radio" id="" name="pipline_step" value="2"  />
+ 			 		<label for="">过油</label>
+ 					<input type="radio" id="" name="pipline_step" value="3"  />
+  		 	</div>
+  		 	 <div class="pop_row">
+ 			 	 	<label for="">裱瓦楞</label>
+ 					<input type="radio" id="" name="pipline_step" value="4"  />
+ 					<label for="">压痕</label>
+ 					<input type="radio" id="" name="pipline_step" value="5"  />
+ 			 		<label for="">成品</label>
+ 					<input type="radio" id="" name="pipline_step" value="6"  />
+  		 	</div>
+ 		 	 <div class="pop_row">
+   					<label for="">送货数</label>
+ 					<input type="radio" id="" name="pipline_step" value="7"  />
+ 		 	</div>
+ 		 	<button type="submit" class="btn btn-primary" style="float:left;margin-left:100px;margin-top:20px;" id="pipline_step_sure">确定</button>
+ 		</div>
+
+
+  </div>
+ 
+ {% endblock %}
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#work_box").show();	
+		$("#work_2").addClass('subtitle_focus');
+		var pipline_step={'0':"",'1':"材料到货",'2':'胶印','3':'过油','4':"裱瓦楞",'5':"压痕",'6':'成品','7':'送货数'};
+		var pipline_step_r={"":'0',"材料到货":'1','胶印':'2','过油':'3',"裱瓦楞":'4',"压痕":'5','成品':'6','送货数':'7'};
+		var length={{length|safe}};
+		for(var i=1;i<=length;i++){
+			var pipline_num=$.trim($("#pipline_step_"+i).html());
+			$("#pipline_step_"+i).html(pipline_step[pipline_num]);
+			}
+
+		//修改对账单
+		$(".modify_worker").click(function(){
+			var id=$(this).attr("id").split("_")[2];
+			$.ajax({
+			  	type : "POST",
+			  	url : "/work/get_workerdetails_by_ID/",
+			  	data:{'id':id},
+			  	dataType : "json",
+			  	success : function(data) {    
+			  		//console.log(data);
+			  		$("#worker_modify_box").show();
+			  		$("#modify_col1").val(data[0]);
+			  		$("#modify_col2").val(data[1]);
+			  		$("#modify_col3").val(pipline_step[data[2]]);
+			  		$("#modify_col4").val(data[3]);
+			  		$("#modify_col5").val(data[4]);
+			  		$("#modify_col6").val(data[5]);
+			  		$("#modify_col7").val(data[6]);
+					var modify_id="modify_submit_"+data[7];
+					$('.modify_submit').attr("id",modify_id);
+
+	              }
+    	    })
+		})
+
+ 		$(".modify_submit").click(function(){
+			var id=$(this).attr("id").split("_")[2];
+			var col1=$.trim($("#modify_col1").val());
+			var col2=$.trim($("#modify_col2").val());
+			var col3=pipline_step_r[$.trim($("#modify_col3").val())];	
+			var col4=$.trim($("#modify_col4").val());
+			var col5=$.trim($("#modify_col5").val());
+			var col6=$.trim($("#modify_col6").val());
+			var col7=$.trim($("#modify_col7").val());
+			$.ajax({
+			  	type : "POST",
+			  	url : "/work/modify_worker/",
+			  	data:{'col1':col1,'col2':col2,'col3':col3,'col4':col4,'col5':col5,'col6':col6,'col7':col7,'id':id},
+			  	dataType : "json",
+			  	success : function(data) {    
+	                if(data==1){
+	             		alert("修改成功");
+	             		window.location.reload();
+	                }else{
+	                  alert("修改失败："+data.message);
+	                }
+
+
+	              }
+    	    })
+	})
+
+ 		//删除
+
+ 			$(".delete_worker").click(function(){
+		var id=$(this).attr("id").split("_")[2];
+		$.ajax({
+		  	type : "POST",
+		  	url : "/work/delete_worker/",
+		  	data:{'id':id},
+		  	dataType : "json",
+		  	success : function(data) {    
+                if(data==1){
+             		alert("删除成功");
+             		window.location.reload();
+                }else{
+                  alert("删除失败："+data.message);
+                }
+              }
+	    })
+
+	})
+
+
+ 	 	//查询对账单	
+		$("#find_worker").click(function(){
+			var worker_name=$("#worker_name").val();
+			var product_name=$.trim($("#product_name").val());
+
+			if((product_name=='')&&(worker_name=='')){
+				alert("请至少填写产品和员工中的一个");
+			}else if(worker_name!=''){
+				$.ajax({
+                      type : "POST",
+                      url : "/work/get_workerID_by_worker/",
+                      data:{'worker_name':worker_name},
+                      dataType : "json",
+                      success : function(data){  
+                      		window.location.href='/work/worker/'+data;
+                      }
+                })
+			}else if(product_name!=''){
+				$.ajax({
+                      type : "POST",
+                      url : "/work/get_workerID_by_product/",
+                      data:{'product_name':product_name},
+                      dataType : "json",
+                      success : function(data){  
+                      		window.location.href='/work/worker/'+data;
+                      }
+                })
+			}
+		})
+
+		$("#search").click(function(){
+			if($("#search_box").is(":visible")){
+				$("#search_box").slideUp(1000);
+			}else{
+				$("#search_box").slideDown(1000);
+			}	
+		})
+
+		 //pop kuang
+ 		$(".modify_pipline_step").focus(function(){
+ 			$(".blocklayer").show();
+ 			$(".pipline_step_pop").show();
+ 			$("#pipline_step_sure").click(function(){
+ 				var num = $("input[type=radio][name=pipline_step]:checked").val();
+ 				console.log(num);
+ 				$("#modify_col3").val(pipline_step[num]);
+ 				$(".pop_box").hide();
+ 				$(".blocklayer").hide();
+ 			})
+
+  		})
+
+
+
+	})</script>
+
+{% endblock %}

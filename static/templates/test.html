@@ -1,0 +1,134 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+
+
+ {% block content %}
+	<h2>上传文件test</h2>
+ <form method="post" enctype="multipart/form-data" action='/upload/'>
+{{uf.as_p}}
+<input type="submit" value="ok"/>
+</form>
+    <h2>#####################################################################</h2>
+ 	<h1>测试页</h1>
+ 	<h2>单号或者扫码查询得到施工单信息</h2>
+ 	<input type="text" id="productID">
+ 	<input type="button" id="get_process_info" value="扫描">
+ 	<div id="content_1" style="width:800px;height:200px;border:solid 1px;margin-left:100px;">
+ 		
+ 	</div>
+ 	<h2>提交输入员工计件信息</h2><br>员工ID
+ 	<input type="text" id="workerID"><br>员工姓名
+ 	<input type="text" id="worker_name"><br>产品ID
+ 	<input type="text" id="productID2"><br>产品名称
+ 	<input type="text" id="product_name"><br>操作项目
+ 	<input type="text" id="pipline_step"><br>操作数目
+ 	<input type="text" id="count"><br>备注
+  	<input type="text" id="notes"><br>
+ 	 <input type="button" id="submit_worker_count" value="提交">
+  	<div id="content_2" style="margin-left:100px;width:800px;height:200px;border:solid 1px;">
+ 	</div>
+ 	<h2>移动端登录</h2><br>手机号
+ 	<input type="text" id="phone"><br>密码
+ 	<input type="password" id="password"><br>
+ 	<input type="button" id="login_in" value="登录">
+ 	<div id="content_3" style="width:800px;height:200px;border:solid 1px;margin-left:100px;">		
+ 	</div>
+ 	<h2>密码修改</h2><br>手机号
+ 	<input type="text" id="phone2"><br>旧密码
+ 	<input type="password" id="old_password"><br>新密码
+ 	<input type="password" id="new_password"><br>确认密码
+  	<input type="password" id="new_password2"><br>
+ 	<input type="button" id="modify_password" value="修改">
+ 	<div id="content_4" style="width:800px;height:200px;border:solid 1px;margin-left:100px;">		
+ 	</div>
+
+ {% endblock %}
+
+ {% block footer %} 
+ {% endblock %}
+
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#get_process_info").click(function(){
+			var productID=$("#productID").val();
+			$.ajax({
+				  	type : "POST",
+				  	url : "/get_process_info/",
+				  	data:{'productID':productID},
+				  	dataType : "json",
+				  	success : function(data) {    
+		             	console.log(data);
+		             	var html="施工单号："+data[0]+'<br/>产品名称：'+data[1]+'<br/>客户名：'+data[2]+'<br/>数目：'+data[3]+'<br/>开单时间：'+data[4]+'<br/>交货时间：'+data[5];
+		       			console.log(html);
+		             	$("#content_1").html(html);
+		              }
+	    	    })
+
+		})
+
+		$("#get_process_info").click(function(){
+			var productID=$("#productID").val();
+			$.ajax({
+				  	type : "POST",
+				  	url : "/get_process_info/",
+				  	data:{'productID':productID},
+				  	dataType : "json",
+				  	success : function(data) {    
+		             	console.log(data);
+		             	var html="施工单号："+data[0]+'<br/>产品名称：'+data[1]+'<br/>客户名：'+data[2]+'<br/>数目：'+data[3]+'<br/>开单时间：'+data[4]+'<br/>交货时间：'+data[5];
+		       			console.log(html);
+		             	$("#content_2").html(html);
+		              }
+	    	    })
+
+		})
+
+		$("#login_in").click(function(){
+				var phone=$("#phone").val();
+				var password=$("#password").val();	
+				var password_md5=hex_md5(password);	
+				$.ajax({
+				  	type : "POST",
+				  	url : "/login_in/",
+				  	data:{'phone':phone,'password':password_md5},
+				  	dataType : "json",
+				  	success : function(data) {    
+		             	console.log(data);
+		             	var html="手机号："+data[1]+'<br/>昵称：'+data[2]+'<br/>角色：'+data[3]+'<br/>部门：'+data[4];
+		       			console.log(html);
+		             	$("#content_3").html(html);
+		              }
+	    	    })
+
+		})
+
+		$("#modify_password").click(function(){
+				var phone=$("#phone2").val();
+				var old_password=$("#old_password").val();
+				var new_password=$("#new_password").val();	
+				var old_password_md5=hex_md5(old_password);	
+				var new_password_md5=hex_md5(new_password);	
+				$.ajax({
+				  	type : "POST",
+				  	url : "/modify_password/",
+				  	data:{'phone':phone,'old_password':old_password_md5,'new_password':new_password_md5},
+				  	dataType : "json",
+				  	success : function(data) {    
+		             	console.log(data);
+		             	$("#content_4").html(data);
+		              }
+	    	    })
+
+		})
+
+		
+
+	
+	})</script>
+
+
+{% endblock %}
+

@@ -1,0 +1,60 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+{% block head %}
+<link rel="stylesheet" href="{% static "erp/css/work.css" %}">
+{% endblock %}
+
+
+		{% block subtitle %}
+					<h1>历史记录</h1>		
+		{% endblock %}
+
+
+ {% block main %}
+ <div class="main" style="overflow:hidden">
+
+	<table class="history_box">
+ 		<tr class="row">
+		  <th class="col-md-2">产品ID：</th>
+		  <th class="col-md-2">流水线ID：</th>
+		  <th class="col-md-2">产品名称：</th>
+		  <th class="col-md-1">胶印</th>
+		  <th class="col-md-1">过油</th>
+		  <th class="col-md-1">裱瓦楞</th>
+		  <th class="col-md-1">压痕</th>
+		  <th class="col-md-1">成品</th>
+		  <th class="col-md-1">送货数</th>
+		</th>
+
+{% for key, value in records.items %}
+
+		<tr class="row">
+			<td  class="col-md-2">
+				<a href="/work/tracking/{{ value.items.0.1 }}">{{ value.items.0.1 }}</a>	
+			</td>
+		  <td class="col-md-2">{{ value.items.1.1 }}</td>
+		  <td class="col-md-2">{{ value.items.2.1 }}</td>
+		  <td class="col-md-1">{{ value.items.3.1 }}</td>
+		  <td class="col-md-1">{{ value.items.4.1 }}</td>
+		  <td class="col-md-1">{{ value.items.5.1 }}</td>
+		  <td class="col-md-1">{{ value.items.6.1 }}</td>
+		  <td class="col-md-1">{{ value.items.7.1 }}</td>
+		  <td class="col-md-1">{{ value.items.8.1 }}</td>
+		</tr>
+{% endfor %}
+
+	</table>
+
+  </div>
+ 
+ {% endblock %}
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#work_box").show();	
+
+	})</script>
+
+{% endblock %}

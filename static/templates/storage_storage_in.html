@@ -1,0 +1,110 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+{% block head %}
+<link rel="stylesheet" href="{% static "erp/css/storage.css" %}">
+{% endblock %}
+
+
+		{% block subtitle %}
+				<div class="line2">
+							入库单
+				</div>	
+	
+		{% endblock %}
+
+ {% block main %}
+ <div class="main" style="overflow:hidden">
+
+ 	 	<div class="head_row">
+ 			鄞州联城包装彩印有限公司入库单列表
+ 		</div>
+ 	
+<table class="storage_table" style="margin-top:20px">
+		<tr>
+			<th class="col_10">入库单号</th>
+			<th class="col_20">名称</th>
+			<th class="col_10">产生时间</th>
+			<th class="col_20">买入单位</th>
+			<th class="col_10">数量</th>
+			<th class="col_10">金额</th>
+			<th class="col_10">修改</th>
+			<th class="col_10">删除</th>
+		</tr>
+		{% for key, value in records.items %}
+		<tr>
+			<th class="col_10"><a href="/storage/storage_in/{{ value.items.0.1 }}">{{ value.items.0.1 }}</a></th>
+			<th class="col_20">{{ value.items.1.1 }}</th>
+			<th class="col_10">{{ value.items.2.1 }}</th>
+			<th class="col_20">{{ value.items.3.1 }}</th>
+			<th class="col_10">{{ value.items.4.1 }}</th>
+			<th class="col_10">{{ value.items.5.1 }}</th>
+			<th class="col_10"><a href="/storage/storage_in/{{ value.items.0.1 }}">修改</a></th>
+			<th class="col_10"><a href="/storage/storage_in/{{ value.items.0.1 }}">删除</a></th>
+		</tr>
+
+{% endfor %}
+
+	</table>
+
+	 		<div class="head_row" style="margin-bottom:40px">
+ 		   <button type="submit" class="btn btn-primary" id="new">新建入库单</button>
+ 		   <button type="submit" class="btn btn-primary" id="search">查询入库单</button>
+ 		</div>
+
+ 		<div class="head_row" id="search_box" style="margin-bottom:40px;display:none">
+ 			<label for="material_name">原料名称</label>
+ 			<input type="text" id="material_name" />
+ 		   <button type="submit" class="btn btn-primary" id="find_storage_in">查询</button>
+ 		</div>	
+
+
+  </div>
+ 
+ {% endblock %}
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#storage_box").show();
+		$("#storage_2").addClass('subtitle_focus');
+
+	
+
+		$("#new").click(function(){
+			window.location.href="/storage/storage_in/new/";
+		})
+
+		$("#search").click(function(){
+			if($("#search_box").is(":visible")){
+				$("#search_box").slideUp(1000);
+			}else{
+				$("#search_box").slideDown(1000);
+			}	
+		})
+
+		$("#find_storage_in").click(function(){
+			var material_name=$.trim($("#material_name").val());
+
+			if((material_name=='')){
+				alert("请至少填写原料名");
+			}else{
+				$.ajax({
+                      type : "POST",
+                      url : "/storage/get_storage_inID_by_product/",
+                      data:{'material_name':material_name},
+                      dataType : "json",
+                      success : function(data){  
+                      		window.location.href='/storage/storage_in/'+data;
+                      }
+                })
+			}
+		})
+
+
+
+
+
+	})</script>
+
+{% endblock %}

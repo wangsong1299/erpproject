@@ -1,0 +1,256 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "erp/css/sales.css" %}">
+{% endblock %}
+
+
+			{% block inner_header %}
+					
+			{% endblock %}			
+
+ {% block main %}
+ <div class="main" style="overflow:hidden">
+ 		<div class="line2">
+							销售：报价单
+				</div>	
+ 		<div class="head_row">
+ 			<label for="customer_name">客户名</label>
+ 			<input type="text" id="customer_name" value={{ records.0}} />
+ 			<label for="product_name">产品名称</label>
+ 			<input type="text" id="product_name" value={{ records.1}} />
+ 			<label for="create_time">日期</label>
+ 			<input type="text" id="create_time" onClick="WdatePicker()"/>
+ 		</div>
+ 		<div class="head_row">
+ 			<label for="contacts">联系人</label>
+ 			<input type="text" id="contacts" value={{ records.3}} />
+ 			<label for="contacts_phone">联系电话</label>
+ 			<input type="text" id="contacts_phone" value={{ records.4}} />
+ 		</div>
+
+	<table class="quotation_table">
+		<tr>
+			<th class="col_1">报价项</th>
+			<th class="col_2">报价内容</th>
+			<th class="col_3">报价价格</th>
+		</tr>
+		<tr>
+			<td class="col_1">所用材料</td>
+			<td class="col_2"> <input type="text" id="material" value={{ records.18}} ></td>
+			<td class="col_3"> <input type="text" id="material_price" value={{ records.5}} ></td>
+		</tr>
+		<tr>
+			<td class="col_1">尺寸</td>
+			<td class="col_2"> 
+				<label for="size">104以内</label><input type="radio" name="size" value="1">
+				<label for="size">120以内</label><input type="radio" name="size" value="2">
+			</td>
+			<td class="col_3"><input type="text" id="size_price" value={{ records.6}} ></td>
+		</tr>
+		<tr>
+			<td class="col_1">瓦楞用料</td>
+			<td class="col_2"> <input type="text" id="wl_material" value={{ records.20}} ></td>
+			<td class="col_3"> <input type="text" id="wl_material_price" value={{ records.7}} ></td>
+		</tr>
+		<tr>
+			<td class="col_1">数目</td>
+			<td class="col_2">
+				<label for="amount">0-500</label><input type="radio" name="amount" value="1">
+				<label for="amount">500-1000</label><input type="radio" name="amount" value="2">
+				<label for="amount">1000-3000</label><input type="radio" name="amount" value="3">
+				<label for="amount">3000-6000</label><input type="radio" name="amount" value="4">
+				<label for="amount">6000以上</label><input type="radio" name="amount" value="5">
+			</td>
+			<td class="col_3"> <input type="text" id="amount_price" value={{ records.8}} ></td>
+		</tr>
+		<tr>
+			<td class="col_1">印刷费</td>
+			<td class="col_2"> <input type="text" id="print_fee" value={{ records.22}} ></td>
+			<td class="col_3"> <input type="text" id="print_fee_price" value={{ records.9}} ></td>
+		</tr>
+		<tr>
+			<td class="col_1">印刷色数</td>
+			<td class="col_2"> <input type="text" id="print_color" value={{ records.23}}></td>
+			<td class="col_3"> <input type="text" id="print_color_price" value={{ records.10}} ></td>
+		</tr>
+		<tr>
+			<td class="col_1">印刷配件</td>
+			<td class="col_2"> <input type="text" id="print_parts" value={{ records.24}}></td>
+			<td class="col_3"> <input type="text" id="print_parts_price"value={{ records.11}} ></td>
+		</tr>
+		<tr>
+			<td class="col_1">表面处理</td>
+			<td class="col_2">
+				<label for="surface">腹膜</label><input type="radio" name="surface" value="1">
+				<label for="surface">上光</label><input type="radio" name="surface" value="2">
+				<label for="surface">UV</label><input type="radio" name="surface" value="3">
+				<label for="surface">吸塑</label><input type="radio" name="surface" value="4">
+				<label for="surface">其他</label><input type="radio" name="surface" value="5">
+			</td>
+			<td class="col_3"> <input type="text" id="surface_price" value={{ records.12}}></td>
+		</tr>
+		<tr>
+			<td class="col_1">烫金</td>
+			<td class="col_2"> <input type="text" id="tangjin" value={{ records.26}}></td>
+			<td class="col_3"> <input type="text" id="tangjin_price" value={{ records.13}}></td>
+		</tr>
+		<tr>
+			<td class="col_1">撒粉</td>
+			<td class="col_2"> <input type="text" id="safen" value={{ records.27}}></td>
+			<td class="col_3"> <input type="text" id="safen_price" value={{ records.14}}></td>
+		</tr>
+		<tr>
+			<td class="col_1">外箱</td>
+			<td class="col_2"> <input type="text" id="packing_box" value={{ records.28}}></td>
+			<td class="col_3"> <input type="text" id="packing_box_price" value={{ records.15}}></td>
+		</tr>
+		<tr>
+			<td class="col_1">包装费</td>
+			<td class="col_2"> <input type="text" id="packing_fee" value={{ records.29}}></td>
+			<td class="col_3"> <input type="text" id="packing_fee_price" value={{ records.16}}></td>
+		</tr>
+		<tr>
+			<td class="col_1">运费</td>
+			<td class="col_2"> <input type="text" id="transportation_fee" value={{ records.30}}></td>
+			<td class="col_3"> <input type="text" id="transportation_fee_price" value={{ records.17}}></td>
+		</tr>
+	</table>
+
+ 		<div class="head_row">
+ 			<label class="col_1">合计</label>
+ 			<input type="text" id="total_fee" value={{ records.31}}>
+ 		</div>
+
+ 		<div class="head_row" style="margin-bottom:40px">
+ 		   <button type="submit" class="btn btn-primary" id="delete">删除</button>
+ 		   <button type="submit" class="btn btn-primary" id="modify">修改</button>
+ 		   <button type="submit" class="btn btn-primary" id="print" onclick="javascript:window.print()" />打印</button>
+ 		</div>
+  </div>
+  <OBJECT classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2" height="0" id="wb" name="wb" width="0">
+        </OBJECT>
+ {% endblock %}
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#sales_box").show();	
+		$("#quotation").addClass('subtitle_focus');
+		
+		var date=new Date();
+		var newdate= date.getFullYear()+'-'+(parseInt(date.getMonth())+1)+'-'+date.getDate();
+		$("#create_time").val(newdate);
+
+
+		var c={{choice|safe}};
+		var id=c[3];
+		$("input[name=size]").each(function(a,b){
+                if($(b).val()==c[0]){//判断值
+                    $(b).attr("checked",true);
+                }
+		});
+		$("input[name=amount]").each(function(a,b){
+                if($(b).val()==c[1]){//判断值
+                    $(b).attr("checked",true);
+                }
+		});
+		$("input[name=surface]").each(function(a,b){
+                if($(b).val()==c[2]){//判断值
+                    $(b).attr("checked",true);
+                }
+		});
+
+		$("#delete").click(function(){
+			$.ajax({
+              type : "POST",
+              url : "/sales/delete_quotation/",
+              data:{'id':id},
+              dataType : "json",
+              success : function(data) {    
+                if(data==1){
+                	alert("删除成功");
+                   	window.location.href='/sales/quotation/';
+                }else{
+                  alert("删除失败:"+data.message);
+                }
+              }
+         })
+		})
+
+     	var href =window.location.href.split("/")[5];
+		//show页
+		var quotation_show={{ quotation_show }};
+		if(quotation_show){
+			$('input').attr('disabled',true);
+			$('#modify').click(function(){
+				window.location.href='/sales/quotation_modify/'+href;
+			})
+		}
+
+		//modify页
+		var quotation_modify={{ quotation_modify }};
+		if(quotation_modify){
+			$('#print').attr('disabled',true);
+			$('#modify').html('确认修改');
+			$("#modify").click(function(){
+				var total_fee=$("#total_fee").val();
+				var customer=$.trim($("#customer_name").val());
+				var product_name=$.trim($("#product_name").val());
+				var create_time=$.trim($("#create_time").val());
+				var contacts=$.trim($("#contacts").val());
+				var contacts_phone=$.trim($("#contacts_phone").val());
+
+				var material_price=$.trim($("#material_price").val());
+				var size_price=$.trim($("#size_price").val());
+				var wl_material_price=$.trim($("#wl_material_price").val());
+				var amount_price=$.trim($("#amount_price").val());
+				var print_fee_price=$.trim($("#print_fee_price").val());
+				var print_color_price=$.trim($("#print_color_price").val());
+				var print_parts_price=$.trim($("#print_parts_price").val());
+				var surface_price=$.trim($("#surface_price").val());
+				var tangjin_price=$.trim($("#tangjin_price").val());
+				var safen_price=$.trim($("#safen_price").val());
+				var packing_box_price=$.trim($("#packing_box_price").val());
+				var packing_fee_price=$.trim($("#packing_fee_price").val());
+				var transportation_fee_price=$.trim($("#transportation_fee_price").val());
+
+				var material=$.trim($("#material").val());
+				var size=$.trim($("input[name='size']:checked").val());
+				var wl_material=$.trim($("#wl_material").val());
+				var amount=$.trim($("input[name='amount']:checked").val());
+				var print_fee=$.trim($("#print_fee").val());
+				var print_color=$.trim($("#print_color").val());
+				var print_parts=$.trim($("#print_parts").val());
+				var surface=$.trim($("input[name='surface']:checked").val());
+				var tangjin=$.trim($("#tangjin").val());
+				var safen=$.trim($("#safen").val());
+				var packing_box=$.trim($("#packing_box").val());
+				var packing_fee=$.trim($("#packing_fee").val());
+				var transportation_fee=$.trim($("#transportation_fee").val());
+
+			  $.ajax({
+                  type : "POST",
+                  url : "/sales/modify_quotation/",
+                  data:{'id':id,'total_fee':total_fee,'customer':customer,'product_name':product_name,'create_time':create_time,'contacts':contacts,'contacts_phone':contacts_phone,'material_price':material_price,'size_price':size_price,'wl_material_price':wl_material_price,'amount_price':amount_price,'print_fee_price':print_fee_price,'print_color_price':print_color_price,'print_parts_price':print_parts_price,'surface_price':surface_price,'tangjin_price':tangjin_price,'safen_price':safen_price,'packing_box_price':packing_box_price,'packing_fee_price':packing_fee_price,'transportation_fee_price':transportation_fee_price,'material':material,'size':size,'wl_material':wl_material,'amount':amount,'print_fee':print_fee,'print_color':print_color,'print_parts':print_parts,'surface':surface,'tangjin':tangjin,'safen':safen,'packing_box':packing_box,'packing_fee':packing_fee,'transportation_fee':transportation_fee},
+                  dataType : "json",
+                  success : function(data) {    
+                    if(data==1){
+                    	alert("修改成功");
+                       window.location.href='/sales/quotation/';
+                    }else{
+                      alert("修改失败:"+data.message);
+                    }
+                  }
+             })
+				
+			})			
+		}
+
+
+
+	})</script>
+
+{% endblock %}

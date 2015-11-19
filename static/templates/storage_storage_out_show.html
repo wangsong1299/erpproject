@@ -1,0 +1,145 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+{% block head %}
+<link rel="stylesheet" href="{% static "erp/css/storage.css" %}">
+{% endblock %}
+
+
+		{% block subtitle %}
+				<div class="line2">
+							出库单
+				</div>	
+	
+		{% endblock %}
+
+ {% block main %}
+ <div class="main" style="overflow:hidden">
+
+ 	 	<div class="head_row">
+ 			鄞州联城包装彩印有限公司出库单
+ 		</div>
+ 		<div class="head_row">
+ 			<label for="storage_out_id">出库单号</label>
+ 			<input type="text" id="storage_out_id" value="{{records.0.8}}"> 	
+ 		</div>
+
+ 		 <div class="head_row">
+ 			<label for="create_time">日期</label>
+ 			<input type="text" id="create_time" style="width:250px" value="{{records.0.9}}">
+ 			<label for="supplier">单位或姓名</label>
+ 			<input type="text" id="customer_name" value="{{records.0.10}}">
+ 		</div>
+
+<table class="storage_table" style="margin-top:20px">
+		<tr>
+			<th class="col_10">名称</th>
+			<th class="col_10">规格</th>
+			<th class="col_20">单位</th>
+			<th class="col_10">数量</th>
+			<th class="col_10">单价</th>
+			<th class="col_10">金额</th>
+			<th class="col_10">备注</th>
+			<th class="col_10">修改</th>
+			<th class="col_10">删除</th>
+		</tr>
+		{% for key, value in records.items %}
+
+		<tr>
+			<th class="col_10"><input type="text" id="material_name_{{value.items.0.1}}" value="{{value.items.1.1}}"></th>
+			<th class="col_10"><input type="text" id="size_{{value.items.0.1}}" value="{{value.items.2.1}}"></th>
+			<th class="col_20"><input type="text" id="buyer_{{value.items.0.1}}" value="{{value.items.3.1}}"></th>
+			<th class="col_10"><input type="text" id="amount_{{value.items.0.1}}" value="{{value.items.4.1}}"></th>
+			<th class="col_10"><input type="text" id="price_{{value.items.0.1}}" value="{{value.items.5.1}}"></th>
+			<th class="col_10"><input type="text" id="total_fee_{{value.items.0.1}}" value="{{value.items.6.1}}"></th>
+			<th class="col_10"><input type="text" id="notes_{{value.items.0.1}}" value="{{value.items.7.1}}"></th>
+			<th class="col_10"><input type="button" id="modify_{{value.items.0.1}}" name="modify_{{value.items.14.1}}" class="modify" value="修改"></th>
+			<th class="col_10"><input type="button" id="delete_{{value.items.14.1}}" class="delete" value="删除"></th>
+		</tr>
+
+{% endfor %}
+
+	</table>
+<table class="storage_table">
+		<tr>
+			<th class="col_20">合计金额（大写）</th>
+			<th class="col_80"><input type="text" id="total_fee_sum" value="{{records.0.11}}"></th>
+</table>
+ 		 <div class="head_row">
+ 			<label for="deliveryman">保管员</label>
+ 			<input type="text" id="deliveryman" style="width:250px" value="{{records.0.12}}"/>
+ 			<label for="storeman">单位或姓名</label>
+ 			<input type="text" id="storeman" style="width:250px" value="{{records.0.13}}" />
+ 		</div>
+
+
+  </div>
+ 
+ {% endblock %}
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#storage_box").show();	
+		$("#storage_3").addClass('subtitle_focus');
+
+
+		$("#storage_out_new").click(function(){
+			window.location.href="/storage/storage_out/new/";
+		})
+
+		$(".modify").click(function(){
+			var num = $(this).attr("id").split("_")[1];
+			var id = $(this).attr("name").split("_")[1];
+			var storage_out_id=$("#storage_out_id").val();
+			var create_time=$("#create_time").val();
+			var customer=$("#customer_name").val();
+			var total_fee_sum=$("#total_fee_sum").val();
+			var deliveryman=$("#deliveryman").val();
+			var storeman=$("#storeman").val();
+			var material_name=$("#material_name_"+num).val();
+			var size=$("#size_"+num).val();
+			var buyer=$("#buyer_"+num).val();
+			var amount=$("#amount_"+num).val();
+			var price=$("#price_"+num).val();
+			var total_fee=$("#total_fee_"+num).val();
+			var notes=$("#notes_"+num).val();
+				$.ajax({
+				  	type : "POST",
+				  	url : "/storage/modify_storage_out/",
+				  	data:{'storage_out_id':storage_out_id,'create_time':create_time,'customer':customer,'total_fee_sum':total_fee_sum,'deliveryman':deliveryman,'storeman':storeman,'material_name':material_name,'size':size,'buyer':buyer,'amount':amount,'price':price,'total_fee':total_fee,'notes':notes,'id':id},
+				  	dataType : "json",
+				  	success : function(data){    
+		                if(data==1){
+		                	alert("修改成功");
+		                   window.location.reload();
+		                }else{
+		                  alert("修改失败:"+data.message);
+		                }
+		              }
+		          })
+
+		})
+
+ 		 $(".delete").click(function(){
+ 		 	var id=$(this).attr("id").split("_")[1];
+			$.ajax({
+              type : "POST",
+              url : "/storage/delete_storage_out/",
+              data:{'id':id},
+              dataType : "json",
+              success : function(data) {    
+                if(data==1){
+                	alert("删除成功");
+                   	window.location.href='/storage/storage_out/';
+                }else{
+                  alert("删除失败:"+data.message);
+                }
+              }
+         })
+		})
+
+
+	})</script>
+
+{% endblock %}

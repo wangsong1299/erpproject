@@ -1,0 +1,267 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+{% block head %}
+<link rel="stylesheet" href="{% static "erp/css/work.css" %}">
+{% endblock %}
+
+
+		{% block subtitle %}
+				<div class="line2">
+							产品追踪(查询结果页)
+				</div>	
+		{% endblock %}
+
+
+ {% block main %}
+ <div class="main" style="overflow:hidden">
+
+	   	<table class="tracking_table" style="margin-top: 20px;" id="tracking_table_one" >
+				<tr>
+					<th class="col_10">产品名称</th>
+					<th class="col_10">客户名</th>
+					<th class="col_10">状态</th>
+					<th class="col_10">当前流水</th>
+					<th class="col_10">完成率</th>
+					<th class="col_10">开始时间</th>
+					<th class="col_10">交付时间</th>
+					<th class="col_10">备注</th>
+					<th class="col_10">修改</th>
+					<th class="col_10">删除</th>
+				</tr>
+
+	{% for key, value in records.items %}
+				<tr>
+					<th class="col_10">{{ value.items.0.1 }}</th>
+					<th class="col_10">{{ value.items.1.1 }}</th>
+					<th class="col_10" id="state_{{ value.items.9.1 }}">{{ value.items.2.1 }}</th>
+					<th class="col_10" id="pipline_step_{{ value.items.9.1 }}">{{ value.items.3.1 }}</th>
+					<th class="col_10" id="finish_percent_{{ value.items.9.1 }}"></th>
+					<th class="col_10">{{ value.items.4.1 }}</th>
+					<th class="col_10">{{ value.items.5.1 }}</th>
+					<th class="col_10">{{ value.items.6.1 }}</th>
+					<th class="col_10"><input type="button" value="修改" class="modify_tracking" id="modify_tracking_{{ value.items.8.1 }}"></th>
+					<th class="col_10"><input type="button" value="删除" class="delete_tracking" id="delete_tracking_{{ value.items.8.1 }}"></th>
+				</tr>
+
+	{% endfor %}
+
+		</table>
+
+<!--修改框-->
+	<div class="" id="tracking_modify_box" style="display:none">
+		<h2>修改追踪单</h2>
+ 		<table class="tracking_table" style="margin-top: 20px;" >
+			<tr>
+				<th class="col_20">产品名称</th>
+				<th class="col_20">客户名</th>
+				<th class="col_10">状态</th>
+				<th class="col_10">当前流水</th>
+				<th class="col_10">完成率</th>
+				<th class="col_10">开始时间</th>
+				<th class="col_10">交付时间</th>
+				<th class="col_10">备注</th>
+			</tr>
+			<tr>
+				<th class="col_10"><input type="text" id="modify_col1"></th>
+				<th class="col_10"><input type="text" id="modify_col2"></th>
+				<th class="col_10"><input type="text" id="modify_col3" class="modify_state"></th>
+				<th class="col_10"><input type="text" id="modify_col4" class="modify_pipline_step"></th>
+				<th class="col_10"><input type="text" id="modify_col5"></th>
+				<th class="col_10"><input type="text" id="modify_col6" onClick="WdatePicker()"></th>
+				<th class="col_10"><input type="text" id="modify_col7" onClick="WdatePicker()"></th>
+				<th class="col_10"><input type="text" id="modify_col8"></th>
+			</tr>
+	</table>
+		 <div class="head_row" style="margin-bottom:40px">
+		   <button type="submit" class="btn btn-primary modify_submit">修改</button>
+		</div>
+	</div>
+
+ 		<div class="state_pop pop_box">
+ 			<h2>状态选择：</h2>
+ 			 <div class="pop_row">
+ 			 	 	<label for="">未开始</label>
+ 					<input type="radio" id="" name="state" value="1"  />
+ 					<label for="">进行中</label>
+ 					<input type="radio" id="" name="state" value="2"  />
+  		 	</div>
+ 		 	 <div class="pop_row">
+   					<label for="">已完成</label>
+ 					<input type="radio" id="" name="state" value="3"  />
+ 		 	</div>
+ 		 	<button type="submit" class="btn btn-primary" style="float:left;margin-left:100px;margin-top:20px;" id="state_sure">确定</button>
+ 		</div>
+
+ 		 <div class="pipline_step_pop pop_box">
+ 			<h2>当前选择：</h2>
+ 			 <div class="pop_row">
+ 			 	 	<label for="">材料到货</label>
+ 					<input type="radio" id="" name="pipline_step" value="1"  />
+ 					<label for="">胶印</label>
+ 					<input type="radio" id="" name="pipline_step" value="2"  />
+ 			 		<label for="">过油</label>
+ 					<input type="radio" id="" name="pipline_step" value="3"  />
+  		 	</div>
+  		 	 <div class="pop_row">
+ 			 	 	<label for="">裱瓦楞</label>
+ 					<input type="radio" id="" name="pipline_step" value="4"  />
+ 					<label for="">压痕</label>
+ 					<input type="radio" id="" name="pipline_step" value="5"  />
+ 			 		<label for="">成品</label>
+ 					<input type="radio" id="" name="pipline_step" value="6"  />
+  		 	</div>
+ 		 	 <div class="pop_row">
+   					<label for="">送货数</label>
+ 					<input type="radio" id="" name="pipline_step" value="7"  />
+ 		 	</div>
+ 		 	<button type="submit" class="btn btn-primary" style="float:left;margin-left:100px;margin-top:20px;" id="pipline_step_sure">确定</button>
+ 		</div>
+
+
+  </div>
+ 
+ {% endblock %}
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#work_box").show();
+		$("#work_1").addClass('subtitle_focus');
+
+		var state={'0':"未开始",'1':"进行中",'2':'已完成'};
+		var pipline_step={'0':"",'1':"材料到货",'2':'胶印','3':'过油','4':"裱瓦楞",'5':"压痕",'6':'成品','7':'送货数'};
+		var state_r={"未开始":'0',"进行中":'1','已完成':'2'};
+		var pipline_step_r={"":'0',"材料到货":'1','胶印':'2','过油':'3',"裱瓦楞":'4',"压痕":'5','成品':'6','送货数':'7'};
+		var length=1;
+		for(var i=1;i<=length;i++){
+			var state_num=$.trim($("#state_"+i).html());
+			$("#state_"+i).html(state[state_num]);
+			var pipline_num=$.trim($("#pipline_step_"+i).html());
+			$("#pipline_step_"+i).html(pipline_step[pipline_num]);
+			var finish_percent=String(pipline_num)+'/7';
+			$("#finish_percent_"+i).html(finish_percent);
+			}
+
+		//修改对账单
+		$(".modify_tracking").click(function(){
+			var id=$(this).attr("id").split("_")[2];
+			$.ajax({
+			  	type : "POST",
+			  	url : "/work/get_details_by_ID/",
+			  	data:{'id':id},
+			  	dataType : "json",
+			  	success : function(data) {    
+			  		//console.log(data);
+			  		$("#tracking_modify_box").show();
+			  		$("#tracking_table_one").hide();
+			  		$("#modify_col1").val(data[0]);
+			  		$("#modify_col2").val(data[1]);
+			  		$("#modify_col3").val(state[data[2]]);
+			  		$("#modify_col4").val(pipline_step[data[3]]);
+			  		var finish_percent=String(data[3])+'/7';
+			  		$("#modify_col5").val(finish_percent);
+			  		$("#modify_col6").val(data[4]);
+			  		$("#modify_col7").val(data[5]);
+			  		$("#modify_col8").val(data[6]);
+					var modify_id="modify_submit_"+data[8];
+					$('.modify_submit').attr("id",modify_id);
+
+	              }
+    	    })
+		})
+ 	//修改对账单
+ 		$(".modify_submit").click(function(){
+ 					var id=$(this).attr("id").split("_")[2];
+					var col1=$.trim($("#modify_col1").val());
+					var col2=$.trim($("#modify_col2").val());
+					var col3=state_r[$.trim($("#modify_col3").val())];
+					var col4=pipline_step_r[$.trim($("#modify_col4").val())];			
+					var col6=$.trim($("#modify_col6").val());
+					var col7=$.trim($("#modify_col7").val());
+					var col8=$.trim($("#modify_col8").val());
+					$.ajax({
+					  	type : "POST",
+					  	url : "/work/modify_tracking/",
+					  	data:{'col1':col1,'col2':col2,'col3':col3,'col4':col4,'col6':col6,'col7':col7,'col8':col8,'id':id},
+					  	dataType : "json",
+					  	success : function(data) {    
+			                if(data==1){
+			             		alert("修改成功");
+			             		window.location.reload();
+			                }else{
+			                  alert("修改失败："+data.message);
+			                }
+
+
+			              }
+	        	    })
+			})
+
+ 		//pop kuang
+ 		$(".modify_state").focus(function(){
+ 			$(".blocklayer").show();
+ 			$(".state_pop").show();
+ 			$("#state_sure").click(function(){
+ 				var num = $("input[type=radio][name=state]:checked").val();
+ 				$("#modify_col3").val(state[num]);
+ 				$(".pop_box").hide();
+ 				$(".blocklayer").hide();
+ 			})
+
+  		})
+ 		//pop kuang
+ 		$(".modify_pipline_step").focus(function(){
+ 			$(".blocklayer").show();
+ 			$(".pipline_step_pop").show();
+ 			$("#pipline_step_sure").click(function(){
+ 				var num = $("input[type=radio][name=pipline_step]:checked").val();
+ 				console.log(num);
+ 				$("#modify_col4").val(pipline_step[num]);
+ 				var finish_percent=String(num)+'/7';
+ 				$("#modify_col5").val(finish_percent);
+ 				$(".pop_box").hide();
+ 				$(".blocklayer").hide();
+ 			})
+
+  		})
+
+  	$(".delete_tracking").click(function(){
+		var id=$(this).attr("id").split("_")[2];
+		$.ajax({
+		  	type : "POST",
+		  	url : "/work/delete_tracking/",
+		  	data:{'id':id},
+		  	dataType : "json",
+		  	success : function(data) {    
+                if(data==1){
+             		alert("删除成功");
+             		window.location.href="/work/tracking/";
+                }else{
+                  alert("删除失败："+data.message);
+                }
+              }
+	    })
+
+	})
+
+
+ 
+
+
+
+//条形码
+		var href =window.location.href.split("/");
+		var productID=href[5];
+		var zero_length=8-parseInt(productID.length);
+		var zero_query='';
+		for(i=0;i<zero_length;i++){
+			zero_query=zero_query+'0';
+		};
+		var newcode=zero_query+productID;
+		$("#bcTarget").barcode(newcode,"code11");
+
+
+	})</script>
+
+{% endblock %}

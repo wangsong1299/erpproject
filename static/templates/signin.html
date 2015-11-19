@@ -1,0 +1,59 @@
+ {% extends "index.html" %}
+ {% load i18n admin_static %}
+
+
+ {% block content %}
+ <div class="signin_box">
+ 	<h2 style="text-align: center;">登录</h2>
+	  <div class="form-group">
+	    <label for="InputPhone">手机号</label>
+	    <input type="text" class="form-control" id="InputPhone" placeholder="手机号">
+	  </div>
+	  <div class="form-group">
+	    <label for="InputPassword">密码</label>
+	    <input type="password" class="form-control" id="InputPassword" placeholder="Password">
+	  </div>
+	  <button type="submit" class="btn btn-default" id="signin">提交</button>
+	  <br>
+	  <p>如果没有帐号，请和管理员联系</p>
+  </div>
+ 
+ {% endblock %}
+
+
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		document.body.style.overflow='hidden';
+		$("#signin").click(function(){
+			var phone=$.trim($("#InputPhone").val());
+			var password=$.trim($("#InputPassword").val());
+			var password_md5=hex_md5(password);
+			if(phone.length==0){
+				alert("手机号不能为空");
+			}else if(password.length==0){
+				alert("密码不能为空");
+			}else{
+				  $.ajax({
+                      type : "POST",
+                      url : "users/signin/",
+                      data:{'phone':phone,'password':password_md5},
+                      dataType : "json",
+                      success : function(data) {    
+                        if(data==1){
+                          window.location.reload();
+                        }else{
+                          alert("登录失败:"+data.message);
+                        }
+                      }
+                  })
+			}
+		})
+	
+	})</script>
+
+
+{% endblock %}
+

@@ -1,0 +1,189 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+{% block head %}
+<link rel="stylesheet" href="{% static "erp/css/storage.css" %}">
+{% endblock %}
+
+
+		{% block subtitle %}
+				<div class="line2">
+							原料仓库
+				</div>	
+	
+		{% endblock %}
+
+
+ {% block main %}
+ <div class="main" style="overflow:hidden">
+ 	 	<div class="head_row">
+ 			鄞州联城包装彩印有限公司原料列表
+ 		</div>
+
+	<table class="storage_table" style="margin-top:20px">
+		<tr>
+			<th class="col_10">原料名称</th>
+			<th class="col_10">规格</th>
+			<th class="col_10">买入单位</th>
+			<th class="col_10">数目</th>
+			<th class="col_10">单价</th>
+			<th class="col_10">金额</th>
+			<th class="col_10">入库时间</th>
+			<th class="col_10">出库时间</th>
+			<th class="col_10">备注</th>
+			<th class="col_5">修改</th>
+			<th class="col_5">删除</th>
+		</tr>
+
+{% for key, value in records.items %}
+		<tr>
+			<th class="col_10"><input type="text" id="material_{{ value.items.10.1 }}" value={{ value.items.0.1 }}></th>
+			<th class="col_10"><input type="text" id="size_{{ value.items.10.1 }}" value={{ value.items.1.1 }}></th>
+			<th class="col_10"><input type="text" id="seller_{{ value.items.10.1 }}" value={{ value.items.2.1 }}></th>
+			<th class="col_10"><input type="text" id="amount_{{ value.items.10.1 }}" value={{ value.items.3.1 }}></th>
+			<th class="col_10"><input type="text" id="price_{{ value.items.10.1 }}" value={{ value.items.4.1 }}></th>
+			<th class="col_10"><input type="text" id="total_fee_{{ value.items.10.1 }}" value={{ value.items.5.1 }}></th>
+			<th class="col_10"><input type="text" id="in_time_{{ value.items.10.1 }}" value={{ value.items.6.1 }}></th>
+			<th class="col_10"><input type="text" id="out_time_{{ value.items.10.1 }}" value={{ value.items.7.1 }}></th>
+			<th class="col_10"><input type="text" id="notes_{{ value.items.10.1 }}" value={{ value.items.8.1 }}></th>
+			<th class="col_5"><input type="button" value="修改" name='modify_material' class="modify_material_{{ value.items.10.1 }}" id="modify_material_{{ value.items.9.1 }}"></th>
+			<th class="col_5"><input type="button" value="删除" class="delete_material" id="delete_material_{{ value.items.9.1 }}"></th>
+		</tr>
+
+{% endfor %}
+
+	</table>
+
+	 	<div class="head_row" >
+ 		   <button type="submit" class="btn btn-primary" id="search">查询原料</button>
+ 		</div>
+
+ 		<div class="head_row" id="search_box" style="display:none">
+ 			<label for="material_name">原料名称</label>
+ 			<input type="text" id="material_name" />
+ 			 <button type="submit" class="btn btn-primary" id="find_material" style="margin-left:20px;">查询</button>
+  		</div>
+
+	<table class="storage_table" style="margin-top:20px" id="find_material_table">
+		<tr>
+			<th class="col_10">原料名称</th>
+			<th class="col_10">规格</th>
+			<th class="col_10">买入单位</th>
+			<th class="col_10">数目</th>
+			<th class="col_10">单价</th>
+			<th class="col_10">金额</th>
+			<th class="col_10">入库时间</th>
+			<th class="col_10">出库时间</th>
+			<th class="col_10">备注</th>
+			<th class="col_5">修改</th>
+			<th class="col_5">删除</th>
+		</tr>
+		<tr>
+			<th class="col_10"><input type="text" id="material_100"></th>
+			<th class="col_10"><input type="text" id="size_100"></th>
+			<th class="col_10"><input type="text" id="seller_100"></th>
+			<th class="col_10"><input type="text" id="amount_100"></th>
+			<th class="col_10"><input type="text" id="price_100"></th>
+			<th class="col_10"><input type="text" id="total_fee_100"></th>
+			<th class="col_10"><input type="text" id="in_time_100"></th>
+			<th class="col_10"><input type="text" id="out_time_100"></th>
+			<th class="col_10"><input type="text" id="notes_100"></th>
+			<th class="col_5"><input type="button" value="修改" name='modify_material' class="modify_material_100"></th>
+			<th class="col_5"><input type="button" value="删除" class="delete_material"></th>
+
+		</tr>
+	</table>
+
+
+  </div>
+ 
+ {% endblock %}
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#storage_box").show();	
+		$("#storage_4").addClass('subtitle_focus');
+
+		$('input[name=modify_material]').click(function(){
+			var num = $(this).attr('class').split("_")[2];
+			var id=$(this).attr("id").split("_")[2];
+			var material=$("#material_"+num).val();
+			var size=$("#size_"+num).val();
+			var seller=$("#seller_"+num).val();
+			var amount=$("#amount_"+num).val();
+			var price=$("#price_"+num).val();
+			var total_fee=$("#total_fee_"+num).val();
+			var notes=$("#notes_"+num).val();
+			var in_time=$("#in_time_"+num).val();
+			var out_time=$("#out_time_"+num).val();
+			$.ajax({
+			  	type : "POST",
+			  	url : "/storage/modify_material/",
+			  	data:{'id':id,'material':material,'size':size,'seller':seller,'amount':amount,'price':price,'total_fee':total_fee,'notes':notes,'in_time':in_time,'out_time':out_time},
+			  	dataType : "json",
+			  	success : function(data){    
+	                if(data==1){
+	                	alert("修改成功");
+	                   window.location.reload();
+	                }else{
+	                  alert("修改失败:"+data.message);
+	                }
+	              }
+	          })
+		})
+
+ 		$(".delete_material").click(function(){
+			var id=$(this).attr("id").split("_")[2];
+			$.ajax({
+	              type : "POST",
+	              url : "/storage/delete_material/",
+	              data:{'id':id},
+	              dataType : "json",
+	              success : function(data) {    
+	                if(data==1){
+	                	alert("删除成功");
+	                   window.location.reload();
+	                }else{
+	                  alert("删除失败:"+data.message);
+	                }
+	              }
+	          })
+
+		})
+
+		$("#search").click(function(){
+			$("#search_box").slideDown(1000);
+		})
+
+		$("#find_material").click(function(){
+				var material_name=$.trim($("#material_name").val());
+				$("#find_material_table").show();
+				$.ajax({
+                      type : "POST",
+                      url : "/storage/get_details_by_material/",
+                      data:{'material_name':material_name},
+                      dataType : "json",
+                      success : function(data){ 
+                      console.log(data); 
+                      		$("#material_100").val(data[0]);
+							$("#size_100").val(data[1]);
+							$("#seller_100").val(data[2]);
+							$("#amount_100").val(data[3]);
+							$("#price_100").val(data[4]);
+							$("#total_fee_100").val(data[5]);
+							$("#in_time_100").val(data[6]);
+							$("#out_time_100").val(data[7]);
+							$("#notes_100").val(data[8]);
+							$(".modify_material_100").attr("id",'modify_material_'+data[9]);
+							$(".delete_material").attr("id",'modify_material_'+data[9]);
+                      }
+                })
+
+})
+	
+
+
+	})</script>
+
+{% endblock %}

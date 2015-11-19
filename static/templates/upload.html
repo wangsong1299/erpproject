@@ -1,0 +1,28 @@
+{% load admin_static %}{% load firstof from future %}<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<head>
+<meta charset="utf-8" />
+<script type="text/javascript" src="{% static "admin/js/jquery.js" %}">
+</script>
+<script type="text/javascript" src="{% static "erp/js/jquery-barcode.js" %}">
+</script>
+<style>
+*{margin:0;padding:0}
+</style>
+</head>
+<body>
+<form method="post" enctype="multipart/form-data" action='/upload/'>
+{{uf.as_p}}
+<input type="submit" value="ok"/>
+</form>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('label').hide();
+	$("#id_id").hide();
+	var productID={{ id }};
+	$("#id_id").val(productID);
+
+})
+</script>
+</body>
+</html>

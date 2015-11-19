@@ -1,0 +1,165 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+{% block head %}
+<link rel="stylesheet" href="{% static "erp/css/finance.css" %}">
+{% endblock %}
+
+
+		{% block subtitle %}
+				<div class="line2">
+							对账单
+				</div>	
+		{% endblock %}
+
+
+ {% block main %}
+ <div class="main" style="overflow:hidden">
+
+   	<table class="finance_table" style="margin-top: 20px;" >
+			<tr>
+				<th class="col_10">送货日期</th>
+				<th class="col_10">订货单</th>
+				<th class="col_10">产品名称</th>
+				<th class="col_10">订货数</th>
+				<th class="col_10">送货数</th>
+				<th class="col_10">单价</th>
+				<th class="col_10">金额</th>
+				<th class="col_10">备注</th>
+				<th class="col_10">修改</th>
+				<th class="col_10">删除</th>
+			</tr>
+
+{% for key, value in records.items %}
+			<tr>
+				<th class="col_10">{{ value.items.0.1 }}</th>
+				<th class="col_10">{{ value.items.1.1 }}</th>
+				<th class="col_20">{{ value.items.2.1 }}</th>
+				<th class="col_10">{{ value.items.3.1 }}</th>
+				<th class="col_10">{{ value.items.4.1 }}</th>
+				<th class="col_10">{{ value.items.5.1 }}</th>
+				<th class="col_10">{{ value.items.6.1 }}</th>
+				<th class="col_10">{{ value.items.7.1 }}</th>
+				<th class="col_10"><input type="button" value="修改" class="modify_finance" id="modify_finance_{{ value.items.8.1 }}"></th>
+				<th class="col_10"><input type="button" value="删除" class="delete_finance" id="delete_finance_{{ value.items.8.1 }}"></th>
+			</tr>
+
+{% endfor %}
+
+	</table>
+
+<!--修改框-->
+	<div class="" id="finance_modify_box" style="display:none">
+		<h2>修改对账单</h2>
+ 		<table class="finance_table" style="margin-top: 20px;" >
+			<tr>
+				<th class="col_10">送货日期</th>
+				<th class="col_10">订货单</th>
+				<th class="col_20">产品名称</th>
+				<th class="col_10">订货数</th>
+				<th class="col_10">送货数</th>
+				<th class="col_10">单价</th>
+				<th class="col_10">金额</th>
+				<th class="col_20">备注</th>
+			</tr>
+			<tr>
+				<th class="col_10"><input type="text" id="modify_col1" onClick="WdatePicker()"></th>
+				<th class="col_10"><input type="text" id="modify_col2"></th>
+				<th class="col_20"><input type="text" id="modify_col3"></th>
+				<th class="col_10"><input type="text" id="modify_col4"></th>
+				<th class="col_10"><input type="text" id="modify_col5"></th>
+				<th class="col_10"><input type="text" id="modify_col6"></th>
+				<th class="col_10"><input type="text" id="modify_col7"></th>
+				<th class="col_20"><input type="text" id="modify_col8"></th>
+			</tr>
+	</table>
+	 <div class="head_row" style="margin-bottom:40px">
+		   <button type="submit" class="btn btn-primary modify_submit">修改</button>
+		</div>
+	</div>
+
+  </div>
+ 
+ {% endblock %}
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#finance_box").show();
+		$("#finance_1").addClass('subtitle_focus');	
+
+		//修改对账单
+		$(".modify_finance").click(function(){
+			var id=$(this).attr("id").split("_")[2];
+			$.ajax({
+			  	type : "POST",
+			  	url : "/finance/get_details_by_ID/",
+			  	data:{'id':id},
+			  	dataType : "json",
+			  	success : function(data) {    
+			  		console.log(data);
+			  		$("#finance_modify_box").show();
+			  		$("#modify_col1").val(data[0]);
+			  		$("#modify_col2").val(data[1]);
+			  		$("#modify_col3").val(data[2]);
+			  		$("#modify_col4").val(data[3]);
+			  		$("#modify_col5").val(data[4]);
+			  		$("#modify_col6").val(data[5]);
+			  		$("#modify_col7").val(data[6]);
+			  		$("#modify_col8").val(data[7]);
+					var modify_id="modify_submit_"+data[8];
+					$('.modify_submit').attr("id",modify_id);
+
+	              }
+    	    })
+		})
+ 	//修改对账单
+ 		$(".modify_submit").click(function(){
+ 					var id=$(this).attr("id").split("_")[2];
+					var col1=$.trim($("#modify_col1").val());
+					var col2=$.trim($("#modify_col2").val());
+					var col3=$.trim($("#modify_col3").val());
+					var col4=$.trim($("#modify_col4").val());
+					var col5=$.trim($("#modify_col5").val());
+					var col6=$.trim($("#modify_col6").val());
+					var col7=$.trim($("#modify_col7").val());
+					var col8=$.trim($("#modify_col8").val());
+					$.ajax({
+					  	type : "POST",
+					  	url : "/finance/modify_finance/",
+					  	data:{'col1':col1,'col2':col2,'col3':col3,'col4':col4,'col5':col5,'col6':col6,'col7':col7,'col8':col8,'id':id},
+					  	dataType : "json",
+					  	success : function(data) {    
+			                if(data==1){
+			             		alert("修改成功");
+			             		window.location.reload();
+			                }else{
+			                  alert("修改失败："+data.message);
+			                }
+
+
+			              }
+	        	    })
+			})
+
+ 		$(".delete_finance").click(function(){
+			var id=$(this).attr("id").split("_")[2];
+			$.ajax({
+			  	type : "POST",
+			  	url : "/finance/delete_finance/",
+			  	data:{'id':id},
+			  	dataType : "json",
+			  	success : function(data) {    
+			  		if(data==1){
+			  			alert("删除成功");
+			  			window.location.reload();
+			  		}
+	              }
+    	    })
+		})
+
+	
+
+	})</script>
+
+{% endblock %}

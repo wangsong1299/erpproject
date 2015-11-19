@@ -1,0 +1,187 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "erp/css/sales.css" %}">
+{% endblock %}
+			{% block inner_header %}
+			{% endblock %}	
+
+
+ {% block main %}
+ <div class="main" style="overflow:hidden">
+ 	<div class="line2">
+	销售：成本单	
+	</div>	
+
+ 	<div class="head_row">
+ 			<label for="productID" style="width:200px">产品ID（施工单号）</label>
+ 			<input  type="text" id="productID">
+ 		</div>
+ 	<table class="cost_table" style="margin-top: 20px;">
+		<tr>
+			<th class="col_10">客户名<span class="red">*</span></th>
+			<td class="col_20"> <input type="text" id="customer_name"  ></td>
+			<th class="col_10">产品名称<span class="red">*</span></th>
+			<td class="col_20"> <input type="text" id="product_name" ></td>
+			<th class="col_10">日期<span class="red">*</span></th>
+			<td class="col_30"> <input type="text" id="create_time" onClick="WdatePicker()"></td>
+		</tr>
+	</table>
+ 	<table class="cost_table">
+		<tr>
+			<th class="col_10">表面处理<span class="red">*</span></th>
+			<td class="col_50"> <input type="text" id="surface"  ></td>
+			<td class="col_40"> <input type="text" id="surface_price" ></td>
+		</tr>
+		<tr>
+			<th class="col_10">原料名称<span class="red">*</span></th>
+			<td class="col_50"> <input type="text" id="material"  ></td>
+			<td class="col_40"> <input type="text" id="material_price" ></td>
+		</tr>
+		<tr>
+			<th class="col_10">底纸用料<span class="red">*</span></th>
+			<td class="col_50"> <input type="text" id="wl_feizhi"  ></td>
+			<td class="col_40"> <input type="text" id="wl_feizhi_price" ></td>
+		</tr>
+		<tr>
+			<th class="col_10">瓦楞用料<span class="red">*</span></th>
+			<td class="col_50"> <input type="text" id="wl_waleng"  ></td>
+			<td class="col_40"> <input type="text" id="wl_waleng_price" ></td>
+		</tr>
+	</table>
+ 	<table class="cost_table">
+		<tr>
+		<th class="col_10">大料张数<span class="red">*</span></th>
+			<td class="col_90"> <input type="text" id="daliao"  ></td>
+		</tr>
+		<tr>
+		<th class="col_10">开料尺寸<span class="red">*</span></th>
+			<td class="col_90"> <input type="text" id="size"  ></td>
+		</tr>
+		<tr>
+		<th class="col_10">人工费</th>
+			<td class="col_90"> <input type="text" id="worker_fee" value=0 ></td>
+		</tr>
+		<tr>
+		<th class="col_10">其他</th>
+			<td class="col_90"> <input type="text" id="other_fee" value=0 ></td>
+		</tr>
+		<tr>
+		<th class="col_10">备注</th>
+			<td class="col_90"> <input type="text" id="notes"  ></td>
+		</tr>
+		<th class="col_10">成本<span class="red">*</span></th>
+			<td class="col_90"> <input type="text" id="total_fee"  ></td>
+		</tr>
+	</table>
+
+  	
+ 		<div class="head_row" style="margin-bottom:40px">
+ 			<button type="submit" class="btn btn-primary" id="add">点击计算总成本</button>
+ 		   <button type="submit" class="btn btn-primary" id="submit">点击生成成本单</button>
+ 		</div>
+
+  </div>
+ 
+ {% endblock %}
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#sales_box").show();	
+
+		$("#cost").addClass('subtitle_focus');	
+
+		var material_list={'250g灰底白板A级':'0.8','300g灰底白板A级':'0.9','230g白卡':'1.25','300g白底白板A级':'1.35'};
+		var surface_list={'上光':'0.2','吸塑':'0.4','光膜':'0.5','压膜':'0.7','烫金':'1.6','撒粉':'1.2','对裱':'0.3'};
+   		var wl_waleng_list={'90g':"0.85",'110g':'0.9'};
+
+		$("#productID").blur(function(){
+			var productID=$(this).val();
+			$.ajax({
+                  type : "POST",
+                  url : "/sales/get_details_from_process/",
+                  data:{'productID':productID},
+                  dataType : "json",
+                  success : function(data) {   
+                  console.log(data); 
+                  	$("#customer_name").val(data[1]);
+                  	$("#product_name").val(data[2]);
+                  	$("#create_time").val(data[3]);
+                  	$("#surface").val(data[4]);
+                  	$("#material").val(data[5]);
+                  	$("#wl_feizhi").val(data[6]);
+                  	$("#wl_waleng").val(data[7]);
+                  	$("#daliao").val(data[8]);
+                  	$("#size").val(data[9]);
+                  	$("#material_price").val(material_list[data[5]]);
+                  	$("#surface_price").val(surface_list[data[4]]);
+                  	$("#wl_waleng_price").val(wl_waleng_list[data[7]]);
+                  	$("#wl_feizhi_price").val(wl_waleng_list[data[7]]);
+
+                  }
+              })
+
+		})
+
+		$("#add").click(function(){
+			var surface_price=$("#surface_price").val();
+			var material_price=$("#material_price").val();
+			var wl_waleng_price=$("#wl_waleng_price").val();
+			var daliao=$("#daliao").val();
+			var size=$("#size").val();
+			var worker_fee=$("#worker_fee").val();
+			var other_fee=$("#other_fee").val();
+			var total_fee=(parseFloat(surface_price)+parseFloat(material_price)+parseFloat(wl_waleng_price))*parseFloat(daliao)*parseFloat(size)+parseFloat(worker_fee)+parseFloat(other_fee);
+			$("#total_fee").val(total_fee);
+		})
+
+
+		$("#submit").click(function(){
+			var productID=$("#productID").val();
+			var customer=$.trim($("#customer_name").val());
+			var create_time=$.trim($("#create_time").val());
+			var product_name=$.trim($("#product_name").val());
+			var surface=$("#surface").val();
+			var material=$("#material").val();
+			var wl_waleng=$("#wl_waleng").val();
+			var wl_feizhi=$("#wl_feizhi").val();
+			var surface_price=$("#surface_price").val();
+			var material_price=$("#material_price").val();
+			var wl_waleng_price=$("#wl_waleng_price").val();
+			var wl_feizhi_price=$("#wl_feizhi_price").val();
+			var daliao=$("#daliao").val();
+			var size=$("#size").val();
+			var worker_fee=$("#worker_fee").val();
+			var other_fee=$("#other_fee").val();
+			var notes=$("#notes").val();
+			var total_fee=$("#total_fee").val();
+
+	
+		  $.ajax({
+              type : "POST",
+              url : "/sales/fill_cost/",
+              data:{'productID':productID,'customer':customer,'create_time':create_time,'product_name':product_name,'surface':surface,'material':material,'wl_waleng':wl_waleng,'wl_feizhi':wl_feizhi,'surface_price':surface_price,'material_price':material_price,'wl_waleng_price':wl_waleng_price,'wl_feizhi_price':wl_feizhi_price,'daliao':daliao,'size':size,'worker_fee':worker_fee,'other_fee':other_fee,'notes':notes,'total_fee':total_fee},
+              dataType : "json",
+              success : function(data) {    
+                if(data==1){
+                	alert("录入成功");
+                   window.location.href='sales/cost/';
+                }else{
+                  alert("录入失败:"+data.message);
+                }
+              }
+          })
+			
+		})
+
+    	var date=new Date();
+		var newdate= date.getFullYear()+'-'+(parseInt(date.getMonth())+1)+'-'+date.getDate();
+		$("#create_time").val(newdate);
+
+
+	})</script>
+
+{% endblock %}

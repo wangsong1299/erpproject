@@ -1,0 +1,101 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "erp/css/user.css" %}">
+{% endblock %}
+
+
+		{% block subtitle %}
+				<div class="line2">
+							员工列表
+				</div>	
+		{% endblock %}
+
+
+ {% block main %}
+
+
+
+ <div class="main">
+
+   	<table class="user_table" style="margin-top: 20px;" >
+			<tr>
+				<th class="col_10">序号</th>
+				<th class="col_10">手机号</th>
+				<th class="col_20">昵称</th>
+				<th class="col_20">角色</th>
+				<th class="col_20">部门</th>
+				<th class="col_10">修改</th>
+				<th class="col_10">删除</th>
+
+			</tr>
+
+{% for key, value in records.items %}
+			<tr>
+				<th class="col_10"><a href='/users/{{ value.items.0.1 }}/'>{{ value.items.0.1 }}</a></th>
+				<th class="col_10">{{ value.items.1.1 }}</th>
+				<th class="col_20">{{ value.items.2.1 }}</th>
+				<th class="col_20" id="roles_{{ value.items.5.1 }}">{{ value.items.3.1 }}</th>
+				<th class="col_20" id="department_{{ value.items.5.1 }}">{{ value.items.4.1 }}</th>
+				<th class="col_10"><input type="button" value="修改" class="modify_user" id="modify_user_{{ value.items.0.1 }}"></th>
+				<th class="col_10"><input type="button" value="删除" class="delete_user" id="delete_user_{{ value.items.0.1 }}"></th>
+
+			</tr>
+
+{% endfor %}
+
+	</table>
+
+	<div class="head_row" style="margin-bottom:40px">
+	   <button type="submit" class="btn btn-primary" id="add_new">新建员工</button>
+	</div>
+
+
+ 	 </div>
+ 
+ {% endblock %}
+
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#user_box").show();	
+		$("#user_1").addClass('subtitle_focus');
+
+		$("#add_new").click(function(){
+			window.location.href='/users/new/';
+		})
+
+		var roles_dict = ['系统管理员','公司老板','部门经理','操作员'];
+		var department_dict=['销售部','管理部','财务部','生产部'];
+		var length={{length|safe}};
+
+		for(var i=1;i<=length;i++){
+			var roles_num=$("#roles_"+i).html();
+			$("#roles_"+i).html(roles_dict[roles_num]);
+			var department_num=$("#department_"+i).html();
+			$("#department_"+i).html(department_dict[department_num]);
+		}
+
+		$(".delete_user").click(function(){
+			var id=$(this).attr("id").split("_")[2];
+				$.ajax({
+				  	type : "POST",
+				  	url : "/users/delete_user/",
+				  	data:{'id':id},
+				  	dataType : "json",
+				  	success : function(data) {    
+		                if(data==1){
+		             		alert("删除成功");
+		             		window.location.reload();
+		                }else{
+		                  alert("删除失败："+data.message);
+		                }
+		              }
+			    })
+
+		})
+	})</script>
+{% endblock %}

@@ -1,0 +1,210 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+{% block head %}
+<link rel="stylesheet" href="{% static "erp/css/storage.css" %}">
+{% endblock %}
+
+
+		{% block subtitle %}
+				<div class="line2">
+							新建出库单
+				</div>	
+	
+		{% endblock %}
+
+
+ {% block main %}
+ <div class="main" style="overflow:hidden">
+
+  	 	<div class="head_row">
+ 			鄞州联城包装彩印有限公司出库单
+ 		</div>
+ 		<div class="head_row">
+ 			<label for="storage_out_id">出库单号</label>
+ 			<input type="text" id="storage_out_id" value="{{storage_out_id}}" > 	
+ 		</div>
+
+ 		 <div class="head_row">
+ 			<label for="create_time">日期</label>
+ 			<input type="text" id="create_time" style="width:250px" onClick="WdatePicker()">
+ 			<label for="customer">单位或姓名</label>
+ 			<input type="text" id="customer">
+ 		</div>
+
+<table class="storage_table" style="margin-top:20px">
+		<tr>
+			<th class="col_20">名称<span class="red">*</span></th>
+			<th class="col_10">规格</th>
+			<th class="col_20">单位</th>
+			<th class="col_10">数量<span class="red">*</span></th>
+			<th class="col_10">单价<span class="red">*</span></th>
+			<th class="col_10">金额<span class="red">*</span></th>
+			<th class="col_20">备注</th>
+		</tr>
+
+		<tr>
+			<th class="col_20"><input type="text" id="material_name_1" name='count' ></th>
+			<th class="col_10"><input type="text" id="size_1" ></th>
+			<th class="col_20"><input type="text" id="buyer_1" ></th>
+			<th class="col_10"><input type="text" id="amount_1"></th>
+			<th class="col_10"><input type="text" id="price_1" ></th>
+			<th class="col_10"><input type="text" id="total_fee_1" ></th>
+			<th class="col_20"><input type="text" id="notes_1" ></th>
+		</tr>
+
+
+		<tr>
+			<th class="col_20"><input type="text" id="material_name_2" name='count'></th>
+			<th class="col_10"><input type="text" id="size_2" ></th>
+			<th class="col_20"><input type="text" id="buyer_2" ></th>
+			<th class="col_10"><input type="text" id="amount_2"></th>
+			<th class="col_10"><input type="text" id="price_2" ></th>
+			<th class="col_10"><input type="text" id="total_fee_2" ></th>
+			<th class="col_20"><input type="text" id="notes_2" ></th>
+		</tr>
+
+
+		<tr>
+			<th class="col_20"><input type="text" id="material_name_3" name='count'></th>
+			<th class="col_10"><input type="text" id="size_3" ></th>
+			<th class="col_20"><input type="text" id="buyer_3" ></th>
+			<th class="col_10"><input type="text" id="amount_3"></th>
+			<th class="col_10"><input type="text" id="price_3" ></th>
+			<th class="col_10"><input type="text" id="total_fee_3" ></th>
+			<th class="col_20"><input type="text" id="notes_3" ></th>
+		</tr>
+
+		<tr>
+			<th class="col_20"><input type="text" id="material_name_4" name='count'></th>
+			<th class="col_10"><input type="text" id="size_4" ></th>
+			<th class="col_20"><input type="text" id="buyer_4" ></th>
+			<th class="col_10"><input type="text" id="amount_4"></th>
+			<th class="col_10"><input type="text" id="price_4" ></th>
+			<th class="col_10"><input type="text" id="total_fee_4" ></th>
+			<th class="col_20"><input type="text" id="notes_4" ></th>
+		</tr>
+
+		<tr>
+			<th class="col_20"><input type="text" id="material_name_5" name='count'></th>
+			<th class="col_10"><input type="text" id="size_5" ></th>
+			<th class="col_20"><input type="text" id="buyer_5" ></th>
+			<th class="col_10"><input type="text" id="amount_5"></th>
+			<th class="col_10"><input type="text" id="price_5" ></th>
+			<th class="col_10"><input type="text" id="total_fee_5" ></th>
+			<th class="col_20"><input type="text" id="notes_5" ></th>
+		</tr>
+
+		<tr>
+			<th class="col_20"><input type="text" id="material_name_6" name='count'></th>
+			<th class="col_10"><input type="text" id="size_6" ></th>
+			<th class="col_20"><input type="text" id="buyer_6" ></th>
+			<th class="col_10"><input type="text" id="amount_6"></th>
+			<th class="col_10"><input type="text" id="price_6" ></th>
+			<th class="col_10"><input type="text" id="total_fee_6" ></th>
+			<th class="col_20"><input type="text" id="notes_6" ></th>
+		</tr>
+
+
+	</table>
+<table class="storage_table">
+		<tr>
+			<th class="col_20">合计金额（大写）</th>
+			<th class="col_80"><input type="text" id="total_fee_sum" ></th>
+</table>
+ 		 <div class="head_row">
+ 			<label for="deliveryman">交货员</label>
+ 			<input type="text" id="deliveryman" style="width:250px" />
+ 			<label for="storeman">保管员</label>
+ 			<input type="text" id="storeman" style="width:250px" />
+ 		</div>
+
+ 	 <div class="head_row" style="margin-bottom:40px">
+ 		   <button type="submit" class="btn btn-primary" id="fill_storage_out">点击生成入库单</button>
+ 		</div>
+
+
+  </div>
+ 
+ {% endblock %}
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#storage_box").show();
+		$("#storage_3").addClass('subtitle_focus');
+
+	
+
+			var multi_length=0;
+
+//写入入库单
+		$("#fill_storage_out").click(function(){
+
+			var maxnum=0;
+
+			$("input[name=count]").each(function(a,b){
+				var temp = $.trim($(b).val());
+				if(temp.length!=0){
+					var num = $(b).attr("id").split("_")[2];
+					if(num>maxnum){
+						maxnum=num;
+					}
+				}
+			});
+
+			var create_time=$("#create_time").val();
+			var deliveryman=$('#deliveryman').val();
+			var storeman=$("#storeman").val();
+			var storage_out_id=$("#storage_out_id").val();
+			var customer=$('#customer').val();
+			var total_fee_sum=$("#total_fee_sum").val();
+
+			var count=0;
+			for(var i=1;i<=maxnum;i++){
+				var col1=$.trim($("#material_name_"+i).val());
+				var col2=$.trim($("#size_"+i).val());
+				var col3=$.trim($("#buyer_"+i).val());
+				var col4=$.trim($("#amount_"+i).val());
+				var col5=$.trim($("#price_"+i).val());
+				var col6=$.trim($("#total_fee_"+i).val());
+				var col7=$.trim($("#notes_"+i).val());
+				if(col1.length==0){
+					alert("第"+i+"条原料名称不能为空");
+				}else if(col4.length==0){
+					alert("第"+i+"条数目不能为空");
+				}else if(col5.length==0){
+					alert("第"+i+"条单价不能为空");
+				}else if(col6.length==0){
+					alert("第"+i+"条金额不能为空");
+				}else{
+					$.ajax({
+					  	type : "POST",
+					  	url : "/storage/fill_storage_out/",
+					  	data:{'storage_out_id':storage_out_id,'create_time':create_time,'customer':customer,'total_fee_sum':total_fee_sum,'deliveryman':deliveryman,'storeman':storeman,'col1':col1,'col2':col2,'col3':col3,'col4':col4,'col5':col5,'col6':col6,'col7':col7},
+					  	dataType : "json",
+					  	success : function(data) {    
+			                if(data==1){
+			             		count=count+1;
+			                }else{
+			                  alert("第"+i+"条项目录入失败");
+			                }
+
+		                	if(count==maxnum){
+								alert("录入成功");
+							}
+			              }
+		          })
+
+
+				}
+			}
+
+		})
+	    var date=new Date();
+		var newdate= date.getFullYear()+'-'+(parseInt(date.getMonth())+1)+'-'+date.getDate();
+		$("#create_time").val(newdate);
+
+	})</script>
+
+{% endblock %}

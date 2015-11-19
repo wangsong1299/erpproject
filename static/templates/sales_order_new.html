@@ -1,0 +1,231 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "erp/css/sales.css" %}">
+{% endblock %}
+
+
+			{% block inner_header %}
+					
+			{% endblock %}			
+
+ {% block main %}
+ <div class="main" style="overflow:hidden;">
+ 		<div class="line2">
+							印刷订单
+				</div>	
+ 		<div class="head_row" style="height:80px">
+ 			<label for="customer_name">订单</label>
+ 			 <div id="bcTarget"></div>
+ 		</div>
+ 	<table class="order_table" style="margin-top: 20px;" id="order_table">
+		<tr>
+			<th class="col_10">客户名<span class="red">*</span></th>
+			<td class="col_20"> <input type="text" id="customer_name"  ></td>
+			<th class="col_10">联系人<span class="red">*</span></th>
+			<td class="col_20"> <input type="text" id="contacts" ></td>
+			<th class="col_10">电话<span class="red">*</span></th>
+			<td class="col_30"> <input type="text" id="contacts_phone" ></td>
+		</tr>
+		<tr>
+			<th class="col_10">传真</th>
+			<td class="col_20"> <input type="text" id="fax" ></td>
+			<th class="col_10">qq</th>
+			<td class="col_20"> <input type="text" id="qq" ></td>
+			<th class="col_10">日期<span class="red">*</span></th>
+			<td class="col_30"> <input type="text" id="create_time" onClick="WdatePicker()"></td>
+		</tr>
+	</table>
+	 <table class="order_table">
+		<tr>
+			<th class="col_10">产品名称<span class="red">*</span></th>
+			<td class="col_40"> <input type="text" id="product_name"  ></td>
+			<th class="col_20">客户订单号<span class="red">*</span></th>
+			<td class="col_30"> <input type="text" id="productID"  value='{{ productID }}'></td>
+		</tr>
+	</table>
+	 <table class="order_table">
+		<tr>
+			<th class="col_12">数量<span class="red">*</span></th>
+			<th class="col_12">单价<span class="red">*</span></th>
+			<th class="col_12">金额<span class="red">*</span></th>
+			<th class="col_12">版费</th>			
+		</tr>
+		<tr>
+			<th class="col_12"><input type="text" id="amount"  ></th>
+			<th class="col_12"><input type="text" id="price" ></th>
+			<th class="col_12"><input type="text" id="fee" ></th>
+			<th class="col_12"><input type="text" id="edition_fee" ></th>		
+		</tr>
+	</table>
+	 <table class="order_table">
+		<tr>
+			<th class="col_12">合计金额</th>
+			<th class="col_12">交货期</th>
+			<th class="col_12">菲林情况</th>
+			<th class="col_12">产品用料</th>				
+		</tr>
+		<tr>
+			<th class="col_12"><input type="text" id="total_fee"  ></th>
+			<th class="col_12"><input type="text" id="deadline"  ></th>
+			<th class="col_12"><input type="text" id="feilin"  ></th>
+			<th class="col_12"><input type="text" id="material" ></th>			
+		</tr>
+	</table>
+	 <table class="order_table">
+		<tr>
+			<th class="col_12">产品尺寸</th>
+			<th class="col_12">表面处理</th>
+			<th class="col_12">瓦楞用料</th>
+			<th class="col_12">瓦楞品种</th>				
+		</tr>
+		<tr>
+			<th class="col_12"><input type="text" id="size"></th>
+			<th class="col_12"><input type="text" id="surface" ></th>
+			<th class="col_12"><input type="text" id="wl_material"  ></th>
+			<th class="col_12"><input type="text" id="wl_kind"  ></th>			
+		</tr>
+	</table>
+	 <table class="order_table">
+		<tr>
+			<th class="col_20">刀模</th>
+			<th class="col_80">备注</th>			
+		</tr>
+		<tr>
+			<th class="col_20"><input type="text" id="mould"  ></th>
+			<th class="col_80"><input type="text" id="notes"  ></th>	
+		</tr>
+	</table>
+		<table class="order_table">
+		<tr>
+			<td class="col_100">
+				<iframe src="" id="order_img_iframe" frameborder="0" scrolling="no" style="width:100%;height:100%;"></iframe>
+			</td>
+		</tr>
+	</table>
+
+ 		<div class="head_row" style="margin-bottom:40px">
+ 		   <button type="submit" class="btn btn-primary" id="submit">点击生成订单</button>
+ 		</div>
+
+  </div>
+ 
+ {% endblock %}
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#sales_box").show();	
+		$("#order").addClass('subtitle_focus');
+
+	    var date=new Date();
+		var newdate= date.getFullYear()+'-'+(parseInt(date.getMonth())+1)+'-'+date.getDate();
+		$("#create_time").val(newdate);
+
+		var productID= {{productID|safe}};
+
+		var order_img_iframe_src = '/upload_iframe/'+productID;
+		$("#order_img_iframe").attr("src",order_img_iframe_src);
+
+		$("#submit").click(function(){
+				var customer=$.trim($("#customer_name").val());
+				var contacts=$.trim($("#contacts").val());
+				var contacts_phone=$.trim($("#contacts_phone").val());
+				var fax=$.trim($("#fax").val());
+				var qq=$.trim($("#qq").val());
+				var create_time=$.trim($("#create_time").val());
+				var product_name=$.trim($("#product_name").val());
+				var productID=$.trim($("#productID").val());
+				var amount=$.trim($("#amount").val());
+				var price=$.trim($("#price").val());
+				var fee=$.trim($("#fee").val());
+				var edition_fee=$.trim($("#edition_fee").val());
+				var total_fee=$.trim($("#total_fee").val());
+				var deadline=$.trim($("#deadline").val());
+				var feilin=$.trim($("#feilin").val());
+				var material=$.trim($("#material").val());
+				var size=$.trim($("#size").val());
+				var surface=$.trim($("#surface").val());
+				var wl_material=$.trim($("#wl_material").val());
+				var wl_kind=$.trim($("#wl_kind").val());
+				var mould=$.trim($("#mould").val());
+				var notes=$.trim($("#notes").val());
+				var image_address='123';
+			
+
+				if(productID.length==0){
+					alert("产品ID不能为空");
+				}else if(customer.length==0){
+					alert("客户名不能为空");
+				}else if(contacts.length==0){
+					alert("联系人不能为空");
+				}else if(contacts_phone.length==0){
+					alert("联系人电话不能为空");
+				}else if(product_name.length==0){
+					alert("产品名称不能为空");
+				}else if(amount.length==0){
+					alert("数目不能为空");
+				}else if(price.length==0){
+					alert("单价不能为空");
+				}else if(fee.length==0){
+					alert("金额不能为空");
+				}else{
+					  $.ajax({
+	                      type : "POST",
+	                      url : "/sales/fill_order/",
+	                      data:{'productID':productID,'customer':customer,'contacts':contacts,'contacts_phone':contacts_phone,'fax':fax,'qq':qq,'create_time':create_time,'product_name':product_name,'amount':amount,'price':price,'fee':fee,'edition_fee':edition_fee,'total_fee':total_fee,'deadline':deadline,'feilin':feilin,'material':material,'size':size,'surface':surface,'wl_material':wl_material,'wl_kind':wl_kind,'mould':mould,'notes':notes,'image_address':image_address},
+	                      dataType : "json",
+	                      success : function(data) {    
+	                        if(data==1){
+	                        	alert("录入成功");
+	                           window.location.href='/sales/order/';
+	                        }else{
+	                          alert("录入失败:"+data.message);
+	                        }
+	                      }
+	                  })
+				}
+
+		})
+
+
+//条形码
+
+		var productID2={{productID}};
+		var zero_length=8-parseInt(String(productID2).length);
+		var zero_query='';
+		for(i=0;i<zero_length;i++){
+			zero_query=zero_query+'0';
+		};
+		var newcode=zero_query+productID2;
+		$("#bcTarget").barcode(newcode,"code11");
+
+		$("#productID").blur(function(){
+				var productID2=$("#productID").val();
+				var zero_length=8-parseInt(String(productID2).length);
+				var zero_query='';
+				for(i=0;i<zero_length;i++){
+					zero_query=zero_query+'0';
+				};
+				var newcode=zero_query+productID2;
+				$("#bcTarget").barcode(newcode,"code11");
+		})
+
+		$("#fee").focus(function(){
+			var amount=$.trim($("#amount").val());
+			var price=$.trim($("#price").val());
+			if(amount==''){
+				alert("请输入数目");
+			}else if(price==''){
+				alert("请输入单价");
+			}else{
+				var fee=parseInt(amount)*parseInt(price);
+				$("#fee").val(fee);
+			}
+		})
+
+	})</script>
+
+{% endblock %}

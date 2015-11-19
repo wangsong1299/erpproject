@@ -1,0 +1,260 @@
+{% load admin_static %}{% load firstof from future %}<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<head>
+<meta charset="utf-8" />
+<link rel="shortcut icon" href="{% static "erp/img/logo.ico" %}">
+<title>ERP</title>
+<script type="text/javascript" src="{% static "admin/js/jquery.js" %}">
+</script>
+<link rel="stylesheet" href="{% static "erp/css/bootstrap.min.css" %}">
+<link rel="stylesheet" href="{% static "erp/css/index.css" %}">
+<link rel="stylesheet" href="{% static "erp/css/print.css" %}">
+<script type="text/javascript" src="{% static "erp/js/jquery-barcode.js" %}">
+</script>
+<script type="text/javascript" src="{% static "erp/js/md5.js" %}">
+</script>
+<script type="text/javascript" src="{% static "erp/js/My97DatePicker/WdatePicker.js" %}"></script>
+
+
+{% block head %}
+{% endblock %}
+
+</head>
+
+<body>
+		{% block header %}
+
+    	<div class="header2">
+			<div class="block">
+				<div class="line">
+					<div id="logout_box" style="display:none">
+						<a href='/logout/' class="login" id="signup">登出</a>		
+						<a href='#' class="login" id="nick">{{ nick_name|safe }}</a>
+					</div>
+					<div id="login_box" style="display:none">
+						<div class="login" id="login">现在登录</div>
+						<a href='#' class="login" id="signup">免费注册</a>
+					</div>
+				</div>
+			</div>	
+		</div>
+{% block inner_header %}
+		<div class="header">
+			<div class="block">
+			{% block subtitle %}
+				<div class="line2">
+							智慧印刷ERP系统		
+				</div>	
+			{% endblock %}	
+			</div>
+		</div>
+{% endblock %}
+		<div id="blocklayer" class="blocklayer" style="z-index: 1000; border: medium none; margin: 0px; padding: 0px; width: 100%; height: 100%; top: 0px; left: 0px; background-color: rgb(0, 0, 0); opacity: 0.6; filter:alpha(opacity=60);-moz-opacity:0.6; cursor: auto; position: fixed;display:none;"></div>
+
+		{% endblock %}
+
+		{% block content %}
+			<div class="content">
+				<div class="block2">
+					{% block aside %}
+					<div class="aside">
+						<div class="title" id="sales">
+							 <img src="{% static "erp/img/info_icon_2.png" %}" class='info_icon' alt="">销售</div>
+						<div id="sales_box" class="inner_box" style="height:150px">
+							<a href='/sales/quotation_list/1' id='quotation' class="subtitle">报价单</a>
+							<a href='/sales/order/' id='order' class="subtitle">订单</a>
+							<a href='/sales/delivery/' id='delivery' class="subtitle">送货单</a>
+							<a href='/sales/process/' id='process' class="subtitle">施工单</a>
+							<a href='/sales/cost/' id='cost' class="subtitle">成本单</a>
+						</div>
+						<div class="title" id="purchase">
+							 <img src="{% static "erp/img/info_icon_5.png" %}" class='info_icon' alt="">采购</div>
+						<div id="purchase_box" class="inner_box" style="height:30px">
+							<a href='/purchase/choice/' class="subtitle" id="purchase_aside">采购</a>
+						</div>
+						<div class="title" id="storage">
+						 <img src="{% static "erp/img/info_icon_5.png" %}" class='info_icon' alt="">库存</div>
+						<div id="storage_box" class="inner_box" style="height:120px">
+							<a href='/storage/storage/' id="storage_1" class="subtitle">产品库存</a>
+							<a href='/storage/storage_in/' id="storage_2" class="subtitle">原料入库</a>
+							<a href='/storage/storage_out/' id="storage_3" class="subtitle">原料出库</a>
+							<a href='/storage/storage_material/' id="storage_4" class="subtitle">原料库存</a>
+						</div>
+						<div class="title" id="finance"> 
+							<img src="{% static "erp/img/info_icon_5.png" %}" class='info_icon' alt="">财务</div>
+						<div id="finance_box" class="inner_box" style="height:30px">
+							<a href='/finance/finance/' id="finance_1" class="subtitle">对账单</a>
+						</div>
+						<div class="title" id="work">
+						 <img src="{% static "erp/img/info_icon_1.png" %}" class='info_icon' alt="">生产管理</div>
+						<div id="work_box" class="inner_box" style="height:60px">
+							<a href='/work/tracking/' id="work_1" class="subtitle">产品追踪</a>
+							<a href='/work/worker/' id="work_2" class="subtitle">员工计件</a>
+						</div>
+
+						<div class="title" id="user">
+							<img src="{% static "erp/img/info_icon_3.png" %}" class='info_icon' alt="">员工情况</div>
+						<div id="user_box" class="inner_box" style="height:60px">
+							<a href="/users/list" id='user_1' class="subtitle">员工列表</a>
+							<a href='/users/new' id="user_2" class="subtitle">员工分配</a>
+						</div>
+
+
+						<div class="title" id="customer"> 
+							<img src="{% static "erp/img/info_icon_4.png" %}" class='info_icon' alt="">客户和供应商</div>
+						<div id="customer_box" class="inner_box" style="height:60px">
+							<a href='/customer/customer/' id="customer_1" class="subtitle">客户和应收</a>
+							<a href='/customer/supplier/' id="customer_2" class="subtitle">供应商和应付</a>
+						</div>
+						<div class="title" id="statistics">
+							<img src="{% static "erp/img/info_icon_3.png" %}" class='info_icon' alt="">每日统计</div>
+						<div id="statistics_box" class="inner_box" style="height:30px">
+							<a href='/statistics/statistics/' id="statistics_1" class="subtitle">每日统计</a>
+						</div>
+						<div class="title" id="alert">
+							<img src="{% static "erp/img/info_icon_3.png" %}" class='info_icon' alt="">预警信息</div>	
+						<div id="alert_box" class="inner_box" style="height:30px;margin-bottom:40px">
+							<a href='/alert/alert/' id="alert_1" class="subtitle">预警信息</a>
+						</div>
+						<div style="height:55px;width:100%;float:left"></div>
+				
+					</div>
+					{% endblock %}
+
+					{% block main %}
+					{% endblock %}
+
+				</div>
+			</div>	
+		{% endblock %}
+
+		{% block footer %}
+
+
+		<div class="footer">
+			<div class="block">
+				<div class="col" style='margin-left:120px;'>
+					<div class="title">关于我们</div>
+					<div class="text">公司介绍</div>
+					<div class="text">招贤纳士</div>
+					<div class="text">联系我们</div>
+				</div>
+				<div class="split_footer"></div>
+				<div class="col">
+					<div class="title">使用说明</div>
+					<div class="text">常见问题</div>
+					<div class="text">使用说明</div>
+					<div class="text">演示视频</div>
+				</div>
+				<div class="split_footer"></div>
+				<div class="col">
+					<div class="title">官方客服</div>
+					<div class="text">电话:18768113848</div>
+					<div class="text">电话时间:9:00--18:00</div>
+				</div>
+				<div class="split_footer"></div>
+				<div class="col">
+					<div class="title">关注我们</div>					
+				</div>
+			<div class="icp"> © 2015 智慧印刷 All rights Reserved 浙ICP备xxxx</div>
+
+			</div>	
+		</div>
+		{% endblock %}
+
+
+	<script type="text/javascript">
+	$(document).ready(function(){
+		var is_login = {{ is_login }};
+		if(is_login){
+			$('#logout_box').show();
+		}else{
+			$("#login_box").show();
+		}
+
+		$(".inner_box").hide();
+		$("#sales").click(function(){
+			if($("#sales_box").is(":visible")){
+				$("#sales_box").slideUp(1000);
+			}else{
+				$("#sales_box").slideDown(1000);
+			}
+		})
+		$("#purchase").click(function(){
+			if($("#purchase_box").is(":visible")){
+				$("#purchase_box").slideUp(1000);
+			}else{
+				$("#purchase_box").slideDown(1000);
+			}
+		})
+		$("#storage").click(function(){
+			if($("#storage_box").is(":visible")){
+				$("#storage_box").slideUp(1000);
+			}else{
+				$("#storage_box").slideDown(1000);
+			}
+		})
+		$("#finance").click(function(){
+			if($("#finance_box").is(":visible")){
+				$("#finance_box").slideUp(1000);
+			}else{
+				$("#finance_box").slideDown(1000);
+			}
+		})
+		$("#work").click(function(){
+			if($("#work_box").is(":visible")){
+				$("#work_box").slideUp(1000);
+			}else{
+				$("#work_box").slideDown(1000);
+			}
+		})
+		$("#user").click(function(){
+			if($("#user_box").is(":visible")){
+				$("#user_box").slideUp(1000);
+			}else{
+				$("#user_box").slideDown(1000);
+			}
+		})
+
+		$("#report").click(function(){
+			if($("#report_box").is(":visible")){
+				$("#report_box").slideUp(1000);
+			}else{
+				$("#report_box").slideDown(1000);
+			}
+		})
+		$("#customer").click(function(){
+			if($("#customer_box").is(":visible")){
+				$("#customer_box").slideUp(1000);
+			}else{
+				$("#customer_box").slideDown(1000);
+			}
+		})
+		$("#statistics").click(function(){
+			if($("#statistics_box").is(":visible")){
+				$("#statistics_box").slideUp(1000);
+			}else{
+				$("#statistics_box").slideDown(1000);
+			}
+		})
+		$("#alert").click(function(){
+			if($("#alert_box").is(":visible")){
+				$("#alert_box").slideUp(1000);
+			}else{
+				$("#alert_box").slideDown(1000);
+			}
+		})
+
+
+	})
+
+	</script>
+
+{% block javascript %}
+{% endblock %}
+
+
+</body>
+</html>
+
+

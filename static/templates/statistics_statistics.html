@@ -1,0 +1,52 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+{% block head %}
+<link rel="stylesheet" href="{% static "erp/css/work.css" %}">
+{% endblock %}
+
+
+		{% block subtitle %}
+				<div class="line2">
+							每日统计
+				</div>	
+		{% endblock %}
+
+
+ {% block main %}
+ <div class="main" style="overflow:hidden">
+
+	   	<table class="tracking_table" style="margin-top: 20px;" id="tracking_table_one" >
+				<tr>
+					<th class="col_30">产品名称</th>
+					<th class="col_30">原料名称</th>
+					<th class="col_20">大料张数</th>
+					<th class="col_20">开料尺寸</th>
+				</tr>
+
+	{% for key, value in records.items %}
+				<tr>
+					<th class="col_30">{{ value.items.0.1 }}</th>
+					<th class="col_30">{{ value.items.1.1 }}</th>			
+					<th class="col_20">{{ value.items.2.1 }}</th>
+					<th class="col_20">{{ value.items.3.1 }}</th>
+				</tr>
+
+	{% endfor %}
+
+		</table>
+
+  </div>
+ 
+ {% endblock %}
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#statistics_box").show();
+		$("#statistics_1").addClass('subtitle_focus');
+
+
+	})</script>
+
+{% endblock %}
