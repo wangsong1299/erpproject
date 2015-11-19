@@ -3,24 +3,19 @@
 {% block head %}
 <link rel="stylesheet" href="{% static "erp/css/purchase.css" %}">
 {% endblock %}
-
-
-		{% block subtitle %}
-								<div class="line2">
-							印刷采购单
-				</div>	
-
-		{% endblock %}
-
+{% block inner_header %}
+{% endblock %}
 
  {% block main %}
  <div class="main" style="overflow:hidden">
+					<div class="line2">
+						印刷采购单
+			</div>	
 		{% ifequal process_step 1 %}
-		<h2>单工序采购单</h2>
- 		<div class="head_row" style="height:80px">
- 			<label for="customer_name">产品号:</label>
- 			 <div id="bcTarget"></div>
- 		</div>
+		<div class="head_row" style="height:70px" id="bcTarget_row">
+			<label for="customer_name">条形码:</label>
+			<iframe src="" frameborder="0" id="barcode_iframe"></iframe>
+		</div>
 		 <table class="purchase_table" style="margin-top: 20px;">
 			<tr>
 				<th class="col_10">客户名</th>
@@ -78,19 +73,18 @@
 	 <div class="head_row" style="margin-bottom:40px">
  		   <button type="submit" class="btn btn-primary" id="purchase_delete_single">删除</button>
  		   <button type="submit" class="btn btn-primary" id="modify_single">修改</button>
+  		   <button type="submit" class="btn btn-primary" id="print" onclick="javascript:window.print()" />打印</button>
  		</div>
 
 
 		 {% endifequal %}  
 
 	{% ifequal process_step 2 %}
-
-		<h2>多工序采购单</h2>
- 		<div class="head_row" style="height:80px">
- 			<label for="customer_name">产品号:</label>
- 			 <div id="bcTarget"></div>
- 		</div>
-
+		<div class="head_row" style="height:70px" id="bcTarget_row">
+			<label for="customer_name">条形码:</label>
+			<iframe src="" frameborder="0" id="barcode_iframe"></iframe>
+		</div>
+		 <table class="purchase_table" style="margin-top: 20px;">
 		<table class="purchase_table">
 			<tr>
 				<th class="col_20">采购项目</th>
@@ -104,14 +98,14 @@
 			</tr>
 		{% for key, value in records.items %}
 			<tr>
-				<th class="col_20"><input type="text" id="col1_{{value.items.8.1}}" value={{value.items.0.1}}></th>
+				<th class="col_20"><input type="text" id="col1_{{value.items.8.1}}" class="{{value.items.9.1}}_{{value.items.10.1}}" value={{value.items.0.1}}></th>
 				<th class="col_10"><input type="text" id="col2_{{value.items.8.1}}" value={{value.items.1.1}}></th>
 				<th class="col_10"><input type="text" id="col3_{{value.items.8.1}}" value={{value.items.2.1}}></th>
 				<th class="col_10"><input type="text" id="col4_{{value.items.8.1}}" value={{value.items.3.1}}></th>
 				<th class="col_10"><input type="text" id="col5_{{value.items.8.1}}" value={{value.items.4.1}}></th>
 				<th class="col_10"><input type="text" id="col6_{{value.items.8.1}}" value={{value.items.5.1}}></th>
-				<th class="col_10"><input type="text" id="col7_{{value.items.8.1}}" value{{value.items.6.1}}></th>
-				<th class="col_20"><input type="text" id="col8_{{value.items.8.1}}" value{{value.items.7.1}}></th>
+				<th class="col_10"><input type="text" id="col7_{{value.items.8.1}}" value={{value.items.6.1}}></th>
+				<th class="col_20"><input type="text" id="col8_{{value.items.8.1}}" value={{value.items.7.1}}></th>
 			</tr>
 	{% endfor %}
 		</table>
@@ -120,10 +114,13 @@
 		 <div class="head_row" style="margin-bottom:40px">
  		   <button type="submit" class="btn btn-primary" id="purchase_delete_multiple">删除</button>
  		   <button type="submit" class="btn btn-primary" id="modify_multiple">修改</button>
+  		   <button type="submit" class="btn btn-primary" id="print" onclick="javascript:window.print()" />打印</button>
  		</div>
 
 	{% endifequal %}  
 
+  <OBJECT classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2" height="0" id="wb" name="wb" width="0">
+        </OBJECT>
   </div>
  
  {% endblock %}
@@ -135,16 +132,13 @@
 		$("#purchase_box").show();
 		$("#purchase_aside").addClass('subtitle_focus');	
 		var multi_length=0;
-//条形码
+
 		var href =window.location.href.split("/");
 		var productID=href[5];
-		var zero_length=8-parseInt(productID.length);
-		var zero_query='';
-		for(i=0;i<zero_length;i++){
-			zero_query=zero_query+'0';
-		};
-		var newcode=zero_query+productID;
-		$("#bcTarget").barcode(newcode,"code11");
+
+//条形码
+		var barcode_src='/barcode/'+productID;
+		$("#barcode_iframe").attr("src",barcode_src);
 
 //delete 采购单历史
 		$('#purchase_delete_single').click(function(){
@@ -221,10 +215,12 @@
 				var col6=$.trim($("#col6_"+i).val());
 				var col7=$.trim($("#col7_"+i).val());
 				var col8=$.trim($("#col8_"+i).val());
+				var id=$("#col1_"+i).attr('class').split("_")[0];
+				var id2=$("#col1_"+i).attr('class').split("_")[1];
 				$.ajax({
 				  	type : "POST",
 				  	url : "/purchase/modify_multiple/",
-				  	data:{'productID':productID,'col1':col1,'col2':col2,'col3':col3,'col4':col4,'col5':col5,'col6':col6,'col7':col7,'col8':col8},
+				  	data:{'productID':productID,'col1':col1,'col2':col2,'col3':col3,'col4':col4,'col5':col5,'col6':col6,'col7':col7,'col8':col8,'id':id,'id2':id2},
 				  	dataType : "json",
 				  	success : function(data) {    
 		                if(data==1){

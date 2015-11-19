@@ -3,24 +3,20 @@
 {% block head %}
 <link rel="stylesheet" href="{% static "erp/css/purchase.css" %}">
 {% endblock %}
-
-
-		{% block subtitle %}
-									<div class="line2">
-							印刷采购单
-				</div>	
-
-		{% endblock %}
-
+			{% block inner_header %}
+					
+			{% endblock %}			
 
  {% block main %}
  <div class="main" style="overflow:hidden">
+ 			<div class="line2">
+							印刷采购单
+				</div>	
 		{% ifequal process_step 1 %}
-		<h2>单工序采购单</h2>
- 		<div class="head_row" style="height:80px">
- 			<label for="customer_name">产品号:</label>
- 			 <div id="bcTarget"></div>
- 		</div>
+		<div class="head_row" style="height:70px" id="bcTarget_row">
+			<label for="customer_name">条形码:</label>
+			<iframe src="" frameborder="0" id="barcode_iframe"></iframe>
+		</div>
 		 <table class="purchase_table" style="margin-top: 20px;">
 			<tr>
 				<th class="col_10">客户名</th>
@@ -77,11 +73,10 @@
 		 {% endifequal %}  
 
 	{% ifequal process_step 2 %}
-		<h2>多工序采购单</h2>
-		 <div class="head_row" style="height:80px">
- 			<label for="customer_name">产品号:</label>
- 			 <div id="bcTarget"></div>
- 		</div>
+		<div class="head_row" style="height:70px" id="bcTarget_row">
+			<label for="customer_name">条形码:</label>
+			<iframe src="" frameborder="0" id="barcode_iframe"></iframe>
+		</div>
 		<table class="purchase_table">
 			<tr>
 				<th class="col_20">采购项目<span class="red">*</span></th>
@@ -95,9 +90,9 @@
 			</tr>
 			<tr>
 				<th class="col_20"><input type="text" id="col1_1" name="count"></th>
-				<th class="col_10"><input type="text" id="col2_1"></th>
-				<th class="col_10"><input type="text" id="col3_1"></th>
-				<th class="col_10"><input type="text" id="col4_1" name="total_fee"></th>
+				<th class="col_10"><input type="number" id="col2_1"></th>
+				<th class="col_10"><input type="number" id="col3_1"></th>
+				<th class="col_10"><input type="number" id="col4_1" name="total_fee"></th>
 				<th class="col_10"><input type="text" id="col5_1"></th>
 				<th class="col_10"><input type="text" id="col6_1"></th>
 				<th class="col_10"><input type="text" id="col7_1"></th>
@@ -105,9 +100,9 @@
 			</tr>
 			<tr>
 				<th class="col_20"><input type="text" id="col1_2" name="count"></th>
-				<th class="col_10"><input type="text" id="col2_2"></th>
-				<th class="col_10"><input type="text" id="col3_2"></th>
-				<th class="col_10"><input type="text" id="col4_2" name="total_fee"></th>
+				<th class="col_10"><input type="number" id="col2_2"></th>
+				<th class="col_10"><input type="number" id="col3_2"></th>
+				<th class="col_10"><input type="number" id="col4_2" name="total_fee"></th>
 				<th class="col_10"><input type="text" id="col5_2"></th>
 				<th class="col_10"><input type="text" id="col6_2"></th>
 				<th class="col_10"><input type="text" id="col7_2"></th>
@@ -115,9 +110,9 @@
 			</tr>
 			<tr>
 				<th class="col_20"><input type="text" id="col1_3" name="count"></th>
-				<th class="col_10"><input type="text" id="col2_3"></th>
-				<th class="col_10"><input type="text" id="col3_3"></th>
-				<th class="col_10"><input type="text" id="col4_3" name="total_fee"></th>
+				<th class="col_10"><input type="number" id="col2_3"></th>
+				<th class="col_10"><input type="number" id="col3_3"></th>
+				<th class="col_10"><input type="number" id="col4_3" name="total_fee"></th>
 				<th class="col_10"><input type="text" id="col5_3"></th>
 				<th class="col_10"><input type="text" id="col6_3"></th>
 				<th class="col_10"><input type="text" id="col7_3"></th>
@@ -125,9 +120,9 @@
 			</tr>
 			<tr>
 				<th class="col_20"><input type="text" id="col1_4" name="count"></th>
-				<th class="col_10"><input type="text" id="col2_4"></th>
-				<th class="col_10"><input type="text" id="col3_4"></th>
-				<th class="col_10"><input type="text" id="col4_4" name="total_fee"></th>
+				<th class="col_10"><input type="number" id="col2_4"></th>
+				<th class="col_10"><input type="number" id="col3_4"></th>
+				<th class="col_10"><input type="number" id="col4_4" name="total_fee"></th>
 				<th class="col_10"><input type="text" id="col5_4"></th>
 				<th class="col_10"><input type="text" id="col6_4"></th>
 				<th class="col_10"><input type="text" id="col7_4"></th>
@@ -135,9 +130,9 @@
 			</tr>
 			<tr>
 				<th class="col_20"><input type="text" id="col1_5" name="count"></th>
-				<th class="col_10"><input type="text" id="col2_5"></th>
-				<th class="col_10"><input type="text" id="col3_5"></th>
-				<th class="col_10"><input type="text" id="col4_5" name="total_fee"></th>
+				<th class="col_10"><input type="number" id="col2_5"></th>
+				<th class="col_10"><input type="number" id="col3_5"></th>
+				<th class="col_10"><input type="number" id="col4_5" name="total_fee"></th>
 				<th class="col_10"><input type="text" id="col5_5"></th>
 				<th class="col_10"><input type="text" id="col6_5"></th>
 				<th class="col_10"><input type="text" id="col7_5"></th>
@@ -145,9 +140,9 @@
 			</tr>
 			<tr>
 				<th class="col_20"><input type="text" id="col1_6" name="count"></th>
-				<th class="col_10"><input type="text" id="col2_6"></th>
-				<th class="col_10"><input type="text" id="col3_6"></th>
-				<th class="col_10"><input type="text" id="col4_6" name="total_fee"></th>
+				<th class="col_10"><input type="number" id="col2_6"></th>
+				<th class="col_10"><input type="number" id="col3_6"></th>
+				<th class="col_10"><input type="number" id="col4_6" name="total_fee"></th>
 				<th class="col_10"><input type="text" id="col5_6"></th>
 				<th class="col_10"><input type="text" id="col6_6"></th>
 				<th class="col_10"><input type="text" id="col7_6"></th>
@@ -155,9 +150,9 @@
 			</tr>
 			<tr>
 				<th class="col_20"><input type="text" id="col1_7" name="count"></th>
-				<th class="col_10"><input type="text" id="col2_7"></th>
-				<th class="col_10"><input type="text" id="col3_7"></th>
-				<th class="col_10"><input type="text" id="col4_7" name="total_fee"></th>
+				<th class="col_10"><input type="number" id="col2_7"></th>
+				<th class="col_10"><input type="number" id="col3_7"></th>
+				<th class="col_10"><input type="number" id="col4_7" name="total_fee"></th>
 				<th class="col_10"><input type="text" id="col5_7"></th>
 				<th class="col_10"><input type="text" id="col6_7"></th>
 				<th class="col_10"><input type="text" id="col7_7"></th>
@@ -197,13 +192,8 @@
 		var productID=href[5];
 
 //条形码
-		var zero_length=8-parseInt(productID.length);
-		var zero_query='';
-		for(i=0;i<zero_length;i++){
-			zero_query=zero_query+'0';
-		};
-		var newcode=zero_query+productID;
-		$("#bcTarget").barcode(newcode,"code11");
+			var barcode_src='/barcode/'+productID;
+			$("#barcode_iframe").attr("src",barcode_src);
 
 //录入单工序表
 		$("#purchase_fill_single").click(function(){
@@ -230,7 +220,7 @@
 			  	success : function(data) {    
 	                if(data==1){
 	                	alert("录入成功");
-	                   window.location.reload();
+	                   window.location.href='/purchase/purchase_list/1';
 	                }else{
 	                  alert("录入失败:"+data.message);
 	                }
@@ -298,6 +288,7 @@
 
 	                	if(count==maxnum){
 							alert("录入成功");
+							window.location.href='/purchase/purchase_list/1';
 						}
 		              }
 	          })

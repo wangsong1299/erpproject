@@ -5,8 +5,58 @@ from django.views.decorators.csrf import csrf_exempt
 import simplejson as json
 from users import utils as comutils
 from sales.models import Quotation,Order,Process,Delivery,Cost
-from purchase.models import Purchase_single,Purchase_multiple
+from purchase.models import Purchase_single,Purchase_multiple,Purchase
 from customer.models import Supplier
+
+def get_purchase_list(records):
+	a={}
+	i=0
+	for r in records:
+		b={}
+		b[0]=r.productID
+		b[1]=r.product_name
+		#b[3]=r.create_time.strftime('%Y-%m-%d')
+		b[2]=r.customer
+		b[3]=r.process_step
+		a[i]=b
+		i=i+1
+	return a
+
+def purchase_list(request,num):
+	is_login=request.session.get('is_login',False)
+	nick_name = request.session.get('nick_name',False)
+	a={}
+	pre_click=False
+	later_click=False
+	if not is_login:
+		return HttpResponseRedirect("/")
+	else:
+		records_all=Purchase.objects.all()
+		page_all=int(len(records_all))/10+1
+		num=int(num)
+		if(num==1):			
+			if((len(records_all)<11)):	
+				records=Purchase.objects.all()
+				a=get_purchase_list(records)
+			else:
+				records=Purchase.objects.all()[0:9]
+				a=get_purchase_list(records)
+		else:
+			if(num==page_all):
+				last=int(page_all-1)*10
+				records=Purchase.objects.all()[last:]
+				a=get_purchase_list(records)
+			else:
+				first=int(num)*10
+				records=Purchase.objects.all()[first:int(first+9)]
+				a=get_purchase_list(records)
+		if(num>1):
+			pre_click=True
+		if(num<int(page_all)):
+			later_click=True
+		return render_to_response("purchase_list.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click)})
+
+
 def choice(request):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
@@ -82,6 +132,8 @@ def search(request,productID):
 				a[6]=m.contacts_phone
 				a[7]=m.notes
 				a[8]=int(i)+1
+				a[9]=m.id
+				a[10]=Purchase.objects.filter(product_name=m.product_name)[0].id
 				multiple_records[i]=a
 				i=i+1
 			print multiple_records
@@ -94,22 +146,32 @@ def search(request,productID):
 @csrf_exempt
 def get_productID_by_product(request):
 	product_name = request.POST.get('product_name', None)
-	productID=Process.objects.filter(product_name=product_name)[0].productID
-	if(len(productID)==0):
-		return HttpResponse(0)
-	else:
+	r=Process.objects.filter(product_name=product_name)
+	if r:
+		productID=r[0].productID
 		return HttpResponse(productID)
+	else:
+		return HttpResponse(0)
 
 @csrf_exempt
 def get_productID_by_customer(request):
 	customer = request.POST.get('customer', None)
-	print customer
-	productID=Process.objects.filter(customer=customer)[0].productID
-	if(len(productID)==0):
-		return HttpResponse(0)
-	else:
+	r=Process.objects.filter(customer=customer)
+	if r:
+		productID=r[0].productID
 		return HttpResponse(productID)
+	else:
+		return HttpResponse(0)		
 
+@csrf_exempt
+def get_productID_by_productID(request):
+	productID = request.POST.get('productID', None)
+	r=Process.objects.filter(productID=productID)
+	if r:
+		productID=r[0].productID
+		return HttpResponse(productID)
+	else:
+		return HttpResponse(0)
 
 @csrf_exempt
 def fill_single(request):
@@ -148,7 +210,14 @@ def fill_single(request):
 		q.save()
 	except Exception, e:
 		return comutils.baseresponse(e, 500)
-	
+	try:
+		q = Purchase(productID=productID,
+				customer = customer,
+				product_name=product_name,	
+				process_step=1)
+		q.save()
+	except Exception, e:
+		return comutils.baseresponse("system error", 500)
 	return HttpResponse(json.dumps(1))
 
 
@@ -177,6 +246,14 @@ def fill_multiple(request):
 	except Exception, e:
 		return comutils.baseresponse('system error', 500)
 	try:
+		q = Purchase(productID=productID,
+				customer = col5,
+				product_name=col1,	
+				process_step=2)
+		q.save()
+	except Exception, e:
+		return comutils.baseresponse("system error", 500)
+	try:
 		q = Supplier(productID=productID,
 				suppliers=col5,
 				contacts=col6,
@@ -199,6 +276,10 @@ def delete_single(request):
 		Purchase_single.objects.filter(productID=productID)[0].delete()
 	except Exception, e:
 		return comutils.baseresponse('system error', 500)
+	try:
+		Purchase.objects.filter(productID=productID)[0].delete()
+	except Exception, e:
+		return comutils.baseresponse('system error', 500)
 	return HttpResponse(json.dumps(1))
 
 @csrf_exempt
@@ -206,6 +287,10 @@ def delete_multiple(request):
 	productID = request.POST.get('productID', None)
 	try:
 		Purchase_multiple.objects.filter(productID=productID).delete()
+	except Exception, e:
+		return comutils.baseresponse('system error', 500)
+	try:
+		Purchase.objects.filter(productID=productID).delete()
 	except Exception, e:
 		return comutils.baseresponse('system error', 500)
 	return HttpResponse(json.dumps(1))
@@ -248,6 +333,10 @@ def modify_single(request):
 				wl_biaoliao=wl_biaoliao,
 				wl_waleng=wl_waleng)
 	except Exception, e:
+		return comutils.baseresponse(e, 500)
+	try:
+		Purchase.objects.filter(productID=productID).update(customer = customer,product_name=product_name)
+	except Exception, e:
 		return comutils.baseresponse(e, 500)	
 	return HttpResponse(json.dumps(1))
 
@@ -262,8 +351,10 @@ def modify_multiple(request):
 	col6 = request.POST.get('col6', None)
 	col7 = request.POST.get('col7', None)
 	col8 = request.POST.get('col8', None)
+	id = request.POST.get('id', None)
+	id2=request.POST.get('id2', None)
 	try:
-		Purchase_multiple.objects.filter(productID=productID).update(productID=productID,
+		Purchase_multiple.objects.filter(id=id).update(productID=productID,
 				product_name=col1,
 				price=col2,
 				amount=col3,	
@@ -274,5 +365,9 @@ def modify_multiple(request):
 				notes=col8)
 	except Exception, e:
 		return comutils.baseresponse('system error', 500)
+	try:
+		Purchase.objects.filter(id=id2).update(customer =col5,product_name=col1)
+	except Exception, e:
+		return comutils.baseresponse(e, 500)	
 	return HttpResponse(json.dumps(1))
 

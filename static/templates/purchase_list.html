@@ -1,0 +1,229 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "erp/css/sales.css" %}">
+{% endblock %}
+
+{% block inner_header %}
+{% endblock %}
+
+ {% block main %}
+ <div class="main" style="overflow:hidden">
+ 		
+ 				<div class="line2">
+					采购列表
+				</div>	
+	 <div class="head_row">
+ 		   <button type="submit" class="btn btn-primary" id="find_purchase">查询采购单</button>
+ 		   <div class="searchbar">			
+			  <input class="input-medium search-query" id="purchase_search" type="text" placeholder="客户/产品名/产品ID">
+			</div>
+  		   <button type="submit" class="btn btn-primary" id="new">新建采购单</button>
+  		   	<div class="searchbar">			
+			  <input class="input-medium search-query" id="purchase_new" type="text" placeholder="客户/产品名/产品ID">
+			</div>
+ 	</div>
+ 	<div class="list_hr" style="margin-top:20px"></div>
+	<table class="list_table" style="margin-top: 5px;">
+		<tr>
+			<th class="col_1">产品ID</th>
+			<th class="col_1">产品名</th>
+			<th class="col_2">客户名</th>
+			<th class="col_2">工序</th>
+			<th class="col_2">修改</th>
+			<th class="col_2">删除</th>
+		</tr>
+	</table>
+ 	<div class="list_hr" style="margin-top:5px"></div>
+
+	<table class="list_table">
+	{% for key, value in records.items %}
+
+		<tr>
+		  <th class="col_1"> <a href='/purchase/search/{{ value.items.0.1 }}/' style="cursor:pointer">{{ value.items.0.1 }}</a></th>
+		  <th class="col_1">{{ value.items.1.1 }}</th>
+		  <th class="col_2">{{ value.items.2.1 }}</th>
+		  <th class="col_2">{{ value.items.3.1 }}</th>
+		  <th class="col_2"><a href='/purchase/search/{{ value.items.0.1 }}/'><input type="button" value="修改"></a></th>
+		  <th class="col_2"><input type="button" value="删除" class="delete_purchase" id="delete_purchase_{{ value.items.3.1 }}_{{ value.items.0.1 }}"></th>
+		</tr>
+	{% endfor %}		
+	</table>
+	 <div class="head_row">
+		   <button type="submit" class="btn btn-primary" id="later_click">下一页</button>
+ 		   <button type="submit" class="btn btn-primary" id="pre_click">上一页</button>
+ 	</div>
+
+  </div>
+ 
+ {% endblock %}
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#purchase_box").show();
+		$("#purchase_aside").addClass('subtitle_focus');
+
+		$("#new").click(function(){
+			var purchase_new=$("#purchase_new").val();
+			if(purchase_new==''){
+				alert("请填写要新增采购单的产品的ID或者产品名称")
+			}else{
+				$.ajax({
+                      type : "POST",
+                      url : "/purchase/get_productID_by_productID/",
+                      data:{'productID':purchase_new},
+                      dataType : "json",
+                      success : function(data){ 
+                      		if(data!=0){
+                      			 window.location.href='/purchase/fill/'+data;
+                      		}else{
+				                 $.ajax({
+				                      type : "POST",
+				                      url : "/purchase/get_productID_by_product/",
+				                      data:{'product_name':purchase_new},
+				                      dataType : "json",
+				                      success : function(data){ 
+				                      		if(data!=0){
+				                      			 window.location.href='/purchase/fill/'+data;
+				                      		}else{
+				                      			$.ajax({
+								                      type : "POST",
+								                      url : "/purchase/get_productID_by_customer/",
+								                      data:{'customer':purchase_new},
+								                      dataType : "json",
+								                      success : function(data){ 
+								                      		if(data!=0){
+								                      			 window.location.href='/purchase/fill/'+data;
+								                      		}else{
+								                      			alert("没有相关订单号");
+								                      		}
+								                         
+								                      }
+								                })
+
+				                      		}
+				                         
+				                      }
+				                })
+
+                      		}
+                         
+                      }
+                })
+			}
+		})
+
+
+		$("#find_purchase").click(function(){
+			var purchase_search=$("#purchase_search").val();
+			if(purchase_search==''){
+				alert("请填写要禅心采购单的产品的ID或者产品名称")
+			}else{
+				$.ajax({
+                      type : "POST",
+                      url : "/purchase/get_productID_by_productID/",
+                      data:{'productID':purchase_search},
+                      dataType : "json",
+                      success : function(data){ 
+                      		if(data!=0){
+                      			 window.location.href='/purchase/search/'+data;
+                      		}else{
+				                 $.ajax({
+				                      type : "POST",
+				                      url : "/purchase/get_productID_by_product/",
+				                      data:{'product_name':purchase_search},
+				                      dataType : "json",
+				                      success : function(data){ 
+				                      		if(data!=0){
+				                      			 window.location.href='/purchase/search/'+data;
+				                      		}else{
+				                      			$.ajax({
+								                      type : "POST",
+								                      url : "/purchase/get_productID_by_customer/",
+								                      data:{'customer':purchase_search},
+								                      dataType : "json",
+								                      success : function(data){ 
+								                      		if(data!=0){
+								                      			 window.location.href='/purchase/search/'+data;
+								                      		}else{
+								                      			alert("没有相关订单号");
+								                      		}
+								                         
+								                      }
+								                })
+
+				                      		}
+				                         
+				                      }
+				                })
+
+                      		}
+                         
+                      }
+                })
+			}
+		})
+		
+
+		 	var href=window.location.href.split("/")[5];
+ 			console.log(href);
+ 			var pre_click={{pre_click}}
+ 			if(pre_click){
+ 				var pre_num=parseInt(href)-1;
+ 				$("#pre_click").click(function(){
+	 				window.location.href='/sales/quotation_list/'+pre_num;
+	 			})
+ 			}else{
+ 				$("#pre_click").attr('disabled',true);
+ 			}
+ 			 var later_click={{later_click}}
+ 			if(later_click){
+ 				var later_num=parseInt(href)+1;
+ 				$("#later_click").click(function(){
+	 				window.location.href='/sales/quotation_list/'+later_num;
+	 			})
+ 			}else{
+ 				$("#later_click").attr('disabled',true);
+ 			}
+
+
+ 			$(".delete_purchase").click(function(){
+ 				var process_step=$(this).attr("id").split("_")[2];
+ 				var productID=$(this).attr("id").split("_")[3];
+ 				if(process_step==1){
+	 				$.ajax({
+	                      type : "POST",
+	                      url : "/purchase/delete_single/",
+	                      data:{'productID':productID},
+	                      dataType : "json",
+	                      success : function(data){
+	                      		if(data==1){
+	                      			alert("删除成功");
+	                      			window.location.href='/purchase/purchase_list/1';
+	                      		}  
+	                      }
+	                })
+  				}else{
+	  					$.ajax({
+	                      type : "POST",
+	                      url : "/purchase/delete_multiple/",
+	                      data:{'productID':productID},
+	                      dataType : "json",
+	                      success : function(data){  
+	                      		if(data==1){
+	                      			alert("删除成功");
+	                      			window.location.href='/purchase/purchase_list/1';
+	                      		}else{
+	                      			alert("error");
+	                      		}
+	                      		
+	                      }
+	                })
+  				}
+ 			})
+	})</script>
+
+{% endblock %}

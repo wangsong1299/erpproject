@@ -1,6 +1,12 @@
 from django.db import models
 
 # Create your models here.
+class Purchase(models.Model):
+	productID=models.CharField(max_length = 10)
+	customer=models.CharField(max_length = 30,blank = True)
+	product_name=models.CharField(max_length = 50,blank = True)
+	process_step=models.CharField(max_length = 3,default=1)
+
 class Purchase_single(models.Model):
 	productID=models.CharField(max_length = 10)
 	customer=models.CharField(max_length = 30,blank = True)
