@@ -5,7 +5,8 @@ from storage import tests
 
 urlpatterns = patterns('',
     # 库存
-    url(r'^storage/$', views.storage),
+    url(r'^storage_list/(\d{1,6})/$', views.storage_list),
+    url(r'^storage/(\d{1,6})/$', views.storage),
 
 
     url(r'^storage_out/new/$', views.storage_out_new),
@@ -49,6 +50,9 @@ urlpatterns = patterns('',
 
    url(r'^get_details_by_material/$', views.get_details_by_material),
 
+
+#####
+   url(r'^get_storagedetails_by_piplineID/$', views.get_storagedetails_by_piplineID),
 
 
 )

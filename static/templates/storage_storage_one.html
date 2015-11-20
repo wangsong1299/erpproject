@@ -11,15 +11,8 @@
  {% block main %}
  <div class="main" style="overflow:hidden">
  		<div class="line2">
-							产品库存
+							产品库存(查询结果)
 				</div>	
-
-	<div class="head_row">
- 		   <button type="submit" class="btn btn-primary" id="find_storage">查询产品库存</button>
- 		   <div class="searchbar">			
-			  <input class="input-medium search-query" id="storage_search" type="text" placeholder="产品名/客户名">
-			</div>
- 	</div>
 
 <!--修改框-->
 	<div class="" id="storage_modify_box" style="display:none">
@@ -65,22 +58,17 @@
  	<div class="list_hr" style="margin-top:5px"></div>
 
    	<table class="list_table">
-
-		{% for key, value in records.items %}
-
 		<tr>
-			<th class="col_10">{{ value.items.0.1 }}</th>
-			<th class="col_20">{{ value.items.1.1 }}</th>
-			<th class="col_10">{{ value.items.2.1 }}</th>
-			<th class="col_10">{{ value.items.3.1 }}</th>
-			<th class="col_10">{{ value.items.4.1 }}</th>
-			<th class="col_10">{{ value.items.5.1 }}</th>
-			<th class="col_20">{{ value.items.6.1 }}</th>
-			<th class="col_5"><input type="button" value="修改" name='modify_storage' class="modify_storage_{{ value.items.8.1 }}" id="modify_storage_{{ value.items.9.1 }}"></th>
-			<th class="col_5"><input type="button" value="删除" class="delete_storage" id="delete_storage_{{ value.items.7.1 }}"></th>
+			<th class="col_10">{{ records.0 }}</th>
+			<th class="col_20">{{ records.1 }}</th>
+			<th class="col_10">{{ records.2 }}</th>
+			<th class="col_10">{{ records.3 }}</th>
+			<th class="col_10">{{ records.4 }}</th>
+			<th class="col_10">{{ records.5 }}</th>
+			<th class="col_20">{{ records.6 }}</th>
+			<th class="col_5"><input type="button" value="修改" name='modify_storage' class="modify_storage_{{records.8}}" id="modify_storage_{{ records.8 }}"></th>
+			<th class="col_5"><input type="button" value="删除" class="delete_storage" id="delete_storage_{{ records.7 }}"></th>
 		</tr>
-	{% endfor %}
-
 	</table>
  
 
@@ -106,6 +94,8 @@
 			  	success : function(data) {    
 			  		console.log(data);
 			  		$("#storage_modify_box").show();
+			  		$(".list_table").hide();
+			  		$(".list_hr").hide();
 			  		$("#modify_col1").val(data[0]);
 			  		$("#modify_col2").val(data[1]);
 			  		$("#modify_col3").val(data[2]);
@@ -148,34 +138,6 @@
         	    })
 		})
 
-/*
-		$('input[name=modify_storage]').click(function(){
-			var num = $(this).attr('class').split("_")[2];
-			var productID=$(this).attr("id").split("_")[2];
-			var customer=$("#customer_name_"+num).val();
-			var product_name=$("#product_name_"+num).val();
-			var size=$("#size_"+num).val();
-			var amount=$("#amount_"+num).val();
-			var in_time=$("#in_time_"+num).val();
-			var out_time=$("#out_time_"+num).val();
-			var notes=$("#notes_"+num).val();
-
-			  $.ajax({
-	              type : "POST",
-	              url : "/storage/modify_storage/",
-	              data:{'productID':productID,'customer':customer,'product_name':product_name,'size':size,'amount':amount,'in_time':in_time,'out_time':out_time,'notes':notes},
-	              dataType : "json",
-	              success : function(data) {    
-	                if(data==1){
-	                	alert("修改成功");
-	                   window.location.reload();
-	                }else{
-	                  alert("修改失败:"+data.message);
-	                }
-	              }
-	          })
-		})
-*/
 		$(".delete_storage").click(function(){
 			var productID=$(this).attr("id").split("_")[2];
 			$.ajax({
@@ -194,71 +156,6 @@
 	          })
 
 		})
-
-		$("#search").click(function(){
-			$("#search_box").slideDown(1000);
-		})
-
-		$("#find_storage").click(function(){
-				var storage_search=$.trim($("#storage_search").val());
-
-				//$("#find_storage_table").show();
-
-				if(storage_search==''){
-					alert("请至少填写客户和产品中的一个");
-				}else{
-					$.ajax({
-	                      type : "POST",
-	                      url : "/storage/get_storageID_by_customer/",
-	                      data:{'customer':storage_search},
-	                      dataType : "json",
-	                      success : function(data){  
-	                      		if(data!=0){
-	                      			window.location.href='/storage/storage/'+data;
-	                      		}else{
-	                      			$.ajax({
-					                      type : "POST",
-					                      url : "/storage/get_storageID_by_product/",
-					                      data:{'product_name':storage_search},
-					                      dataType : "json",
-					                      success : function(data){  
-					                      		if(data!=0){
-					                      			window.location.href='/storage/storage/'+data;
-					                      		}else{
-					                      			alert("没有相关信息");
-					                      		}
-				                      }
-	                })
-
-	                      		}
-	                      }
-	                })
-				} 
-			})
-
-		 	var href=window.location.href.split("/")[5];
- 			console.log(href);
- 			var pre_click={{pre_click}}
- 			if(pre_click){
- 				var pre_num=parseInt(href)-1;
- 				$("#pre_click").click(function(){
-	 				window.location.href='/finance/finance_list/'+pre_num;
-	 			})
- 			}else{
- 				$("#pre_click").attr('disabled',true);
- 			}
- 			 var later_click={{later_click}}
- 			if(later_click){
- 				var later_num=parseInt(href)+1;
- 				$("#later_click").click(function(){
-	 				window.location.href='/finance/finance_list/'+later_num;
-	 			})
- 			}else{
- 				$("#later_click").attr('disabled',true);
- 			}
-
-
-
 	})</script>
 
 {% endblock %}

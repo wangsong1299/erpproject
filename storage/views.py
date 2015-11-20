@@ -8,29 +8,82 @@ from sales.models import Quotation,Order,Process,Delivery,Cost
 from work.models import Worker
 from storage.models import Storage,Storage_in,Storage_out,Storage_material
 
-def storage(request):
+
+def get_storage_list(records):	
+	a={}
+	i=0
+	for r in records:
+		b={}
+		b[0]=r.customer
+		b[1]=r.product_name
+		b[2]=r.size
+		b[3]=r.amount
+		b[4]=r.in_time
+		b[5]=r.out_time
+		b[6]=r.notes
+		b[7]=r.productID
+		b[8]=i
+		b[9]=r.id
+		a[i]=b
+		i=i+1
+	return a
+
+def storage_list(request,num):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
+	a={}
+	pre_click=False
+	later_click=False
 	if not is_login:
 		return HttpResponseRedirect("/")
 	else:
-		records=Storage.objects.all()
-		a={}
-		i=0
-		for r in records:
-			b={}
-			b[0]=r.customer
-			b[1]=r.product_name
-			b[2]=r.size
-			b[3]=r.amount
-			b[4]=r.in_time
-			b[5]=r.out_time
-			b[6]=r.notes
-			b[7]=r.productID
-			b[8]=i
-			a[i]=b
-			i=i+1
-		return render_to_response("storage_storage.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'records':a})
+		records_all=Storage.objects.all()
+		page_all=int(len(records_all)-1)/10+1
+		num=int(num)
+		if(num==1):			
+			if((len(records_all)<11)):	
+				records=Storage.objects.all().order_by('-id')
+				a=get_storage_list(records)
+			else:
+				records=Finance.objects.all().order_by('-id')[0:10]
+				a=get_storage_list(records)
+		else:
+			if(num==page_all):
+				last=int(page_all-1)*10
+				records=Storage.objects.all().order_by('-id')[last:]
+				a=get_storage_list(records)
+			else:
+				first=int(num)*10
+				records=Storage.objects.all().order_by('-id')[first:int(first+10)]
+				a=get_storage_list(records)
+		if(num>1):
+			pre_click=True
+		if(num<int(page_all)):
+			later_click=True
+		return render_to_response("storage_storage.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click)})
+
+
+def storage(request,num):
+	is_login=request.session.get('is_login',False)
+	nick_name = request.session.get('nick_name',False)
+	a={}
+	pre_click=False
+	later_click=False
+	if not is_login:
+		return HttpResponseRedirect("/")
+	else:
+		r=Storage.objects.filter(id=num)[0]
+		b={}
+		b[0]=r.customer
+		b[1]=r.product_name
+		b[2]=r.size
+		b[3]=r.amount
+		b[4]=r.in_time
+		b[5]=r.out_time
+		b[6]=r.notes
+		b[7]=r.productID
+		b[8]=r.id
+		return render_to_response("storage_storage_one.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":b})
 
 #################################################################
 def storage_in(request):
@@ -403,7 +456,7 @@ def get_details_by_material(request):
 
 @csrf_exempt
 def modify_storage(request):
-	productID = request.POST.get('productID', None)
+	id = request.POST.get('id', None)
 	product_name = request.POST.get('product_name', None)	
 	size = request.POST.get('size', None)			
 	amount = request.POST.get('amount', None)
@@ -412,7 +465,7 @@ def modify_storage(request):
 	customer = request.POST.get('customer', None)
 	notes = request.POST.get('notes', None)
 	try:
-		Storage.objects.filter(productID=productID).update(customer=customer,product_name=product_name,size=size,amount=amount,in_time=in_time,out_time=out_time,notes=notes)
+		Storage.objects.filter(id=id).update(customer=customer,product_name=product_name,size=size,amount=amount,in_time=in_time,out_time=out_time,notes=notes)
 	except Exception, e:
 		return comutils.baseresponse(e, 500)
 	return HttpResponse(json.dumps(1))
@@ -429,22 +482,31 @@ def delete_storage(request):
 @csrf_exempt
 def get_storageID_by_product(request):
 	product_name = request.POST.get('product_name', None)
-	r=Storage.objects.filter(product_name=product_name)[0]
-	b={}
-	b[0]=r.customer
-	b[1]=r.product_name
-	b[2]=r.size
-	b[3]=r.amount
-	b[4]=r.in_time
-	b[5]=r.out_time
-	b[6]=r.notes
-	b[7]=r.productID
-	return HttpResponse(json.dumps(b))
+	r=Storage.objects.filter(product_name=product_name)
+	if r:
+		id=r[0].id
+		return HttpResponse(id)
+	else:
+		return HttpResponse(0)
+
+
 #api
 @csrf_exempt
 def get_storageID_by_customer(request):
 	customer = request.POST.get('customer', None)
-	r=Storage.objects.filter(customer=customer)[0]
+	r=Storage.objects.filter(customer=customer)
+	if r:
+		id=r[0].id
+		return HttpResponse(id)
+	else:
+		return HttpResponse(0)
+
+
+#api
+@csrf_exempt
+def get_storagedetails_by_piplineID(request):
+	id = request.POST.get('id', None)
+	r=Storage.objects.filter(id=id)[0]
 	b={}
 	b[0]=r.customer
 	b[1]=r.product_name
@@ -454,4 +516,6 @@ def get_storageID_by_customer(request):
 	b[5]=r.out_time
 	b[6]=r.notes
 	b[7]=r.productID
+	b[8]=r.id
 	return HttpResponse(json.dumps(b))
+
