@@ -6,29 +6,55 @@ import simplejson as json
 from users import utils as comutils
 from users.models import User
 
+def get_user_list(records):	
+	a={}
+	i=0
+	for user in records:
+		b={}
+		b[0]=user.id
+		b[1]=user.phone
+		b[2]=user.nick_name
+		b[3]=user.role
+		b[4]=user.department
+		b[5]=int(i+1)
+		a[i]=b
+		i=i+1
+	return a
 
-def list(request):
+def list(request,num):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
+	a={}
+	pre_click=False
+	later_click=False
 	if not is_login:
 		return HttpResponseRedirect("/")
 	else:
-		users = User.objects.all()
-		a={}
-		i=0
-		for user in users:
-			b={}
-			b[0]=user.id
-			b[1]=user.phone
-			b[2]=user.nick_name
-			b[3]=user.role
-			b[4]=user.department
-			b[5]=int(i+1)
-			a[i]=b
-			i=i+1
-		return render_to_response("users_list.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'records':a,'length':i})
+		records_all=User.objects.all()
+		page_all=int(len(records_all)-1)/10+1
+		num=int(num)
+		if(num==1):			
+			if((len(records_all)<11)):	
+				records=User.objects.all().order_by('-id')
+				a=get_user_list(records)
+			else:
+				records=User.objects.all().order_by('-id')[0:10]
+				a=get_user_list(records)
+		else:
+			if(num==page_all):
+				last=int(page_all-1)*10
+				records=User.objects.all().order_by('-id')[last:]
+				a=get_user_list(records)
+			else:
+				first=int(num)*10
+				records=User.objects.all().order_by('-id')[first:int(first+10)]
+				a=get_user_list(records)
+		if(num>1):
+			pre_click=True
+		if(num<int(page_all)):
+			later_click=True
+		return render_to_response("users_list.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'length':len(records),'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click)})
 
-	
 def new(request):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)

@@ -5,7 +5,7 @@ from users import tests
 
 urlpatterns = patterns('',
     # 用户列表   
-    url(r'^list/$', views.list),
+    url(r'^list/(\d{1,6})/$', views.list),
     # 用户分配
     url(r'^new/$', views.new),
     url(r'^(\d{1,6})/$', views.user),

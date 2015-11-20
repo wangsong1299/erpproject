@@ -1,27 +1,29 @@
  {% extends "base_erp.html" %}
  {% load i18n admin_static %}
 
+{% block head %}
+<link rel="stylesheet" href="{% static "erp/css/user.css" %}">
+{% endblock %}
 
-		{% block subtitle %}
-				<div class="line2">
-							员工列表
-				</div>	
-		{% endblock %}
-
+{% block inner_header %}
+{% endblock %}
 
  {% block main %}
  <div class="main" style="overflow:hidden">
+ 	<div class="line2">
+ 		员工信息
+ 	</div>
  		<div class="setting_box" style="width:50%">
  			 <div class="form-group">
-			    <label for="InputPhone">手机号</label>
-			    <input type="text" class="form-control" id="InputPhone" placeholder="手机号" value={{records.1}}>
+			    <label for="InputPhone">手机号<span class="red">*</span></label>
+			    <input type="number" class="form-control" id="InputPhone" placeholder="手机号" value={{records.1}}>
 			  </div>
 			  <div class="form-group">
-			    <label for="InputNickname">昵称</label>
+			    <label for="InputNickname">昵称<span class="red">*</span></label>
 			    <input type="text" class="form-control" id="InputNickname" placeholder="昵称" value={{records.2}}>
 			  </div>
 			  <div class="form-group">
-			    <label for="InputPassword">密码</label>
+			    <label for="InputPassword">密码<span class="red">*</span></label>
 			    <input type="text" class="form-control" id="InputPassword" placeholder="Password">
 			  </div>
 			   <div class="form-group">
@@ -41,7 +43,7 @@
 			    <input type="text" class="form-control" id="InputQq" placeholder="qq" value={{records.3}}>
 			  </div>
 			  <div class="form-group">
-			    <label for="InputRole">角色</label>
+			    <label for="InputRole">角色<span class="red">*</span></label>
 				   <select class="form-control" id='InputRole'>
 					  <option value='0'>系统管理员</option>
 					  <option value='1'>公司领导</option>
@@ -50,7 +52,7 @@
 					</select>
 			  </div>
 			  <div class="form-group">
-			    <label for="InputDepartment">部门</label>
+			    <label for="InputDepartment">部门<span class="red">*</span></label>
 				   <select class="form-control" id='InputDepartment'>
 					  <option value='0'>销售部</option>
 					  <option value='1'>管理部</option>
@@ -62,11 +64,10 @@
 			    <label for="InputPermission">权限</label>
 			    <input type="text" class="form-control" id="InputPermission" placeholder="暂时不用填" disabled>
 			  </div>
-
-			   <button type="submit" class="btn btn-default" id="submit">修改</button>
-
-
-
+			<div class="head_row">
+				   <button type="submit" class="btn btn-primary" id="submit">修改</button>
+			</div>
+			
  		</div>
 
   </div>
@@ -77,7 +78,10 @@
 
  	<script type="text/javascript">
 	$(document).ready(function(){
-		$("#users_box").show();	
+		$("#user_box").show();	
+		$("#user_1").addClass('subtitle_focus');
+
+
 		var href =window.location.href.split("/");
 		var id=href[4];
 
