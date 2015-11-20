@@ -22,7 +22,7 @@ urlpatterns = patterns('',
     url(r'^delete_tracking/$', views.delete_tracking),
 
     #员工完成情况
-    url(r'^worker/$', views.worker),
+    url(r'^worker_list/(\d{1,6})/$', views.worker_list),
 
      url(r'^get_workerdetails_by_ID/$', views.get_workerdetails_by_ID),
      url(r'^modify_worker/$', views.modify_worker),

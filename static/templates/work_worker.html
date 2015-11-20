@@ -3,52 +3,21 @@
 {% block head %}
 <link rel="stylesheet" href="{% static "erp/css/work.css" %}">
 {% endblock %}
-
-
-		{% block subtitle %}
-				<div class="line2">
-							员工计件
-				</div>	
-		{% endblock %}
-
+{% block inner_header %}
+{% endblock %}
 
  {% block main %}
  <div class="main" style="overflow:hidden">
+	<div class="line2">
+							员工计件
+				</div>	
 
-   	<table class="worker_table" style="margin-top: 20px;" >
-			<tr>
-				<th class="col_10">姓名</th>
-				<th class="col_20">产品名称</th>
-				<th class="col_10">操作流水</th>
-				<th class="col_10">计件个数</th>
-				<th class="col_10">计件工资</th>
-				<th class="col_10">日期</th>
-				<th class="col_10">备注</th>
-				<th class="col_10">修改</th>
-				<th class="col_10">删除</th>
-			</tr>
-
-{% for key, value in records.items %}
-			<tr>
-				<th class="col_10">{{ value.items.1.1 }}</th>
-				<th class="col_20">{{ value.items.2.1 }}</th>
-				<th class="col_10" id="pipline_step_{{ value.items.10.1 }}">{{ value.items.3.1 }}</th>
-				<th class="col_10">{{ value.items.4.1 }}</th>
-				<th class="col_10">{{ value.items.5.1 }}</th>
-				<th class="col_10">{{ value.items.6.1 }}</th>
-				<th class="col_10">{{ value.items.7.1 }}</th>
-				<th class="col_10"><input type="button" value="修改" class="modify_worker" id="modify_worker_{{ value.items.9.1 }}"></th>
-				<th class="col_10"><input type="button" value="删除" class="delete_worker" id="delete_worker_{{ value.items.9.1 }}"></th>
-			</tr>
-{% endfor %}
-
-	</table>
-
-	<div class="head_row" style="margin-bottom:40px">
-	   <button type="submit" class="btn btn-primary" id="search">查询员工计件</button>
-	</div>
-
-
+	<div class="head_row">
+ 		   <button type="submit" class="btn btn-primary" id="find_worker">查询追踪单</button>
+ 		   <div class="searchbar">			
+			  <input class="input-medium search-query" id="worker_search" type="text" placeholder="产品名/产品ID">
+			</div>
+ 	</div>
 
 <!--修改框-->
 	<div class="" id="worker_modify_box" style="display:none">
@@ -78,13 +47,45 @@
 		</div>
 	</div>
 
- 		<div class="head_row" id="search_box" style="margin-bottom:40px;display:none">
-			<label for="worker_name" style="width:180px">请输入员工名</label>
-			<input type="text" id="worker_name">
-			<label for="product_name" style="width:180px">或产品名称</label>
-			<input type="text" id="product_name">
- 		   <button type="submit" class="btn btn-primary" id="find_worker">查询</button>
- 		</div>	
+	<div class="list_hr" style="margin-top:20px"></div>
+	<table class="list_table" style="margin-top: 5px;">
+			<tr>
+				<th class="col_10">姓名</th>
+				<th class="col_20">产品名称</th>
+				<th class="col_10">操作流水</th>
+				<th class="col_10">计件个数</th>
+				<th class="col_10">计件工资</th>
+				<th class="col_10">日期</th>
+				<th class="col_10">备注</th>
+				<th class="col_10">修改</th>
+				<th class="col_10">删除</th>
+			</tr>
+	</table>
+ 	<div class="list_hr" style="margin-top:5px"></div>
+
+   	<table class="list_table">
+
+{% for key, value in records.items %}
+			<tr>
+				<th class="col_10">{{ value.items.1.1 }}</th>
+				<th class="col_20">{{ value.items.2.1 }}</th>
+				<th class="col_10" id="pipline_step_{{ value.items.10.1 }}">{{ value.items.3.1 }}</th>
+				<th class="col_10">{{ value.items.4.1 }}</th>
+				<th class="col_10">{{ value.items.5.1 }}</th>
+				<th class="col_10">{{ value.items.6.1 }}</th>
+				<th class="col_10">{{ value.items.7.1 }}</th>
+				<th class="col_10"><input type="button" value="修改" class="modify_worker" id="modify_worker_{{ value.items.9.1 }}"></th>
+				<th class="col_10"><input type="button" value="删除" class="delete_worker" id="delete_worker_{{ value.items.9.1 }}"></th>
+			</tr>
+{% endfor %}
+
+	</table>
+
+
+	 <div class="head_row">
+		   <button type="submit" class="btn btn-primary" id="later_click">下一页</button>
+ 		   <button type="submit" class="btn btn-primary" id="pre_click">上一页</button>
+ 	</div>
 
 
  		 <div class="pipline_step_pop pop_box">
@@ -207,41 +208,41 @@
 
  	 	//查询对账单	
 		$("#find_worker").click(function(){
-			var worker_name=$("#worker_name").val();
-			var product_name=$.trim($("#product_name").val());
+			var worker_search=$("#worker_search").val();
 
-			if((product_name=='')&&(worker_name=='')){
+			if(worker_search==''){
 				alert("请至少填写产品和员工中的一个");
-			}else if(worker_name!=''){
+			}else{
 				$.ajax({
                       type : "POST",
                       url : "/work/get_workerID_by_worker/",
-                      data:{'worker_name':worker_name},
+                      data:{'worker_name':worker_search},
                       dataType : "json",
                       success : function(data){  
-                      		window.location.href='/work/worker/'+data;
+                      	if(data!=0){
+                      			window.location.href='/work/worker/'+data;
+                      		}else{
+                      			$.ajax({
+				                      type : "POST",
+				                      url : "/work/get_workerID_by_product/",
+				                      data:{'product_name':worker_search},
+				                      dataType : "json",
+				                      success : function(data){  
+				                      	if(data!=0){
+				                      			window.location.href='/work/worker/'+data;
+				                      		}else{
+				                      			alert("没有相关信息");
+				                      		}
+				                      }
+				                })
+
+                      		}
                       }
                 })
-			}else if(product_name!=''){
-				$.ajax({
-                      type : "POST",
-                      url : "/work/get_workerID_by_product/",
-                      data:{'product_name':product_name},
-                      dataType : "json",
-                      success : function(data){  
-                      		window.location.href='/work/worker/'+data;
-                      }
-                })
-			}
+
+			} 
 		})
 
-		$("#search").click(function(){
-			if($("#search_box").is(":visible")){
-				$("#search_box").slideUp(1000);
-			}else{
-				$("#search_box").slideDown(1000);
-			}	
-		})
 
 		 //pop kuang
  		$(".modify_pipline_step").focus(function(){
@@ -256,6 +257,28 @@
  			})
 
   		})
+
+  			var href=window.location.href.split("/")[5];
+ 			console.log(href);
+ 			var pre_click={{pre_click}}
+ 			if(pre_click){
+ 				var pre_num=parseInt(href)-1;
+ 				$("#pre_click").click(function(){
+	 				window.location.href='/work/worker_list/'+pre_num;
+	 			})
+ 			}else{
+ 				$("#pre_click").attr('disabled',true);
+ 			}
+ 			 var later_click={{later_click}}
+ 			if(later_click){
+ 				var later_num=parseInt(href)+1;
+ 				$("#later_click").click(function(){
+	 				window.location.href='/work/worker_list/'+later_num;
+	 			})
+ 			}else{
+ 				$("#later_click").attr('disabled',true);
+ 			}
+
 
 
 

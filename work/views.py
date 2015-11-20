@@ -157,32 +157,60 @@ def delete_tracking(request):
 
 ############## 
 
+def get_worker_list(records):	
+	a={}
+	i=0
+	for w in records:
+		b={}
+		b[0]=w.workerID
+		b[1]=w.worker_name
+		b[2]=w.product_name
+		b[3]=w.pipline_step
+		b[4]=w.count
+		b[5]=w.salary
+		b[6]=w.create_time.strftime('%Y-%m-%d')
+		b[7]=w.notes
+		b[8]=w.productID
+		b[9]=w.id
+		b[10]=int(i+1)
+		a[i]=b
+		i=i+1
+	return a
 
-def worker(request):
+def worker_list(request,num):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
+	a={}
+	pre_click=False
+	later_click=False
 	if not is_login:
 		return HttpResponseRedirect("/")
 	else:
-		records=Worker.objects.all().order_by('-id')
-		a={}
-		i=0
-		for w in records:
-			b={}
-			b[0]=w.workerID
-			b[1]=w.worker_name
-			b[2]=w.product_name
-			b[3]=w.pipline_step
-			b[4]=w.count
-			b[5]=w.salary
-			b[6]=w.create_time
-			b[7]=w.notes
-			b[8]=w.productID
-			b[9]=w.id
-			b[10]=int(i+1)
-			a[i]=b
-			i=i+1
-		return render_to_response("work_worker.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'records':a,'length':i})
+		records_all=Worker.objects.all().order_by('-id')
+		page_all=int(len(records_all)-1)/10+1
+		num=int(num)
+		if(num==1):			
+			if((len(records_all)<11)):	
+				records=Worker.objects.all().order_by('-id')
+				a=get_worker_list(records)
+			else:
+				records=Worker.objects.all().order_by('-id')[0:10]
+				a=get_worker_list(records)
+		else:
+			if(num==page_all):
+				last=int(page_all-1)*10
+				records=Worker.objects.all().order_by('-id')[last:]
+				a=get_worker_list(records)
+			else:
+				first=int(num)*10
+				records=Worker.objects.all().order_by('-id')[first:int(first+10)]
+				a=get_worker_list(records)
+		if(num>1):
+			pre_click=True
+		if(num<int(page_all)):
+			later_click=True
+		return render_to_response("work_worker.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'length':len(records),'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click)})
+
 
 @csrf_exempt
 def get_workerdetails_by_ID(request):
@@ -195,7 +223,7 @@ def get_workerdetails_by_ID(request):
 		b[2]=r.pipline_step
 		b[3]=r.count
 		b[4]=r.salary
-		b[5]=r.create_time
+		b[5]=r.create_time.strftime('%Y-%m-%d')
 		b[6]=r.notes
 		b[7]=r.id
 	except Exception, e:
@@ -232,21 +260,23 @@ def delete_worker(request):
 @csrf_exempt
 def get_workerID_by_worker(request):
 	worker_name = request.POST.get('worker_name', None)
-	workerID=Worker.objects.filter(worker_name=worker_name)[0].workerID
-	if(len(workerID)==0):
-		return HttpResponse(0)
-	else:
+	r=Worker.objects.filter(worker_name=worker_name)
+	if r:
+		workerID=r[0].workerID
 		return HttpResponse(workerID)
-
+	else:
+		return HttpResponse(0)
+		
 
 @csrf_exempt
 def get_workerID_by_product(request):
 	product_name = request.POST.get('product_name', None)
-	workerID=Worker.objects.filter(product_name=product_name)[0].workerID
-	if(len(workerID)==0):
-		return HttpResponse(0)
-	else:
+	r=Worker.objects.filter(product_name=product_name)
+	if r:
+		workerID=r[0].workerID
 		return HttpResponse(workerID)
+	else:
+		return HttpResponse(0)
 
 
 
@@ -268,7 +298,7 @@ def worker_worker(request,workerID):
 			b[3]=w.pipline_step
 			b[4]=w.count
 			b[5]=w.salary
-			b[6]=w.create_time
+			b[6]=w.create_time.strftime('%Y-%m-%d')
 			b[7]=w.notes
 			b[8]=w.productID
 			b[9]=w.id

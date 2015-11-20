@@ -4,45 +4,15 @@
 <link rel="stylesheet" href="{% static "erp/css/work.css" %}">
 {% endblock %}
 
-
-		{% block subtitle %}
-				<div class="line2">
-							单个员工计件
-				</div>	
-		{% endblock %}
+{% block inner_header %}
+{% endblock %}
 
 
  {% block main %}
  <div class="main" style="overflow:hidden">
-
-   	<table class="worker_table" style="margin-top: 20px;" id='worker_origin_box'>
-			<tr>
-				<th class="col_10">姓名</th>
-				<th class="col_20">产品名称</th>
-				<th class="col_10">操作流水</th>
-				<th class="col_10">计件个数</th>
-				<th class="col_10">计件工资</th>
-				<th class="col_10">日期</th>
-				<th class="col_10">备注</th>
-				<th class="col_10">修改</th>
-				<th class="col_10">删除</th>
-			</tr>
-
-{% for key, value in records.items %}
-			<tr>
-				<th class="col_10">{{ value.items.1.1 }}</th>
-				<th class="col_20">{{ value.items.2.1 }}</th>
-				<th class="col_10" id="pipline_step_{{ value.items.10.1 }}">{{ value.items.3.1 }}</th>
-				<th class="col_10">{{ value.items.4.1 }}</th>
-				<th class="col_10">{{ value.items.5.1 }}</th>
-				<th class="col_10">{{ value.items.6.1 }}</th>
-				<th class="col_10">{{ value.items.7.1 }}</th>
-				<th class="col_10"><input type="button" value="修改" class="modify_worker" id="modify_worker_{{ value.items.9.1 }}"></th>
-				<th class="col_10"><input type="button" value="删除" class="delete_worker" id="delete_worker_{{ value.items.9.1 }}"></th>
-			</tr>
-{% endfor %}
-
-	</table>
+				<div class="line2">
+							单个员工计件
+				</div>	
 
 <!--修改框-->
 	<div class="" id="worker_modify_box" style="display:none">
@@ -71,6 +41,42 @@
 		   <button type="submit" class="btn btn-primary modify_submit">修改</button>
 		</div>
 	</div>
+
+
+<div class="list_hr" style="margin-top:20px"></div>
+	<table class="list_table" style="margin-top: 5px;">
+			<tr>
+				<th class="col_10">姓名</th>
+				<th class="col_20">产品名称</th>
+				<th class="col_10">操作流水</th>
+				<th class="col_10">计件个数</th>
+				<th class="col_10">计件工资</th>
+				<th class="col_10">日期</th>
+				<th class="col_10">备注</th>
+				<th class="col_10">修改</th>
+				<th class="col_10">删除</th>
+			</tr>
+	</table>
+ 	<div class="list_hr" style="margin-top:5px"></div>
+
+   	<table class="list_table">
+
+{% for key, value in records.items %}
+			<tr>
+				<th class="col_10">{{ value.items.1.1 }}</th>
+				<th class="col_20">{{ value.items.2.1 }}</th>
+				<th class="col_10" id="pipline_step_{{ value.items.10.1 }}">{{ value.items.3.1 }}</th>
+				<th class="col_10">{{ value.items.4.1 }}</th>
+				<th class="col_10">{{ value.items.5.1 }}</th>
+				<th class="col_10">{{ value.items.6.1 }}</th>
+				<th class="col_10">{{ value.items.7.1 }}</th>
+				<th class="col_10"><input type="button" value="修改" class="modify_worker" id="modify_worker_{{ value.items.9.1 }}"></th>
+				<th class="col_10"><input type="button" value="删除" class="delete_worker" id="delete_worker_{{ value.items.9.1 }}"></th>
+			</tr>
+{% endfor %}
+
+	</table>
+
 
 	 	 <div class="pipline_step_pop pop_box">
  			<h2>当前选择：</h2>
