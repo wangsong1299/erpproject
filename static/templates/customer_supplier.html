@@ -4,58 +4,23 @@
 <link rel="stylesheet" href="{% static "erp/css/customer.css" %}">
 {% endblock %}
 
-
-		{% block subtitle %}
-				<div class="line2">
-							供应商和应付
-				</div>	
-		{% endblock %}
-
+{% block inner_header %}
+{% endblock %}
 
  {% block main %}
  <div class="main" style="overflow:hidden">
+	<div class="line2">
+							供应商和应付
+				</div>	
 
-	   	<table class="customer_table" style="margin-top: 20px;" >
-				<tr>
-					<th class="col_10">供应商</th>
-					<th class="col_10">联系人</th>
-					<th class="col_10">联系电话</th>
-					<th class="col_10">采购产品</th>
-					<th class="col_10">数目</th>
-					<th class="col_10">单价</th>
-					<th class="col_10">金额</th>
-					<th class="col_10">日期</th>
-					<th class="col_10">备注</th>
-					<th class="col_5">修改</th>
-					<th class="col_5">删除</th>
-				</tr>
-
-	{% for key, value in records.items %}
-				<tr>
-					<th class="col_10">{{ value.items.0.1 }}</th>
-					<th class="col_10">{{ value.items.1.1 }}</th>
-					<th class="col_10">{{ value.items.2.1 }}</th>
-					<th class="col_10">{{ value.items.3.1 }}</th>
-					<th class="col_10">{{ value.items.4.1 }}</th>
-					<th class="col_10">{{ value.items.5.1 }}</th>
-					<th class="col_10">{{ value.items.6.1 }}</th>
-					<th class="col_10">{{ value.items.7.1 }}</th>
-					<th class="col_10">{{ value.items.8.1 }}</th>
-					<th class="col_10"><input type="button" value="修改" class="modify_supplier" id="modify_supplier_{{ value.items.9.1 }}"></th>
-					<th class="col_10"><input type="button" value="删除" class="delete_supplier" id="delete_supplier_{{ value.items.9.1 }}"></th>
-				</tr>
-
-	{% endfor %}
-
-		</table>
-
-		<div class="head_row" style="margin-bottom:40px">
-		   <button type="submit" class="btn btn-primary" id="search">查询供应商单</button>
-		</div>
-
+	<div class="head_row">
+ 		   <button type="submit" class="btn btn-primary" id="find_supplier">查询客户</button>
+ 		   <div class="searchbar">			
+			  <input class="input-medium search-query" id="supplier_search" type="text" placeholder="供应商/采购产品">
+			</div>
+   	</div>
 <!--修改框-->
 	<div class="" id="supplier_modify_box" style="display:none">
-		<h2>修改客户单</h2>
  		<table class="customer_table" style="margin-top: 20px;" >
 			<tr>
 					<th class="col_10">供应商</th>
@@ -81,18 +46,55 @@
 			</tr>
 	</table>
 		 <div class="head_row" style="margin-bottom:40px">
-		   <button type="submit" class="btn btn-primary modify_submit">修改</button>
+		   <button type="submit" class="btn btn-primary modify_submit">确认修改</button>
 		</div>
 	</div>
 
 
-		<div class="head_row" id="search_box" style="margin-bottom:40px;display:none">
-			<label for="supplier_name" style="width:180px">请输入供应商名</label>
-			<input type="text" id="supplier_name">
-			<label for="product_name" style="width:180px">或原料名称</label>
-			<input type="text" id="product_name">
- 		   <button type="submit" class="btn btn-primary" id="find_supplier">查询</button>
- 		</div>	
+ 	<div class="list_hr" style="margin-top:20px"></div>
+	<table class="list_table" style="margin-top: 5px;">
+			<tr>
+				<th class="col_10">供应商</th>
+				<th class="col_10">联系人</th>
+				<th class="col_10">联系电话</th>
+				<th class="col_10">采购产品</th>
+				<th class="col_10">数目</th>
+				<th class="col_10">单价</th>
+				<th class="col_10">金额</th>
+				<th class="col_10">日期</th>
+				<th class="col_10">备注</th>
+				<th class="col_5">修改</th>
+				<th class="col_5">删除</th>
+			</tr>
+	</table>
+ 	<div class="list_hr" style="margin-top:5px"></div>
+
+   	<table class="list_table">		
+	{% for key, value in records.items %}
+				<tr>
+					<th class="col_10">{{ value.items.0.1 }}</th>
+					<th class="col_10">{{ value.items.1.1 }}</th>
+					<th class="col_10">{{ value.items.2.1 }}</th>
+					<th class="col_10">{{ value.items.3.1 }}</th>
+					<th class="col_10">{{ value.items.4.1 }}</th>
+					<th class="col_10">{{ value.items.5.1 }}</th>
+					<th class="col_10">{{ value.items.6.1 }}</th>
+					<th class="col_10">{{ value.items.7.1 }}</th>
+					<th class="col_10">{{ value.items.8.1 }}</th>
+					<th class="col_5"><input type="button" value="修改" class="modify_supplier" id="modify_supplier_{{ value.items.9.1 }}"></th>
+					<th class="col_5"><input type="button" value="删除" class="delete_supplier" id="delete_supplier_{{ value.items.9.1 }}"></th>
+				</tr>
+
+	{% endfor %}
+
+		</table>
+
+
+	 <div class="head_row">
+		   <button type="submit" class="btn btn-primary" id="later_click">下一页</button>
+ 		   <button type="submit" class="btn btn-primary" id="pre_click">上一页</button>
+ 	</div>
+
 
 
   </div>
@@ -188,34 +190,58 @@
 
  	//查询对账单	
 		$("#find_supplier").click(function(){
-			var supplier=$.trim($("#supplier_name").val());
-			var material_name=$.trim($("#material_name").val());
+			var supplier_search=$.trim($("#supplier_search").val());
 
-			if((material_name=='')&&(supplier=='')){
+			if(supplier_search==''){
 				alert("请至少填写供应商和原料中的一个");
-			}else if(supplier!=''){
+			}else{
 				$.ajax({
                       type : "POST",
                       url : "/customer/get_supplierID_by_supplier/",
-                      data:{'supplier':supplier},
+                      data:{'supplier':supplier_search},
                       dataType : "json",
-                      success : function(data){  
-                      		window.location.href='/customer/supplier_search/'+data;
+                      success : function(data){
+                      		if(data!=0){
+                      			window.location.href='/customer/supplier_search/'+data;
+                      		}else{
+								$.ajax({
+				                      type : "POST",
+				                      url : "/customer/get_supplierID_by_material/",
+				                      data:{'material_name':supplier_search},
+				                      dataType : "json",
+				                      success : function(data){
+				                      		if(data!=0){
+				                      			window.location.href='/customer/supplier_search/'+data;
+				                      		}else{
+				                      			alert("没有相关信息");
+				                      		}     		
+				                      }
+				                })
+                      		}     		
                       }
                 })
-			}else if(material_name!=''){
-				$.ajax({
-                      type : "POST",
-                      url : "/customer/get_supplierID_by_material/",
-                      data:{'material_name':material_name},
-                      dataType : "json",
-                      success : function(data){  
-                      		window.location.href='/customer/supplier_search/'+data;
-                      }
-                })
-			}
+			} 
 		})
 
+		 	var href=window.location.href.split("/")[5];
+ 			var pre_click={{pre_click}}
+ 			if(pre_click){
+ 				var pre_num=parseInt(href)-1;
+ 				$("#pre_click").click(function(){
+	 				window.location.href='/customer/supplier_list/'+pre_num;
+	 			})
+ 			}else{
+ 				$("#pre_click").attr('disabled',true);
+ 			}
+ 			 var later_click={{later_click}}
+ 			if(later_click){
+ 				var later_num=parseInt(href)+1;
+ 				$("#later_click").click(function(){
+	 				window.location.href='/customer/supplier_list/'+later_num;
+	 			})
+ 			}else{
+ 				$("#later_click").attr('disabled',true);
+ 			}
 
 	})</script>
 

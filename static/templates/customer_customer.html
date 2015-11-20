@@ -4,61 +4,23 @@
 <link rel="stylesheet" href="{% static "erp/css/customer.css" %}">
 {% endblock %}
 
-
-		{% block subtitle %}
-				<div class="line2">
-							客户和应付
-				</div>	
-		{% endblock %}
-
-
+{% block inner_header %}
+{% endblock %}
 
  {% block main %}
  <div class="main" style="overflow:hidden">
-
-
-	   	<table class="customer_table" style="margin-top: 20px;" >
-				<tr>
-					<th class="col_10">客户名</th>
-					<th class="col_10">联系人</th>
-					<th class="col_10">联系电话</th>
-					<th class="col_10">产品名称</th>
-					<th class="col_10">数目</th>
-					<th class="col_10">单价</th>
-					<th class="col_10">金额</th>
-					<th class="col_10">日期</th>
-					<th class="col_10">备注</th>
-					<th class="col_5">修改</th>
-					<th class="col_5">删除</th>
-				</tr>
-
-	{% for key, value in records.items %}
-				<tr>
-					<th class="col_10">{{ value.items.0.1 }}</th>
-					<th class="col_10">{{ value.items.1.1 }}</th>
-					<th class="col_10">{{ value.items.2.1 }}</th>
-					<th class="col_10">{{ value.items.3.1 }}</th>
-					<th class="col_10">{{ value.items.4.1 }}</th>
-					<th class="col_10">{{ value.items.5.1 }}</th>
-					<th class="col_10">{{ value.items.6.1 }}</th>
-					<th class="col_10">{{ value.items.7.1 }}</th>
-					<th class="col_10">{{ value.items.8.1 }}</th>
-					<th class="col_10"><input type="button" value="修改" class="modify_customer" id="modify_customer_{{ value.items.9.1 }}"></th>
-					<th class="col_10"><input type="button" value="删除" class="delete_customer" id="delete_customer_{{ value.items.9.1 }}"></th>
-				</tr>
-
-	{% endfor %}
-
-		</table>
-
-		<div class="head_row" style="margin-bottom:40px">
-		   <button type="submit" class="btn btn-primary" id="search">查询客户单</button>
-		</div>
-
+		<div class="line2">
+							客户和应付
+				</div>	
+	<div class="head_row">
+ 		   <button type="submit" class="btn btn-primary" id="find_customer">查询客户</button>
+ 		   <div class="searchbar">			
+			  <input class="input-medium search-query" id="customer_search" type="text" placeholder="产品名/客户名">
+			</div>
+   	</div>
 
 <!--修改框-->
 	<div class="" id="customer_modify_box" style="display:none">
-		<h2>修改客户单</h2>
  		<table class="customer_table" style="margin-top: 20px;" >
 			<tr>
 					<th class="col_10">客户名</th>
@@ -84,19 +46,54 @@
 			</tr>
 	</table>
 		 <div class="head_row" style="margin-bottom:40px">
-		   <button type="submit" class="btn btn-primary modify_submit">修改</button>
+		   <button type="submit" class="btn btn-primary modify_submit">确认修改</button>
 		</div>
 	</div>
 
+ 	<div class="list_hr" style="margin-top:20px"></div>
+	<table class="list_table" style="margin-top: 5px;">
+			<tr>
+				<th class="col_10">客户名</th>
+				<th class="col_10">联系人</th>
+				<th class="col_10">联系电话</th>
+				<th class="col_15">产品名称</th>
+				<th class="col_5">数目</th>
+				<th class="col_5">单价</th>
+				<th class="col_10">金额</th>
+				<th class="col_10">日期</th>
+				<th class="col_15">备注</th>
+				<th class="col_5">修改</th>
+				<th class="col_5">删除</th>
+			</tr>
+	</table>
+ 	<div class="list_hr" style="margin-top:5px"></div>
+
+   	<table class="list_table">
+
+	{% for key, value in records.items %}
+				<tr>
+					<th class="col_10">{{ value.items.0.1 }}</th>
+					<th class="col_10">{{ value.items.1.1 }}</th>
+					<th class="col_10">{{ value.items.2.1 }}</th>
+					<th class="col_15">{{ value.items.3.1 }}</th>
+					<th class="col_5">{{ value.items.4.1 }}</th>
+					<th class="col_5">{{ value.items.5.1 }}</th>
+					<th class="col_10">{{ value.items.6.1 }}</th>
+					<th class="col_10">{{ value.items.7.1 }}</th>
+					<th class="col_15">{{ value.items.8.1 }}</th>
+					<th class="col_5"><input type="button" value="修改" class="modify_customer" id="modify_customer_{{ value.items.9.1 }}"></th>
+					<th class="col_5"><input type="button" value="删除" class="delete_customer" id="delete_customer_{{ value.items.9.1 }}"></th>
+				</tr>
+
+	{% endfor %}
+
+		</table>
 
 
- 		<div class="head_row" id="search_box" style="margin-bottom:40px;display:none">
-			<label for="customer_name" style="width:180px">请输入客户名</label>
-			<input type="text" id="customer_name">
-			<label for="product_name" style="width:180px">或产品名称</label>
-			<input type="text" id="product_name">
- 		   <button type="submit" class="btn btn-primary" id="find_customer">查询</button>
- 		</div>	
+	 <div class="head_row">
+		   <button type="submit" class="btn btn-primary" id="later_click">下一页</button>
+ 		   <button type="submit" class="btn btn-primary" id="pre_click">上一页</button>
+ 	</div>
 
 
   </div>
@@ -196,33 +193,60 @@
 
  	//查询对账单	
 		$("#find_customer").click(function(){
-			var customer=$.trim($("#customer_name").val());
-			var product_name=$.trim($("#product_name").val());
+			var customer_search=$.trim($("#customer_search").val());
 
-			if((product_name=='')&&(customer=='')){
+			if(customer_search==''){
 				alert("请至少填写客户和产品中的一个");
-			}else if(customer!=''){
+			}else{
 				$.ajax({
                       type : "POST",
                       url : "/customer/get_customerID_by_customer/",
-                      data:{'customer':customer},
+                      data:{'customer':customer_search},
                       dataType : "json",
                       success : function(data){  
-                      		window.location.href='/customer/customer_search/'+data;
+	                      	if(data!=0){
+	                      		window.location.href='/customer/customer_search/'+data;
+	                      	}else{
+                      			$.ajax({
+				                      type : "POST",
+				                      url : "/customer/get_customerID_by_product/",
+				                      data:{'product_name':customer_search},
+				                      dataType : "json",
+				                      success : function(data){  
+					                      	if(data!=0){
+					                      		window.location.href='/customer/customer_search/'+data;
+					                      	}else{
+					                      		alert("没有相关信息");
+					                      	}		
+				                      }
+				                })
+	                      	}		
                       }
                 })
-			}else if(product_name!=''){
-				$.ajax({
-                      type : "POST",
-                      url : "/customer/get_customerID_by_product/",
-                      data:{'product_name':product_name},
-                      dataType : "json",
-                      success : function(data){  
-                      		window.location.href='/customer/customer_search/'+data;
-                      }
-                })
-			}
+
+			} 
+
 		})
+
+		 	var href=window.location.href.split("/")[5];
+ 			var pre_click={{pre_click}}
+ 			if(pre_click){
+ 				var pre_num=parseInt(href)-1;
+ 				$("#pre_click").click(function(){
+	 				window.location.href='/customer/customer_list/'+pre_num;
+	 			})
+ 			}else{
+ 				$("#pre_click").attr('disabled',true);
+ 			}
+ 			 var later_click={{later_click}}
+ 			if(later_click){
+ 				var later_num=parseInt(href)+1;
+ 				$("#later_click").click(function(){
+	 				window.location.href='/customer/customer_list/'+later_num;
+	 			})
+ 			}else{
+ 				$("#later_click").attr('disabled',true);
+ 			}
 
 
 	})</script>

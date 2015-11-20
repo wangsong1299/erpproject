@@ -4,47 +4,48 @@
 <link rel="stylesheet" href="{% static "erp/css/customer.css" %}">
 {% endblock %}
 
-
-		{% block subtitle %}
-				<div class="line2">
-							客户和应付(查询结果)
-				</div>	
-		{% endblock %}
-
+{% block inner_header %}
+{% endblock %}
 
  {% block main %}
  <div class="main" style="overflow:hidden">
+		<div class="line2">
+							客户和应付(查询结果)
+				</div>	
 
-	   	<table class="customer_table" style="margin-top: 20px;" id="customer_origin_box" >
-				<tr>
-					<th class="col_10">客户名</th>
-					<th class="col_10">联系人</th>
-					<th class="col_10">联系电话</th>
-					<th class="col_10">产品名称</th>
-					<th class="col_10">数目</th>
-					<th class="col_10">单价</th>
-					<th class="col_10">金额</th>
-					<th class="col_10">日期</th>
-					<th class="col_10">备注</th>
-					<th class="col_5">修改</th>
-					<th class="col_5">删除</th>
-				</tr>
+	<div class="list_hr" style="margin-top:20px"></div>
+	<table class="list_table" style="margin-top: 5px;">
+			<tr>
+				<th class="col_10">客户名</th>
+				<th class="col_10">联系人</th>
+				<th class="col_10">联系电话</th>
+				<th class="col_15">产品名称</th>
+				<th class="col_5">数目</th>
+				<th class="col_5">单价</th>
+				<th class="col_10">金额</th>
+				<th class="col_10">日期</th>
+				<th class="col_15">备注</th>
+				<th class="col_5">修改</th>
+				<th class="col_5">删除</th>
+			</tr>
+	</table>
+ 	<div class="list_hr" style="margin-top:5px"></div>
 
-				<tr>
-					<th class="col_10">{{ record.0 }}</th>
-					<th class="col_10">{{ record.1 }}</th>
-					<th class="col_10">{{ record.2 }}</th>
-					<th class="col_10">{{ record.3 }}</th>
-					<th class="col_10">{{ record.4 }}</th>
-					<th class="col_10">{{ record.5 }}</th>
-					<th class="col_10">{{ record.6 }}</th>
-					<th class="col_10">{{ record.7 }}</th>
-					<th class="col_10">{{ record.8 }}</th>
-					<th class="col_10"><input type="button" value="修改" class="modify_customer" id="modify_customer_{{ record.9 }}"></th>
-					<th class="col_10"><input type="button" value="删除" class="delete_customer" id="delete_customer_{{ record.9 }}"></th>
-				</tr>
-
-		</table>
+   	<table class="list_table" style="margin-top: 20px;" id="customer_origin_box" >	
+			<tr>
+				<th class="col_10">{{ record.0 }}</th>
+				<th class="col_10">{{ record.1 }}</th>
+				<th class="col_10">{{ record.2 }}</th>
+				<th class="col_15">{{ record.3 }}</th>
+				<th class="col_5">{{ record.4 }}</th>
+				<th class="col_5">{{ record.5 }}</th>
+				<th class="col_10">{{ record.6 }}</th>
+				<th class="col_10">{{ record.7 }}</th>
+				<th class="col_10">{{ record.8 }}</th>
+				<th class="col_5"><input type="button" value="修改" class="modify_customer" id="modify_customer_{{ record.9 }}"></th>
+				<th class="col_5"><input type="button" value="删除" class="delete_customer" id="delete_customer_{{ record.9 }}"></th>
+			</tr>
+	</table>
 
 
 
@@ -76,7 +77,7 @@
 			</tr>
 	</table>
 		 <div class="head_row" style="margin-bottom:40px">
-		   <button type="submit" class="btn btn-primary modify_submit">修改</button>
+		   <button type="submit" class="btn btn-primary modify_submit">确认修改</button>
 		</div>
 	</div>
 
@@ -103,7 +104,8 @@
 			  	success : function(data) {    
 			  		//console.log(data);
 			  		$("#customer_modify_box").show();
-			  		$("#customer_origin_box").hide();
+			  		$(".list_table").hide();
+			  		$(".list_hr").hide();
 			  		$("#modify_col1").val(data[0]);
 			  		$("#modify_col2").val(data[1]);
 			  		$("#modify_col3").val(data[2]);

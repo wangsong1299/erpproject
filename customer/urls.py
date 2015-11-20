@@ -5,11 +5,11 @@ from customer import tests
 
 urlpatterns = patterns('',
     # 客户和应收列表  
-    url(r'^customer/$', views.customer),
+    url(r'^customer_list/(\d{1,6})/$', views.customer_list),
    # 客户和应收搜索页结果
     url(r'^customer_search/(\d{1,6})/$', views.customer_search),
     # 供应商和应付列表  
-    url(r'^supplier/$', views.supplier),
+    url(r'^supplier_list/(\d{1,6})/$', views.supplier_list),
    # 客户和应收搜索页结果
     url(r'^supplier_search/(\d{1,6})/$', views.supplier_search),
 

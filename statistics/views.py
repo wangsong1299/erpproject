@@ -39,7 +39,7 @@ def statistics_list(request,num):
 				records=Process.objects.all().order_by('-id')
 				a=get_statistics_list(records)
 			else:
-				records=User.objects.all().order_by('-id')[0:10]
+				records=Process.objects.all().order_by('-id')[0:10]
 				a=get_statistics_list(records)
 		else:
 			if(num==page_all):
