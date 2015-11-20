@@ -3,32 +3,33 @@
 {% block head %}
 <link rel="stylesheet" href="{% static "erp/css/finance.css" %}">
 {% endblock %}
-
-
-		{% block subtitle %}
-				<div class="line2">
-							对账单
-				</div>	
-		{% endblock %}
-
+{% block inner_header %}
+{% endblock %}
 
  {% block main %}
  <div class="main" style="overflow:hidden">
+	<div class="line2">
+							对账单
+				</div>	
 
-   	<table class="finance_table" style="margin-top: 20px;" >
+ 	<div class="list_hr" style="margin-top:20px"></div>
+	<table class="list_table show_table" style="margin-top: 5px;">
 			<tr>
 				<th class="col_10">送货日期</th>
 				<th class="col_10">订货单</th>
-				<th class="col_10">产品名称</th>
+				<th class="col_20">产品名称</th>
 				<th class="col_10">订货数</th>
 				<th class="col_10">送货数</th>
 				<th class="col_10">单价</th>
 				<th class="col_10">金额</th>
 				<th class="col_10">备注</th>
-				<th class="col_10">修改</th>
-				<th class="col_10">删除</th>
+				<th class="col_5">修改</th>
+				<th class="col_5">删除</th>
 			</tr>
+	</table>
+ 	<div class="list_hr" style="margin-top:5px"></div>
 
+   	<table class="list_table show_table">
 {% for key, value in records.items %}
 			<tr>
 				<th class="col_10">{{ value.items.0.1 }}</th>
@@ -39,8 +40,8 @@
 				<th class="col_10">{{ value.items.5.1 }}</th>
 				<th class="col_10">{{ value.items.6.1 }}</th>
 				<th class="col_10">{{ value.items.7.1 }}</th>
-				<th class="col_10"><input type="button" value="修改" class="modify_finance" id="modify_finance_{{ value.items.8.1 }}"></th>
-				<th class="col_10"><input type="button" value="删除" class="delete_finance" id="delete_finance_{{ value.items.8.1 }}"></th>
+				<th class="col_5"><input type="button" value="修改" class="modify_finance" id="modify_finance_{{ value.items.8.1 }}"></th>
+				<th class="col_5"><input type="button" value="删除" class="delete_finance" id="delete_finance_{{ value.items.8.1 }}"></th>
 			</tr>
 
 {% endfor %}
@@ -73,7 +74,7 @@
 			</tr>
 	</table>
 	 <div class="head_row" style="margin-bottom:40px">
-		   <button type="submit" class="btn btn-primary modify_submit">修改</button>
+		   <button type="submit" class="btn btn-primary modify_submit">确认修改</button>
 		</div>
 	</div>
 
@@ -98,6 +99,8 @@
 			  	dataType : "json",
 			  	success : function(data) {    
 			  		console.log(data);
+			  		//$(".show_table").hide();
+			  		//$(".list_hr").hide();
 			  		$("#finance_modify_box").show();
 			  		$("#modify_col1").val(data[0]);
 			  		$("#modify_col2").val(data[1]);

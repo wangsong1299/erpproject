@@ -4,7 +4,7 @@ from finance import views
 
 urlpatterns = patterns('',
     # 财务首页  
-    url(r'^finance/$', views.finance),
+    url(r'^finance_list/(\d{1,6})/$', views.finance_list),
     #财务搜索结果页
     url(r'^search/(\d{1,6})/$', views.search),
 
@@ -17,7 +17,7 @@ urlpatterns = patterns('',
     url(r'^modify_finance/$', views.modify_finance),
     #有产品名得到产品ID
     url(r'^get_productID_by_product/$', views.get_productID_by_product),
-  
+    url(r'^get_productID_by_productID/$', views.get_productID_by_productID),
     # 删除对账单
     url(r'^delete_finance/$', views.delete_finance),
 

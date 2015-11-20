@@ -4,57 +4,24 @@
 <link rel="stylesheet" href="{% static "erp/css/finance.css" %}">
 {% endblock %}
 
-
-		{% block subtitle %}
-				<div class="line2">
-							对账单
-				</div>	
-		{% endblock %}
-
+{% block inner_header %}
+{% endblock %}
 
  {% block main %}
  <div class="main" style="overflow:hidden">
-   	<table class="finance_table" style="margin-top: 20px;" >
-			<tr>
-				<th class="col_10">送货日期</th>
-				<th class="col_10">订货单</th>
-				<th class="col_10">产品名称</th>
-				<th class="col_10">订货数</th>
-				<th class="col_10">送货数</th>
-				<th class="col_10">单价</th>
-				<th class="col_10">金额</th>
-				<th class="col_10">备注</th>
-				<th class="col_10">修改</th>
-				<th class="col_10">删除</th>
-			</tr>
-
-{% for key, value in records.items %}
-			<tr>
-				<th class="col_10">{{ value.items.0.1 }}</th>
-				<th class="col_10">{{ value.items.1.1 }}</th>
-				<th class="col_10">{{ value.items.2.1 }}</th>
-				<th class="col_10">{{ value.items.3.1 }}</th>
-				<th class="col_10">{{ value.items.4.1 }}</th>
-				<th class="col_10">{{ value.items.5.1 }}</th>
-				<th class="col_10">{{ value.items.6.1 }}</th>
-				<th class="col_10">{{ value.items.7.1 }}</th>
-				<th class="col_10"><input type="button" value="修改" class="modify_finance" id="modify_finance_{{ value.items.8.1 }}"></th>
-				<th class="col_10"><input type="button" value="删除" class="delete_finance" id="delete_finance_{{ value.items.8.1 }}"></th>
-
-			</tr>
-
-{% endfor %}
-
-	</table>
-
-	<div class="head_row" style="margin-bottom:40px">
-	   <button type="submit" class="btn btn-primary" id="add_new">新建对账单</button>
-	   <button type="submit" class="btn btn-primary" id="search">查询对账单</button>
-	</div>
+ 			<div class="line2">
+							对账单
+				</div>	
+	<div class="head_row">
+ 		   <button type="submit" class="btn btn-primary" id="find_finance">查询对账单</button>
+ 		   <div class="searchbar">			
+			  <input class="input-medium search-query" id="finance_search" type="text" placeholder="产品名/产品ID">
+			</div>
+  		   <button type="submit" class="btn btn-primary" id="add_new">新建对账单</button>
+ 	</div>
 
 <!--修改框-->
 	<div class="" id="finance_modify_box" style="display:none">
-		<h2>修改对账单</h2>
  		<table class="finance_table" style="margin-top: 20px;" >
 			<tr>
 				<th class="col_10">送货日期</th>
@@ -78,13 +45,12 @@
 			</tr>
 	</table>
 	 <div class="head_row" style="margin-bottom:40px">
-		   <button type="submit" class="btn btn-primary modify_submit">修改</button>
+		   <button type="submit" class="btn btn-primary modify_submit">确认修改</button>
 		</div>
 	</div>
 
 <!--新增框-->
 	<div class="" id="finance_new_box" style="display:none">
-		<h2>新增对账单</h2>
  		<table class="finance_table" style="margin-top: 20px;" >
 			<tr>
 				<th class="col_10">送货日期</th>
@@ -112,15 +78,47 @@
 		</div>
 	</div>
 
+ 	<div class="list_hr" style="margin-top:20px"></div>
+	<table class="list_table" style="margin-top: 5px;">
+			<tr>
+				<th class="col_10">送货日期</th>
+				<th class="col_10">订货单</th>
+				<th class="col_20">产品名称</th>
+				<th class="col_10">订货数</th>
+				<th class="col_10">送货数</th>
+				<th class="col_10">单价</th>
+				<th class="col_10">金额</th>
+				<th class="col_10">备注</th>
+				<th class="col_5">修改</th>
+				<th class="col_5">删除</th>
+			</tr>
+	</table>
+ 	<div class="list_hr" style="margin-top:5px"></div>
 
+   	<table class="list_table">
+{% for key, value in records.items %}
+			<tr>
+				<th class="col_10">{{ value.items.0.1 }}</th>
+				<th class="col_10">{{ value.items.1.1 }}</th>
+				<th class="col_20">{{ value.items.2.1 }}</th>
+				<th class="col_10">{{ value.items.3.1 }}</th>
+				<th class="col_10">{{ value.items.4.1 }}</th>
+				<th class="col_10">{{ value.items.5.1 }}</th>
+				<th class="col_10">{{ value.items.6.1 }}</th>
+				<th class="col_10">{{ value.items.7.1 }}</th>
+				<th class="col_5"><input type="button" value="修改" class="modify_finance" id="modify_finance_{{ value.items.8.1 }}"></th>
+				<th class="col_5"><input type="button" value="删除" class="delete_finance" id="delete_finance_{{ value.items.8.1 }}"></th>
 
- 		<div class="head_row" id="search_box" style="margin-bottom:40px;display:none">
-			<label for="productID" style="width:180px">请输入产品ID</label>
-			<input type="text" id="productID">
-			<label for="product_name" style="width:180px">或产品名称</label>
-			<input type="text" id="product_name">
- 		   <button type="submit" class="btn btn-primary" id="find_finance">查询</button>
- 		</div>	
+			</tr>
+
+{% endfor %}
+
+	</table>
+
+	 <div class="head_row">
+		   <button type="submit" class="btn btn-primary" id="later_click">下一页</button>
+ 		   <button type="submit" class="btn btn-primary" id="pre_click">上一页</button>
+ 	</div>
 
 
 
@@ -220,24 +218,37 @@
 			})
  	//查询对账单	
 		$("#find_finance").click(function(){
-			var productID=$("#productID").val();
-			var product_name=$.trim($("#product_name").val());
+			var finance_search=$.trim($("#finance_search").val());
 
-			if((product_name=='')&&(productID=='')){
+			if(finance_search==''){
 				alert("请至少填写ID和名字中的一个");
-			}else if(productID!=''){
-				window.location.href='/finance/search/'+productID;
-			}else if(product_name!=''){
+			}else{
 				$.ajax({
                       type : "POST",
-                      url : "/finance/get_productID_by_product/",
-                      data:{'product_name':product_name},
+                      url : "/finance/get_productID_by_productID/",
+                      data:{'finance_search':finance_search},
                       dataType : "json",
                       success : function(data){  
+                      	if(data!=0){
                       		window.location.href='/finance/search/'+data;
+                      	}else{
+                      		$.ajax({
+			                      type : "POST",
+			                      url : "/finance/get_productID_by_product/",
+			                      data:{'finance_search':finance_search},
+			                      dataType : "json",
+			                      success : function(data){  
+			                      	if(data!=0){
+			                      		window.location.href='/finance/search/'+data;
+			                      	}else{
+			                      		alert("没有相关信息");
+			                      	}		
+			                      }
+			                })
+                      	}		
                       }
                 })
-			}
+			} 
 		})
 
 		$("#search").click(function(){
@@ -263,6 +274,27 @@
 	              }
     	    })
 		})
+
+		 	var href=window.location.href.split("/")[5];
+ 			console.log(href);
+ 			var pre_click={{pre_click}}
+ 			if(pre_click){
+ 				var pre_num=parseInt(href)-1;
+ 				$("#pre_click").click(function(){
+	 				window.location.href='/finance/finance_list/'+pre_num;
+	 			})
+ 			}else{
+ 				$("#pre_click").attr('disabled',true);
+ 			}
+ 			 var later_click={{later_click}}
+ 			if(later_click){
+ 				var later_num=parseInt(href)+1;
+ 				$("#later_click").click(function(){
+	 				window.location.href='/finance/finance_list/'+later_num;
+	 			})
+ 			}else{
+ 				$("#later_click").attr('disabled',true);
+ 			}
 
 
 	})</script>
