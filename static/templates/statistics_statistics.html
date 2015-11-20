@@ -1,27 +1,31 @@
  {% extends "base_erp.html" %}
  {% load i18n admin_static %}
 {% block head %}
-<link rel="stylesheet" href="{% static "erp/css/work.css" %}">
+<link rel="stylesheet" href="{% static "erp/css/finance.css" %}">
 {% endblock %}
 
-
-		{% block subtitle %}
-				<div class="line2">
-							每日统计
-				</div>	
-		{% endblock %}
+{% block inner_header %}
+{% endblock %}
 
 
  {% block main %}
  <div class="main" style="overflow:hidden">
+			<div class="line2">
+						每日统计
+				</div>	
 
-	   	<table class="tracking_table" style="margin-top: 20px;" id="tracking_table_one" >
-				<tr>
-					<th class="col_30">产品名称</th>
-					<th class="col_30">原料名称</th>
-					<th class="col_20">大料张数</th>
-					<th class="col_20">开料尺寸</th>
-				</tr>
+ 	<div class="list_hr" style="margin-top:20px"></div>
+	<table class="list_table" style="margin-top: 5px;">
+		<tr>
+			<th class="col_30">产品名称</th>
+			<th class="col_30">原料名称</th>
+			<th class="col_20">大料张数</th>
+			<th class="col_20">开料尺寸</th>
+		</tr>
+	</table>
+ 	<div class="list_hr" style="margin-top:5px"></div>
+
+	<table class="list_table">
 
 	{% for key, value in records.items %}
 				<tr>
@@ -35,6 +39,11 @@
 
 		</table>
 
+	 <div class="head_row">
+		   <button type="submit" class="btn btn-primary" id="later_click">下一页</button>
+ 		   <button type="submit" class="btn btn-primary" id="pre_click">上一页</button>
+ 	</div>
+
   </div>
  
  {% endblock %}
@@ -45,6 +54,26 @@
 	$(document).ready(function(){
 		$("#statistics_box").show();
 		$("#statistics_1").addClass('subtitle_focus');
+
+ 			var href=window.location.href.split("/")[5];
+  			var pre_click={{pre_click}}
+ 			if(pre_click){
+ 				var pre_num=parseInt(href)-1;
+ 				$("#pre_click").click(function(){
+	 				window.location.href='/statistics/satistics_list/'+pre_num;
+	 			})
+ 			}else{
+ 				$("#pre_click").attr('disabled',true);
+ 			}
+ 			 var later_click={{later_click}}
+ 			if(later_click){
+ 				var later_num=parseInt(href)+1;
+ 				$("#later_click").click(function(){
+	 				window.location.href='/statistics/satistics_list/'+later_num;
+	 			})
+ 			}else{
+ 				$("#later_click").attr('disabled',true);
+ 			}
 
 
 	})</script>

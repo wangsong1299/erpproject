@@ -4,6 +4,6 @@ from statistics import views
 
 urlpatterns = patterns('',
     #  统计页首页  
-    url(r'^statistics/$', views.statistics),
+    url(r'^statistics_list/(\d{1,6})/$', views.statistics_list),
 
 )
