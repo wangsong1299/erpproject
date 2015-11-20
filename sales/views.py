@@ -39,23 +39,23 @@ def quotation_list(request,num):
 		return HttpResponseRedirect("/")
 	else:
 		records_all=Quotation.objects.all()
-		page_all=int(len(records_all))/10+1
+		page_all=int(len(records_all)-1)/10+1
 		num=int(num)
 		if(num==1):			
 			if((len(records_all)<11)):	
-				records=Quotation.objects.all()
+				records=Quotation.objects.all().order_by('-id')
 				a=get_quotation_list(records)
 			else:
-				records=Quotation.objects.all()[0:9]
+				records=Quotation.objects.all().order_by('-id')[0:10]
 				a=get_quotation_list(records)
 		else:
 			if(num==page_all):
 				last=int(page_all-1)*10
-				records=Quotation.objects.all()[last:]
+				records=Quotation.objects.all().order_by('-id')[last:]
 				a=get_quotation_list(records)
 			else:
 				first=int(num)*10
-				records=Quotation.objects.all()[first:int(first+9)]
+				records=Quotation.objects.all().order_by('-id')[first:int(first+10)]
 				a=get_quotation_list(records)
 		if(num>1):
 			pre_click=True
@@ -399,23 +399,23 @@ def order_list(request,num):
 		return HttpResponseRedirect("/")
 	else:
 		records_all=Order.objects.all()
-		page_all=int(len(records_all))/10+1
+		page_all=int(len(records_all)-1)/10+1
 		num=int(num)
 		if(num==1):			
 			if((len(records_all)<11)):	
-				records=Order.objects.all()
+				records=Order.objects.all().order_by('-id')
 				a=get_order_list(records)
 			else:
-				records=Order.objects.all()[0:9]
+				records=Order.objects.all().order_by('-id')[0:10]
 				a=get_order_list(records)
 		else:
 			if(num==page_all):
 				last=int(page_all-1)*10
-				records=Order.objects.all()[last:]
+				records=Order.objects.all().order_by('-id')[last:]
 				a=get_order_list(records)
 			else:
 				first=int(num)*10
-				records=Order.objects.all()[first:int(first+9)]
+				records=Order.objects.all().order_by('-id')[first:int(first+10)]
 				a=get_order_list(records)
 		if(num>1):
 			pre_click=True
@@ -697,23 +697,23 @@ def delivery_list(request,num):
 		return HttpResponseRedirect("/")
 	else:
 		records_all=Delivery.objects.all()
-		page_all=int(len(records_all))/10+1
+		page_all=int(len(records_all)-1)/10+1
 		num=int(num)
 		if(num==1):			
 			if((len(records_all)<11)):	
-				records=Delivery.objects.all()
+				records=Delivery.objects.all().order_by('-id')
 				a=get_delivery_list(records)
 			else:
-				records=Delivery.objects.all()[0:9]
+				records=Delivery.objects.all().order_by('-id')[0:10]
 				a=get_delivery_list(records)
 		else:
 			if(num==page_all):
 				last=int(page_all-1)*10
-				records=Delivery.objects.all()[last:]
+				records=Delivery.objects.all().order_by('-id')[last:]
 				a=get_delivery_list(records)
 			else:
 				first=int(num)*10
-				records=Delivery.objects.all()[first:int(first+9)]
+				records=Delivery.objects.all().order_by('-id')[first:int(first+10)]
 				a=get_delivery_list(records)
 		if(num>1):
 			pre_click=True
@@ -976,23 +976,23 @@ def process_list(request,num):
 		return HttpResponseRedirect("/")
 	else:
 		records_all=Process.objects.all()
-		page_all=int(len(records_all))/10+1
+		page_all=int(len(records_all)-1)/10+1
 		num=int(num)
 		if(num==1):			
 			if((len(records_all)<11)):	
-				records=Process.objects.all()
+				records=Process.objects.all().order_by('-id')
 				a=get_process_list(records)
 			else:
-				records=Process.objects.all()[0:9]
+				records=Process.objects.all().order_by('-id')[0:10]
 				a=get_process_list(records)
 		else:
 			if(num==page_all):
 				last=int(page_all-1)*10
-				records=Process.objects.all()[last:]
+				records=Process.objects.all().order_by('-id')[last:]
 				a=get_process_list(records)
 			else:
 				first=int(num)*10
-				records=Process.objects.all()[first:int(first+9)]
+				records=Process.objects.all().order_by('-id')[first:int(first+10)]
 				a=get_process_list(records)
 		if(num>1):
 			pre_click=True
@@ -1339,23 +1339,23 @@ def cost_list(request,num):
 		return HttpResponseRedirect("/")
 	else:
 		records_all=Cost.objects.all()
-		page_all=int(len(records_all))/10+1
+		page_all=int(len(records_all)-1)/10+1
 		num=int(num)
 		if(num==1):			
 			if((len(records_all)<11)):	
-				records=Cost.objects.all()
+				records=Cost.objects.all().order_by('-id')
 				a=get_cost_list(records)
 			else:
-				records=Cost.objects.all()[0:9]
+				records=Cost.objects.all().order_by('-id')[0:10]
 				a=get_cost_list(records)
 		else:
 			if(num==page_all):
 				last=int(page_all-1)*10
-				records=Cost.objects.all()[last:]
+				records=Cost.objects.all().order_by('-id')[last:]
 				a=get_cost_list(records)
 			else:
 				first=int(num)*10
-				records=Process.objects.all()[first:int(first+9)]
+				records=Process.objects.all().order_by('-id')[first:int(first+10)]
 				a=get_process_list(records)
 		if(num>1):
 			pre_click=True

@@ -32,23 +32,23 @@ def purchase_list(request,num):
 		return HttpResponseRedirect("/")
 	else:
 		records_all=Purchase.objects.all()
-		page_all=int(len(records_all))/10+1
+		page_all=int(len(records_all)-1)/10+1
 		num=int(num)
 		if(num==1):			
 			if((len(records_all)<11)):	
-				records=Purchase.objects.all()
+				records=Purchase.objects.all().order_by('-id')
 				a=get_purchase_list(records)
 			else:
-				records=Purchase.objects.all()[0:9]
+				records=Purchase.objects.all().order_by('-id')[0:10]
 				a=get_purchase_list(records)
 		else:
 			if(num==page_all):
 				last=int(page_all-1)*10
-				records=Purchase.objects.all()[last:]
+				records=Purchase.objects.all().order_by('-id')[last:]
 				a=get_purchase_list(records)
 			else:
 				first=int(num)*10
-				records=Purchase.objects.all()[first:int(first+9)]
+				records=Purchase.objects.all().order_by('-id')[first:int(first+10)]
 				a=get_purchase_list(records)
 		if(num>1):
 			pre_click=True
