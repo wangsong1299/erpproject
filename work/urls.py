@@ -5,7 +5,7 @@ from work import tests
 
 urlpatterns = patterns('',
     # 产品追踪页 
-    url(r'^tracking/$', views.tracking_list),
+    url(r'^tracking_list/(\d{1,6})/$', views.tracking_list),
 
     url(r'^tracking/(\d{1,6})/$', views.tracking),
 

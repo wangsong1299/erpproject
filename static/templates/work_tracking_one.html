@@ -3,44 +3,45 @@
 {% block head %}
 <link rel="stylesheet" href="{% static "erp/css/work.css" %}">
 {% endblock %}
-
-
-		{% block subtitle %}
-				<div class="line2">
-							产品追踪(查询结果页)
-				</div>	
-		{% endblock %}
-
+{% block inner_header %}
+{% endblock %}
 
  {% block main %}
  <div class="main" style="overflow:hidden">
+		<div class="line2">
+							产品追踪(查询结果页)
+				</div>	
+	<div class="list_hr" style="margin-top:20px"></div>
+	<table class="list_table" style="margin-top: 5px;">
+		<tr>
+				<th class="col_15">产品名称</th>
+				<th class="col_10">客户名</th>
+				<th class="col_10">状态</th>
+				<th class="col_10">当前流水</th>
+				<th class="col_10">完成率</th>
+				<th class="col_10">开始时间</th>
+				<th class="col_10">交付时间</th>
+				<th class="col_15">备注</th>
+				<th class="col_5">修改</th>
+				<th class="col_5">删除</th>
+			</tr>
+	</table>
+ 	<div class="list_hr" style="margin-top:5px"></div>
 
-	   	<table class="tracking_table" style="margin-top: 20px;" id="tracking_table_one" >
-				<tr>
-					<th class="col_10">产品名称</th>
-					<th class="col_10">客户名</th>
-					<th class="col_10">状态</th>
-					<th class="col_10">当前流水</th>
-					<th class="col_10">完成率</th>
-					<th class="col_10">开始时间</th>
-					<th class="col_10">交付时间</th>
-					<th class="col_10">备注</th>
-					<th class="col_10">修改</th>
-					<th class="col_10">删除</th>
-				</tr>
+   	<table class="list_table">
 
 	{% for key, value in records.items %}
 				<tr>
-					<th class="col_10">{{ value.items.0.1 }}</th>
+					<th class="col_15">{{ value.items.0.1 }}</th>
 					<th class="col_10">{{ value.items.1.1 }}</th>
 					<th class="col_10" id="state_{{ value.items.9.1 }}">{{ value.items.2.1 }}</th>
 					<th class="col_10" id="pipline_step_{{ value.items.9.1 }}">{{ value.items.3.1 }}</th>
 					<th class="col_10" id="finish_percent_{{ value.items.9.1 }}"></th>
 					<th class="col_10">{{ value.items.4.1 }}</th>
 					<th class="col_10">{{ value.items.5.1 }}</th>
-					<th class="col_10">{{ value.items.6.1 }}</th>
-					<th class="col_10"><input type="button" value="修改" class="modify_tracking" id="modify_tracking_{{ value.items.8.1 }}"></th>
-					<th class="col_10"><input type="button" value="删除" class="delete_tracking" id="delete_tracking_{{ value.items.8.1 }}"></th>
+					<th class="col_15">{{ value.items.6.1 }}</th>
+					<th class="col_5"><input type="button" value="修改" class="modify_tracking" id="modify_tracking_{{ value.items.8.1 }}"></th>
+					<th class="col_5"><input type="button" value="删除" class="delete_tracking" id="delete_tracking_{{ value.items.8.1 }}"></th>
 				</tr>
 
 	{% endfor %}
@@ -154,7 +155,8 @@
 			  	success : function(data) {    
 			  		//console.log(data);
 			  		$("#tracking_modify_box").show();
-			  		$("#tracking_table_one").hide();
+			  		$(".list_table").hide();
+			  		$(".list_hr").hide();
 			  		$("#modify_col1").val(data[0]);
 			  		$("#modify_col2").val(data[1]);
 			  		$("#modify_col3").val(state[data[2]]);

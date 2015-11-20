@@ -3,57 +3,23 @@
 {% block head %}
 <link rel="stylesheet" href="{% static "erp/css/work.css" %}">
 {% endblock %}
-
-
-		{% block subtitle %}
-				<div class="line2">
-							产品追踪
-				</div>	
-		{% endblock %}
-
+{% block inner_header %}
+{% endblock %}
 
  {% block main %}
  <div class="main" style="overflow:hidden">
-
-	   	<table class="tracking_table" style="margin-top: 20px;" >
-				<tr>
-					<th class="col_10">产品名称</th>
-					<th class="col_10">客户名</th>
-					<th class="col_10">状态</th>
-					<th class="col_10">当前流水</th>
-					<th class="col_10">完成率</th>
-					<th class="col_10">开始时间</th>
-					<th class="col_10">交付时间</th>
-					<th class="col_10">备注</th>
-					<th class="col_10">修改</th>
-					<th class="col_10">删除</th>
-				</tr>
-
-	{% for key, value in records.items %}
-				<tr>
-					<th class="col_10">{{ value.items.0.1 }}</th>
-					<th class="col_10">{{ value.items.1.1 }}</th>
-					<th class="col_10" id="state_{{ value.items.9.1 }}">{{ value.items.2.1 }}</th>
-					<th class="col_10" id="pipline_step_{{ value.items.9.1 }}">{{ value.items.3.1 }}</th>
-					<th class="col_10" id="finish_percent_{{ value.items.9.1 }}"></th>
-					<th class="col_10">{{ value.items.4.1 }}</th>
-					<th class="col_10">{{ value.items.5.1 }}</th>
-					<th class="col_10">{{ value.items.6.1 }}</th>
-					<th class="col_10"><input type="button" value="修改" class="modify_tracking" id="modify_tracking_{{ value.items.8.1 }}"></th>
-					<th class="col_10"><input type="button" value="删除" class="delete_tracking" id="delete_tracking_{{ value.items.8.1 }}"></th>
-				</tr>
-
-	{% endfor %}
-
-		</table>
-
-		<div class="head_row" style="margin-bottom:40px">
-		   <button type="submit" class="btn btn-primary" id="search">查询追踪单</button>
-		</div>
+			<div class="line2">
+							产品追踪
+				</div>	
+		<div class="head_row">
+ 		   <button type="submit" class="btn btn-primary" id="find_tracking">查询追踪单</button>
+ 		   <div class="searchbar">			
+			  <input class="input-medium search-query" id="tracking_search" type="text" placeholder="产品名/产品ID">
+			</div>
+ 	</div>
 
 <!--修改框-->
 	<div class="" id="tracking_modify_box" style="display:none">
-		<h2>修改追踪单</h2>
  		<table class="tracking_table" style="margin-top: 20px;" >
 			<tr>
 				<th class="col_20">产品名称</th>
@@ -77,9 +43,51 @@
 			</tr>
 	</table>
 		 <div class="head_row" style="margin-bottom:40px">
-		   <button type="submit" class="btn btn-primary modify_submit">修改</button>
+		   <button type="submit" class="btn btn-primary modify_submit">确认修改</button>
 		</div>
 	</div>
+
+	<div class="list_hr" style="margin-top:20px"></div>
+	<table class="list_table" style="margin-top: 5px;">
+		<tr>
+				<th class="col_15">产品名称</th>
+				<th class="col_10">客户名</th>
+				<th class="col_10">状态</th>
+				<th class="col_10">当前流水</th>
+				<th class="col_10">完成率</th>
+				<th class="col_10">开始时间</th>
+				<th class="col_10">交付时间</th>
+				<th class="col_15">备注</th>
+				<th class="col_5">修改</th>
+				<th class="col_5">删除</th>
+			</tr>
+	</table>
+ 	<div class="list_hr" style="margin-top:5px"></div>
+
+   	<table class="list_table">
+	{% for key, value in records.items %}
+				<tr>
+					<th class="col_15">{{ value.items.0.1 }}</th>
+					<th class="col_10">{{ value.items.1.1 }}</th>
+					<th class="col_10" id="state_{{ value.items.9.1 }}">{{ value.items.2.1 }}</th>
+					<th class="col_10" id="pipline_step_{{ value.items.9.1 }}">{{ value.items.3.1 }}</th>
+					<th class="col_10" id="finish_percent_{{ value.items.9.1 }}"></th>
+					<th class="col_10">{{ value.items.4.1 }}</th>
+					<th class="col_10">{{ value.items.5.1 }}</th>
+					<th class="col_15">{{ value.items.6.1 }}</th>
+					<th class="col_5"><input type="button" value="修改" class="modify_tracking" id="modify_tracking_{{ value.items.8.1 }}"></th>
+					<th class="col_5"><input type="button" value="删除" class="delete_tracking" id="delete_tracking_{{ value.items.8.1 }}"></th>
+				</tr>
+
+	{% endfor %}
+
+		</table>
+
+	 <div class="head_row">
+		   <button type="submit" class="btn btn-primary" id="later_click">下一页</button>
+ 		   <button type="submit" class="btn btn-primary" id="pre_click">上一页</button>
+ 	</div>
+
 
  		<div class="state_pop pop_box">
  			<h2>状态选择：</h2>
@@ -121,15 +129,6 @@
  		 	<button type="submit" class="btn btn-primary" style="float:left;margin-left:100px;margin-top:20px;" id="pipline_step_sure">确定</button>
  		</div>
 
-
-
- 		<div class="head_row" id="search_box" style="margin-bottom:40px;display:none">
-			<label for="customer_name" style="width:180px">请输入客户名</label>
-			<input type="text" id="customer_name">
-			<label for="product_name" style="width:180px">或产品名称</label>
-			<input type="text" id="product_name">
- 		   <button type="submit" class="btn btn-primary" id="find_tracking">查询</button>
- 		</div>	
 
   </div>
  
@@ -240,41 +239,40 @@
 
  	//查询对账单	
 		$("#find_tracking").click(function(){
-			var customer=$("#customer_name").val();
-			var product_name=$.trim($("#product_name").val());
+			var tracking_search=$("#tracking_search").val();
 
-			if((product_name=='')&&(customer=='')){
+			if(tracking_search==''){
 				alert("请至少填写产品和客户中的一个");
-			}else if(customer!=''){
+			}else{
 				$.ajax({
                       type : "POST",
                       url : "/work/get_productID_by_customer/",
-                      data:{'customer':customer},
+                      data:{'customer':tracking_search},
                       dataType : "json",
                       success : function(data){  
-                      		window.location.href='/work/tracking/'+data;
+                      		if(data!=0){
+                      			window.location.href='/work/tracking/'+data;
+                      		}else{
+                      			$.ajax({
+				                      type : "POST",
+				                      url : "/work/get_productID_by_product/",
+				                      data:{'product_name':tracking_search},
+				                      dataType : "json",
+				                      success : function(data){  
+				                      		if(data!=0){
+				                      			window.location.href='/work/tracking/'+data;
+				                      		}else{
+				                      			alert("没有相关信息");
+				                      		}  		
+				                      }
+				                })
+
+                      		}  		
                       }
                 })
-			}else if(product_name!=''){
-				$.ajax({
-                      type : "POST",
-                      url : "/work/get_productID_by_product/",
-                      data:{'product_name':product_name},
-                      dataType : "json",
-                      success : function(data){  
-                      		window.location.href='/work/tracking/'+data;
-                      }
-                })
-			}
+			} 
 		})
 
-		$("#search").click(function(){
-			if($("#search_box").is(":visible")){
-				$("#search_box").slideUp(1000);
-			}else{
-				$("#search_box").slideDown(1000);
-			}	
-		})
 //删除
 	$(".delete_tracking").click(function(){
 		var id=$(this).attr("id").split("_")[2];
@@ -309,6 +307,27 @@
 		var newcode=zero_query+productID;
 		$("#bcTarget").barcode(newcode,"code11");
 
+
+		 	var href=window.location.href.split("/")[5];
+ 			console.log(href);
+ 			var pre_click={{pre_click}}
+ 			if(pre_click){
+ 				var pre_num=parseInt(href)-1;
+ 				$("#pre_click").click(function(){
+	 				window.location.href='/work/tracking_list/'+pre_num;
+	 			})
+ 			}else{
+ 				$("#pre_click").attr('disabled',true);
+ 			}
+ 			 var later_click={{later_click}}
+ 			if(later_click){
+ 				var later_num=parseInt(href)+1;
+ 				$("#later_click").click(function(){
+	 				window.location.href='/work/tracking_list/'+later_num;
+	 			})
+ 			}else{
+ 				$("#later_click").attr('disabled',true);
+ 			}
 
 	})</script>
 
