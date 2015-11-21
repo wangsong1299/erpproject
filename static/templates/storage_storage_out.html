@@ -5,21 +5,26 @@
 {% endblock %}
 
 
-		{% block subtitle %}
-				<div class="line2">
-							出库单
-				</div>	
-	
-		{% endblock %}
+
+{% block inner_header %}
+{% endblock %}
 
  {% block main %}
  <div class="main" style="overflow:hidden">
-
- 	 	<div class="head_row">
- 			鄞州联城包装彩印有限公司出库单列表
- 		</div>
+		<div class="line2">
+							鄞州联城包装彩印有限公司出库单列表
+				</div>	
  	
-<table class="storage_table" style="margin-top:20px">
+ 		 <div class="head_row">
+ 		   <button type="submit" class="btn btn-primary" id="find_storage_out">查询出库单</button>
+ 		   <div class="searchbar">			
+			  <input class="input-medium search-query" id="storage_out_search" type="text" placeholder="原料名称">
+			</div>
+  		   <button type="submit" class="btn btn-primary" id="new">新建出库单</button>
+ 	</div>
+
+	 <div class="list_hr" style="margin-top:20px"></div>
+	<table class="list_table" style="margin-top: 5px;">
 		<tr>
 			<th class="col_10">出库单号</th>
 			<th class="col_20">名称</th>
@@ -30,6 +35,10 @@
 			<th class="col_10">修改</th>
 			<th class="col_10">删除</th>
 		</tr>
+	</table>
+ 	<div class="list_hr" style="margin-top:5px"></div>
+
+   	<table class="list_table">
 		{% for key, value in records.items %}
 		<tr>
 			<th class="col_10"><a href="/storage/storage_out/{{ value.items.0.1 }}">{{ value.items.0.1 }}</a></th>
@@ -46,16 +55,11 @@
 
 	</table>
 
-	 		<div class="head_row" style="margin-bottom:40px">
- 		   <button type="submit" class="btn btn-primary" id="new">新建出库单</button>
- 		   <button type="submit" class="btn btn-primary" id="search">查询出库单</button>
- 		</div>
 
- 		<div class="head_row" id="search_box" style="margin-bottom:40px;display:none">
- 			<label for="material_name">原料名称</label>
- 			<input type="text" id="material_name" />
- 		   <button type="submit" class="btn btn-primary" id="find_storage_out">查询</button>
- 		</div>	
+	 <div class="head_row">
+		   <button type="submit" class="btn btn-primary" id="later_click">下一页</button>
+ 		   <button type="submit" class="btn btn-primary" id="pre_click">上一页</button>
+ 	</div>
 
 
   </div>
@@ -84,24 +88,48 @@
 		})
 
 		$("#find_storage_out").click(function(){
-			var material_name=$.trim($("#material_name").val());
+			var storage_out_search=$.trim($("#storage_out_search").val());
 
-			if((material_name=='')){
+			if((storage_out_search=='')){
 				alert("请至少填写原料名");
 			}else{
 				$.ajax({
                       type : "POST",
                       url : "/storage/get_storage_outID_by_product/",
-                      data:{'material_name':material_name},
+                      data:{'material_name':storage_out_search},
                       dataType : "json",
                       success : function(data){  
+                      	if(data!=0){
                       		window.location.href='/storage/storage_out/'+data;
+                      	}else{
+                      		alert("没有相关信息");
+                      	}     		
                       }
                 })
 			}
 		})
 
 
+		 	var href=window.location.href.split("/")[5];
+ 			console.log(href);
+ 			var pre_click={{pre_click}}
+ 			if(pre_click){
+ 				var pre_num=parseInt(href)-1;
+ 				$("#pre_click").click(function(){
+	 				window.location.href='/storage/storage_out_list/'+pre_num;
+	 			})
+ 			}else{
+ 				$("#pre_click").attr('disabled',true);
+ 			}
+ 			 var later_click={{later_click}}
+ 			if(later_click){
+ 				var later_num=parseInt(href)+1;
+ 				$("#later_click").click(function(){
+	 				window.location.href='/storage/storage_out_list/'+later_num;
+	 			})
+ 			}else{
+ 				$("#later_click").attr('disabled',true);
+ 			}
 
 
 

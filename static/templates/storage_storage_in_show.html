@@ -13,8 +13,10 @@
 <div class="line2">
 							鄞州联城包装彩印有限公司入库单
 				</div>	
-		<div class="head_row">
-<p>请直接在对应内容处修改并且点击该行的确定按钮。</p>
+		<div class="head_row" style="height:70px">
+<p>请直接在对应内容处修改并且点击该行的确定按钮。<br>
+请直接在对应原料行点击删除。<br>
+查询结果为最新一张拥有该原料的订货单。</p>
  		</div>
  		<div class="head_row">
  			<label for="storage_in_id">入库单号</label>
@@ -23,7 +25,7 @@
 
  		 <div class="head_row">
  			<label for="create_time">日期</label>
- 			<input type="text" id="create_time" style="width:250px" value="{{records.0.9}}">
+ 			<input type="text" id="create_time" style="width:250px" value="{{records.0.9}}" onClick="WdatePicker()">
  			<label for="supplier">单位或姓名</label>
  			<input type="text" id="supplier" value="{{records.0.10}}">
  		</div>

@@ -36,7 +36,7 @@ urlpatterns = patterns('',
     url(r'^get_storage_inID_by_product/$', views.get_storage_inID_by_product),
 #出库单
     #出库
-    url(r'^storage_out/$', views.storage_out),
+    url(r'^storage_out_list/(\d{1,6})/$', views.storage_out_list),
     url(r'^storage_out/new/$', views.storage_out_new),
     url(r'^storage_out/(\d{1,6})/$', views.storage_out_show),
  

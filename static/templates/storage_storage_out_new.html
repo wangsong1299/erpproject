@@ -5,20 +5,15 @@
 {% endblock %}
 
 
-		{% block subtitle %}
-				<div class="line2">
-							新建出库单
-				</div>	
-	
-		{% endblock %}
-
+{% block inner_header %}
+{% endblock %}
 
  {% block main %}
  <div class="main" style="overflow:hidden">
+<div class="line2">
+							鄞州联城包装彩印有限公司出库单
+				</div>	
 
-  	 	<div class="head_row">
- 			鄞州联城包装彩印有限公司出库单
- 		</div>
  		<div class="head_row">
  			<label for="storage_out_id">出库单号</label>
  			<input type="text" id="storage_out_id" value="{{storage_out_id}}" > 	
@@ -192,6 +187,7 @@
 
 		                	if(count==maxnum){
 								alert("录入成功");
+								window.location.href='/storage/storage_out_list/1';
 							}
 			              }
 		          })

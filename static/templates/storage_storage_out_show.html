@@ -5,27 +5,29 @@
 {% endblock %}
 
 
-		{% block subtitle %}
-				<div class="line2">
-							出库单
-				</div>	
-	
-		{% endblock %}
+
+{% block inner_header %}
+{% endblock %}
 
  {% block main %}
  <div class="main" style="overflow:hidden">
-
- 	 	<div class="head_row">
- 			鄞州联城包装彩印有限公司出库单
+<div class="line2">
+		鄞州联城包装彩印有限公司出库单
+				</div>	
+		<div class="head_row" style="height:70px">
+<p>请直接在对应内容处修改并且点击该行的确定按钮。<br>
+	请直接在对应原料行点击删除。<br>
+查询结果为最新一张拥有该原料的订货单。</p>
  		</div>
+
  		<div class="head_row">
  			<label for="storage_out_id">出库单号</label>
- 			<input type="text" id="storage_out_id" value="{{records.0.8}}"> 	
+ 			<input type="text" id="storage_out_id" value="{{records.0.8}}" disabled style="border:none"> 	
  		</div>
 
  		 <div class="head_row">
  			<label for="create_time">日期</label>
- 			<input type="text" id="create_time" style="width:250px" value="{{records.0.9}}">
+ 			<input type="text" id="create_time" style="width:250px" value="{{records.0.9}}" onClick="WdatePicker()">
  			<label for="supplier">单位或姓名</label>
  			<input type="text" id="customer_name" value="{{records.0.10}}">
  		</div>
