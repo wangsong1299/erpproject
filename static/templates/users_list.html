@@ -20,10 +20,10 @@
 	<table class="list_table" style="margin-top: 5px;">
 		<tr>
 			<th class="col_10">序号</th>
-			<th class="col_10">手机号</th>
+			<th class="col_20">手机号</th>
 			<th class="col_20">昵称</th>
 			<th class="col_20">角色</th>
-			<th class="col_20">部门</th>
+			<th class="col_10">部门</th>
 			<th class="col_10">修改</th>
 			<th class="col_10">删除</th>
 		</tr>
@@ -35,10 +35,10 @@
 {% for key, value in records.items %}
 			<tr>
 				<th class="col_10"><a href='/users/{{ value.items.0.1 }}/'>{{ value.items.0.1 }}</a></th>
-				<th class="col_10">{{ value.items.1.1 }}</th>
+				<th class="col_20">{{ value.items.1.1 }}</th>
 				<th class="col_20">{{ value.items.2.1 }}</th>
 				<th class="col_20" id="roles_{{ value.items.5.1 }}">{{ value.items.3.1 }}</th>
-				<th class="col_20" id="department_{{ value.items.5.1 }}">{{ value.items.4.1 }}</th>
+				<th class="col_10" id="department_{{ value.items.5.1 }}">{{ value.items.4.1 }}</th>
 				<th class="col_10"><a href='/users/{{ value.items.0.1 }}/'><input type="button" value="修改" class="modify_user" id="modify_user_{{ value.items.0.1 }}"></a></th>
 				<th class="col_10"><input type="button" value="删除" class="delete_user" id="delete_user_{{ value.items.0.1 }}"></th>
 

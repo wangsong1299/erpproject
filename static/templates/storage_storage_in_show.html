@@ -5,22 +5,20 @@
 {% endblock %}
 
 
-		{% block subtitle %}
-				<div class="line2">
-							入库单
-				</div>	
-	
-		{% endblock %}
+{% block inner_header %}
+{% endblock %}
 
  {% block main %}
  <div class="main" style="overflow:hidden">
-
- 	 	<div class="head_row">
- 			鄞州联城包装彩印有限公司入库单
+<div class="line2">
+							鄞州联城包装彩印有限公司入库单
+				</div>	
+		<div class="head_row">
+<p>请直接在对应内容处修改并且点击该行的确定按钮。</p>
  		</div>
  		<div class="head_row">
  			<label for="storage_in_id">入库单号</label>
- 			<input type="text" id="storage_in_id" value="{{records.0.8}}"> 	
+ 			<input type="text" id="storage_in_id" value="{{records.0.8}}" disabled style="border:none"> 	
  		</div>
 
  		 <div class="head_row">
@@ -65,9 +63,9 @@
 			<th class="col_80"><input type="text" id="total_fee_sum" value="{{records.0.11}}"></th>
 </table>
  		 <div class="head_row">
- 			<label for="deliveryman">保管员</label>
+ 			<label for="deliveryman">交货员</label>
  			<input type="text" id="deliveryman" style="width:250px" value="{{records.0.12}}"/>
- 			<label for="storeman">单位或姓名</label>
+ 			<label for="storeman">保管员</label>
  			<input type="text" id="storeman" style="width:250px" value="{{records.0.13}}" />
  		</div>
 

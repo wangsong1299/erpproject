@@ -4,21 +4,14 @@
 <link rel="stylesheet" href="{% static "erp/css/storage.css" %}">
 {% endblock %}
 
-
-		{% block subtitle %}
-				<div class="line2">
-							新建入库单
-				</div>	
-	
-		{% endblock %}
-
+{% block inner_header %}
+{% endblock %}
 
  {% block main %}
  <div class="main" style="overflow:hidden">
-
-  	 	<div class="head_row">
- 			鄞州联城包装彩印有限公司入库单
- 		</div>
+<div class="line2">
+							鄞州联城包装彩印有限公司入库单
+				</div>	
  		<div class="head_row">
  			<label for="storage_in_id">入库单号</label>
  			<input type="text" id="storage_in_id" value="{{storage_in_id}}"> 	
@@ -46,9 +39,9 @@
 			<th class="col_20"><input type="text" id="material_name_1" name='count' ></th>
 			<th class="col_10"><input type="text" id="size_1" ></th>
 			<th class="col_20"><input type="text" id="seller_1" ></th>
-			<th class="col_10"><input type="text" id="amount_1"></th>
-			<th class="col_10"><input type="text" id="price_1" ></th>
-			<th class="col_10"><input type="text" id="total_fee_1" ></th>
+			<th class="col_10"><input type="number" id="amount_1"></th>
+			<th class="col_10"><input type="number" id="price_1" ></th>
+			<th class="col_10"><input type="number" id="total_fee_1" ></th>
 			<th class="col_20"><input type="text" id="notes_1" ></th>
 		</tr>
 
@@ -57,9 +50,9 @@
 			<th class="col_20"><input type="text" id="material_name_2" name='count'></th>
 			<th class="col_10"><input type="text" id="size_2" ></th>
 			<th class="col_20"><input type="text" id="seller_2" ></th>
-			<th class="col_10"><input type="text" id="amount_2"></th>
-			<th class="col_10"><input type="text" id="price_2" ></th>
-			<th class="col_10"><input type="text" id="total_fee_2" ></th>
+			<th class="col_10"><input type="number" id="amount_2"></th>
+			<th class="col_10"><input type="number" id="price_2" ></th>
+			<th class="col_10"><input type="number" id="total_fee_2" ></th>
 			<th class="col_20"><input type="text" id="notes_2" ></th>
 		</tr>
 
@@ -68,9 +61,9 @@
 			<th class="col_20"><input type="text" id="material_name_3" name='count'></th>
 			<th class="col_10"><input type="text" id="size_3" ></th>
 			<th class="col_20"><input type="text" id="seller_3" ></th>
-			<th class="col_10"><input type="text" id="amount_3"></th>
-			<th class="col_10"><input type="text" id="price_3" ></th>
-			<th class="col_10"><input type="text" id="total_fee_3" ></th>
+			<th class="col_10"><input type="number" id="amount_3"></th>
+			<th class="col_10"><input type="number" id="price_3" ></th>
+			<th class="col_10"><input type="number" id="total_fee_3" ></th>
 			<th class="col_20"><input type="text" id="notes_3" ></th>
 		</tr>
 
@@ -78,9 +71,9 @@
 			<th class="col_20"><input type="text" id="material_name_4" name='count'></th>
 			<th class="col_10"><input type="text" id="size_4" ></th>
 			<th class="col_20"><input type="text" id="seller_4" ></th>
-			<th class="col_10"><input type="text" id="amount_4"></th>
-			<th class="col_10"><input type="text" id="price_4" ></th>
-			<th class="col_10"><input type="text" id="total_fee_4" ></th>
+			<th class="col_10"><input type="number" id="amount_4"></th>
+			<th class="col_10"><input type="number" id="price_4" ></th>
+			<th class="col_10"><input type="number" id="total_fee_4" ></th>
 			<th class="col_20"><input type="text" id="notes_4" ></th>
 		</tr>
 
@@ -88,9 +81,9 @@
 			<th class="col_20"><input type="text" id="material_name_5" name='count'></th>
 			<th class="col_10"><input type="text" id="size_5" ></th>
 			<th class="col_20"><input type="text" id="seller_5" ></th>
-			<th class="col_10"><input type="text" id="amount_5"></th>
-			<th class="col_10"><input type="text" id="price_5" ></th>
-			<th class="col_10"><input type="text" id="total_fee_5" ></th>
+			<th class="col_10"><input type="number" id="amount_5"></th>
+			<th class="col_10"><input type="number" id="price_5" ></th>
+			<th class="col_10"><input type="number" id="total_fee_5" ></th>
 			<th class="col_20"><input type="text" id="notes_5" ></th>
 		</tr>
 
@@ -98,9 +91,9 @@
 			<th class="col_20"><input type="text" id="material_name_6" name='count'></th>
 			<th class="col_10"><input type="text" id="size_6" ></th>
 			<th class="col_20"><input type="text" id="seller_6" ></th>
-			<th class="col_10"><input type="text" id="amount_6"></th>
-			<th class="col_10"><input type="text" id="price_6" ></th>
-			<th class="col_10"><input type="text" id="total_fee_6" ></th>
+			<th class="col_10"><input type="number" id="amount_6"></th>
+			<th class="col_10"><input type="number" id="price_6" ></th>
+			<th class="col_10"><input type="number" id="total_fee_6" ></th>
 			<th class="col_20"><input type="text" id="notes_6" ></th>
 		</tr>
 
@@ -196,7 +189,7 @@
 
 		                	if(count==maxnum){
 								alert("录入成功");
-								window.location.href='/storage/storage_in/';
+								window.location.href='/storage/storage_in_list/1';
 							}
 			              }
 		          })

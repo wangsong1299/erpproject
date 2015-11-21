@@ -4,22 +4,25 @@
 <link rel="stylesheet" href="{% static "erp/css/storage.css" %}">
 {% endblock %}
 
-
-		{% block subtitle %}
-				<div class="line2">
-							入库单
-				</div>	
-	
-		{% endblock %}
+{% block inner_header %}
+{% endblock %}
 
  {% block main %}
  <div class="main" style="overflow:hidden">
+		<div class="line2">
+							鄞州联城包装彩印有限公司入库单列表
+				</div>	
 
- 	 	<div class="head_row">
- 			鄞州联城包装彩印有限公司入库单列表
- 		</div>
- 	
-<table class="storage_table" style="margin-top:20px">
+	 <div class="head_row">
+ 		   <button type="submit" class="btn btn-primary" id="find_storage_in">查询入库单</button>
+ 		   <div class="searchbar">			
+			  <input class="input-medium search-query" id="storage_in_search" type="text" placeholder="原料名称">
+			</div>
+  		   <button type="submit" class="btn btn-primary" id="new">新建入库单</button>
+ 	</div>
+
+	 <div class="list_hr" style="margin-top:20px"></div>
+	<table class="list_table" style="margin-top: 5px;">
 		<tr>
 			<th class="col_10">入库单号</th>
 			<th class="col_20">名称</th>
@@ -30,6 +33,10 @@
 			<th class="col_10">修改</th>
 			<th class="col_10">删除</th>
 		</tr>
+	</table>
+ 	<div class="list_hr" style="margin-top:5px"></div>
+
+   	<table class="list_table">
 		{% for key, value in records.items %}
 		<tr>
 			<th class="col_10"><a href="/storage/storage_in/{{ value.items.0.1 }}">{{ value.items.0.1 }}</a></th>
@@ -46,16 +53,12 @@
 
 	</table>
 
-	 		<div class="head_row" style="margin-bottom:40px">
- 		   <button type="submit" class="btn btn-primary" id="new">新建入库单</button>
- 		   <button type="submit" class="btn btn-primary" id="search">查询入库单</button>
- 		</div>
 
- 		<div class="head_row" id="search_box" style="margin-bottom:40px;display:none">
- 			<label for="material_name">原料名称</label>
- 			<input type="text" id="material_name" />
- 		   <button type="submit" class="btn btn-primary" id="find_storage_in">查询</button>
- 		</div>	
+
+	 <div class="head_row">
+		   <button type="submit" class="btn btn-primary" id="later_click">下一页</button>
+ 		   <button type="submit" class="btn btn-primary" id="pre_click">上一页</button>
+ 	</div>
 
 
   </div>
@@ -75,33 +78,51 @@
 			window.location.href="/storage/storage_in/new/";
 		})
 
-		$("#search").click(function(){
-			if($("#search_box").is(":visible")){
-				$("#search_box").slideUp(1000);
-			}else{
-				$("#search_box").slideDown(1000);
-			}	
-		})
 
 		$("#find_storage_in").click(function(){
-			var material_name=$.trim($("#material_name").val());
+			var storage_in_search=$.trim($("#storage_in_search").val());
 
-			if((material_name=='')){
+			if((storage_in_search=='')){
 				alert("请至少填写原料名");
 			}else{
 				$.ajax({
                       type : "POST",
                       url : "/storage/get_storage_inID_by_product/",
-                      data:{'material_name':material_name},
+                      data:{'material_name':storage_in_search},
                       dataType : "json",
                       success : function(data){  
+                      	if(data!=0){
                       		window.location.href='/storage/storage_in/'+data;
+                      	}else{
+                      		alert("没有相关信息");
+                      	}
+                      		
                       }
                 })
 			}
 		})
 
 
+		 	var href=window.location.href.split("/")[5];
+ 			console.log(href);
+ 			var pre_click={{pre_click}}
+ 			if(pre_click){
+ 				var pre_num=parseInt(href)-1;
+ 				$("#pre_click").click(function(){
+	 				window.location.href='/storage/storage_in_list/'+pre_num;
+	 			})
+ 			}else{
+ 				$("#pre_click").attr('disabled',true);
+ 			}
+ 			 var later_click={{later_click}}
+ 			if(later_click){
+ 				var later_num=parseInt(href)+1;
+ 				$("#later_click").click(function(){
+	 				window.location.href='/storage/storage_in_list/'+later_num;
+	 			})
+ 			}else{
+ 				$("#later_click").attr('disabled',true);
+ 			}
 
 
 

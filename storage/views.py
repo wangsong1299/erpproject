@@ -45,7 +45,7 @@ def storage_list(request,num):
 				records=Storage.objects.all().order_by('-id')
 				a=get_storage_list(records)
 			else:
-				records=Finance.objects.all().order_by('-id')[0:10]
+				records=Storage.objects.all().order_by('-id')[0:10]
 				a=get_storage_list(records)
 		else:
 			if(num==page_all):
@@ -86,26 +86,54 @@ def storage(request,num):
 		return render_to_response("storage_storage_one.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":b})
 
 #################################################################
-def storage_in(request):
+def get_storageIn_list(records):	
+	a={}
+	i=0
+	for r in records:
+		b={}
+		b[0]=r.storage_in_id
+		b[1]=r.material_name
+		b[2]=r.create_time
+		b[3]=r.seller
+		b[4]=r.amount
+		b[5]=r.total_fee	
+		a[i]=b
+		i=i+1
+	return a
+
+def storage_in_list(request,num):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
+	a={}
+	pre_click=False
+	later_click=False
 	if not is_login:
 		return HttpResponseRedirect("/")
 	else:
-		records=Storage_in.objects.all()
-		a={}
-		i=0
-		for r in records:
-			b={}
-			b[0]=r.storage_in_id
-			b[1]=r.material_name
-			b[2]=r.create_time
-			b[3]=r.seller
-			b[4]=r.amount
-			b[5]=r.total_fee	
-			a[i]=b
-			i=i+1
-		return render_to_response("storage_storage_in.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'records':a})
+		records_all=Storage_in.objects.all()
+		page_all=int(len(records_all)-1)/10+1
+		num=int(num)
+		if(num==1):			
+			if((len(records_all)<11)):	
+				records=Storage_in.objects.all().order_by('-id')
+				a=get_storageIn_list(records)
+			else:
+				records=Storage_in.objects.all().order_by('-id')[0:10]
+				a=get_storageIn_list(records)
+		else:
+			if(num==page_all):
+				last=int(page_all-1)*10
+				records=Storage_in.objects.all().order_by('-id')[last:]
+				a=get_storageIn_list(records)
+			else:
+				first=int(num)*10
+				records=Storage_in.objects.all().order_by('-id')[first:int(first+10)]
+				a=get_storageIn_list(records)
+		if(num>1):
+			pre_click=True
+		if(num<int(page_all)):
+			later_click=True
+		return render_to_response("storage_storage_in.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click)})
 
 def storage_in_show(request,id):
 	is_login=request.session.get('is_login',False)
@@ -228,8 +256,12 @@ def fill_storage_in(request):
 @csrf_exempt
 def get_storage_inID_by_product(request):
 	material_name = request.POST.get('material_name', None)
-	r=Storage_in.objects.filter(material_name=material_name)[0].storage_in_id
-	return HttpResponse(json.dumps(r))
+	r=Storage_in.objects.filter(material_name=material_name)
+	if r:
+		id=r[0].storage_in_id
+		return HttpResponse(id)
+	else:
+		return HttpResponse(0)
 
 #################################################################
 def storage_out(request):

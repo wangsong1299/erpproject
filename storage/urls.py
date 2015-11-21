@@ -27,7 +27,7 @@ urlpatterns = patterns('',
  
 #入库单
     #入库
-    url(r'^storage_in/$', views.storage_in),
+    url(r'^storage_in_list/(\d{1,6})/$', views.storage_in_list),
     url(r'^storage_in/new/$', views.storage_in_new),
     url(r'^storage_in/(\d{1,6})/$', views.storage_in_show),
 
