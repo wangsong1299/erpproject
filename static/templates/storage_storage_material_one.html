@@ -11,47 +11,39 @@
  {% block main %}
  <div class="main" style="overflow:hidden">
  		<div class="line2">
-							原料库存
+							原料库存(查询结果)
 				</div>	
 
-	<div class="head_row">
- 		   <button type="submit" class="btn btn-primary" id="find_material">查询原料库存</button>
- 		   <div class="searchbar">			
-			  <input class="input-medium search-query" id="material_search" type="text" placeholder="原料名">
-			</div>
- 	</div>
 <!--修改框-->
 	<div class="" id="material_modify_box" style="display:none">
  		<table class="storage_table" style="margin-top: 20px;" >
 			<tr>
 				<th class="col_10">原料名称</th>
 				<th class="col_10">规格</th>
-				<th class="col_10">买入单位</th>
+				<th class="col_20">买入单位</th>
 				<th class="col_10">数目</th>
 				<th class="col_10">单价</th>
 				<th class="col_10">金额</th>
 				<th class="col_10">入库时间</th>
 				<th class="col_10">出库时间</th>
-				<th class="col_20">备注</th>
+				<th class="col_10">备注</th>
 			</tr>
 			<tr>
 				<th class="col_10"><input type="text" id="modify_col1"></th>
 				<th class="col_10"><input type="text" id="modify_col2"></th>
-				<th class="col_10"><input type="text" id="modify_col3"></th>
+				<th class="col_20"><input type="text" id="modify_col3"></th>
 				<th class="col_10"><input type="text" id="modify_col4" ></th>
 				<th class="col_10"><input type="text" id="modify_col5"></th>
 				<th class="col_10"><input type="text" id="modify_col6" ></th>
 				<th class="col_10"><input type="text" id="modify_col7" onClick="WdatePicker()"></th>
 				<th class="col_10"><input type="text" id="modify_col8" onClick="WdatePicker()"></th>
-				<th class="col_20"><input type="text" id="modify_col9" ></th>
+				<th class="col_10"><input type="text" id="modify_col9" ></th>
 			</tr>
 	</table>
 		 <div class="head_row" style="margin-bottom:40px">
 		   <button type="submit" class="btn btn-primary modify_submit">确认修改</button>
 		</div>
 	</div>
-
-
 
 	 <div class="list_hr" style="margin-top:20px"></div>
 	<table class="list_table" style="margin-top: 5px;">
@@ -72,32 +64,21 @@
  	<div class="list_hr" style="margin-top:5px"></div>
 
    	<table class="list_table">
-
-{% for key, value in records.items %}
 		<tr>
-			<th class="col_10">{{ value.items.0.1 }}</th>
-			<th class="col_10">{{ value.items.1.1 }}</th>
-			<th class="col_10">{{ value.items.2.1 }}</th>
-			<th class="col_10">{{ value.items.3.1 }}</th>
-			<th class="col_10">{{ value.items.4.1 }}</th>
-			<th class="col_10">{{ value.items.5.1 }}</th>
-			<th class="col_10">{{ value.items.6.1 }}</th>
-			<th class="col_10">{{ value.items.7.1 }}</th>
-			<th class="col_10">{{ value.items.8.1 }}</th>
-			<th class="col_5"><input type="button" value="修改" name='modify_material' class="modify_material_{{ value.items.10.1 }}" id="modify_material_{{ value.items.9.1 }}"></th>
-			<th class="col_5"><input type="button" value="删除" class="delete_material" id="delete_material_{{ value.items.9.1 }}"></th>
+			<th class="col_10">{{ records.0 }}</th>
+			<th class="col_10">{{ records.1 }}</th>
+			<th class="col_10">{{ records.2 }}</th>
+			<th class="col_10">{{ records.3 }}</th>
+			<th class="col_10">{{ records.4 }}</th>
+			<th class="col_10">{{ records.5 }}</th>
+			<th class="col_10">{{ records.6 }}</th>
+			<th class="col_10">{{ records.7 }}</th>
+			<th class="col_10">{{ records.8 }}</th>
+			<th class="col_5"><input type="button" value="修改" name='modify_material' class="modify_material_{{records.9}}" id="modify_material_{{ records.9 }}"></th>
+			<th class="col_5"><input type="button" value="删除" class="delete_material" id="delete_storage_{{ records.9 }}"></th>
 		</tr>
-
-{% endfor %}
-
 	</table>
  
-
-	 <div class="head_row">
-		   <button type="submit" class="btn btn-primary" id="later_click">下一页</button>
- 		   <button type="submit" class="btn btn-primary" id="pre_click">上一页</button>
- 	</div>
-
 
   </div>
  
@@ -108,7 +89,8 @@
  	<script type="text/javascript">
 	$(document).ready(function(){
 		$("#storage_box").show();	
-		$("#storage_4").addClass('subtitle_focus');
+		$("#storage_1").addClass('subtitle_focus');
+
 
 		$('input[name=modify_material]').click(function(){
 			var id=$(this).attr("id").split("_")[2];
@@ -120,6 +102,8 @@
 			  	success : function(data) {    
 			  		console.log(data);
 			  		$("#material_modify_box").show();
+			  		$(".list_table").hide();
+			  		$(".list_hr").hide();
 			  		$("#modify_col1").val(data[0]);
 			  		$("#modify_col2").val(data[1]);
 			  		$("#modify_col3").val(data[2]);
@@ -127,14 +111,14 @@
 			  		$("#modify_col5").val(data[4]);
 			  		$("#modify_col6").val(data[5]);
 			  		$("#modify_col7").val(data[6]);
-					$("#modify_col8").val(data[7]);
+			  		$("#modify_col8").val(data[7]);
 			  		$("#modify_col9").val(data[8]);
 					var modify_id="modify_submit_"+data[9];
 					$('.modify_submit').attr("id",modify_id);
+
 	              }
     	    })
 		})
-
 
 	 	$(".modify_submit").click(function(){
 				var id=$(this).attr("id").split("_")[2];
@@ -166,7 +150,6 @@
         	    })
 		})
 
-
  		$(".delete_material").click(function(){
 			var id=$(this).attr("id").split("_")[2];
 			$.ajax({
@@ -177,7 +160,7 @@
 	              success : function(data) {    
 	                if(data==1){
 	                	alert("删除成功");
-	                   window.location.reload();
+	                   window.location.href='/storage/storage_material_list/1';
 	                }else{
 	                  alert("删除失败:"+data.message);
 	                }
@@ -185,56 +168,6 @@
 	          })
 
 		})
-
-
-		$("#find_material").click(function(){
-				var material_search=$.trim($("#material_search").val());
-
-				if(material_search==''){
-					alert("请输入原料名称");
-				}else{
-					$.ajax({
-	                      type : "POST",
-	                      url : "/storage/get_details_by_material/",
-	                      data:{'material_name':material_search},
-	                      dataType : "json",
-	                      success : function(data){ 
-	                      console.log(data); 
-	                      		if(data!=0){
-	                      			window.location.href='/storage/storage_material/'+data;
-	                      		}else{
-	                      			alert("没有相关原料");
-	                      		}
-	                      }
-	                })
-
-				}
-})
-	
-
-		 	var href=window.location.href.split("/")[5];
- 			console.log(href);
- 			var pre_click={{pre_click}}
- 			if(pre_click){
- 				var pre_num=parseInt(href)-1;
- 				$("#pre_click").click(function(){
-	 				window.location.href='/storage/storage_material_list/'+pre_num;
-	 			})
- 			}else{
- 				$("#pre_click").attr('disabled',true);
- 			}
- 			 var later_click={{later_click}}
- 			if(later_click){
- 				var later_num=parseInt(href)+1;
- 				$("#later_click").click(function(){
-	 				window.location.href='/storage/storage_material_list/'+later_num;
-	 			})
- 			}else{
- 				$("#later_click").attr('disabled',true);
- 			}
-
-
-
 	})</script>
 
 {% endblock %}

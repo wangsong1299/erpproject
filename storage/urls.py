@@ -11,8 +11,10 @@ urlpatterns = patterns('',
 
     url(r'^storage_out/new/$', views.storage_out_new),
     #原料仓库
-    url(r'^storage_material/$', views.storage_material),
+    url(r'^storage_material_list/(\d{1,6})/$', views.storage_material_list),
+    url(r'^storage_material/(\d{1,6})/$', views.storage_material),
   
+
   #api
     url(r'^fill_storage_in/$', views.fill_storage_in),
     url(r'^fill_storage_out/$', views.fill_storage_out),
@@ -53,6 +55,6 @@ urlpatterns = patterns('',
 
 #####
    url(r'^get_storagedetails_by_piplineID/$', views.get_storagedetails_by_piplineID),
-
+   url(r'^get_materialdetails_by_piplineID/$', views.get_materialdetails_by_piplineID),
 
 )

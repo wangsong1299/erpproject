@@ -442,32 +442,82 @@ def get_storage_outID_by_product(request):
 
 ######################################
 
+def get_storageMaterial_list(records):	
+	a={}
+	i=0
+	for r in records:
+		b={}
+		b[0]=r.material_name
+		b[1]=r.size	
+		b[2]=r.seller
+		b[3]=r.amount
+		b[4]=r.price
+		b[5]=r.total_fee
+		b[6]=r.in_time
+		b[7]=r.out_time
+		b[8]=r.notes
+		b[9]=r.id	
+		b[10]=int(i+1)
+		a[i]=b
+		i=i+1
+	return a
 
-def storage_material(request):
+def storage_material_list(request,num):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
+	a={}
+	pre_click=False
+	later_click=False
 	if not is_login:
 		return HttpResponseRedirect("/")
 	else:
-		records=Storage_material.objects.all()
-		a={}
-		i=0
-		for r in records:
-			b={}
-			b[0]=r.material_name
-			b[1]=r.size	
-			b[2]=r.seller
-			b[3]=r.amount
-			b[4]=r.price
-			b[5]=r.total_fee
-			b[6]=r.in_time
-			b[7]=r.out_time
-			b[8]=r.notes
-			b[9]=r.id	
-			b[10]=int(i+1)
-			a[i]=b
-			i=i+1
-		return render_to_response("storage_storage_material.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'records':a})
+		records_all=Storage_material.objects.all()
+		page_all=int(len(records_all)-1)/10+1
+		num=int(num)
+		if(num==1):			
+			if((len(records_all)<11)):	
+				records=Storage_material.objects.all().order_by('-id')
+				a=get_storageMaterial_list(records)
+			else:
+				records=Storage_material.objects.all().order_by('-id')[0:10]
+				a=get_storageMaterial_list(records)
+		else:
+			if(num==page_all):
+				last=int(page_all-1)*10
+				records=Storage_material.objects.all().order_by('-id')[last:]
+				a=get_storageMaterial_list(records)
+			else:
+				first=int(num)*10
+				records=Storage_material.objects.all().order_by('-id')[first:int(first+10)]
+				a=get_storageMaterial_list(records)
+		if(num>1):
+			pre_click=True
+		if(num<int(page_all)):
+			later_click=True
+		return render_to_response("storage_storage_material.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click)})
+
+def storage_material(request,num):
+	is_login=request.session.get('is_login',False)
+	nick_name = request.session.get('nick_name',False)
+	a={}
+	pre_click=False
+	later_click=False
+	if not is_login:
+		return HttpResponseRedirect("/")
+	else:
+		r=Storage_material.objects.filter(id=num)[0]
+		b={}
+		b[0]=r.material_name
+		b[1]=r.size	
+		b[2]=r.seller
+		b[3]=r.amount
+		b[4]=r.price
+		b[5]=r.total_fee
+		b[6]=r.in_time
+		b[7]=r.out_time
+		b[8]=r.notes
+		b[9]=r.id	
+		return render_to_response("storage_storage_material_one.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":b})
 
 
 @csrf_exempt
@@ -500,20 +550,12 @@ def delete_material(request):
 @csrf_exempt
 def get_details_by_material(request):
 	material_name = request.POST.get('material_name', None)
-	r=Storage_material.objects.filter(material_name=material_name)[0]
-	b={}
-	b[0]=r.material_name
-	b[1]=r.size
-	b[2]=r.seller
-	b[3]=r.amount
-	b[4]=r.price
-	b[5]=r.total_fee
-	b[6]=r.in_time
-	b[7]=r.out_time
-	b[8]=r.notes
-	b[9]=r.id
-	return HttpResponse(json.dumps(b))
-
+	r=Storage_material.objects.filter(material_name=material_name)
+	if r:
+		id=r[0].id
+		return HttpResponse(id)
+	else:
+		return HttpResponse(0)
 
 ######################################
 
@@ -582,4 +624,23 @@ def get_storagedetails_by_piplineID(request):
 	b[7]=r.productID
 	b[8]=r.id
 	return HttpResponse(json.dumps(b))
+
+#api
+@csrf_exempt
+def get_materialdetails_by_piplineID(request):
+	id = request.POST.get('id', None)
+	r=Storage_material.objects.filter(id=id)[0]
+	b={}
+	b[0]=r.material_name
+	b[1]=r.size	
+	b[2]=r.seller
+	b[3]=r.amount
+	b[4]=r.price
+	b[5]=r.total_fee
+	b[6]=r.in_time
+	b[7]=r.out_time
+	b[8]=r.notes
+	b[9]=r.id	
+	return HttpResponse(json.dumps(b))
+
 
