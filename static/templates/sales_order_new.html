@@ -15,17 +15,17 @@
  		<div class="line2">
 							印刷订单
 				</div>	
-	<div class="head_row" style="height:70px" id="bcTarget_row">
+<!--	<div class="head_row" style="height:70px" id="bcTarget_row" >
 		<label for="customer_name" style="width:150px">订单号条形码:</label>
 		<iframe src="" frameborder="0" id="barcode_iframe"></iframe>
-	</div>
+	</div>-->
  	<table class="order_table" style="margin-top: 20px;" id="order_table">
 		<tr>
 			<th class="col_10">客户名<span class="red">*</span></th>
 			<td class="col_20"> <input type="text" id="customer_name"  ></td>
 			<th class="col_10">联系人<span class="red">*</span></th>
 			<td class="col_20"> <input type="text" id="contacts" ></td>
-			<th class="col_10">电话<span class="red">*</span></th>
+			<th class="col_10">手机号<span class="red">*</span></th>
 			<td class="col_30"> <input type="text" id="contacts_phone" ></td>
 		</tr>
 		<tr>
@@ -33,70 +33,170 @@
 			<td class="col_20"> <input type="text" id="fax" ></td>
 			<th class="col_10">qq</th>
 			<td class="col_20"> <input type="number" id="qq" ></td>
-			<th class="col_10">日期<span class="red">*</span></th>
-			<td class="col_30"> <input type="text" id="create_time" onClick="WdatePicker()"></td>
+			<th class="col_10">电话<span class="red">*</span></th>
+			<td class="col_30"><input type="text" id="call" ></td>
 		</tr>
 	</table>
 	 <table class="order_table">
 		<tr>
-			<th class="col_10">产品名称<span class="red">*</span></th>
-			<td class="col_40"> <input type="text" id="product_name"  ></td>
-			<th class="col_20">客户订单号<span class="red">*</span></th>
-			<td class="col_30"> <input type="text" id="productID"  value='{{ productID }}'></td>
+			<th class="col_20">送货地址</th>
+			<td class="col_80"> <input type="text" id="delivery_address"  ></td>
 		</tr>
 	</table>
 	 <table class="order_table">
 		<tr>
-			<th class="col_12">数量<span class="red">*</span></th>
-			<th class="col_12">单价<span class="red">*</span></th>
-			<th class="col_12">金额<span class="red">*</span></th>
-			<th class="col_12">版费</th>			
+			<th class="col_10">下单日期<span class="red">*</span></th>
+			<th class="col_5">订单号<span class="red">*</span></th>
+			<th class="col_10">品名<span class="red">*</span></th>
+			<th class="col_5">尺寸<span class="red">*</span></th>
+			<th class="col_5">条码<span class="red">*</span></th>
+			<th class="col_5">数量<span class="red">*</span></th>
+			<th class="col_5">单价<span class="red">*</span></th>
+			<th class="col_5">版费<span class="red">*</span></th>
+			<th class="col_5">金额<span class="red">*</span></th>
+			<th class="col_5">面纸用料<span class="red">*</span></th>
+			<th class="col_5">瓦楞用料<span class="red">*</span></th>
+			<th class="col_5">瓦型<span class="red">*</span></th>
+			<th class="col_5">刀模<span class="red">*</span></th>
+			<th class="col_5">菲林<span class="red">*</span></th>
+			<th class="col_10">表面处理<span class="red">*</span></th>
+			<th class="col_10">交货日期<span class="red">*</span></th>	
+		</tr>
+
+		<tr>
+			<th class="col_10"><input type="text" class="create_time" id="create_time_1" onClick="WdatePicker()"></th>
+			<th class="col_5"><input type="number" id="productID_1"  ></th>
+			<th class="col_10"><input type="text" id="product_name_1"  ></th>
+			<th class="col_5"><input type="text" id="size_1"></th>
+			<th class="col_5"><input type="text" id="productID2_1"></th>
+			<th class="col_5"><input type="number" id="amount_1"  ></th>
+			<th class="col_5"><input type="number" id="price_1"  ></th>
+			<th class="col_5"><input type="number" id="edition_fee_1"  ></th>
+			<th class="col_5"><input type="number" id="fee_1"  ></th>
+			<th class="col_5"><input type="text" id="material_1" ></th>
+			<th class="col_5"><input type="text" id="wl_material_1"  ></th>
+			<th class="col_5"><input type="text" id="wl_kind_1"  ></th>
+			<th class="col_5"><input type="text" id="mould_1"  ></th>
+			<th class="col_5"><input type="text" id="feilin_1"  ></th>
+			<th class="col_10"><input type="text" id="surface_1"  ></th>
+			<th class="col_10"><input type="text" id="deadline_1" onClick="WdatePicker()"></th>	
 		</tr>
 		<tr>
-			<th class="col_12"><input type="number" id="amount"  ></th>
-			<th class="col_12"><input type="number" id="price" ></th>
-			<th class="col_12"><input type="number" id="fee" ></th>
-			<th class="col_12"><input type="number" id="edition_fee" ></th>		
+			<th class="col_10"><input type="text" class="create_time" id="create_time_2" onClick="WdatePicker()"></th>
+			<th class="col_5"><input type="number" id="productID_2"  ></th>
+			<th class="col_10"><input type="text" id="product_name_2"  ></th>
+			<th class="col_5"><input type="text" id="size_2"></th>
+			<th class="col_5"><input type="text" id="productID2_2"></th>
+			<th class="col_5"><input type="number" id="amount_2"  ></th>
+			<th class="col_5"><input type="number" id="price_2"  ></th>
+			<th class="col_5"><input type="number" id="edition_fee_2"  ></th>
+			<th class="col_5"><input type="number" id="fee_2"  ></th>
+			<th class="col_5"><input type="text" id="material_2" ></th>
+			<th class="col_5"><input type="text" id="wl_material_2"  ></th>
+			<th class="col_5"><input type="text" id="wl_kind_2"  ></th>
+			<th class="col_5"><input type="text" id="mould_2"  ></th>
+			<th class="col_5"><input type="text" id="feilin_2"  ></th>
+			<th class="col_10"><input type="text" id="surface_2"  ></th>
+			<th class="col_10"><input type="text" id="deadline_2" onClick="WdatePicker()"></th>	
+		</tr>
+		<tr>
+			<th class="col_10"><input type="text" class="create_time" id="create_time_3" onClick="WdatePicker()"></th>
+			<th class="col_5"><input type="number" id="productID_3"  ></th>
+			<th class="col_10"><input type="text" id="product_name_3"  ></th>
+			<th class="col_5"><input type="text" id="size_3"></th>
+			<th class="col_5"><input type="text" id="productID2_3"></th>
+			<th class="col_5"><input type="number" id="amount_3"  ></th>
+			<th class="col_5"><input type="number" id="price_3"  ></th>
+			<th class="col_5"><input type="number" id="edition_fee_3"  ></th>
+			<th class="col_5"><input type="number" id="fee_3"  ></th>
+			<th class="col_5"><input type="text" id="material_3" ></th>
+			<th class="col_5"><input type="text" id="wl_material_3"  ></th>
+			<th class="col_5"><input type="text" id="wl_kind_3"  ></th>
+			<th class="col_5"><input type="text" id="mould_3"  ></th>
+			<th class="col_5"><input type="text" id="feilin_3"  ></th>
+			<th class="col_10"><input type="text" id="surface_3"  ></th>
+			<th class="col_10"><input type="text" id="deadline_3" onClick="WdatePicker()"></th>	
+		</tr>
+		<tr>
+			<th class="col_10"><input type="text" class="create_time" id="create_time_4" onClick="WdatePicker()"></th>
+			<th class="col_5"><input type="number" id="productID_4"  ></th>
+			<th class="col_10"><input type="text" id="product_name_4"  ></th>
+			<th class="col_5"><input type="text" id="size_4"></th>
+			<th class="col_5"><input type="text" id="productID2_4"></th>
+			<th class="col_5"><input type="number" id="amount_4"  ></th>
+			<th class="col_5"><input type="number" id="price_4"  ></th>
+			<th class="col_5"><input type="number" id="edition_fee_4"  ></th>
+			<th class="col_5"><input type="number" id="fee_4"  ></th>
+			<th class="col_5"><input type="text" id="material_4" ></th>
+			<th class="col_5"><input type="text" id="wl_material_4"  ></th>
+			<th class="col_5"><input type="text" id="wl_kind_4"  ></th>
+			<th class="col_5"><input type="text" id="mould_4"  ></th>
+			<th class="col_5"><input type="text" id="feilin_4"  ></th>
+			<th class="col_10"><input type="text" id="surface_4"  ></th>
+			<th class="col_10"><input type="text" id="deadline_4" onClick="WdatePicker()"></th>	
+		</tr>
+		<tr>
+			<th class="col_10"><input type="text" class="create_time" id="create_time_5" onClick="WdatePicker()"></th>
+			<th class="col_5"><input type="number" id="productID_5"  ></th>
+			<th class="col_10"><input type="text" id="product_name_5"  ></th>
+			<th class="col_5"><input type="text" id="size_5"></th>
+			<th class="col_5"><input type="text" id="productID2_5"></th>
+			<th class="col_5"><input type="number" id="amount_5"  ></th>
+			<th class="col_5"><input type="number" id="price_5"  ></th>
+			<th class="col_5"><input type="number" id="edition_fee_5"  ></th>
+			<th class="col_5"><input type="number" id="fee_5"  ></th>
+			<th class="col_5"><input type="text" id="material_5" ></th>
+			<th class="col_5"><input type="text" id="wl_material_5"  ></th>
+			<th class="col_5"><input type="text" id="wl_kind_5"  ></th>
+			<th class="col_5"><input type="text" id="mould_5"  ></th>
+			<th class="col_5"><input type="text" id="feilin_5"  ></th>
+			<th class="col_10"><input type="text" id="surface_5"  ></th>
+			<th class="col_10"><input type="text" id="deadline_5" onClick="WdatePicker()"></th>	
+		</tr>
+		<tr>
+			<th class="col_10"><input type="text" class="create_time" id="create_time_6" onClick="WdatePicker()"></th>
+			<th class="col_5"><input type="number" id="productID_6"  ></th>
+			<th class="col_10"><input type="text" id="product_name_6"  ></th>
+			<th class="col_5"><input type="text" id="size_6"></th>
+			<th class="col_5"><input type="text" id="productID2_6"></th>
+			<th class="col_5"><input type="number" id="amount_6"  ></th>
+			<th class="col_5"><input type="number" id="price_6"  ></th>
+			<th class="col_5"><input type="number" id="edition_fee_6"  ></th>
+			<th class="col_5"><input type="number" id="fee_6"  ></th>
+			<th class="col_5"><input type="text" id="material_6" ></th>
+			<th class="col_5"><input type="text" id="wl_material_6"  ></th>
+			<th class="col_5"><input type="text" id="wl_kind_6"  ></th>
+			<th class="col_5"><input type="text" id="mould_6"  ></th>
+			<th class="col_5"><input type="text" id="feilin_6"  ></th>
+			<th class="col_10"><input type="text" id="surface_6"  ></th>
+			<th class="col_10"><input type="text" id="deadline_6" onClick="WdatePicker()"></th>	
+		</tr>
+		<tr>
+			<th class="col_10"><input type="text" class="create_time" id="create_time_7" onClick="WdatePicker()"></th>
+			<th class="col_5"><input type="number" id="productID_7"  ></th>
+			<th class="col_10"><input type="text" id="product_name_7"  ></th>
+			<th class="col_5"><input type="text" id="size_7"></th>
+			<th class="col_5"><input type="text" id="productID2_7"></th>
+			<th class="col_5"><input type="number" id="amount_7"  ></th>
+			<th class="col_5"><input type="number" id="price_7"  ></th>
+			<th class="col_5"><input type="number" id="edition_fee_7"  ></th>
+			<th class="col_5"><input type="number" id="fee_7"  ></th>
+			<th class="col_5"><input type="text" id="material_7" ></th>
+			<th class="col_5"><input type="text" id="wl_material_7"  ></th>
+			<th class="col_5"><input type="text" id="wl_kind_7"  ></th>
+			<th class="col_5"><input type="text" id="mould_7"  ></th>
+			<th class="col_5"><input type="text" id="feilin_7"  ></th>
+			<th class="col_10"><input type="text" id="surface_7"  ></th>
+			<th class="col_10"><input type="text" id="deadline_7" onClick="WdatePicker()"></th>	
 		</tr>
 	</table>
-	 <table class="order_table">
-		<tr>
-			<th class="col_12">合计金额</th>
-			<th class="col_12">交货期</th>
-			<th class="col_12">菲林情况</th>
-			<th class="col_12">产品用料</th>				
-		</tr>
-		<tr>
-			<th class="col_12"><input type="number" id="total_fee"  ></th>
-			<th class="col_12"><input type="text" id="deadline" onClick="WdatePicker()"></th>
-			<th class="col_12"><input type="text" id="feilin"  ></th>
-			<th class="col_12"><input type="text" id="material" ></th>			
-		</tr>
+	<table class="order_table">
+			<th class="col_10">合计金额<span class="red">*</span></th>
+			<td class="col_40"> <input type="text" id="total_fee"  ></td>
+			<th class="col_20">备注<span class="red">*</span></th>
+			<td class="col_30"> <input type="text" id="notes" ></td>
 	</table>
-	 <table class="order_table">
-		<tr>
-			<th class="col_12">产品尺寸</th>
-			<th class="col_12">表面处理</th>
-			<th class="col_12">瓦楞用料</th>
-			<th class="col_12">瓦楞品种</th>				
-		</tr>
-		<tr>
-			<th class="col_12"><input type="text" id="size"></th>
-			<th class="col_12"><input type="text" id="surface" ></th>
-			<th class="col_12"><input type="text" id="wl_material"  ></th>
-			<th class="col_12"><input type="text" id="wl_kind"  ></th>			
-		</tr>
-	</table>
-	 <table class="order_table">
-		<tr>
-			<th class="col_20">刀模</th>
-			<th class="col_80">备注</th>			
-		</tr>
-		<tr>
-			<th class="col_20"><input type="text" id="mould"  ></th>
-			<th class="col_80"><input type="text" id="notes"  ></th>	
-		</tr>
-	</table>
+
 
  		<div class="head_row" style="margin-bottom:40px">
  		   <button type="submit" class="btn btn-primary" id="submit">点击生成订单</button>
@@ -114,73 +214,92 @@
 		$("#order").addClass('subtitle_focus');
 
 	    var date=new Date();
-		var newdate= date.getFullYear()+'-'+(parseInt(date.getMonth())+1)+'-'+date.getDate();
-		$("#create_time").val(newdate);
+		//var newdate= date.getFullYear()+'-'+(parseInt(date.getMonth())+1)+'-'+date.getDate();
+		var newdate=(parseInt(date.getMonth())+1)+'-'+date.getDate();
+		//$(".create_time").val(newdate);
 
 		var productID= {{productID|safe}};
 
-		var order_img_iframe_src = '/upload_iframe/'+productID;
-		$("#order_img_iframe").attr("src",order_img_iframe_src);
+		//var order_img_iframe_src = '/upload_iframe/'+productID;
+		//$("#order_img_iframe").attr("src",order_img_iframe_src);
 
 		$("#submit").click(function(){
+
+				var maxnum=0;
+
+				$(".create_time").each(function(a,b){
+					var temp = $.trim($(b).val());
+					console.log(temp);
+					if(temp.length!=0){
+						var num = $(b).attr("id").split("_")[2];
+						if(num>maxnum){
+							maxnum=num;
+						}
+					}
+				});
+
 				var customer=$.trim($("#customer_name").val());
 				var contacts=$.trim($("#contacts").val());
 				var contacts_phone=$.trim($("#contacts_phone").val());
 				var fax=$.trim($("#fax").val());
 				var qq=$.trim($("#qq").val());
-				var create_time=$.trim($("#create_time").val());
-				var product_name=$.trim($("#product_name").val());
-				var productID=$.trim($("#productID").val());
-				var amount=$.trim($("#amount").val());
-				var price=$.trim($("#price").val());
-				var fee=$.trim($("#fee").val());
-				var edition_fee=$.trim($("#edition_fee").val());
+				var call=$.trim($("#call").val());
+				var delivery_address=$.trim($("#delivery_address").val());
 				var total_fee=$.trim($("#total_fee").val());
-				var deadline=$.trim($("#deadline").val());
-				var feilin=$.trim($("#feilin").val());
-				var material=$.trim($("#material").val());
-				var size=$.trim($("#size").val());
-				var surface=$.trim($("#surface").val());
-				var wl_material=$.trim($("#wl_material").val());
-				var wl_kind=$.trim($("#wl_kind").val());
-				var mould=$.trim($("#mould").val());
-				var notes=$.trim($("#notes").val());
-				var image_address='123';
-			
+				var notes=$.trim($("#notes").val());	
 
-				if(productID.length==0){
-					alert("产品ID不能为空");
-				}else if(customer.length==0){
-					alert("客户名不能为空");
-				}else if(contacts.length==0){
-					alert("联系人不能为空");
-				}else if(contacts_phone.length==0){
-					alert("联系人电话不能为空");
-				}else if(product_name.length==0){
-					alert("产品名称不能为空");
-				}else if(amount.length==0){
-					alert("数目不能为空");
-				}else if(price.length==0){
-					alert("单价不能为空");
-				}else if(fee.length==0){
-					alert("金额不能为空");
-				}else{
-					  $.ajax({
-	                      type : "POST",
-	                      url : "/sales/fill_order/",
-	                      data:{'productID':productID,'customer':customer,'contacts':contacts,'contacts_phone':contacts_phone,'fax':fax,'qq':qq,'create_time':create_time,'product_name':product_name,'amount':amount,'price':price,'fee':fee,'edition_fee':edition_fee,'total_fee':total_fee,'deadline':deadline,'feilin':feilin,'material':material,'size':size,'surface':surface,'wl_material':wl_material,'wl_kind':wl_kind,'mould':mould,'notes':notes,'image_address':image_address},
-	                      dataType : "json",
-	                      success : function(data) {    
-	                        if(data==1){
-	                        	alert("录入成功");
-	                           window.location.href='/sales/order_list/1';
-	                        }else{
-	                          alert("录入失败:"+data.message);
-	                        }
-	                      }
-	                  })
+				for(var i=1;i<=maxnum;i++){
+					var create_time=$.trim($("#create_time_"+i).val());
+					var product_name=$.trim($("#product_name_"+i).val());
+					var productID=$.trim($("#productID_"+i).val());
+					var size=$.trim($("#size_"+i).val());
+					var productID2=$.trim($("#productID2_"+i).val());
+					var amount=$.trim($("#amount_"+i).val());
+					var price=$.trim($("#price_"+i).val());
+					var fee=$.trim($("#fee_"+i).val());
+					var edition_fee=$.trim($("#edition_fee_"+i).val());
+					var material=$.trim($("#material_"+i).val());
+					var wl_material=$.trim($("#wl_material_"+i).val());
+					var wl_kind=$.trim($("#wl_kind_"+i).val());	
+					var mould=$.trim($("#mould_"+i).val());
+					var feilin=$.trim($("#feilin_"+i).val());	
+					var surface=$.trim($("#surface_"+i).val());
+					var deadline=$.trim($("#deadline_"+i).val());
+							if(productID.length==0){
+								alert("产品ID不能为空");
+							}else if(customer.length==0){
+								alert("客户名不能为空");
+							}else if(contacts.length==0){
+								alert("联系人不能为空");
+							}else if(contacts_phone.length==0){
+								alert("联系人电话不能为空");
+							}else if(product_name.length==0){
+								alert("产品名称不能为空");
+							}else if(amount.length==0){
+								alert("数目不能为空");
+							}else if(price.length==0){
+								alert("单价不能为空");
+							}else if(fee.length==0){
+								alert("金额不能为空");
+							}else{
+								  $.ajax({
+				                      type : "POST",
+				                      url : "/sales/fill_order/",
+				                      data:{'productID':productID,'customer':customer,'contacts':contacts,'contacts_phone':contacts_phone,'fax':fax,'qq':qq,'create_time':create_time,'product_name':product_name,'amount':amount,'price':price,'fee':fee,'edition_fee':edition_fee,'total_fee':total_fee,'deadline':deadline,'feilin':feilin,'material':material,'size':size,'surface':surface,'wl_material':wl_material,'wl_kind':wl_kind,'mould':mould,'notes':notes,'call':call,'delivery_address':delivery_address,'productID2':productID2},
+				                      dataType : "json",
+				                      success : function(data) {    
+				                        if(data==1){
+				                        	alert("录入成功");
+				                           window.location.href='/sales/order_list/1';
+				                        }else{
+				                          alert("录入失败:"+data.message);
+				                        }
+				                      }
+				                  })
+							}
+
+
 				}
-
 		})
 
 
@@ -188,13 +307,13 @@
 
 		var productID2={{productID}};
 		var barcode_src='/barcode/'+productID2;
-		$("#barcode_iframe").attr("src",barcode_src);
+		//$("#barcode_iframe").attr("src",barcode_src);
 
 
 		$("#productID").blur(function(){
 				var productID2=$("#productID").val();
 				var barcode_src='/barcode/'+productID2;
-				$("#barcode_iframe").attr("src",barcode_src);
+				//$("#barcode_iframe").attr("src",barcode_src);
 
 		})
 

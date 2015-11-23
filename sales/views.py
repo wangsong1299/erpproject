@@ -442,32 +442,40 @@ def order(request,id):
 	else:
 		order_show=True
 		order_modify=False
-		r=Order.objects.filter(id=id)[0]
-		b={}
-		b[0]=r.customer
-		b[1]=r.contacts
-		b[2]=r.contacts_phone
-		b[3]=r.fax
-		b[4]=r.qq
-		b[5]=r.create_time
-		b[6]=r.product_name
-		b[7]=r.productID
-		b[8]=r.amount
-		b[9]=r.price
-		b[10]=r.fee
-		b[11]=r.edition_fee
-		b[12]=r.total_fee
-		b[13]=r.deadline
-		b[14]=r.feilin
-		b[15]=r.material
-		b[16]=r.size
-		b[17]=r.surface
-		b[18]=r.wl_material
-		b[19]=r.wl_kind
-		b[20]=r.mould
-		b[21]=r.notes
-		b[22]=r.image_address
-		return render_to_response("sales_order.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":b,'order_show':json.dumps(order_show),'order_modify':json.dumps(order_modify)})
+		records=Order.objects.filter(id=id)
+		a={}
+		i=0
+		for r in records:
+			b={}
+			b[0]=r.customer
+			b[1]=r.contacts
+			b[2]=r.contacts_phone
+			b[3]=r.fax
+			b[4]=r.qq
+			b[5]=r.create_time
+			b[6]=r.product_name
+			b[7]=r.productID
+			b[8]=r.amount
+			b[9]=r.price
+			b[10]=r.fee
+			b[11]=r.edition_fee
+			b[12]=r.total_fee
+			b[13]=r.deadline
+			b[14]=r.feilin
+			b[15]=r.material
+			b[16]=r.size
+			b[17]=r.surface
+			b[18]=r.wl_material
+			b[19]=r.wl_kind
+			b[20]=r.mould
+			b[21]=r.notes
+			b[22]=r.delivery_address
+			b[23]=r.call
+			b[24]=r.productID2
+			b[25]=int(i+1)
+			a[i]=b
+			i=i+1
+		return render_to_response("sales_order.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'order_show':json.dumps(order_show),'order_modify':json.dumps(order_modify),'length':json.dumps(i)})
 #api
 #报价单单页
 def order_modify(request,id):
@@ -478,32 +486,41 @@ def order_modify(request,id):
 	else:
 		order_show=False
 		order_modify=True
-		r=Order.objects.filter(id=id)[0]
-		b={}
-		b[0]=r.customer
-		b[1]=r.contacts
-		b[2]=r.contacts_phone
-		b[3]=r.fax
-		b[4]=r.qq
-		b[5]=r.create_time
-		b[6]=r.product_name
-		b[7]=r.productID
-		b[8]=r.amount
-		b[9]=r.price
-		b[10]=r.fee
-		b[11]=r.edition_fee
-		b[12]=r.total_fee
-		b[13]=r.deadline
-		b[14]=r.feilin
-		b[15]=r.material
-		b[16]=r.size
-		b[17]=r.surface
-		b[18]=r.wl_material
-		b[19]=r.wl_kind
-		b[20]=r.mould
-		b[21]=r.notes
-		b[22]=r.image_address
-		return render_to_response("sales_order.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":b,'order_show':json.dumps(order_show),'order_modify':json.dumps(order_modify)})
+		records=Order.objects.filter(id=id)
+		a={}
+		i=0
+		for r in records:
+			b={}
+			b[0]=r.customer
+			b[1]=r.contacts
+			b[2]=r.contacts_phone
+			b[3]=r.fax
+			b[4]=r.qq
+			b[5]=r.create_time
+			b[6]=r.product_name
+			b[7]=r.productID
+			b[8]=r.amount
+			b[9]=r.price
+			b[10]=r.fee
+			b[11]=r.edition_fee
+			b[12]=r.total_fee
+			b[13]=r.deadline
+			b[14]=r.feilin
+			b[15]=r.material
+			b[16]=r.size
+			b[17]=r.surface
+			b[18]=r.wl_material
+			b[19]=r.wl_kind
+			b[20]=r.mould
+			b[21]=r.notes
+			b[22]=r.delivery_address
+			b[23]=r.call
+			b[24]=r.productID2
+			b[25]=int(i+1)
+			b[26]=r.id
+			a[i]=b
+			i=i+1
+		return render_to_response("sales_order.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'order_show':json.dumps(order_show),'order_modify':json.dumps(order_modify),'length':json.dumps(i)})
 #api
 
 @csrf_exempt
@@ -530,7 +547,9 @@ def fill_order(request):
 	wl_kind = request.POST.get('wl_kind', None)
 	mould = request.POST.get('mould', None)
 	notes = request.POST.get('notes', None)	
-	image_address = request.POST.get('image_address', None)
+	delivery_address = request.POST.get('delivery_address', None)
+	call = request.POST.get('call', None)
+	productID2 = request.POST.get('productID2', None)
 	
 	try:
 		q = Order(productID=productID,
@@ -555,8 +574,9 @@ def fill_order(request):
 				wl_kind=wl_kind,
 				mould=mould,      
 				notes=notes,
-				image_address=image_address,
-                )
+				delivery_address=delivery_address,
+				call=call,
+				productID2=productID2)
 		q.save()
 	except Exception, e:
 		return comutils.baseresponse('system error', 500)	
@@ -602,7 +622,9 @@ def modify_order(request):
 	wl_kind = request.POST.get('wl_kind', None)
 	mould = request.POST.get('mould', None)
 	notes = request.POST.get('notes', None)	
-	image_address = request.POST.get('image_address', None)
+	delivery_address = request.POST.get('delivery_address', None)
+	call = request.POST.get('call', None)
+	productID2 = request.POST.get('productID2', None)
 	
 	try:
 		Order.objects.filter(id=id).update(productID=productID,
@@ -627,8 +649,9 @@ def modify_order(request):
 				wl_kind=wl_kind,
 				mould=mould,      
 				notes=notes,
-				image_address=image_address,
-                )
+				delivery_address=delivery_address,
+				call=call,
+				productID2=productID2)
 	except Exception, e:
 		return comutils.baseresponse('system error', 500)
 	

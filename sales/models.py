@@ -63,7 +63,9 @@ class Order(models.Model):
 	wl_kind=models.CharField(max_length = 30,blank = True)
 	mould=models.CharField(max_length = 30,blank = True)
 	notes=models.CharField(max_length = 30,blank = True)
-	image_address=models.CharField(max_length = 30,blank = True)
+	delivery_address=models.CharField(max_length = 30,blank = True)
+	productID2=models.CharField(max_length = 30,blank = True)
+	call=models.CharField(max_length = 30,blank = True)
 
 class Delivery(models.Model):
 	deliveryID=models.CharField(max_length = 10)
