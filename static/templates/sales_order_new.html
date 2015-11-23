@@ -14,7 +14,11 @@
  <div class="main" style="overflow:hidden;">
  		<div class="line2">
 							印刷订单
-				</div>	
+		</div>	
+ 	<div class="head_row">
+		<label for="customer_name">订单号:</label>
+ 		<input  type="text" id="orderID"  value={{ orderID }}>
+	</div>
 <!--	<div class="head_row" style="height:70px" id="bcTarget_row" >
 		<label for="customer_name" style="width:150px">订单号条形码:</label>
 		<iframe src="" frameborder="0" id="barcode_iframe"></iframe>
@@ -218,7 +222,7 @@
 		var newdate=(parseInt(date.getMonth())+1)+'-'+date.getDate();
 		//$(".create_time").val(newdate);
 
-		var productID= {{productID|safe}};
+		var orderID= {{orderID|safe}};
 
 		//var order_img_iframe_src = '/upload_iframe/'+productID;
 		//$("#order_img_iframe").attr("src",order_img_iframe_src);
@@ -247,6 +251,7 @@
 				var delivery_address=$.trim($("#delivery_address").val());
 				var total_fee=$.trim($("#total_fee").val());
 				var notes=$.trim($("#notes").val());	
+				var orderID=$.trim($("#orderID").val());	
 
 				for(var i=1;i<=maxnum;i++){
 					var create_time=$.trim($("#create_time_"+i).val());
@@ -285,7 +290,7 @@
 								  $.ajax({
 				                      type : "POST",
 				                      url : "/sales/fill_order/",
-				                      data:{'productID':productID,'customer':customer,'contacts':contacts,'contacts_phone':contacts_phone,'fax':fax,'qq':qq,'create_time':create_time,'product_name':product_name,'amount':amount,'price':price,'fee':fee,'edition_fee':edition_fee,'total_fee':total_fee,'deadline':deadline,'feilin':feilin,'material':material,'size':size,'surface':surface,'wl_material':wl_material,'wl_kind':wl_kind,'mould':mould,'notes':notes,'call':call,'delivery_address':delivery_address,'productID2':productID2},
+				                      data:{'productID':productID,'customer':customer,'contacts':contacts,'contacts_phone':contacts_phone,'fax':fax,'qq':qq,'create_time':create_time,'product_name':product_name,'amount':amount,'price':price,'fee':fee,'edition_fee':edition_fee,'total_fee':total_fee,'deadline':deadline,'feilin':feilin,'material':material,'size':size,'surface':surface,'wl_material':wl_material,'wl_kind':wl_kind,'mould':mould,'notes':notes,'call':call,'delivery_address':delivery_address,'productID2':productID2,'orderID':orderID},
 				                      dataType : "json",
 				                      success : function(data) {    
 				                        if(data==1){
@@ -305,7 +310,7 @@
 
 //条形码
 
-		var productID2={{productID}};
+		var productID2={{orderID}};
 		var barcode_src='/barcode/'+productID2;
 		//$("#barcode_iframe").attr("src",barcode_src);
 

@@ -380,6 +380,7 @@ def get_order_list(records):
 		b[2]=r.create_time
 		b[3]=r.productID
 		b[4]=r.id
+		b[5]=r.orderID
 		a[i]=b
 		i=i+1
 	return a
@@ -427,11 +428,11 @@ def order_new(request):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
 	record=Order.objects.all().order_by('-id')[0]
-	productID=int(record.productID)+1
+	orderID=int(record.orderID)+1
 	if not is_login:
 		return HttpResponseRedirect("/")
 	else:
-		return render_to_response("sales_order_new.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'productID':productID})
+		return render_to_response("sales_order_new.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'orderID':orderID})
 
 #报价单单页
 def order(request,id):
@@ -442,51 +443,7 @@ def order(request,id):
 	else:
 		order_show=True
 		order_modify=False
-		records=Order.objects.filter(id=id)
-		a={}
-		i=0
-		for r in records:
-			b={}
-			b[0]=r.customer
-			b[1]=r.contacts
-			b[2]=r.contacts_phone
-			b[3]=r.fax
-			b[4]=r.qq
-			b[5]=r.create_time
-			b[6]=r.product_name
-			b[7]=r.productID
-			b[8]=r.amount
-			b[9]=r.price
-			b[10]=r.fee
-			b[11]=r.edition_fee
-			b[12]=r.total_fee
-			b[13]=r.deadline
-			b[14]=r.feilin
-			b[15]=r.material
-			b[16]=r.size
-			b[17]=r.surface
-			b[18]=r.wl_material
-			b[19]=r.wl_kind
-			b[20]=r.mould
-			b[21]=r.notes
-			b[22]=r.delivery_address
-			b[23]=r.call
-			b[24]=r.productID2
-			b[25]=int(i+1)
-			a[i]=b
-			i=i+1
-		return render_to_response("sales_order.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'order_show':json.dumps(order_show),'order_modify':json.dumps(order_modify),'length':json.dumps(i)})
-#api
-#报价单单页
-def order_modify(request,id):
-	is_login=request.session.get('is_login',False)
-	nick_name = request.session.get('nick_name',False)
-	if not is_login:
-		return HttpResponseRedirect("/")
-	else:
-		order_show=False
-		order_modify=True
-		records=Order.objects.filter(id=id)
+		records=Order.objects.filter(orderID=id)
 		a={}
 		i=0
 		for r in records:
@@ -518,6 +475,53 @@ def order_modify(request,id):
 			b[24]=r.productID2
 			b[25]=int(i+1)
 			b[26]=r.id
+			b[27]=r.orderID
+			a[i]=b
+			i=i+1
+		return render_to_response("sales_order.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'order_show':json.dumps(order_show),'order_modify':json.dumps(order_modify),'length':json.dumps(i)})
+#api
+#报价单单页
+def order_modify(request,id):
+	is_login=request.session.get('is_login',False)
+	nick_name = request.session.get('nick_name',False)
+	if not is_login:
+		return HttpResponseRedirect("/")
+	else:
+		order_show=False
+		order_modify=True
+		records=Order.objects.filter(orderID=id)
+		a={}
+		i=0
+		for r in records:
+			b={}
+			b[0]=r.customer
+			b[1]=r.contacts
+			b[2]=r.contacts_phone
+			b[3]=r.fax
+			b[4]=r.qq
+			b[5]=r.create_time
+			b[6]=r.product_name
+			b[7]=r.productID
+			b[8]=r.amount
+			b[9]=r.price
+			b[10]=r.fee
+			b[11]=r.edition_fee
+			b[12]=r.total_fee
+			b[13]=r.deadline
+			b[14]=r.feilin
+			b[15]=r.material
+			b[16]=r.size
+			b[17]=r.surface
+			b[18]=r.wl_material
+			b[19]=r.wl_kind
+			b[20]=r.mould
+			b[21]=r.notes
+			b[22]=r.delivery_address
+			b[23]=r.call
+			b[24]=r.productID2
+			b[25]=int(i+1)
+			b[26]=r.id
+			b[27]=r.orderID
 			a[i]=b
 			i=i+1
 		return render_to_response("sales_order.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'order_show':json.dumps(order_show),'order_modify':json.dumps(order_modify),'length':json.dumps(i)})
@@ -550,6 +554,7 @@ def fill_order(request):
 	delivery_address = request.POST.get('delivery_address', None)
 	call = request.POST.get('call', None)
 	productID2 = request.POST.get('productID2', None)
+	orderID = request.POST.get('orderID', None)
 	
 	try:
 		q = Order(productID=productID,
@@ -576,7 +581,8 @@ def fill_order(request):
 				notes=notes,
 				delivery_address=delivery_address,
 				call=call,
-				productID2=productID2)
+				productID2=productID2,
+				orderID=orderID)
 		q.save()
 	except Exception, e:
 		return comutils.baseresponse('system error', 500)	
@@ -662,7 +668,7 @@ def modify_order(request):
 def delete_order(request):
 	id = request.POST.get('id', None)
 	try:
-		Order.objects.filter(id=id).delete()
+		Order.objects.filter(orderID=id).delete()
 	except Exception, e:
 		return comutils.baseresponse('system error', 500)
 	return HttpResponse(json.dumps(1))
