@@ -59,8 +59,14 @@ urlpatterns = patterns('',
     url(r'^delivery_modify/(\d{1,6})/$', views.delivery_modify),
 #api
     url(r'^fill_delivery/$', views.fill_delivery),
+    url(r'^fill_delivery_2/$', views.fill_delivery_2),
+    url(r'^fill_delivery_3/$', views.fill_delivery_3),
 
    url(r'^modify_delivery/$', views.modify_delivery),
+   url(r'^modify_delivery_2/$', views.modify_delivery_2),
+   url(r'^modify_delivery_3/$', views.modify_delivery_3),
+
+
    url(r'^delete_delivery/$', views.delete_delivery),
     #有客户名得到客户ID
     url(r'^get_deliveryID_by_product/$', views.get_deliveryID_by_product),

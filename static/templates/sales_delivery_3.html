@@ -1,0 +1,202 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "erp/css/sales.css" %}">
+{% endblock %}
+			{% block inner_header %}
+					
+			{% endblock %}	
+
+ {% block main %}
+ <div class="main" style="overflow:hidden;">
+		<div class="line2">
+					宁波杰力进出口有限公司	
+				</div>
+	 	<div id="choice_1_box">
+	 		 		 <div class="head_row">
+ 			<label for="deliveryID">送货单号</label>
+ 			<input type="text" id="deliveryID" value={{ records.0.0 }} > 	
+ 		 	<label for="purchase_man" style="width:120px">杰力跟单员</label>
+ 			<input type="text" id="purchase_man" style="width:250px" value={{ records.0.22 }} >
+ 		</div>
+ 		 <div class="head_row"  style="margin-top:5px">
+ 			<label for="send_name" style="width:120px">发货公司</label>
+ 			<input type="text" id="send_name" style="width:250px" value={{ records.0.23 }} >
+ 			<label for="delivery_name" style="width:120px;margin-left:80px">收货公司</label> 			
+ 			<input type="text" id="delivery_name" style="width:250px" value={{ records.0.1 }}>
+ 		</div>
+ 		 <div class="head_row"  style="margin-top:5px">
+ 			<label for="delivery_time" >发货日期</label>
+ 			<input type="text" id="delivery_time" onClick="WdatePicker()"  style="width:90px" value={{ records.0.2 }}>
+ 	 		<label for="delivery_man" style="width:80px">联系人</label>
+ 			<input type="text" id="delivery_man" value={{ records.0.1 }}> 
+ 			<label for="">收货日期</label>
+ 			<input type="text" id="" disabled style="width:90px">
+ 	 		<label for="receive_man" style="width:80px">联系人</label>
+ 			<input type="text" id="receive_man" value={{ records.0.12 }}>
+ 		</div>
+ 		 <div class="head_row"  style="margin-top:5px">
+ 			<label for="send_phone" >电话</label>
+ 			<input type="text" id="send_phone" style="width:90px" value={{ records.0.15 }}>
+ 	 		<label for="send_fax" style="width:80px">传真</label>
+ 			<input type="text" id="send_fax" value={{ records.0.16 }}>
+ 			<label for="receive_phone">电话</label>
+ 			<input type="text" id="receive_phone" style="width:90px" value={{ records.0.17 }}>
+ 	 		<label for="receive_fax" style="width:80px">传真</label>
+ 			<input type="text" id="receive_fax" value={{ records.0.18 }}>
+ 		</div>
+
+
+		<table class="delivery_table">
+			<tr>
+				<th class="col_20">合同号<span class="red">*</span></th>
+				<th class="col_20">品名<span class="red">*</span></th>
+				<th class="col_10">货号<span class="red">*</span></th>
+				<th class="col_10">送货数目<span class="red">*</span></th>
+				<th class="col_10">内包装数目<span class="red">*</span></th>
+				<th class="col_10">外包装数目<span class="red">*</span></th>
+				<th class="col_20">箱数<span class="red">*</span></th>
+
+			</tr>
+	{% for key, value in records.items %}
+			<tr>
+				<th class="col_20"><input type="text" id="productID_{{value.items.14.1}}" value={{value.items.3.1}}></th>
+				<th class="col_20"><input type="text" id="product_name_{{value.items.14.1}}" value={{value.items.4.1}}></th>
+				<th class="col_10"><input type="text" id="huoID_{{value.items.14.1}}"  value={{value.items.24.1}}></th>
+				<th class="col_10"><input type="number" id="delivery_amount_{{value.items.14.1}}"  value={{value.items.6.1}}></th>
+				<th class="col_10"><input type="number" id="inner_amount_{{value.items.14.1}}"  value={{value.items.20.1}}></th>
+				<th class="col_10"><input type="number" id="outer_amount_{{value.items.14.1}}"  value={{value.items.21.1}}></th>
+				<th class="col_20"><input type="text" id="box_{{value.items.14.1}}"  value={{value.items.19.1}}></th>
+			</tr>
+	{% endfor %}
+
+				</table>
+		<table class="delivery_table">
+		<tr>
+			<th class="col_20">收货工厂签收意见</th>
+			<th class="col_80"><input type="text" id="total_notes" value={{records.0.25}}></th>
+		</tr>
+		</table>		
+
+		 <div class="head_row" style="margin-bottom:40px">
+ 		   <button type="submit" class="btn btn-primary" id="delete">删除</button>
+ 		   <button type="submit" class="btn btn-primary" id="modify">修改</button>
+   <button type="submit" class="btn btn-primary" id="print" onclick="javascript:window.print()" />打印</button>
+ 		</div>
+  </div>
+
+  </div>
+   <OBJECT classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2" height="0" id="wb" name="wb" width="0">
+        </OBJECT>
+
+ {% endblock %}
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#sales_box").show();	
+		$("#delivery").addClass('subtitle_focus');
+
+		var date=new Date();
+		var newdate= date.getFullYear()+'-'+(parseInt(date.getMonth())+1)+'-'+date.getDate();
+		$("#delivery_time").val(newdate);
+
+		 var href =window.location.href.split("/");
+		 var deliveryID = href[5];
+
+		 $("#delete").click(function(){
+			$.ajax({
+              type : "POST",
+              url : "/sales/delete_delivery/",
+              data:{'deliveryID':deliveryID},
+              dataType : "json",
+              success : function(data) {    
+                if(data==1){
+                	alert("删除成功");
+                   	window.location.href='/sales/delivery_list/1';
+                }else{
+                  alert("删除失败:"+data.message);
+                }
+              }
+         })
+		})
+
+		var href =window.location.href.split("/")[5];
+		//show页
+		var show={{ delivery_show }};
+		if(show){
+			$('input').attr('disabled',true);
+			$('#modify').click(function(){
+				window.location.href='/sales/delivery_modify/'+href;
+			})
+		}
+
+		//modify页
+		var modify={{ delivery_modify }};
+		if(modify){
+			$('#print').attr('disabled',true);
+			$('#modify').html('确认修改');
+			$("#modify").click(function(){
+				var deliveryID=$("#deliveryID").val();
+				var purchase_man=$("#purchase_man").val();
+				var send_name=$("#send_name").val();
+				var delivery_name=$("#delivery_name").val();
+				var delivery_time=$("#delivery_time").val();			
+				var receive_man=$("#receive_man").val();
+				var delivery_man=$("#delivery_man").val();
+				var total_notes=$("#total_notes").val();
+				var delivery_address='';
+				var choice=3;
+
+				var send_phone=$("#send_phone").val();
+				var receive_phone=$("#receive_phone").val();
+				var send_fax=$("#send_fax").val();
+				var receive_fax=$("#receive_fax").val();				
+				var length={{ length|safe }};
+
+				maxnum=length;
+
+				for(var i=1;i<=length;i++){
+					var productID=$("#productID_"+i).val();
+					var product_name=$.trim($("#product_name_"+i).val());
+					var delivery_amount=$.trim($("#delivery_amount_"+i).val());
+					var order_amount=delivery_amount;
+					var price='';
+					var fee=0;
+					var notes='';
+					var total_fee=0;
+
+					var outer_amount=$.trim($("#outer_amount_"+i).val());
+					var inner_amount=$.trim($("#inner_amount_"+i).val());
+					var box=$.trim($("#box_"+i).val());
+					var huoID=$.trim($("#huoID_"+i).val());
+
+					$.ajax({
+                      type : "POST",
+                      url : "/sales/modify_delivery_3/",
+                      data:{'deliveryID':deliveryID,'choice':choice,'delivery_name':delivery_name,'delivery_time':delivery_time,'receive_man':receive_man,'delivery_man':delivery_man,'delivery_address':delivery_address,'total_fee':total_fee,'productID':productID,'product_name':product_name,'order_amount':order_amount,'delivery_amount':delivery_amount,'price':price,'fee':fee,'notes':notes,'box':box,'inner_amount':inner_amount,'outer_amount':outer_amount,'send_phone':send_phone,'send_fax':send_fax,'receive_phone':receive_phone,'receive_fax':receive_fax,'total_notes':total_notes,'purchase_man':purchase_man,'send_name':send_name,'huoID':huoID},
+                      dataType : "json",
+                      success : function(data) {  
+                      		if(data==1){
+                      			maxnum--;
+                      			if(maxnum==0){
+	                      			alert("修改成功");
+	                      			window.location.reload();
+	                      		}
+                      		}else{
+                      			alert("修改失败："+data.message);
+                      			i=length;
+                      		}
+
+                      }
+                  })
+				}
+			})
+		}
+
+
+	})</script>
+
+{% endblock %}

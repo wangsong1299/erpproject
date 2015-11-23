@@ -125,6 +125,11 @@
 			  <input class="input-medium search-query" id="delivery_search" type="text" placeholder="送货单号/产品名">
 			</div>
   		   <button type="submit" class="btn btn-primary" id="new">新建送货单</button>
+  		   <select name="" id="delivery_new_model">
+  		   	<option value="1" selected>常规送货单</option>
+  		   	<option value="2">东川游泳馆设备有限公司送货单</option>
+  		   	<option value="3">杰力进出口有限公司送货单</option>
+  		   </select>
  	</div>
  	<div class="list_hr" style="margin-top:20px"></div>
 	<table class="list_table" style="margin-top: 5px;">
@@ -156,16 +161,6 @@
 
 		
 	</table>
-
- 		 <div class="head_row" id="delivery_choice_box" style="margin-bottom:40px;display:none;height:200px;">
- 			<div for="choice1">常规送货单<input type="radio" id="choice1" name="choice" value="1" /></div>
-<br>
-			<div for="choice2">东川游泳馆设备有限公司送货单<input type="radio" id="choice2" name="choice" value="2" /></div>
- 			<br>
- 			<div for="choice3">杰力进出口有限公司送货单<input type="radio" id="choice3" name="choice" value="3" /></div>
- 			<br><br>
- 			<button type="submit" class="btn btn-primary" id="choice_model">选择送货单模板</button>
- 		</div>	
 
  	<div class="head_row">
 		   <button type="submit" class="btn btn-primary" id="later_click">下一页</button>
@@ -464,11 +459,9 @@
 			$("#delivery").addClass('subtitle_focus');	
 			$("#new").click(function(){
 				$("#delivery_choice_box").slideDown(1000);
-
-				$("#choice_model").click(function(){
-					var choice=$(":radio:checked").val(); 
-					window.location.href="/sales/delivery_new/"+choice;
-				})
+				var choice=$("#delivery_new_model").val(); 
+				//choice=1;
+				window.location.href="/sales/delivery_new/"+choice;
 			})
 
 

@@ -730,7 +730,13 @@ def delivery_new(request,choice):
 	if not is_login:
 		return HttpResponseRedirect("/")
 	else:
-		return render_to_response("sales_delivery_new.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"choice":json.dumps(choice),'deliveryID':deliveryID})
+		if(int(choice)==1):
+			return render_to_response("sales_delivery_new.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"choice":json.dumps(choice),'deliveryID':deliveryID})
+		elif(int(choice)==2):
+			return render_to_response("sales_delivery_new_2.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"choice":json.dumps(choice),'deliveryID':deliveryID})
+		elif(int(choice)==3):
+			return render_to_response("sales_delivery_new_3.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"choice":json.dumps(choice),'deliveryID':deliveryID})
+
 
 #报价单单页
 def delivery(request,id):
@@ -741,29 +747,96 @@ def delivery(request,id):
 	else:
 		delivery_show=True
 		delivery_modify=False
-		records=Delivery.objects.filter(deliveryID=id)
-		a={}
-		i=0
-		for r in records:
-			b={}
-			b[0]=r.deliveryID
-			b[1]=r.delivery_name
-			b[2]=r.delivery_time
-			b[3]=r.productID
-			b[4]=r.product_name
-			b[5]=r.order_amount
-			b[6]=r.delivery_amount
-			b[7]=r.price
-			b[8]=r.fee
-			b[9]=r.notes
-			b[10]=r.delivery_address
-			b[11]=r.total_fee
-			b[12]=r.receive_man
-			b[13]=r.delivery_man
-			b[14]=int(i+1)
-			a[i]=b
-			i=i+1
-		return render_to_response("sales_delivery.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'delivery_show':json.dumps(delivery_show),'delivery_modify':json.dumps(delivery_modify),'length':json.dumps(i)})
+		choice=int(Delivery.objects.filter(deliveryID=id)[0].choice)
+		if(choice==1):
+			records=Delivery.objects.filter(deliveryID=id)
+			a={}
+			i=0
+			for r in records:
+				b={}
+				b[0]=r.deliveryID
+				b[1]=r.delivery_name
+				b[2]=r.delivery_time
+				b[3]=r.productID
+				b[4]=r.product_name
+				b[5]=r.order_amount
+				b[6]=r.delivery_amount
+				b[7]=r.price
+				b[8]=r.fee
+				b[9]=r.notes
+				b[10]=r.delivery_address
+				b[11]=r.total_fee
+				b[12]=r.receive_man
+				b[13]=r.delivery_man
+				b[14]=int(i+1)
+				a[i]=b
+				i=i+1
+			return render_to_response("sales_delivery.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'delivery_show':json.dumps(delivery_show),'delivery_modify':json.dumps(delivery_modify),'length':json.dumps(i)})
+		elif(choice==2):
+			records=Delivery.objects.filter(deliveryID=id)
+			a={}
+			i=0
+			for r in records:
+				b={}
+				b[0]=r.deliveryID
+				b[1]=r.delivery_name
+				b[2]=r.delivery_time
+				b[3]=r.productID
+				b[4]=r.product_name
+				b[5]=r.order_amount
+				b[6]=r.delivery_amount
+				b[7]=r.price
+				b[8]=r.fee
+				b[9]=r.notes
+				b[10]=r.delivery_address
+				b[11]=r.total_fee
+				b[12]=r.receive_man
+				b[13]=r.delivery_man
+				b[14]=int(i+1)
+				b[15]=r.send_name
+				b[16]=r.purchase_man
+				b[17]=r.product_number
+				b[18]=r.perbox
+				b[19]=r.box
+				a[i]=b
+				i=i+1
+			return render_to_response("sales_delivery_2.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'delivery_show':json.dumps(delivery_show),'delivery_modify':json.dumps(delivery_modify),'length':json.dumps(i)})
+		elif(choice==3):
+			records=Delivery.objects.filter(deliveryID=id)
+			a={}
+			i=0
+			for r in records:
+				b={}
+				b[0]=r.deliveryID
+				b[1]=r.delivery_name
+				b[2]=r.delivery_time
+				b[3]=r.productID
+				b[4]=r.product_name
+				b[5]=r.order_amount
+				b[6]=r.delivery_amount
+				b[7]=r.price
+				b[8]=r.fee
+				b[9]=r.notes
+				b[10]=r.delivery_address
+				b[11]=r.total_fee
+				b[12]=r.receive_man
+				b[13]=r.delivery_man
+				b[14]=int(i+1)
+				b[15]=r.send_phone
+				b[16]=r.send_fax
+				b[17]=r.receive_phone
+				b[18]=r.receive_fax
+				b[19]=r.box
+				b[20]=r.inner_amount
+				b[21]=r.outer_amount
+				b[22]=r.purchase_man
+				b[23]=r.send_name
+				b[24]=r.huoID
+				b[25]=r.total_notes
+				a[i]=b
+				i=i+1
+			return render_to_response("sales_delivery_3.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'delivery_show':json.dumps(delivery_show),'delivery_modify':json.dumps(delivery_modify),'length':json.dumps(i)})
+				
 #api
 #报价单单页
 def delivery_modify(request,id):
@@ -774,30 +847,98 @@ def delivery_modify(request,id):
 	else:
 		delivery_show=False
 		delivery_modify=True
-		records=Delivery.objects.filter(deliveryID=id)
-		a={}
-		i=0
-		for r in records:
-			b={}
-			b[0]=r.deliveryID
-			b[1]=r.delivery_name
-			b[2]=r.delivery_time
-			b[3]=r.productID
-			b[4]=r.product_name
-			b[5]=r.order_amount
-			b[6]=r.delivery_amount
-			b[7]=r.price
-			b[8]=r.fee
-			b[9]=r.notes
-			b[10]=r.delivery_address
-			b[11]=r.total_fee
-			b[12]=r.receive_man
-			b[13]=r.delivery_man
-			b[14]=int(i+1)
-			a[i]=b
-			i=i+1
-		return render_to_response("sales_delivery.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'delivery_show':json.dumps(delivery_show),'delivery_modify':json.dumps(delivery_modify),'length':json.dumps(i)})
-#api
+		choice=int(Delivery.objects.filter(deliveryID=id)[0].choice)
+		if(choice==1):
+			records=Delivery.objects.filter(deliveryID=id)
+			a={}
+			i=0
+			for r in records:
+				b={}
+				b[0]=r.deliveryID
+				b[1]=r.delivery_name
+				b[2]=r.delivery_time
+				b[3]=r.productID
+				b[4]=r.product_name
+				b[5]=r.order_amount
+				b[6]=r.delivery_amount
+				b[7]=r.price
+				b[8]=r.fee
+				b[9]=r.notes
+				b[10]=r.delivery_address
+				b[11]=r.total_fee
+				b[12]=r.receive_man
+				b[13]=r.delivery_man
+				b[14]=int(i+1)
+				a[i]=b
+				i=i+1
+			return render_to_response("sales_delivery.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'delivery_show':json.dumps(delivery_show),'delivery_modify':json.dumps(delivery_modify),'length':json.dumps(i)})
+		elif(choice==2):
+			records=Delivery.objects.filter(deliveryID=id)
+			a={}
+			i=0
+			for r in records:
+				b={}
+				b[0]=r.deliveryID
+				b[1]=r.delivery_name
+				b[2]=r.delivery_time
+				b[3]=r.productID
+				b[4]=r.product_name
+				b[5]=r.order_amount
+				b[6]=r.delivery_amount
+				b[7]=r.price
+				b[8]=r.fee
+				b[9]=r.notes
+				b[10]=r.delivery_address
+				b[11]=r.total_fee
+				b[12]=r.receive_man
+				b[13]=r.delivery_man
+				b[14]=int(i+1)
+				b[15]=r.send_name
+				b[16]=r.purchase_man
+				b[17]=r.product_number
+				b[18]=r.perbox
+				b[19]=r.box
+				a[i]=b
+				i=i+1
+			return render_to_response("sales_delivery_2.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'delivery_show':json.dumps(delivery_show),'delivery_modify':json.dumps(delivery_modify),'length':json.dumps(i)})
+		elif(choice==3):
+			records=Delivery.objects.filter(deliveryID=id)
+			a={}
+			i=0
+			for r in records:
+				b={}
+				b[0]=r.deliveryID
+				b[1]=r.delivery_name
+				b[2]=r.delivery_time
+				b[3]=r.productID
+				b[4]=r.product_name
+				b[5]=r.order_amount
+				b[6]=r.delivery_amount
+				b[7]=r.price
+				b[8]=r.fee
+				b[9]=r.notes
+				b[10]=r.delivery_address
+				b[11]=r.total_fee
+				b[12]=r.receive_man
+				b[13]=r.delivery_man
+				b[14]=int(i+1)
+				b[15]=r.send_phone
+				b[16]=r.send_fax
+				b[17]=r.receive_phone
+				b[18]=r.receive_fax
+				b[19]=r.box
+				b[20]=r.inner_amount
+				b[21]=r.outer_amount
+				b[22]=r.purchase_man
+				b[23]=r.send_name
+				b[24]=r.huoID
+				b[25]=r.total_notes	
+				a[i]=b
+				i=i+1
+			return render_to_response("sales_delivery_3.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'delivery_show':json.dumps(delivery_show),'delivery_modify':json.dumps(delivery_modify),'length':json.dumps(i)})
+	
+	
+	#api
 
 @csrf_exempt
 def fill_delivery(request):
@@ -855,9 +996,6 @@ def fill_delivery(request):
 		Storage.objects.filter(productID=productID).update(out_time=delivery_time,amount=now_amount)
 	except Exception, e:
 		return comutils.baseresponse(e, 500)
-	
-	
-
 	return HttpResponse(json.dumps(1))
 
 
@@ -943,6 +1081,259 @@ def get_details_from_order(request):
 	else:
 		return HttpResponse(json.dumps(0))
 	#api
+
+#######特殊情况2
+
+@csrf_exempt
+def fill_delivery_2(request):
+	deliveryID = request.POST.get('deliveryID', None)
+	choice = request.POST.get('choice', None)		
+	delivery_name = request.POST.get('delivery_name', None)
+	delivery_time = request.POST.get('delivery_time', None)
+	receive_man = request.POST.get('receive_man', None)
+	delivery_man = request.POST.get('delivery_name', None)
+	delivery_address = request.POST.get('delivery_address', None)
+	total_fee = request.POST.get('total_fee', None)
+	productID = request.POST.get('productID', None)		
+	product_name = request.POST.get('product_name', None)
+	order_amount = request.POST.get('order_amount', None)
+	delivery_amount = request.POST.get('delivery_amount', None)
+	price = request.POST.get('price', None)
+	fee = request.POST.get('fee', None)
+	notes = request.POST.get('notes', None)
+	send_name = request.POST.get('send_name', None)
+	purchase_man = request.POST.get('purchase_man', None)
+	product_number = request.POST.get('product_number', None)
+	perbox = request.POST.get('perbox', None)
+	box = request.POST.get('box', None)
+
+	try:
+		q = Delivery(deliveryID = deliveryID,
+                choice = choice,
+                delivery_name = delivery_name,
+                delivery_time=delivery_time,
+                receive_man=receive_man,
+                delivery_man=delivery_man,
+                delivery_address=delivery_address,
+                total_fee = total_fee,
+                productID = productID,
+                product_name = product_name,
+                order_amount=order_amount,
+                delivery_amount=delivery_amount,
+                price=price,
+                fee=fee,
+                notes=notes,
+                product_number=product_number,
+                perbox=perbox,
+                box=box,
+                purchase_man=purchase_man,
+                send_name=send_name)
+		q.save()
+	except Exception, e:
+		return comutils.baseresponse(e, 500)
+	try:
+		q = Finance(delivery_time=delivery_time,
+                productID = productID,
+                product_name = product_name,
+                order_amount=order_amount,
+                delivery_amount=delivery_amount,
+                price=price,
+                total_fee=fee,
+                notes=notes)
+		q.save()
+	except Exception, e:
+		return comutils.baseresponse(e, 500)
+	try:
+		total_amount=Storage.objects.filter(productID=productID)[0].amount
+		now_amount=int(total_amount)-int(delivery_amount)
+		Storage.objects.filter(productID=productID).update(out_time=delivery_time,amount=now_amount)
+	except Exception, e:
+		return comutils.baseresponse("库存中没有该产品", 500)
+	return HttpResponse(json.dumps(1))
+
+@csrf_exempt
+def modify_delivery_2(request):
+	deliveryID = request.POST.get('deliveryID', None)
+	choice = request.POST.get('choice', None)		
+	delivery_name = request.POST.get('delivery_name', None)
+	delivery_time = request.POST.get('delivery_time', None)
+	receive_man = request.POST.get('receive_man', None)
+	delivery_man = request.POST.get('delivery_name', None)
+	delivery_address = request.POST.get('delivery_address', None)
+	total_fee = request.POST.get('total_fee', None)
+	productID = request.POST.get('productID', None)		
+	product_name = request.POST.get('product_name', None)
+	order_amount = request.POST.get('order_amount', None)
+	delivery_amount = request.POST.get('delivery_amount', None)
+	price = request.POST.get('price', None)
+	fee = request.POST.get('fee', None)
+	notes = request.POST.get('notes', None)
+	send_name = request.POST.get('send_name', None)
+	purchase_man = request.POST.get('purchase_man', None)
+	product_number = request.POST.get('product_number', None)
+	perbox = request.POST.get('perbox', None)
+	box = request.POST.get('box', None)
+
+	try:
+		Delivery.objects.filter(productID = productID).update(delivery_name = delivery_name,
+                delivery_time=delivery_time,
+                receive_man=receive_man,
+                delivery_man=delivery_man,
+                delivery_address=delivery_address,
+                total_fee = total_fee,
+                productID = productID,
+                product_name = product_name,
+                order_amount=order_amount,
+                delivery_amount=delivery_amount,
+                price=price,
+                fee=fee,
+                notes=notes,
+                product_number=product_number,
+                perbox=perbox,
+                box=box,
+                purchase_man=purchase_man,
+                send_name=send_name)
+	except Exception, e:
+		return comutils.baseresponse('system error', 500)	
+	return HttpResponse(json.dumps(1))
+
+@csrf_exempt
+def fill_delivery_3(request):
+	deliveryID = request.POST.get('deliveryID', None)
+	choice = request.POST.get('choice', None)		
+	delivery_name = request.POST.get('delivery_name', None)
+	delivery_time = request.POST.get('delivery_time', None)
+	receive_man = request.POST.get('receive_man', None)
+	delivery_man = request.POST.get('delivery_name', None)
+	delivery_address = request.POST.get('delivery_address', None)
+	total_fee = request.POST.get('total_fee', None)
+	productID = request.POST.get('productID', None)		
+	product_name = request.POST.get('product_name', None)
+	order_amount = request.POST.get('order_amount', None)
+	delivery_amount = request.POST.get('delivery_amount', None)
+	price = request.POST.get('price', None)
+	fee = request.POST.get('fee', None)
+	notes = request.POST.get('notes', None)
+	send_phone = request.POST.get('send_phone', None)
+	send_fax = request.POST.get('send_fax', None)
+	receive_phone = request.POST.get('receive_phone', None)
+	receive_fax = request.POST.get('receive_fax', None)
+	total_notes = request.POST.get('total_notes', None)
+	box = request.POST.get('box', None)
+	inner_amount = request.POST.get('inner_amount', None)
+	outer_amount = request.POST.get('outer_amount', None)
+	purchase_man = request.POST.get('purchase_man', None)
+	send_name = request.POST.get('send_name', None)
+	huoID = request.POST.get('huoID', None)
+
+	try:
+		q = Delivery(deliveryID = deliveryID,
+                choice = choice,
+                delivery_name = delivery_name,
+                delivery_time=delivery_time,
+                receive_man=receive_man,
+                delivery_man=delivery_man,
+                delivery_address=delivery_address,
+                total_fee = total_fee,
+                productID = productID,
+                product_name = product_name,
+                order_amount=order_amount,
+                delivery_amount=delivery_amount,
+                price=price,
+                fee=fee,
+                notes=notes,
+                send_phone=send_phone,
+                send_fax=send_fax,
+                receive_phone=receive_phone,
+                receive_fax=receive_fax,
+                box=box,
+                inner_amount=inner_amount,
+                outer_amount=outer_amount,
+                purchase_man=purchase_man,
+                total_notes=total_notes,
+                send_name=send_name,
+                huoID=huoID)
+		q.save()
+	except Exception, e:
+		return comutils.baseresponse(e, 500)
+	try:
+		q = Finance(delivery_time=delivery_time,
+                productID = productID,
+                product_name = product_name,
+                order_amount=order_amount,
+                delivery_amount=delivery_amount,
+                price=price,
+                total_fee=fee,
+                notes=notes)
+		q.save()
+	except Exception, e:
+		return comutils.baseresponse(e, 500)
+	try:
+		total_amount=Storage.objects.filter(productID=productID)[0].amount
+		now_amount=int(total_amount)-int(delivery_amount)
+		Storage.objects.filter(productID=productID).update(out_time=delivery_time,amount=now_amount)
+	except Exception, e:
+		return comutils.baseresponse("库存中没有该产品", 500)
+	return HttpResponse(json.dumps(1))
+
+@csrf_exempt
+def modify_delivery_3(request):
+	deliveryID = request.POST.get('deliveryID', None)
+	choice = request.POST.get('choice', None)		
+	delivery_name = request.POST.get('delivery_name', None)
+	delivery_time = request.POST.get('delivery_time', None)
+	receive_man = request.POST.get('receive_man', None)
+	delivery_man = request.POST.get('delivery_name', None)
+	delivery_address = request.POST.get('delivery_address', None)
+	total_fee = request.POST.get('total_fee', None)
+	productID = request.POST.get('productID', None)		
+	product_name = request.POST.get('product_name', None)
+	order_amount = request.POST.get('order_amount', None)
+	delivery_amount = request.POST.get('delivery_amount', None)
+	price = request.POST.get('price', None)
+	fee = request.POST.get('fee', None)
+	notes = request.POST.get('notes', None)
+	send_phone = request.POST.get('send_phone', None)
+	send_fax = request.POST.get('send_fax', None)
+	receive_phone = request.POST.get('receive_phone', None)
+	receive_fax = request.POST.get('receive_fax', None)
+	total_notes = request.POST.get('total_notes', None)
+	box = request.POST.get('box', None)
+	inner_amount = request.POST.get('inner_amount', None)
+	outer_amount = request.POST.get('outer_amount', None)
+	purchase_man = request.POST.get('purchase_man', None)
+	send_name = request.POST.get('send_name', None)
+	huoID = request.POST.get('huoID', None)
+
+	try:
+		Delivery.objects.filter(productID = productID).update(delivery_name = delivery_name,
+                delivery_time=delivery_time,
+                receive_man=receive_man,
+                delivery_man=delivery_man,
+                delivery_address=delivery_address,
+                total_fee = total_fee,
+                productID = productID,
+                product_name = product_name,
+                order_amount=order_amount,
+                delivery_amount=delivery_amount,
+                price=price,
+                fee=fee,
+                notes=notes,
+                send_phone=send_phone,
+                send_fax=send_fax,
+                receive_phone=receive_phone,
+                receive_fax=receive_fax,
+                box=box,
+                inner_amount=inner_amount,
+                outer_amount=outer_amount,
+                purchase_man=purchase_man,
+                total_notes=total_notes,
+                send_name=send_name,
+                huoID=huoID)
+	except Exception, e:
+		return comutils.baseresponse('system error', 500)	
+	return HttpResponse(json.dumps(1))
+
 
 ################################################################################
 #施工单

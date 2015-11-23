@@ -81,7 +81,19 @@ class Delivery(models.Model):
 	total_fee=models.CharField(max_length = 30,blank = True)
 	receive_man=models.CharField(max_length = 15,blank = True)
 	delivery_man=models.CharField(max_length = 15,blank = True)
-
+	send_name=models.CharField(max_length = 15,blank = True)
+	purchase_man=models.CharField(max_length = 15,blank = True)
+	product_number=models.CharField(max_length = 15,blank = True)
+	perbox=models.CharField(max_length = 15,blank = True)
+	box=models.CharField(max_length = 15,blank = True)
+	send_phone=models.CharField(max_length = 30,blank = True)
+	send_fax=models.CharField(max_length = 15,blank = True)
+	receive_phone=models.CharField(max_length = 15,blank = True)
+	receive_fax=models.CharField(max_length = 15,blank = True)
+	huoID=models.CharField(max_length = 15,blank = True)
+	inner_amount=models.CharField(max_length = 15,blank = True)
+	outer_amount=models.CharField(max_length = 15,blank = True)
+	total_notes=models.CharField(max_length = 15,blank = True)
 
 class Process(models.Model):
 	productID=models.CharField(max_length = 10)

@@ -22,6 +22,7 @@ th>input[type='number']{width: 100%;border: none;height: 100%;}
 
 .sum{border:#E7C44C solid 2px;}
 button{float: right;margin-right: 40px;}
+select{float: right;margin-right: 20px;height: 35px;}
 .searchbar{float: right;margin-right: 0}
 .searchbar_icon{width: 24px;height: 24px;}
 .add-on{
@@ -53,11 +54,12 @@ button{float: right;margin-right: 40px;}
 /*送货单*/
 #delivery_choice_box>div{margin-left: 100px;}
 /*送货单表格*/
-.delivery_table{width: 80%;float: left;margin-left: 2%;height: auto;font-size: 14px;border: solid 2px;}
+.delivery_table{width: 95%;float: left;margin-left: 2%;height: auto;font-size: 14px;border: solid 2px;}
 .delivery_table .col_10{width: 10%;text-align: center;}
 .delivery_table .col_20{width: 20%;text-align: center;}
 .delivery_table .col_30{width: 30%;text-align: center;}
 .delivery_table .col_50{width: 50%;text-align: center;}
+.delivery_table .col_80{width: 80%;text-align: center;}
 
 /*施工页表格*/
 .process_table{width: 80%;float: left;margin-left: 2%;height: auto;font-size: 14px;border: none;}
