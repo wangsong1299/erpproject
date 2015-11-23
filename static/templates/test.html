@@ -124,8 +124,28 @@
 
 		})
 
-		
 
+		$("#submit_worker_count").click(function(){
+				var workerID=$("#workerID").val();
+				var worker_name=$("#worker_name").val();
+				var productID2=$("#productID2").val();	
+				var product_name=$("#product_name").val();
+				var pipline_step=$("#pipline_step").val();
+				var count=$("#count").val();	
+				var notes=$("#notes").val();
+
+				$.ajax({
+				  	type : "POST",
+				  	url : "/count_work/",
+				  	data:{'workerID':workerID,'worker_name':worker_name,'productID':productID2,'product_name':product_name,'pipline_step':pipline_step,'count':count,'notes':notes},
+				  	dataType : "json",
+				  	success : function(data) {    
+		             	console.log(data);
+		             	$("#content_2").html(data[0].message);
+		              }
+	    	    })
+
+		})
 	
 	})</script>
 

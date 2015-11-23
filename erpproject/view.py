@@ -96,12 +96,22 @@ def count_work(request):
 	count = request.POST.get('count', None)
 	notes = request.POST.get('notes', None)
 
-	try:
-		p = Worker(productID=productID,workerID=workerID,worker_name=worker_name,product_name=product_name,pipline_step=pipline_step,count=count,notes=notes)
-		p.save()
-	except Exception, e:
-		return comutils.baseresponse('system error', 500)
-	return HttpResponse(json.dumps(1))
+	r=Process.objects.filter(productID=productID)
+	if r:
+		step=r[0].count_work
+		if(int(pipline_step)==int(step)+1):
+			print "ws"
+			Process.objects.filter(productID=productID).update(count_work=pipline_step)
+			try:
+				p = Worker(productID=productID,workerID=workerID,worker_name=worker_name,product_name=product_name,pipline_step=pipline_step,count=count,notes=notes)
+				p.save()
+			except Exception, e:
+				return comutils.baseresponse('system error', 500)
+			return HttpResponse(json.dumps(1))
+		else:
+			return comutils.baseresponse('没有按流水顺序执行', 500)
+	else:
+		return comutils.baseresponse('no this productID', 500)
 	
 @csrf_exempt
 def login_in(request):

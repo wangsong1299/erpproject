@@ -133,7 +133,7 @@ class Process(models.Model):
 	wl_waleng=models.CharField(max_length = 30,blank = True)
 	wl_biaoliao=models.CharField(max_length = 30,blank = True)
 	finished=models.CharField(max_length = 2,default=0)
-
+	count_work=models.CharField(max_length = 5,default=0)
 
 
 class Cost(models.Model):
