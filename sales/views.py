@@ -1395,10 +1395,12 @@ def process_list(request,num):
 def process_new(request):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
+	record=Process.objects.all().order_by('-id')[0]
+	productID=int(record.productID)+1
 	if not is_login:
 		return HttpResponseRedirect("/")
 	else:
-		return render_to_response("sales_process_new.html",{'is_login':json.dumps(is_login),'nick_name':nick_name})
+		return render_to_response("sales_process_new.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'productID':productID})
 
 #api
 
