@@ -9,7 +9,7 @@
 			{% endblock %}			
 
  {% block main %}
- <div class="main" style="overflow:hidden;">
+ <div class="main long_main" style="overflow:hidden;">
  		<div class="line2">
 							印刷订单
 				</div>	
@@ -32,7 +32,7 @@
 			<th class="col_10">qq</th>
 			<td class="col_20"> <input type="number" id="qq" value={{ records.0.4}} ></td>
 			<th class="col_10">电话<span class="red">*</span></th>
-			<td class="col_30"> <input type="text" id="create_time" value={{ records.0.23 }} ></td>
+			<td class="col_30"> <input type="text" id="call" value={{ records.0.23 }} ></td>
 		</tr>
 	</table>
 	 <table class="order_table">
@@ -89,7 +89,7 @@
 			<td class="col_30"> <input type="text" id="notes" value={{records.0.21}}></td>
 	</table>
 
-	 <div class="head_row" style="margin-bottom:40px">
+	 <div class="head_row last_row" style="margin-bottom:40px">
  		   <button type="submit" class="btn btn-primary" id="delete">删除</button>
  		   <button type="submit" class="btn btn-primary" id="modify">修改</button>
  		    <button type="submit" class="btn btn-primary" id="print" onclick="javascript:window.print()" />打印</button>

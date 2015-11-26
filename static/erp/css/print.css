@@ -4,12 +4,11 @@
     .header2{display: none}
     .line2{display: none}
     .last_row{display: none}
-    .main{width:750px;}
+    .main{width:750px;font-size: 12.5px}
+    .long_main{width:600px;font-size: 12.5px}
     table{font-size: 12px}
 
     label{font-size: 14px;}
     .head_row>input{border: none;background: transparent;}
-
-	.quotation_table{width: 80%}
-	.delivery_table{width: 80%}
-}
+    .head_row{font-size: 12.5px}
+    }

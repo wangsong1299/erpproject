@@ -782,6 +782,7 @@ def delivery(request,id):
 	else:
 		delivery_show=True
 		delivery_modify=False
+		print delivery_modify
 		choice=int(Delivery.objects.filter(deliveryID=id)[0].choice)
 		if(choice==1):
 			records=Delivery.objects.filter(deliveryID=id)

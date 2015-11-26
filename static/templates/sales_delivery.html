@@ -9,9 +9,9 @@
 			{% endblock %}	
 
  {% block main %}
- <div class="main" style="overflow:hidden;">
+ <div class="main long_main" style="overflow:hidden;">
 		<div class="line2">
-							销售：送货单	
+				 		销售：送货单	
 				</div>
 	 	<div id="choice_1_box">
 	 		 <div class="head_row">
@@ -43,11 +43,13 @@
 			<tr>
 				<th class="col_10"><input type="text" id="productID_{{value.items.14.1}}" value={{value.items.3.1}}></th>
 				<th class="col_30"><input type="text" id="product_name_{{value.items.14.1}}"  value={{value.items.4.1}}></th>
-				<th class="col_10"><input type="number" id="order_amount_{{value.items.14.1}}"  value={{value.items.5.1}}></th>
-				<th class="col_10"><input type="number" id="delivery_amount_{{value.items.14.1}}"  value={{value.items.6.1}}></th>
-				<th class="col_10"><input type="number" id="price_{{value.items.14.1}}"  value={{value.items.7.1}}></th>
-				<th class="col_10"><input type="number" id="fee_{{value.items.14.1}}"  value={{value.items.8.1}}></th>
-				<th class="col_20"><input type="text" id="notes_{{value.items.14.1}}"  value={{value.items.9.1}}></th>
+		{% if delivery_modify %}
+				<th class="col_10"><input type="text" id="order_amount_{{value.items.14.1}}"  value={{value.items.5.1}}></th>
+				<th class="col_10"><input type="text" id="delivery_amount_{{value.items.14.1}}"  value={{value.items.6.1}}></th>
+				<th class="col_10"><input type="text" id="price_{{value.items.14.1}}"  value={{value.items.7.1}}></th>
+				<th class="col_10"><input type="text" id="fee_{{value.items.14.1}}"  value={{value.items.8.1}}></th>
+		{% endif %}
+			 	<th class="col_20"><input type="text" id="notes_{{value.items.14.1}}"  value={{value.items.9.1}}></th>
 			</tr>
 	{% endfor %}
 
@@ -67,7 +69,7 @@
 	 			<input type="text" id="delivery_man" value={{ records.0.13 }} >
 	 		</div>
 
-		 <div class="head_row" style="margin-bottom:40px">
+		 <div class="head_row last_row" style="margin-bottom:40px">
  		   <button type="submit" class="btn btn-primary" id="delete">删除</button>
  		   <button type="submit" class="btn btn-primary" id="modify">修改</button>
    <button type="submit" class="btn btn-primary" id="print" onclick="javascript:window.print()" />打印</button>
