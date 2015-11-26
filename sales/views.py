@@ -427,11 +427,14 @@ def order_list(request,num):
 def order_new(request):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
-	record=Order.objects.all().order_by('-id')[0]
-	orderID=int(record.orderID)+1
 	if not is_login:
 		return HttpResponseRedirect("/")
 	else:
+		records=Order.objects.all().order_by('-id')
+		if records:
+			orderID=int(records[0].orderID)+1
+		else:
+			orderID=1
 		return render_to_response("sales_order_new.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'orderID':orderID})
 
 #报价单单页
@@ -754,11 +757,14 @@ def delivery_list(request,num):
 def delivery_new(request,choice):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
-	record=Delivery.objects.all().order_by('-id')[0]
-	deliveryID=int(record.deliveryID)+1
 	if not is_login:
 		return HttpResponseRedirect("/")
 	else:
+		records=Delivery.objects.all().order_by('-id')
+		if records:
+			deliveryID=int(records[0].deliveryID)+1
+		else:
+			deliveryID=1
 		if(int(choice)==1):
 			return render_to_response("sales_delivery_new.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"choice":json.dumps(choice),'deliveryID':deliveryID})
 		elif(int(choice)==2):
@@ -1424,11 +1430,14 @@ def process_list(request,num):
 def process_new(request):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
-	record=Process.objects.all().order_by('-id')[0]
-	productID=int(record.productID)+1
 	if not is_login:
 		return HttpResponseRedirect("/")
 	else:
+		records=Process.objects.all().order_by('-id')
+		if records:
+			productID=int(records[0].productID)+1
+		else:
+			productID=1
 		return render_to_response("sales_process_new.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'productID':productID})
 
 #api
