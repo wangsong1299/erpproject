@@ -53,13 +53,16 @@
 	 <table class="process_table" >
 		<tr>
 			<th class="col_10">拼板</th>
-			<td class="col_10"> <input type="text" id="pinban"  ></td>
+			<td class="col_10"> <input type="text" id="pinban"  style="width:70%">联</td>
 			<th class="col_10">印数</th>
-			<td class="col_10"> <input type="text" id="yinshu"  ></td>
+			<td class="col_10"> <input type="text" id="yinshu" style="width:70%">张</td>
 			<th class="col_10">印刷</th>
-			<td class="col_10"> <input type="text" id="yinsha" ></td>
+			<td class="col_10" style='font-size:10.5px'> 
+				<input type="text" id="yinsha" style="width:30%">面
+				<input type="text" id="yinsha2" style="width:30%">色
+			</td>
 			<th class="col_10">加印数</th>
-			<td class="col_10"> <input type="text" id="jiayinshu" ></td>
+			<td class="col_10">+<input type="text" id="jiayinshu" style="width:70%"></td>
 			<th class="col_10">针脚</th>
 			<td class="col_10"> <input type="text" id="zhenjiao" ></td>
 		</tr>
@@ -67,7 +70,11 @@
 	 <table class="process_table" >
 		<tr>
 			<th class="col_10">总印数</th>
-			<td class="col_30"> <input type="text" id="total_yinshu"  ></td>
+			<td class="col_30" style='font-size:10.5px'>
+				<input type="text" id="total_yinshu_1"  style="width:25%">X
+				<input type="text" id="total_yinshu_2"  style="width:25%">=
+				<input type="text" id="total_yinshu"  style="width:25%">
+			</td>
 			<th class="col_10">压痕</th>
 			<td class="col_20"> <input type="text" id="yaheng"  ></td>
 			<th class="col_10">另印要求</th>
@@ -103,12 +110,18 @@
 	<table class="process_table" >
 		<tr>
 			<th class="col_20">附带材料</th>
-			<th class="col_80"><input type="text" id="fudai"></th>
+			<th class="col_80">
+				<label for="">实样</label><input type="radio" name="fudai" value="1">
+				<label for="">彩色</label><input type="radio" name="fudai" value="2">
+				<label for="">彩喷稿</label><input type="radio" name="fudai" value="3">
+				<label for="">黑稿</label><input type="radio" name="fudai" value="4">
+				<label for="">钢刀尺寸</label><input type="radio" name="fudai" value="5">
+			</th>
 		</tr>
 	</table>
-	<table class="process_table" style="display:none">
+	<table class="process_table">
 		<tr>
-			<th class="col_100"><textarea name="" id="quality">印刷质量要求</textarea></th>
+			<th><input type='text' name="" id="quality" placeholder='印刷质量要求'></th>
 		</tr>
 	</table>
 	<table class="process_table">
@@ -275,7 +288,7 @@
 			var kaiyin=$.trim($("#kaiyin").val());
 			var kaishu=$.trim($("#kaishu").val());
 
-			var fudai=$.trim($("#fudai").val());
+			var fudai=$("input[name=fudai]:checked").val();
 			var quality=$.trim($("#quality").val());
 	
 			var wl_size=$.trim($("#wl_size").val());
@@ -284,6 +297,10 @@
 			var wl_feizhi=$.trim($("#wl_feizhi").val());
 			var wl_biaoliao=$.trim($("#wl_biaoliao").val());
 			var wl_waleng=$.trim($("#wl_waleng").val());
+
+			var yinsha2=$.trim($("#yinsha2").val());
+			var total_yinshu_1=$.trim($("#total_yinshu_1").val());
+			var total_yinshu_2=$.trim($("#total_yinshu_2").val());
 
 			if(productID.length==0){
 				alert("施工单ID不能为空");
@@ -315,7 +332,7 @@
 				$.ajax({
 				  	type : "POST",
 				  	url : "/sales/fill_process/",
-				  	data:{'productID':productID,'customer':customer,'create_time':create_time,'deadline':deadline,'alerttime':alerttime,'product_name':product_name,'number_2':number_2,'number_1':number_1,'amount':amount,'pinban':pinban,'yinshu':yinshu,'yinsha':yinsha,'jiayinshu':jiayinshu,'zhenjiao':zhenjiao,'total_yinshu':total_yinshu,'yaheng':yaheng,'lingyin':lingyin,'surface':surface,'process':process,'notes':notes,'material':material,'daliao':daliao,'size':size,'kaishu':kaishu,'kaiyin':kaiyin,'fudai':fudai,'quality':quality,'wl_size':wl_size,'wl_size2':wl_size2,'wl_feizhi':wl_feizhi,'wl_thin':wl_thin,'wl_biaoliao':wl_biaoliao,'wl_waleng':wl_waleng},
+				  	data:{'productID':productID,'customer':customer,'create_time':create_time,'deadline':deadline,'alerttime':alerttime,'product_name':product_name,'number_2':number_2,'number_1':number_1,'amount':amount,'pinban':pinban,'yinshu':yinshu,'yinsha':yinsha,'jiayinshu':jiayinshu,'zhenjiao':zhenjiao,'total_yinshu':total_yinshu,'yaheng':yaheng,'lingyin':lingyin,'surface':surface,'process':process,'notes':notes,'material':material,'daliao':daliao,'size':size,'kaishu':kaishu,'kaiyin':kaiyin,'fudai':fudai,'quality':quality,'wl_size':wl_size,'wl_size2':wl_size2,'wl_feizhi':wl_feizhi,'wl_thin':wl_thin,'wl_biaoliao':wl_biaoliao,'wl_waleng':wl_waleng,'yinsha2':yinsha2,'total_yinshu_1':total_yinshu_1,'total_yinshu_2':total_yinshu_2},
 				  	dataType : "json",
 				  	success : function(data){    
 		                if(data==1){
@@ -337,7 +354,7 @@
  			$(".blocklayer").show();
  			$(".surface_pop").show();
  			$("#surface_sure").click(function(){
- 				var num = $("input[type=radio]:checked").val();
+ 				var num = $("input[name=surface][type=radio]:checked").val();
  				$("#surface").val(surface_list[num]);
  				$(".pop_box").hide();
  				$(".blocklayer").hide();

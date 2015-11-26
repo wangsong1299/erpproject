@@ -1478,7 +1478,9 @@ def fill_process(request):
 	wl_feizhi = request.POST.get('wl_feizhi', None)
 	wl_thin = request.POST.get('wl_thin', None)
 	wl_waleng = request.POST.get('wl_waleng', None)
-
+	yinsha2 = request.POST.get('yinsha2', None)
+	total_yinshu_1 = request.POST.get('total_yinshu_1', None)
+	total_yinshu_2 = request.POST.get('total_yinshu_2', None)
 	try:
 		q = Process(productID=productID,
 				customer = customer,
@@ -1512,7 +1514,10 @@ def fill_process(request):
 				wl_thin=wl_thin,
 				wl_feizhi=wl_feizhi,
 				wl_biaoliao=wl_biaoliao,
-				wl_waleng=wl_waleng)
+				wl_waleng=wl_waleng,
+				yinsha2=yinsha2,
+				total_yinshu_2=total_yinshu_2,
+				total_yinshu_1=total_yinshu_1)
 		q.save()
 		p = Storage(productID=productID,
 				customer = customer,
@@ -1582,6 +1587,9 @@ def process(request,id):
 		b[30]=r.wl_feizhi
 		b[31]=r.wl_waleng
 		b[32]=r.wl_biaoliao
+		b[33]=r.yinsha2
+		b[34]=r.total_yinshu_1
+		b[35]=r.total_yinshu_2
 		return render_to_response("sales_process.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":b,'process_show':json.dumps(process_show),'process_modify':json.dumps(process_modify)})
 #api
 #报价单单页
@@ -1628,6 +1636,9 @@ def process_modify(request,id):
 		b[30]=r.wl_feizhi
 		b[31]=r.wl_waleng
 		b[32]=r.wl_biaoliao
+		b[33]=r.yinsha2
+		b[34]=r.total_yinshu_1
+		b[35]=r.total_yinshu_2
 		return render_to_response("sales_process.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":b,'process_show':json.dumps(process_show),'process_modify':json.dumps(process_modify)})
 #api
 #api
@@ -1667,6 +1678,9 @@ def modify_process(request):
 	wl_feizhi = request.POST.get('wl_feizhi', None)
 	wl_thin = request.POST.get('wl_thin', None)
 	wl_waleng = request.POST.get('wl_waleng', None)
+	yinsha2 = request.POST.get('yinsha2', None)
+	total_yinshu_1 = request.POST.get('total_yinshu_1', None)
+	total_yinshu_2 = request.POST.get('total_yinshu_2', None)
 
 	try:
 		Process.objects.filter(productID=productID).update(productID=productID,
@@ -1701,9 +1715,12 @@ def modify_process(request):
 				wl_thin=wl_thin,
 				wl_feizhi=wl_feizhi,
 				wl_biaoliao=wl_biaoliao,
-				wl_waleng=wl_waleng)
+				wl_waleng=wl_waleng,
+				yinsha2=yinsha2,
+				total_yinshu_2=total_yinshu_2,
+				total_yinshu_1=total_yinshu_1)
 	except Exception, e:
-		return comutils.baseresponse("system error", 500)
+		return comutils.baseresponse(e, 500)
 	
 	return HttpResponse(json.dumps(1))
 

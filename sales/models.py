@@ -134,6 +134,9 @@ class Process(models.Model):
 	wl_biaoliao=models.CharField(max_length = 30,blank = True)
 	finished=models.CharField(max_length = 2,default=0)
 	count_work=models.CharField(max_length = 5,default=0)
+	yinsha2 =models.CharField(max_length = 10,blank = True)
+	total_yinshu_1=models.CharField(max_length = 30,blank = True)
+	total_yinshu_2=models.CharField(max_length = 30,blank = True)
 
 
 class Cost(models.Model):
