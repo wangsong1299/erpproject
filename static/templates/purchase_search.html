@@ -84,7 +84,16 @@
 			<label for="customer_name">条形码:</label>
 			<iframe src="" frameborder="0" id="barcode_iframe"></iframe>
 		</div>
-		 <table class="purchase_table" style="margin-top: 20px;">
+		<table class="purchase_table">
+			<tr>
+			<th class="col_20">客户名<span class="red">*</span></th>
+			<th class="col_10"><input type="text" id="customer_name2" value={{records.0.11}}></th>
+			<th class="col_20">产品名称<span class="red">*</span></th>
+			<th class="col_20"><input type="text" id="product_name2" value={{records.0.12}}></th>		
+			<th class="col_10">日期<span class="red">*</span></th>
+			<th class="col_20"><input type="text" id="create_time" onClick="WdatePicker()" value={{records.0.13}}></th>
+			</tr>
+		</table>			
 		<table class="purchase_table">
 			<tr>
 				<th class="col_20">采购项目</th>
@@ -148,7 +157,7 @@
                       data:{'productID':productID},
                       dataType : "json",
                       success : function(data){  
-                      		window.location.href='/purchase/choice/';
+                      		window.location.href='/purchase/purchase_list/1';
                       }
                 })
 		})
@@ -162,7 +171,7 @@
                       success : function(data){  
                       		if(data==1){
                       			alert("删除成功");
-                      			window.location.href='/purchase/choice/';
+                      			window.location.href='/purchase/purchase_list/1';
                       		}else{
                       			alert("error");
                       		}
@@ -207,6 +216,7 @@
  			 var maxnum={{length}};
  			 var count=0;
 			for(var i=1;i<=maxnum;i++){
+				console.log(i);
 				var col1=$.trim($("#col1_"+i).val());
 				var col2=$.trim($("#col2_"+i).val());
 				var col3=$.trim($("#col3_"+i).val());
@@ -217,10 +227,14 @@
 				var col8=$.trim($("#col8_"+i).val());
 				var id=$("#col1_"+i).attr('class').split("_")[0];
 				var id2=$("#col1_"+i).attr('class').split("_")[1];
+				var customer=$.trim($("#customer_name2").val());
+				var product_name2=$.trim($("#product_name2").val());
+				var create_time=$.trim($("#create_time").val());
+			
 				$.ajax({
 				  	type : "POST",
 				  	url : "/purchase/modify_multiple/",
-				  	data:{'productID':productID,'col1':col1,'col2':col2,'col3':col3,'col4':col4,'col5':col5,'col6':col6,'col7':col7,'col8':col8,'id':id,'id2':id2},
+				  	data:{'productID':productID,'col1':col1,'col2':col2,'col3':col3,'col4':col4,'col5':col5,'col6':col6,'col7':col7,'col8':col8,'id':id,'id2':id2,'customer':customer,'product_name2':product_name2,'create_time':create_time},
 				  	dataType : "json",
 				  	success : function(data) {    
 		                if(data==1){

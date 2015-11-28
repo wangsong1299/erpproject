@@ -79,6 +79,17 @@
 		</div>
 		<table class="purchase_table">
 			<tr>
+			<th class="col_20">客户名<span class="red">*</span></th>
+			<th class="col_10"><input type="text" id="customer_name2"></th>
+			<th class="col_20">产品名称<span class="red">*</span></th>
+			<th class="col_20"><input type="text" id="product_name2"></th>		
+			<th class="col_10">日期<span class="red">*</span></th>
+			<th class="col_20"><input type="text" id="create_time" onClick="WdatePicker()"></th>
+			</tr>
+		</table>			
+
+		<table class="purchase_table">
+			<tr>
 				<th class="col_20">采购项目<span class="red">*</span></th>
 				<th class="col_10">单价<span class="red">*</span></th>
 				<th class="col_10">数目<span class="red">*</span></th>
@@ -188,6 +199,10 @@
 		$("#purchase_aside").addClass('subtitle_focus');
 		var multi_length=0;
 
+		var date=new Date();
+		var newdate= date.getFullYear()+'-'+(parseInt(date.getMonth())+1)+'-'+date.getDate();
+		$("#create_time").val(newdate);
+
 		var href =window.location.href.split("/");
 		var productID=href[5];
 
@@ -253,6 +268,9 @@
 //多工序提交
 		$("#purchase_fill_multiple").click(function(){
 			var maxnum=0;
+			var customer=$.trim($("#customer_name2").val());
+			var product_name2=$.trim($("#product_name2").val());
+			var create_time=$.trim($("#create_time").val());
 
 			$("input[name=count]").each(function(a,b){
 				var temp = $.trim($(b).val());
@@ -263,7 +281,21 @@
 					}
 				}
 			});
+			$.ajax({
+                  type : "POST",
+                  url : "/purchase/fill_multiple_list/",
+                  data:{'productID':productID,'customer':customer,'product_name2':product_name2,'create_time':create_time},
+                  dataType : "json",
+                  success : function(data){  
+                  		  if(data==1){
+								console.log("ok");
+			                }else{
+			                  alert("录入失败");
+			                }	    
+                  }
+            })
 
+			//console.log(maxnum);
 			var count=0;
 			for(var i=1;i<=maxnum;i++){
 				var col1=$.trim($("#col1_"+i).val());
@@ -277,7 +309,7 @@
 				$.ajax({
 				  	type : "POST",
 				  	url : "/purchase/fill_multiple/",
-				  	data:{'productID':productID,'col1':col1,'col2':col2,'col3':col3,'col4':col4,'col5':col5,'col6':col6,'col7':col7,'col8':col8},
+				  	data:{'productID':productID,'col1':col1,'col2':col2,'col3':col3,'col4':col4,'col5':col5,'col6':col6,'col7':col7,'col8':col8,'customer':customer,'product_name2':product_name2,'create_time':create_time},
 				  	dataType : "json",
 				  	success : function(data) {    
 		                if(data==1){

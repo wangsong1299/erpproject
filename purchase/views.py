@@ -18,6 +18,8 @@ def get_purchase_list(records):
 		#b[3]=r.create_time.strftime('%Y-%m-%d')
 		b[2]=r.customer
 		b[3]=r.process_step
+		b[4]=r.create_time
+		b[5]=r.notes
 		a[i]=b
 		i=i+1
 	return a
@@ -133,10 +135,13 @@ def search(request,productID):
 				a[7]=m.notes
 				a[8]=int(i)+1
 				a[9]=m.id
-				a[10]=Purchase.objects.filter(product_name=m.product_name)[0].id
+				a[10]=Purchase.objects.filter(productID=m.productID)[0].id
+				a[11]=m.customer
+				a[12]=m.product_name2
+				a[13]=m.create_time
 				multiple_records[i]=a
 				i=i+1
-			print multiple_records
+			#print multiple_records
 			return render_to_response("purchase_search.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'process_step':process_step,'records':multiple_records,'productID':productID,'length':i})
 	
 
@@ -214,12 +219,30 @@ def fill_single(request):
 		q = Purchase(productID=productID,
 				customer = customer,
 				product_name=product_name,	
-				process_step=1)
+				process_step=1,
+				create_time=create_time,
+				notes=notes)
 		q.save()
 	except Exception, e:
 		return comutils.baseresponse("system error", 500)
 	return HttpResponse(json.dumps(1))
 
+@csrf_exempt
+def fill_multiple_list(request):
+	productID = request.POST.get('productID', None)
+	customer = request.POST.get('customer', None)
+	create_time = request.POST.get('create_time', None)
+	product_name2 = request.POST.get('product_name2', None)
+	try:
+		q = Purchase(productID=productID,
+				customer = customer,
+				product_name=product_name2,	
+				process_step=2,
+				create_time=create_time)
+		q.save()
+	except Exception, e:
+		return comutils.baseresponse("system error", 500)
+	return HttpResponse(json.dumps(1))
 
 @csrf_exempt
 def fill_multiple(request):
@@ -232,6 +255,10 @@ def fill_multiple(request):
 	col6 = request.POST.get('col6', None)
 	col7 = request.POST.get('col7', None)
 	col8 = request.POST.get('col8', None)
+	customer = request.POST.get('customer', None)
+	create_time = request.POST.get('create_time', None)
+	product_name2 = request.POST.get('product_name2', None)
+
 	try:
 		q = Purchase_multiple(productID=productID,
 				product_name=col1,
@@ -241,18 +268,13 @@ def fill_multiple(request):
 				suppliers=col5,
 				contacts=col6,
 				contacts_phone=col7,      
-				notes=col8)
+				notes=col8,
+				customer=customer,
+				create_time=create_time,
+				product_name2=product_name2)
 		q.save()
 	except Exception, e:
 		return comutils.baseresponse('system error', 500)
-	try:
-		q = Purchase(productID=productID,
-				customer = col5,
-				product_name=col1,	
-				process_step=2)
-		q.save()
-	except Exception, e:
-		return comutils.baseresponse("system error", 500)
 	try:
 		q = Supplier(productID=productID,
 				suppliers=col5,
@@ -353,6 +375,15 @@ def modify_multiple(request):
 	col8 = request.POST.get('col8', None)
 	id = request.POST.get('id', None)
 	id2=request.POST.get('id2', None)
+	customer = request.POST.get('customer', None)
+	create_time = request.POST.get('create_time', None)
+	product_name2 = request.POST.get('product_name2', None)
+	try:
+		q = Purchase.objects.filter(productID=productID).update(customer = customer,
+				product_name=product_name2,	
+				create_time=create_time)
+	except Exception, e:
+		return comutils.baseresponse(e, 500)
 	try:
 		Purchase_multiple.objects.filter(id=id).update(productID=productID,
 				product_name=col1,
@@ -365,9 +396,5 @@ def modify_multiple(request):
 				notes=col8)
 	except Exception, e:
 		return comutils.baseresponse('system error', 500)
-	try:
-		Purchase.objects.filter(id=id2).update(customer =col5,product_name=col1)
-	except Exception, e:
-		return comutils.baseresponse(e, 500)	
 	return HttpResponse(json.dumps(1))
 
