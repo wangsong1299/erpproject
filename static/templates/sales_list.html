@@ -459,8 +459,11 @@
 			$("#new").click(function(){
 				$("#delivery_choice_box").slideDown(1000);
 				var choice=$("#delivery_new_model").val(); 
-				//choice=1;
-				window.location.href="/sales/delivery_new/"+choice;
+				if(choice==3){
+					alert("稍等");
+				}else{
+					window.location.href="/sales/delivery_new/"+choice;
+				}
 			})
 
 

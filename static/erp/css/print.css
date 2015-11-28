@@ -9,6 +9,6 @@
     table{font-size: 12px}
 
     label{font-size: 14px;}
-    .head_row>input{border: none;background: transparent;}
+    .head_row>input{border: none;background: transparent;width: 100px;}
     .head_row{font-size: 12.5px}
     }

@@ -1,6 +1,6 @@
-.head_row{height:40px;float: left;margin-top: 30px;width: 100%;font-size: 18px;}
-.head_row>label{width: 90px;float: left;margin-left: 30px;line-height: 40px;}
-.head_row>input{width: 180px;float: left;margin-left: 10px;margin-top: 5px;height: 30px;}
+.head_row{height:40px;float: left;margin-top: 30px;width: 100%;font-size: 14px;}
+.head_row>label{width: 70px;float: left;margin-left: 30px;line-height: 40px;}
+.head_row>input{width: 120px;float: left;margin-left: 10px;margin-top: 5px;height: 30px;}
 
 td, th{border:1px solid;}
 th{text-align: center;height: 40px;line-height: 40px;}
@@ -44,7 +44,7 @@ button{float: right;margin-right: 40px;}
 .purchase_part{float: left;width: 50%;height: auto;}
 
 /*单工序填入页*/
-.purchase_table{width: 90%;float: left;margin-left: 2%;height: auto;min-height: 400px;border: solid 1px;font-size: 18px;}
+.purchase_table{width: 90%;float: left;margin-left: 2%;height: auto;min-height: 400px;border: solid 1px;}
 .purchase_table .col_10{width: 10%;text-align: center;}
 .purchase_table .col_20{width: 20%;text-align: center;}
 .purchase_table .col_30{width: 30%;text-align: center;}

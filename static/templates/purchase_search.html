@@ -7,7 +7,7 @@
 {% endblock %}
 
  {% block main %}
- <div class="main" style="overflow:hidden">
+ <div class="main long_main" style="overflow:hidden">
 		{% ifequal process_step 1 %}
 	<!--	<div class="head_row" style="height:70px" id="bcTarget_row">
 			<label for="customer_name">条形码:</label>
@@ -22,17 +22,17 @@
 		</div>	
 		<div class="head_row">
 			<label style="width:45px">兹向</label>
- 			<input type="text" id="customer_name" value={{ records.0 }}>
+ 			<input type="text" id="customer_name" style="width:120px" value={{ records.0 }}>
  			<label  style="width:240px">单位订购以下物品，所用订单</label>
-			<input type="text" id="productID" value={{productID}} >
+			<input type="text" id="productID" style="width:50px" value={{productID}} >
 		</div>
 		<div class="head_row">
  			<label for="contacts">联系人</label>
- 			<input type="text" id="contacts" value={{ records.3 }}>
+ 			<input type="text" id="contacts" style="width:120px" value={{ records.3 }}>
  			<label for="contacts_phone">联系电话</label>
- 			<input type="number" id="contacts_phone" value={{ records.4 }}>
+ 			<input type="number" id="contacts_phone" style="width:120px" value={{ records.4 }}>
  			<label for="fax">传真</label>
- 			<input type="text" id="fax" value={{ records.5 }}>
+ 			<input type="text" id="fax" style="width:120px" value={{ records.5 }}>
  		</div>
 
  	 <table class="purchase_table" style="margin-top: 20px;">
@@ -102,7 +102,7 @@
 		</table>
 
 		
-	 <div class="head_row" style="margin-bottom:40px">
+	 <div class="head_row last_row" style="margin-bottom:40px">
  		   <button type="submit" class="btn btn-primary" id="purchase_delete_single">删除</button>
  		   <button type="submit" class="btn btn-primary" id="modify_single">修改</button>
   		   <button type="submit" class="btn btn-primary" id="print" onclick="javascript:window.print()" />打印</button>
