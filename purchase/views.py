@@ -77,20 +77,9 @@ def fill(request,productID):
 		process_step=int(p.process)
 		records={}
 		if(process_step==1):
-			records[0]=p.customer
-			records[1]=p.product_name
-			records[2]=p.create_time
-			records[3]=p.surface
-			records[4]=p.material
-			records[5]=p.daliao
-			records[6]=p.size
-			records[7]=p.wl_size
-			records[8]=p.wl_size2
-			records[9]=p.wl_thin
-			records[10]=p.wl_feizhi
-			records[11]=p.wl_waleng
-			records[12]=p.wl_biaoliao
-			records[13]=p.notes
+			records[0]=p.material
+			records[1]=p.size
+			records[2]=p.daliao
 		return render_to_response("purchase_fill.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'process_step':process_step,'records':records,'productID':productID})
 
 def search(request,productID):
@@ -108,18 +97,19 @@ def search(request,productID):
 			p=Purchase_single.objects.filter(productID=productID)[0]		
 			single_records[0]=p.customer
 			single_records[1]=p.product_name
-			single_records[2]=p.surface
-			single_records[3]=p.create_time
-			single_records[4]=p.material
-			single_records[5]=p.daliao
+			single_records[2]=p.create_time
+			single_records[3]=p.contacts
+			single_records[4]=p.contacts_phone
+			single_records[5]=p.fax
 			single_records[6]=p.size
-			single_records[7]=p.wl_size
-			single_records[8]=p.wl_size2
-			single_records[9]=p.wl_thin
-			single_records[10]=p.wl_feizhi
-			single_records[11]=p.wl_waleng
-			single_records[12]=p.wl_biaoliao
-			single_records[13]=p.notes
+			single_records[7]=p.amount
+			single_records[8]=p.danwei
+			single_records[9]=p.price
+			single_records[10]=p.fee
+			single_records[11]=p.total_fee
+			single_records[12]=p.notes
+			single_records[13]=p.deadline
+			single_records[14]=p.address
 			return render_to_response("purchase_search.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'process_step':process_step,'records':single_records,'productID':productID,'length':0})
 		else:
 			muls=Purchase_multiple.objects.filter(productID=productID)
@@ -184,34 +174,36 @@ def fill_single(request):
 	customer = request.POST.get('customer', None)
 	create_time = request.POST.get('create_time', None)
 	product_name = request.POST.get('product_name', None)
-	surface = request.POST.get('surface', None)
-	notes = request.POST.get('notes', None)
-	material = request.POST.get('material', None)	
-	daliao = request.POST.get('daliao', None)
+	contacts = request.POST.get('contacts', None)
+	contacts_phone = request.POST.get('contacts_phone', None)
+	fax = request.POST.get('fax', None)	
 	size = request.POST.get('size', None)
-	wl_biaoliao = request.POST.get('wl_biaoliao', None)
-	wl_size = request.POST.get('wl_size', None)
-	wl_size2 = request.POST.get('wl_size2', None)
-	wl_feizhi = request.POST.get('wl_feizhi', None)
-	wl_thin = request.POST.get('wl_thin', None)
-	wl_waleng = request.POST.get('wl_waleng', None)
+	amount = request.POST.get('amount', None)
+	price = request.POST.get('price', None)
+	danwei = request.POST.get('danwei', None)
+	fee = request.POST.get('fee', None)
+	total_fee = request.POST.get('total_fee', None)
+	notes = request.POST.get('notes', None)
+	deadline = request.POST.get('deadline', None)
+	address = request.POST.get('address', None)
 
 	try:
 		q = Purchase_single(productID=productID,
 				customer = customer,
 				create_time=create_time,
 				product_name=product_name,	
-				surface=surface,
+				contacts_phone=contacts_phone,
+				contacts=contacts,
+				fax=fax,
+				size=size,      
+				amount=amount,
+				price=price,
+				danwei=danwei,
+				fee=fee,
+				total_fee=total_fee,
 				notes=notes,
-				material=material,
-				daliao=daliao,      
-				size=size,
-				wl_size=wl_size,
-				wl_size2=wl_size2,
-				wl_thin=wl_thin,
-				wl_feizhi=wl_feizhi,
-				wl_biaoliao=wl_biaoliao,
-				wl_waleng=wl_waleng)
+				deadline=deadline,
+				address=address)
 		q.save()
 	except Exception, e:
 		return comutils.baseresponse(e, 500)
@@ -326,34 +318,35 @@ def modify_single(request):
 	customer = request.POST.get('customer', None)
 	create_time = request.POST.get('create_time', None)
 	product_name = request.POST.get('product_name', None)
-	surface = request.POST.get('surface', None)
-	notes = request.POST.get('notes', None)
-	material = request.POST.get('material', None)	
-	daliao = request.POST.get('daliao', None)
+	contacts = request.POST.get('contacts', None)
+	contacts_phone = request.POST.get('contacts_phone', None)
+	fax = request.POST.get('fax', None)	
 	size = request.POST.get('size', None)
-	wl_biaoliao = request.POST.get('wl_biaoliao', None)
-	wl_size = request.POST.get('wl_size', None)
-	wl_size2 = request.POST.get('wl_size2', None)
-	wl_feizhi = request.POST.get('wl_feizhi', None)
-	wl_thin = request.POST.get('wl_thin', None)
-	wl_waleng = request.POST.get('wl_waleng', None)
+	amount = request.POST.get('amount', None)
+	price = request.POST.get('price', None)
+	danwei = request.POST.get('danwei', None)
+	fee = request.POST.get('fee', None)
+	total_fee = request.POST.get('total_fee', None)
+	notes = request.POST.get('notes', None)
+	deadline = request.POST.get('deadline', None)
+	address = request.POST.get('address', None)
 
 	try:
-		Purchase_single.objects.filter(productID=productID).update(productID=productID,
-				customer = customer,
+		Purchase_single.objects.filter(productID=productID).update(customer = customer,
 				create_time=create_time,
 				product_name=product_name,	
-				surface=surface,
+				contacts_phone=contacts_phone,
+				contacts=contacts,
+				fax=fax,
+				size=size,      
+				amount=amount,
+				price=price,
+				danwei=danwei,
+				fee=fee,
+				total_fee=total_fee,
 				notes=notes,
-				material=material,
-				daliao=daliao,      
-				size=size,
-				wl_size=wl_size,
-				wl_size2=wl_size2,
-				wl_thin=wl_thin,
-				wl_feizhi=wl_feizhi,
-				wl_biaoliao=wl_biaoliao,
-				wl_waleng=wl_waleng)
+				deadline=deadline,
+				address=address)
 	except Exception, e:
 		return comutils.baseresponse(e, 500)
 	try:
