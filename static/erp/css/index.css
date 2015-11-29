@@ -70,6 +70,7 @@ body{background: #fff;color: #343434}
 
 }
 
+.searchbar>input{height:35px;}
 
 .setting_box{width: 80%;float: left;height: auto;margin-left: 15%;margin-top: 20px;}
 .order_box{width: 95%;float: left;height: auto;margin-left: 20px;margin-top:20px;}
@@ -77,21 +78,6 @@ body{background: #fff;color: #343434}
 .order_box>.row{border: solid 0.5px #000;height: 30px;}
 .order_box input{border: none;width: 100%;}
 
-.col_ws{width: 12.5%}
-.col_ws_7{width: 37.5%}
-
-/*施工单*/
-.process_box{width: 95%;float: left;height: auto;margin-left: 20px;margin-top:20px;}
-.process_box>.row>div{border: solid 0.5px #000;border-top: none;height:30px;}
-.process_box>.row{border: solid 0.5px #000;height: 30px;}
-.process_box>.row2>div{border: solid 0.5px #000;border-top: none;height:60px;}
-.process_box>.row2{border: solid 0.5px #000;height: 60px;}
-.process_box>.row input{border: none;width: 100%;height: 25px}
-.process_box>.row2 input{border: none;width: 100%;height: 50px}
-.process_box textarea{width: 100%;height: 120px;}
-.process_box>.row input[type='checkbox']{border: none;width: 30px;height: 25px}
-
-/*送货单*/
 .delivery_box{width: 95%;float: left;height: auto;margin-left: 20px;margin-top:20px;}
 .delivery_box>.row>div{border: solid 0.5px #000;border-top: none;border-bottom: none;height:30px;}
 .delivery_box>.row{border: solid 0.5px #000;height: 30px;}
