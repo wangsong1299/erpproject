@@ -85,7 +85,10 @@
 			<th class="col_10">表面处理</th>
 			<td class="col_30"> <input type="text" id="surface" value={{ records.17 }}></td>
 			<th class="col_10">工序</th>
-			<td class="col_20"> <input type="text" id="process_step" value={{ records.18 }} ></td>
+			<td class="col_20"> 
+				单<input type="radio" name="process" value="1">
+				多<input type="radio" name="process" value="2">
+			 </td>
 			<th class="col_10">备注</th>
 			<td class="col_20"> <input type="text" id="notes" value={{ records.19 }} ></td>
 		</tr>
@@ -267,6 +270,14 @@
                 }
 		});
 
+		var pro = {{ records.18 }};
+		$("input[name=process]").each(function(a,b){
+                if($(b).val()==pro){//判断值
+                    $(b).attr("checked",true);
+                }
+		});
+
+
 		 $("#delete").click(function(){
 			$.ajax({
               type : "POST",
@@ -328,7 +339,7 @@
 				var lingyin=$.trim($("#lingyin").val());
 
 				var surface=$.trim($("#surface").val());
-				var process=$.trim($("#process_step").val());
+				var process=$.trim($("#process").val());
 				var notes=$.trim($("#notes").val());
 
 				var material=$.trim($("#material").val());

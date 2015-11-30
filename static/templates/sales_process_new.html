@@ -86,7 +86,8 @@
 			<th class="col_10">表面处理<span class="red">*</span></th>
 			<td class="col_30"> <input type="text" id="surface"></td>
 			<th class="col_10">工序</th>
-			<td class="col_20"> <input type="text" id="process"></td>
+			<td class="col_20"> 单<input type="radio" name="process" value="1" checked='checked'>
+				多<input type="radio" name="process" value="2"></td>
 			<th class="col_10">备注</th>
 			<td class="col_20"> <input type="text" id="notes" ></td>
 		</tr>
@@ -279,7 +280,7 @@
 			var lingyin=$.trim($("#lingyin").val());
 
 			var surface=$.trim($("#surface").val());
-			var process=$.trim($("#process").val());
+			var process=$.trim($("input[name=process]:checked").val());
 			var notes=$.trim($("#notes").val());
 
 			var material=$.trim($("#material").val());
