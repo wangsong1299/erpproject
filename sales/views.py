@@ -446,7 +446,7 @@ def order(request,id):
 	else:
 		order_show=True
 		order_modify=False
-		records=Order.objects.filter(orderID=id)
+		records=Order.objects.filter(id=id)
 		a={}
 		i=0
 		for r in records:
@@ -492,7 +492,7 @@ def order_modify(request,id):
 	else:
 		order_show=False
 		order_modify=True
-		records=Order.objects.filter(orderID=id)
+		records=Order.objects.filter(id=id)
 		a={}
 		i=0
 		for r in records:
@@ -671,7 +671,7 @@ def modify_order(request):
 def delete_order(request):
 	id = request.POST.get('id', None)
 	try:
-		Order.objects.filter(orderID=id).delete()
+		Order.objects.filter(id=id).delete()
 	except Exception, e:
 		return comutils.baseresponse('system error', 500)
 	return HttpResponse(json.dumps(1))
@@ -681,8 +681,8 @@ def get_orderID_by_product(request):
 	product_name = request.POST.get('product_name', None)
 	r=Order.objects.filter(product_name=product_name)
 	if r:
-		quotationID=r[0].id
-		return HttpResponse(quotationID)
+		id=r[0].id
+		return HttpResponse(id)
 	else:
 		return HttpResponse(0)		
 #api
@@ -691,8 +691,8 @@ def get_orderID_by_customer(request):
 	customer = request.POST.get('customer', None)
 	r=Order.objects.filter(customer=customer)
 	if r:
-		quotationID=r[0].id
-		return HttpResponse(quotationID)
+		id=r[0].id
+		return HttpResponse(id)
 	else:
 		return HttpResponse(0)	
 
