@@ -38,18 +38,94 @@
 		</tr>
 		<tr>
 			<th class="col_15">原料名称<span class="red">*</span></th>
-			<td class="col_55"> <input type="text" id="material"    value={{records.6 }} ></td>
-			<td class="col_30"> <input type="text" id="material_price"    value={{records.7 }} ></td>
+			<td class="col_55">
+					<select name="material" id="material" style="width:100%;margin-right:0">
+ 			 			<option value="1">250克灰底白板</option>
+ 			 			<option value="2">250克白底白板</option>
+						<option value="3">300克灰底白板</option>
+						<option value="4">300克白底白板</option>
+						<option value="5">350克灰底白板</option>
+						<option value="6">350克白底白板</option>
+						<option value="7">400克灰底白板</option>
+						<option value="8">400克白底白板</option>
+						<option value="9">450克灰底白板</option>
+						<option value="10">450克白底白板</option>
+						<option value="11">80克双胶纸</option>
+						<option value="12">100克双胶纸</option>
+						<option value="13">128克铜版纸</option>
+						<option value="14">157克铜版纸</option>
+						<option value="15">210克白卡</option>
+						<option value="16">230克白卡</option>
+						<option value="17">250克白卡</option>
+						<option value="18">300克白卡</option>
+						<option value="15">350克白卡</option>
+						<option value="16">250克铜版卡</option>
+						<option value="17">300克铜版卡</option>
+						<option value="18">350克铜版卡</option>
+ 			 		</select>				 		
+			</td>
+			<td class="col_30"> 
+				<select name="material_price" id="material_price" style="width:100%;margin-right:0">
+ 			 			<option value="1">0.80</option>
+ 			 			<option value="2">0.92</option>
+						<option value="3">0.92</option>
+						<option value="4">1.04</option>
+						<option value="5">1.04</option>
+						<option value="6">1.18</option>
+						<option value="7">1.18</option>
+						<option value="8">1.34</option>
+						<option value="9">1.33</option>
+						<option value="10">1.51</option>
+						<option value="11">0.45</option>
+						<option value="12">0.58</option>
+						<option value="13">0.68</option>
+						<option value="14">0.83</option>
+						<option value="15">1.05</option>
+						<option value="16">1.15</option>
+						<option value="17">1.18</option>
+						<option value="18">1.41</option>
+						<option value="15">1.65</option>
+						<option value="16">1.24</option>
+						<option value="17">1.49</option>
+						<option value="18">1.74</option>
+ 			 		</select>	
+ 			 	</td>
 		</tr>
 		<tr>
 			<th class="col_15">底纸用料<span class="red">*</span></th>
-			<td class="col_55"> <input type="text" id="wl_feizhi"    value={{records.8 }}></td>
-			<td class="col_30"> <input type="text" id="wl_feizhi_price"    value={{records.9 }} ></td>
+						<td class="col_55">
+				<select name="wl_feizhi" id="wl_feizhi" style="width:100%;margin-right:0">
+ 			 			<option value="1">0g</option>
+ 			 			<option value="2">90g</option>
+						<option value="3">100g</option>
+						<option value="4">110g</option>
+						<option value="5">120g</option>
+ 			 		</select>	
+ 			 	</td>
+			<td class="col_30">
+			<select name="wl_feizhi_price" id="wl_feizhi_price" style="width:100%;margin-right:0">
+ 			 			<option value="1">0</option>
+ 			 			<option value="2">0.85</option>
+						<option value="3">0.9</option>
+ 			 	</select>
+ 			 </td>
 		</tr>
 		<tr>
 			<th class="col_15">瓦楞用料<span class="red">*</span></th>
-			<td class="col_55"> <input type="text" id="wl_waleng"    value={{records.10 }}></td>
-			<td class="col_30"> <input type="text" id="wl_waleng_price"    value={{records.11 }}></td>
+		<td class="col_55">
+			<select name="wl_waleng" id="wl_waleng" style="width:100%;margin-right:0">
+ 			 			<option value="1">0g</option>
+ 			 			<option value="2">90g</option>
+						<option value="3">110g</option>
+ 			 	</select>
+ 			 </td>
+			<td class="col_30">
+			<select name="wl_waleng_price" id="wl_waleng_price" style="width:100%;margin-right:0">
+ 			 			<option value="1">0</option>
+ 			 			<option value="2">0.85</option>
+						<option value="3">0.9</option>
+ 			 	</select>
+			</td>
 		</tr>
 	</table>
  	<table class="cost_table">
@@ -105,6 +181,38 @@
 		 var href =window.location.href.split("/");
 		 var id = href[5];
 
+		 var mater={{records.6}};
+		$("option").each(function(a,b){
+                if($(b).val()==mater){//判断值
+                    $(b).attr("selected",true);
+                }
+		});
+
+		var wl_feizhi={{records.8}};
+		$("#wl_feizhi>option").each(function(a,b){
+                if($(b).val()==wl_feizhi){//判断值
+                    $(b).attr("selected",true);
+                }
+		});
+		var wl_waleng={{records.9}};
+		$("#wl_waleng>option").each(function(a,b){
+                if($(b).val()==wl_waleng){//判断值
+                    $(b).attr("selected",true);
+                }
+		});
+		$("#wl_waleng_price>option").each(function(a,b){
+                if($(b).val()==wl_waleng){//判断值
+                    $(b).attr("selected",true);
+                }
+		});
+		$("#wl_feizhi_price>option").each(function(a,b){
+                if($(b).val()==wl_waleng){//判断值
+                    $(b).attr("selected",true);
+                }
+		});
+
+
+
 		 $("#delete").click(function(){
 			$.ajax({
               type : "POST",
@@ -128,6 +236,7 @@
 		var cost_show={{ cost_show }};
 		if(cost_show){
 			$('input').attr('disabled',true);
+			$('select').attr('disabled',true);
 			$('#modify').click(function(){
 				window.location.href='/sales/cost_modify/'+href;
 			})

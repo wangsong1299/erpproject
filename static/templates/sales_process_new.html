@@ -101,9 +101,34 @@
 			<th class="col_20">开印数</th>
 		</tr>
 		<tr>
-			<th class="col_20"><input type="text" id="material"></th>
+			<th class="col_20">
+					<select name="material" id="material" style="width:100%;margin-right:0">
+ 			 			<option value="1">250克灰底白板</option>
+ 			 			<option value="2">250克白底白板</option>
+						<option value="3">300克灰底白板</option>
+						<option value="4">300克白底白板</option>
+						<option value="5">350克灰底白板</option>
+						<option value="6">350克白底白板</option>
+						<option value="7">400克灰底白板</option>
+						<option value="8">400克白底白板</option>
+						<option value="9">450克灰底白板</option>
+						<option value="10">450克白底白板</option>
+						<option value="11">80克双胶纸</option>
+						<option value="12">100克双胶纸</option>
+						<option value="13">128克铜版纸</option>
+						<option value="14">157克铜版纸</option>
+						<option value="15">210克白卡</option>
+						<option value="16">230克白卡</option>
+						<option value="17">250克白卡</option>
+						<option value="18">300克白卡</option>
+						<option value="15">350克白卡</option>
+						<option value="16">250克铜版卡</option>
+						<option value="17">300克铜版卡</option>
+						<option value="18">350克铜版卡</option>
+ 			 		</select>	
+			</th>
 			<th class="col_20"><input type="text" id="daliao"></th>
-			<th class="col_20"> <input type="text" id="size"></th>
+			<th class="col_20"><input type="text" id="size"></th>
 			<th class="col_20"><input type="text" id="kaishu"></th>
 			<th class="col_20"><input type="text" id="kaiyin"></th>
 		</tr>
@@ -122,7 +147,8 @@
 	</table>
 	<table class="process_table">
 		<tr>
-			<th><input type='text' name="" id="quality" placeholder='印刷质量要求'></th>
+			<th class="col_20">印刷质量要求</th>
+			<th class="col_80"><input type='text' name="" id="quality" ></th>
 		</tr>
 	</table>
 	<table class="process_table">
@@ -145,9 +171,23 @@
 		<tr>
 			<th class="col_10">瓦楞要求</th>
 			<th class="col_10">底纸用料<span class="red">*</span></th>
-			<td class="col_20"> <input type="text" id="wl_feizhi" ></td>
+			<td class="col_20">
+				<select name="wl_feizhi" id="wl_feizhi" style="width:100%;margin-right:0">
+ 			 			<option value="1">0g</option>
+ 			 			<option value="2">90g</option>
+						<option value="3">100g</option>
+						<option value="4">110g</option>
+						<option value="5">120g</option>
+ 			 		</select>
+ 			 </td>
 			<th class="col_10">瓦楞用料<span class="red">*</span></th>
-			<td class="col_20"> <input type="text" id="wl_waleng"  ></td>
+			<td class="col_20">
+				<select name="wl_feizhi" id="wl_waleng" style="width:100%;margin-right:0">
+ 			 			<option value="1">0g</option>
+ 			 			<option value="2">90g</option>
+						<option value="3">110g</option>
+ 			 		</select>
+ 			 </td>
 			<th class="col_10">裱料情况</th>
 			<td class="col_20"> <input type="text" id="wl_biaoliao" ></td>
 		</tr>
@@ -185,21 +225,7 @@
 
  		<div class="material_pop pop_box">
  			<h2>原料选择：</h2>
- 			 <div class="pop_row">
- 					<label for="">300g灰底白板A级</label>
- 					<input type="radio" id="" name="material" value="1"  />
- 		 	</div>
- 		 	 <div class="pop_row">
- 					<label for="">300g灰底白板A级</label>
- 					<input type="radio" id="" name="material" value="2"  />
- 		 	</div>
- 			 <div class="pop_row">
- 			 	 	<label for="">230g白卡</label>
- 					<input type="radio" id="" name="material" value="3"  />
- 		 	</div>
- 			 <div class="pop_row">
- 					<label for="">300g白底白板A级</label>
- 					<input type="radio" id="" name="material" value="4"  />
+ 			 <div class="pop_row"> 				
  		 	</div>
  		 	<button type="submit" class="btn btn-primary"style="margin-left:100px;margin-top:20px;" id="material_sure">确定</button>
  		</div>
@@ -362,7 +388,7 @@
  			})
 
   		})
-
+/*
    var material_list=['','250g灰底白板A级','300g灰底白板A级','230g白卡','300g白底白板A级'];
 
  		$("#material").focus(function(){
@@ -376,7 +402,6 @@
  			})
 
   		})
-
    var wl_feizhi_list=['','90g','100g','110g','120g'];
 
  		$("#wl_feizhi").focus(function(){
@@ -404,6 +429,7 @@
  			})
 
   		})
+*/
 
   		$("#productID").blur(function(){
 			var productID2=$("#productID").val();

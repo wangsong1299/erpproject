@@ -84,10 +84,20 @@
 		<tr>
 			<th class="col_10">表面处理</th>
 			<td class="col_30"> <input type="text" id="surface" value={{ records.17 }}></td>
-			<th class="col_10">工序</th>
+			<th class="col_10">工序{{records.18}}</th>
 			<td class="col_20"> 
+			<div class="process_show_box" style="display:none">
+				<div id="process_box_1" style="display:none">
+				单<input type="radio" name="process" value="1">
+				</div>
+				<div id="process_box_2" style="display:none">
+				多<input type="radio" name="process" value="2">
+				</div>
+			</div>	
+			<div class="process_modify_box" style="display:none">
 				单<input type="radio" name="process" value="1">
 				多<input type="radio" name="process" value="2">
+			</div>		
 			 </td>
 			<th class="col_10">备注</th>
 			<td class="col_20"> <input type="text" id="notes" value={{ records.19 }} ></td>
@@ -102,7 +112,32 @@
 			<th class="col_20">开印数</th>
 		</tr>
 		<tr>
-			<th class="col_20"><input type="text" id="material" value={{ records.20 }}></th>
+			<th class="col_20">
+					<select name="material" id="material" style="width:100%;margin-right:0">
+ 			 			<option value="1">250克灰底白板</option>
+ 			 			<option value="2">250克白底白板</option>
+						<option value="3">300克灰底白板</option>
+						<option value="4">300克白底白板</option>
+						<option value="5">350克灰底白板</option>
+						<option value="6">350克白底白板</option>
+						<option value="7">400克灰底白板</option>
+						<option value="8">400克白底白板</option>
+						<option value="9">450克灰底白板</option>
+						<option value="10">450克白底白板</option>
+						<option value="11">80克双胶纸</option>
+						<option value="12">100克双胶纸</option>
+						<option value="13">128克铜版纸</option>
+						<option value="14">157克铜版纸</option>
+						<option value="15">210克白卡</option>
+						<option value="16">230克白卡</option>
+						<option value="17">250克白卡</option>
+						<option value="18">300克白卡</option>
+						<option value="15">350克白卡</option>
+						<option value="16">250克铜版卡</option>
+						<option value="17">300克铜版卡</option>
+						<option value="18">350克铜版卡</option>
+ 			 		</select>	
+ 			 	</th>
 			<th class="col_20"><input type="text" id="daliao" value={{ records.21 }}></th>
 			<th class="col_20"> <input type="text" id="size" value={{ records.22 }}></th>
 			<th class="col_20"><input type="text" id="kaishu" value={{ records.23 }}></th>
@@ -113,17 +148,37 @@
 		<tr>
 			<th class="col_20">附带材料</th>
 			<th class="col_80">
-				<label for="">实样</label><input type="radio" name="fudai" value="1">
-				<label for="">彩色</label><input type="radio" name="fudai" value="2">
-				<label for="">彩喷稿</label><input type="radio" name="fudai" value="3">
-				<label for="">黑稿</label><input type="radio" name="fudai" value="4">
-				<label for="">钢刀尺寸</label><input type="radio" name="fudai" value="5">
+			<div class="process_show_box" style="display:none">
+				<div id="fudai_box_1" style="display:none">
+					<label for="">实样</label><input type="radio" name="fudai" value="1">
+				</div>
+				<div id="fudai_box_2" style="display:none">
+					<label for="">彩色</label><input type="radio" name="fudai" value="2">
+				</div>
+				<div id="fudai_box_3" style="display:none">
+					<label for="">彩喷稿</label><input type="radio" name="fudai" value="3">
+				</div>
+				<div id="fudai_box_4" style="display:none">
+					<label for="">黑稿</label><input type="radio" name="fudai" value="4">
+				</div>
+				<div id="fudai_box_5" style="display:none">
+					<label for="">钢刀尺寸</label><input type="radio" name="fudai" value="5">
+				</div>
+			</div>
+		<div class="process_modify_box" style="display:none">
+			<label for="">实样</label><input type="radio" name="fudai" value="1">
+			<label for="">彩色</label><input type="radio" name="fudai" value="2">
+			<label for="">彩喷稿</label><input type="radio" name="fudai" value="3">
+			<label for="">黑稿</label><input type="radio" name="fudai" value="4">
+			<label for="">钢刀尺寸</label><input type="radio" name="fudai" value="5">
+		</div>		
 			</th>
 		</tr>
 	</table>
 	<table class="process_table">
 		<tr>
-			<th><input type='text' name="" id="quality" value={{ records.26 }}></th>
+			<th class="col_20">印刷质量要求</th>
+			<th class="col_80"><input type='text' name="" id="quality" value={{ records.26 }}></th>
 		</tr>
 	</table>
 	<table class="process_table">
@@ -144,10 +199,24 @@
 		</tr>
 		<tr>
 			<th class="col_10">瓦楞要求</th>
-			<th class="col_10">废纸用料</th>
-			<td class="col_20"> <input type="text" id="wl_feizhi" value={{ records.30 }}></td>
+			<th class="col_10">底纸用料</th>
+			<td class="col_20"> 
+					<select name="wl_feizhi" id="wl_feizhi" style="width:100%;margin-right:0">
+ 			 			<option value="1">0g</option>
+ 			 			<option value="2">90g</option>
+						<option value="3">100g</option>
+						<option value="4">110g</option>
+						<option value="5">120g</option>
+ 			 		</select>	
+ 			 </td>
 			<th class="col_10">瓦楞用料</th>
-			<td class="col_20"> <input type="text" id="wl_waleng" value={{ records.31 }}></td>
+			<td class="col_20">
+					<select name="wl_feizhi" id="wl_waleng" style="width:100%;margin-right:0">
+ 			 			<option value="1">0g</option>
+ 			 			<option value="2">90g</option>
+						<option value="3">110g</option>
+ 			 		</select>
+			</td>
 			<th class="col_10">裱料情况</th>
 			<td class="col_20"> <input type="text" id="wl_biaoliao" value={{ records.32 }}></td>
 		</tr>
@@ -267,6 +336,7 @@
 		$("input[name=fudai]").each(function(a,b){
                 if($(b).val()==fd){//判断值
                     $(b).attr("checked",true);
+                    //console.log($(b));
                 }
 		});
 
@@ -276,6 +346,29 @@
                     $(b).attr("checked",true);
                 }
 		});
+
+		var mater={{ records.20 }};
+		$("option").each(function(a,b){
+                if($(b).val()==mater){//判断值
+                    $(b).attr("selected",true);
+                }
+		});
+
+		var wl_feizhi={{ records.30 }};
+		console.log(wl_feizhi);
+		$("#wl_feizhi>option").each(function(a,b){
+                if($(b).val()==wl_feizhi){//判断值
+                    $(b).attr("selected",true);
+                }
+		});
+		var wl_waleng={{ records.31 }};
+		console.log(wl_waleng);
+		$("#wl_waleng>option").each(function(a,b){
+                if($(b).val()==wl_waleng){//判断值
+                    $(b).attr("selected",true);
+                }
+		});
+
 
 
 		 $("#delete").click(function(){
@@ -299,14 +392,33 @@
 	//show页
 		var show={{ process_show }};
 		if(show){
+			$('.process_show_box').show();
 			$('input').attr('disabled',true);
+			$("select").attr('disabled',true);
 			$('#modify').click(function(){
 				window.location.href='/sales/process_modify/'+href;
 			})
+			$('input[type=text]').css("background","#fff");
+			$('input[type=number]').css("background","#fff");
+			$("input[name=process]").each(function(a,b){
+                if($(b).val()==pro){//判断值
+                	var box_id = '#process_box_'+$(b).val();
+                	$(b).attr("checked",true);
+                    $(box_id).show();
+                }
+			});
+			$("input[name=fudai]").each(function(a,b){
+                if($(b).val()==fd){//判断值
+                   var box_id = '#fudai_box_'+$(b).val();
+                    $(b).attr("checked",true);
+                    $(box_id).show();
+                }
+			});
 		}
 
 		var modify={{ process_modify }};
 		if(modify){
+			$('.process_modify_box').show();
 			$('#print').attr('disabled',true);
 			$('#modify').html('确认修改');
 
@@ -339,7 +451,7 @@
 				var lingyin=$.trim($("#lingyin").val());
 
 				var surface=$.trim($("#surface").val());
-				var process=$.trim($("#process").val());
+				var process=$.trim($("input[name=process]:checked").val());
 				var notes=$.trim($("#notes").val());
 
 				var material=$.trim($("#material").val());
@@ -391,7 +503,7 @@
  			})
 
   		})
-
+/*
    var material_list=['','250g灰底白板A级','300g灰底白板A级','230g白卡','300g白底白板A级'];
 
  		$("#material").focus(function(){
@@ -433,7 +545,7 @@
  			})
 
   		})
-
+*/
 		}
 
 			var productID2=$("#productID").val();
