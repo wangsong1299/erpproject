@@ -57,11 +57,11 @@
 			<td class="col_10"> <input type="text" id="yinshu" style="width:70%" value={{ records.10 }} >张</td>
 			<th class="col_10">印刷</th>
 			<td class="col_10" style='font-size:10.5px'> 
-				<input type="text" id="yinsha" style="width:30%" value={{ records.11 }}>面
-				<input type="text" id="yinsha2" style="width:30%" value={{ records.33 }}>色
+				<input type="text" id="yinsha" style="width:30%" class="f-bold" value={{ records.11 }}>面
+				<input type="text" id="yinsha2" style="width:30%" class="f-bold" value={{ records.33 }}>色
 			</td>
 			<th class="col_10">加印数</th>
-			<td class="col_10">+<input type="text" id="jiayinshu" style="width:70%"  value={{ records.12 }} ></td>
+			<td class="col_10">+<input type="text" id="jiayinshu" class="f-bold" style="width:70%"  value={{ records.12 }} ></td>
 			<th class="col_10">针脚</th>
 			<td class="col_10"> <input type="text" id="zhenjiao" value={{ records.13 }} ></td>
 		</tr>
@@ -70,12 +70,25 @@
 		<tr>
 			<th class="col_10">总印数</th>
 			<td class="col_30" style='font-size:10.5px'>
-				<input type="text" id="total_yinshu_1"  style="width:25%" value={{ records.34 }}>X
-				<input type="text" id="total_yinshu_2"  style="width:25%" value={{ records.35 }}>=
-				<input type="text" id="total_yinshu"  style="width:25%" value={{ records.14 }}>
+				<input type="text" id="total_yinshu_1"  class="f-bold" style="width:25%" value={{ records.34 }}>X
+				<input type="text" id="total_yinshu_2" class="f-bold" style="width:25%" value={{ records.35 }}>=
+				<input type="text" id="total_yinshu" class="f-bold" style="width:25%" value={{ records.14 }}>
 			</td>
 			<th class="col_10">压痕</th>
-			<td class="col_20"> <input type="text" id="yaheng"  value={{ records.15 }} ></td>
+			<td class="col_20">
+				<div class="process_show_box" style="display:none">
+					<div id="yaheng_box_1" style="display:none">
+					新刀
+					</div>
+					<div id="yaheng_box_2" style="display:none">
+					老刀
+					</div>
+				</div>	
+				<div class="process_modify_box" style="display:none">
+					新刀<input type="radio" name="yaheng" value="1">
+					老刀<input type="radio" name="yaheng" value="2">
+				</div>		
+			</td>
 			<th class="col_10">另印要求</th>
 			<td class="col_20"> <input type="text" id="lingyin" value={{ records.16 }} ></td>
 		</tr>
@@ -83,15 +96,26 @@
 	<table class="process_table" >
 		<tr>
 			<th class="col_10">表面处理</th>
-			<td class="col_30"> <input type="text" id="surface" value={{ records.17 }}></td>
+			<td class="col_30">
+				<select name="surface" id="surface" style="width:100%;margin-right:0">
+			 		<option value="1">上光</option>
+			 		<option value="2">吸塑</option>
+					<option value="3">光膜</option>
+					<option value="4">压膜</option>
+					<option value="5">烫金</option>
+					<option value="6">撒粉</option>
+					<option value="7">对裱</option>
+					<option value="8">亚膜</option>
+			 	</select>	
+			 </td>
 			<th class="col_10">工序{{records.18}}</th>
 			<td class="col_20"> 
 			<div class="process_show_box" style="display:none">
 				<div id="process_box_1" style="display:none">
-				单<input type="radio" name="process" value="1">
+				单
 				</div>
 				<div id="process_box_2" style="display:none">
-				多<input type="radio" name="process" value="2">
+				多
 				</div>
 			</div>	
 			<div class="process_modify_box" style="display:none">
@@ -150,19 +174,19 @@
 			<th class="col_80">
 			<div class="process_show_box" style="display:none">
 				<div id="fudai_box_1" style="display:none">
-					<label for="">实样</label><input type="radio" name="fudai" value="1">
+					<label for="">实样</label>
 				</div>
 				<div id="fudai_box_2" style="display:none">
-					<label for="">彩色</label><input type="radio" name="fudai" value="2">
+					<label for="">彩色</label>
 				</div>
 				<div id="fudai_box_3" style="display:none">
-					<label for="">彩喷稿</label><input type="radio" name="fudai" value="3">
+					<label for="">彩喷稿</label>
 				</div>
 				<div id="fudai_box_4" style="display:none">
-					<label for="">黑稿</label><input type="radio" name="fudai" value="4">
+					<label for="">黑稿</label>
 				</div>
 				<div id="fudai_box_5" style="display:none">
-					<label for="">钢刀尺寸</label><input type="radio" name="fudai" value="5">
+					<label for="">钢刀尺寸</label>
 				</div>
 			</div>
 		<div class="process_modify_box" style="display:none">
@@ -201,22 +225,27 @@
 			<th class="col_10">瓦楞要求</th>
 			<th class="col_10">底纸用料</th>
 			<td class="col_20"> 
-					<select name="wl_feizhi" id="wl_feizhi" style="width:100%;margin-right:0">
+				<select name="wl_feizhi" id="wl_feizhi" class="wl_feizhi_sel" style="width:100%;margin-right:0">
  			 			<option value="1">0g</option>
  			 			<option value="2">90g</option>
 						<option value="3">100g</option>
 						<option value="4">110g</option>
 						<option value="5">120g</option>
- 			 		</select>	
+						<option value="0">请手动输入</option>
+ 			 	</select>
+ 			 	<input type="text" class="wl_feizhi_ipt" style="display:none" id="wl_feizhi_ipt" value={{ records.36 }}>
  			 </td>
+
 			<th class="col_10">瓦楞用料</th>
 			<td class="col_20">
-					<select name="wl_feizhi" id="wl_waleng" style="width:100%;margin-right:0">
+					<select name="wl_waleng" id="wl_waleng" class="wl_waleng_sel" style="width:100%;margin-right:0">
  			 			<option value="1">0g</option>
  			 			<option value="2">90g</option>
 						<option value="3">110g</option>
+ 			 			<option value="0">请手动输入</option>
  			 		</select>
-			</td>
+ 			 	<input type="text" class="wl_waleng_ipt" style="display:none" id="wl_waleng_ipt" value={{records.37}} >
+ 			</td>
 			<th class="col_10">裱料情况</th>
 			<td class="col_20"> <input type="text" id="wl_biaoliao" value={{ records.32 }}></td>
 		</tr>
@@ -229,85 +258,6 @@
  		   <button type="submit" class="btn btn-primary" id="print" onclick="javascript:window.print()" />打印</button>
   		</div>
  		
- 		<div class="surface_pop pop_box">
- 			<h2>表面处理选择：</h2>
- 			 <div class="pop_row">
- 			 	 	<label for="">上光</label>
- 					<input type="radio" id="" name="surface" value="1"  />
- 					<label for="">吸塑</label>
- 					<input type="radio" id="" name="surface" value="2"  />
-  					<label for="">光膜</label>
- 					<input type="radio" id="" name="surface" value="3"  />
- 		 	</div>
- 			 <div class="pop_row">
- 			 	 	<label for="">压膜</label>
- 					<input type="radio" id="" name="surface" value="4"  />
- 					<label for="">烫金</label>
- 					<input type="radio" id="" name="surface" value="5"  />
-  					<label for="">撒粉</label>
- 					<input type="radio" id="" name="surface" value="6"  />
- 		 	</div>
- 			 <div class="pop_row">
- 			 	 	<label for="">对裱</label>
- 					<input type="radio" id="" name="surface" value="7"  />
- 		 	</div>
- 		 	<button type="submit" class="btn btn-primary"style="margin-left:100px;margin-top:20px;" id="surface_sure">确定</button>
- 		</div>
-
- 		<div class="material_pop pop_box">
- 			<h2>原料选择：</h2>
- 			 <div class="pop_row">
- 					<label for="">300g灰底白板A级</label>
- 					<input type="radio" id="" name="material" value="1"  />
- 		 	</div>
- 		 	 <div class="pop_row">
- 					<label for="">300g灰底白板A级</label>
- 					<input type="radio" id="" name="material" value="2"  />
- 		 	</div>
- 			 <div class="pop_row">
- 			 	 	<label for="">230g白卡</label>
- 					<input type="radio" id="" name="material" value="3"  />
- 		 	</div>
- 			 <div class="pop_row">
- 					<label for="">300g白底白板A级</label>
- 					<input type="radio" id="" name="material" value="4"  />
- 		 	</div>
- 		 	<button type="submit" class="btn btn-primary"style="margin-left:100px;margin-top:20px;" id="material_sure">确定</button>
- 		</div>
-
- 		<div class="wl_feizhi_pop pop_box">
- 			<h2>底纸用料选择：</h2>
- 			 <div class="pop_row">
- 					<label for="">90g</label>
- 					<input type="radio" id="" name="wl_feizhi" value="1"  />
- 		 	</div>
- 		 	 <div class="pop_row">
- 					<label for="">100g</label>
- 					<input type="radio" id="" name="wl_feizhi" value="2"  />
- 		 	</div>
- 			 <div class="pop_row">
- 			 	 	<label for="">110g</label>
- 					<input type="radio" id="" name="wl_feizhi" value="3"  />
- 		 	</div>
- 			 <div class="pop_row">
- 					<label for="">120g</label>
- 					<input type="radio" id="" name="wl_feizhi" value="4"  />
- 		 	</div>
- 		 	<button type="submit" class="btn btn-primary"style="margin-left:100px;margin-top:20px;" id="wl_feizhi_sure">确定</button>
- 		</div>
-
- 		<div class="wl_waleng_pop pop_box">
- 			<h2>底纸用料选择：</h2>
- 			 <div class="pop_row">
- 					<label for="">90g</label>
- 					<input type="radio" id="" name="wl_waleng" value="1"  />
- 		 	</div>
- 		 	 <div class="pop_row">
- 					<label for="">110g</label>
- 					<input type="radio" id="" name="wl_waleng" value="2"  />
- 		 	</div>
- 		 	<button type="submit" class="btn btn-primary"style="margin-left:100px;margin-top:20px;" id="wl_waleng_sure">确定</button>
- 		</div>
 
 
   </div>
@@ -347,27 +297,56 @@
                 }
 		});
 
+		var yaheng = {{ records.15 }};
+		$("input[name=yaheng]").each(function(a,b){
+                if($(b).val()==yaheng){//判断值
+                    $(b).attr("checked",true);
+                }
+		});
+
 		var mater={{ records.20 }};
+		//console.log(typeof(mater));
 		$("option").each(function(a,b){
                 if($(b).val()==mater){//判断值
                     $(b).attr("selected",true);
                 }
 		});
 
-		var wl_feizhi={{ records.30 }};
-		console.log(wl_feizhi);
-		$("#wl_feizhi>option").each(function(a,b){
-                if($(b).val()==wl_feizhi){//判断值
+		var surface = {{ records.17}};
+		$("#surface").each(function(a,b){
+                if($(b).val()==surface){//判断值
                     $(b).attr("selected",true);
                 }
-		});
+		});		
+
+		var wl_feizhi={{ records.30 }};
+		//console.log(wl_feizhi);
+		if(wl_feizhi==0){
+			$("#wl_feizhi").hide();
+ 			$("#wl_feizhi_ipt").show();
+		}else{
+			$("#wl_feizhi>option").each(function(a,b){
+	                if($(b).val()==wl_feizhi){//判断值
+	                    $(b).attr("selected",true);
+	                }
+			});
+
+		}
+
 		var wl_waleng={{ records.31 }};
-		console.log(wl_waleng);
-		$("#wl_waleng>option").each(function(a,b){
+		//console.log(wl_waleng);
+		if(wl_waleng==0){
+			$("#wl_waleng").hide();
+ 			$("#wl_waleng_ipt").show();
+		}else{
+			$("#wl_waleng>option").each(function(a,b){
                 if($(b).val()==wl_waleng){//判断值
                     $(b).attr("selected",true);
                 }
-		});
+			});
+
+		}
+
 
 
 
@@ -414,6 +393,14 @@
                     $(box_id).show();
                 }
 			});
+			$("input[name=yaheng]").each(function(a,b){
+                if($(b).val()==yaheng){//判断值
+                	var box_id = '#yaheng_box_'+$(b).val();
+                	$(b).attr("checked",true);
+                    $(box_id).show();
+                }
+			});
+
 		}
 
 		var modify={{ process_modify }};
@@ -426,6 +413,21 @@
 			var newdate= date.getFullYear()+'-'+(parseInt(date.getMonth())+1)+'-'+date.getDate();
 			$("#create_time").val(newdate);
 
+			 $(".wl_feizhi_sel").change(function(){
+			 	var choice=$(this).val();
+			 	if(choice==0){
+			 		$(".wl_feizhi_sel").hide();
+			 		$(".wl_feizhi_ipt").show();
+			 	}
+			 })
+
+			  $(".wl_waleng_sel").change(function(){
+			 	var choice=$(this).val();
+			 	if(choice==0){
+			 		$(".wl_waleng_sel").hide();
+			 		$(".wl_waleng_ipt").show();
+			 	}
+			 })
 
 			$("#modify").click(function(){
 				var productID=$.trim($('#productID').val());
@@ -447,7 +449,7 @@
 				var zhenjiao=$.trim($("#zhenjiao").val());
 
 				var total_yinshu=$.trim($("#total_yinshu").val());
-				var yaheng=$.trim($("#yaheng").val());
+				var yaheng=$.trim($("input[name=yaheng]:checked").val());
 				var lingyin=$.trim($("#lingyin").val());
 
 				var surface=$.trim($("#surface").val());
@@ -473,10 +475,13 @@
 				var total_yinshu_1=$.trim($("#total_yinshu_1").val());
 				var total_yinshu_2=$.trim($("#total_yinshu_2").val());
 
+				var wl_feizhi_ipt=$.trim($("#wl_feizhi_ipt").val());
+				var wl_waleng_ipt=$.trim($("#wl_waleng_ipt").val());
+
 				$.ajax({
 				  	type : "POST",
 				  	url : "/sales/modify_process/",
-				  	data:{'productID':productID,'customer':customer,'create_time':create_time,'deadline':deadline,'alerttime':alerttime,'product_name':product_name,'number_2':number_2,'number_1':number_1,'amount':amount,'pinban':pinban,'yinshu':yinshu,'yinsha':yinsha,'jiayinshu':jiayinshu,'zhenjiao':zhenjiao,'total_yinshu':total_yinshu,'yaheng':yaheng,'lingyin':lingyin,'surface':surface,'process':process,'notes':notes,'material':material,'daliao':daliao,'size':size,'kaishu':kaishu,'kaiyin':kaiyin,'fudai':fudai,'quality':quality,'wl_size':wl_size,'wl_size2':wl_size2,'wl_feizhi':wl_feizhi,'wl_thin':wl_thin,'wl_biaoliao':wl_biaoliao,'wl_waleng':wl_waleng,'yinsha2':yinsha2,'total_yinshu_1':total_yinshu_1,'total_yinshu_2':total_yinshu_2},
+				  	data:{'productID':productID,'customer':customer,'create_time':create_time,'deadline':deadline,'alerttime':alerttime,'product_name':product_name,'number_2':number_2,'number_1':number_1,'amount':amount,'pinban':pinban,'yinshu':yinshu,'yinsha':yinsha,'jiayinshu':jiayinshu,'zhenjiao':zhenjiao,'total_yinshu':total_yinshu,'yaheng':yaheng,'lingyin':lingyin,'surface':surface,'process':process,'notes':notes,'material':material,'daliao':daliao,'size':size,'kaishu':kaishu,'kaiyin':kaiyin,'fudai':fudai,'quality':quality,'wl_size':wl_size,'wl_size2':wl_size2,'wl_feizhi':wl_feizhi,'wl_thin':wl_thin,'wl_biaoliao':wl_biaoliao,'wl_waleng':wl_waleng,'yinsha2':yinsha2,'total_yinshu_1':total_yinshu_1,'total_yinshu_2':total_yinshu_2,'wl_feizhi_ipt':wl_feizhi_ipt,'wl_waleng_ipt':wl_waleng_ipt},
 				  	dataType : "json",
 				  	success : function(data){    
 		                if(data==1){
@@ -489,63 +494,6 @@
 		          })
   				})
 
-  //附加处理
- var surface_list=['','上光','吸塑','光膜','压膜','烫金','撒粉','对裱'];
-
- 		$("#surface").focus(function(){
- 			$(".blocklayer").show();
- 			$(".surface_pop").show();
- 			$("#surface_sure").click(function(){
- 				var num = $("input[type=radio]:checked").val();
- 				$("#surface").val(surface_list[num]);
- 				$(".pop_box").hide();
- 				$(".blocklayer").hide();
- 			})
-
-  		})
-/*
-   var material_list=['','250g灰底白板A级','300g灰底白板A级','230g白卡','300g白底白板A级'];
-
- 		$("#material").focus(function(){
- 			$(".blocklayer").show();
- 			$(".material_pop").show();
- 			$("#material_sure").click(function(){
- 				var num = $("input[name=material][type=radio]:checked").val();
- 				$("#material").val(material_list[num]);
- 				$(".pop_box").hide();
- 				$(".blocklayer").hide();
- 			})
-
-  		})
-
-   var wl_feizhi_list=['','90g','100g','110g','120g'];
-
- 		$("#wl_feizhi").focus(function(){
- 			$(".blocklayer").show();
- 			$(".wl_feizhi_pop").show();
- 			$("#wl_feizhi_sure").click(function(){
- 				var num = $("input[name=wl_feizhi][type=radio]:checked").val();
- 				$("#wl_feizhi").val(wl_feizhi_list[num]);
- 				$(".pop_box").hide();
- 				$(".blocklayer").hide();
- 			})
-
-  		})
-
-  	   var wl_waleng_list=['','90g','110g'];
-
- 		$("#wl_waleng").focus(function(){
- 			$(".blocklayer").show();
- 			$(".wl_waleng_pop").show();
- 			$("#wl_waleng_sure").click(function(){
- 				var num = $("input[name=wl_waleng][type=radio]:checked").val();
- 				$("#wl_waleng").val(wl_waleng_list[num]);
- 				$(".pop_box").hide();
- 				$(".blocklayer").hide();
- 			})
-
-  		})
-*/
 		}
 
 			var productID2=$("#productID").val();

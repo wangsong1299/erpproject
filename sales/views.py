@@ -432,7 +432,7 @@ def order_new(request):
 	else:
 		records=Order.objects.all().order_by('-id')
 		if records:
-			orderID=int(records[0].orderID)+1
+			orderID=int(records[0].id)+1
 		else:
 			orderID=1
 		return render_to_response("sales_order_new.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'orderID':orderID})
@@ -1481,6 +1481,9 @@ def fill_process(request):
 	yinsha2 = request.POST.get('yinsha2', None)
 	total_yinshu_1 = request.POST.get('total_yinshu_1', None)
 	total_yinshu_2 = request.POST.get('total_yinshu_2', None)
+	wl_feizhi_ipt = request.POST.get('wl_feizhi_ipt', None)
+	wl_waleng_ipt = request.POST.get('wl_waleng_ipt', None)
+
 	try:
 		q = Process(productID=productID,
 				customer = customer,
@@ -1517,7 +1520,9 @@ def fill_process(request):
 				wl_waleng=wl_waleng,
 				yinsha2=yinsha2,
 				total_yinshu_2=total_yinshu_2,
-				total_yinshu_1=total_yinshu_1)
+				total_yinshu_1=total_yinshu_1,
+				wl_waleng_ipt=wl_waleng_ipt,
+				wl_feizhi_ipt=wl_feizhi_ipt)
 		q.save()
 		p = Storage(productID=productID,
 				customer = customer,
@@ -1590,6 +1595,8 @@ def process(request,id):
 		b[33]=r.yinsha2
 		b[34]=r.total_yinshu_1
 		b[35]=r.total_yinshu_2
+		b[36]=r.wl_feizhi_ipt
+		b[37]=r.wl_waleng_ipt
 		return render_to_response("sales_process.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":b,'process_show':json.dumps(process_show),'process_modify':json.dumps(process_modify)})
 #api
 #报价单单页
@@ -1639,6 +1646,8 @@ def process_modify(request,id):
 		b[33]=r.yinsha2
 		b[34]=r.total_yinshu_1
 		b[35]=r.total_yinshu_2
+		b[36]=r.wl_feizhi_ipt
+		b[37]=r.wl_waleng_ipt
 		return render_to_response("sales_process.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":b,'process_show':json.dumps(process_show),'process_modify':json.dumps(process_modify)})
 #api
 #api
@@ -1913,6 +1922,7 @@ def cost(request,id):
 		b[15]=r.other_fee
 		b[16]=r.notes
 		b[17]=r.total_fee
+		print b[9]
 		return render_to_response("sales_cost.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":b,'cost_show':json.dumps(cost_show),'cost_modify':json.dumps(cost_modify)})
 #api
 

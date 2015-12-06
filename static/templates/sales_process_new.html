@@ -76,7 +76,10 @@
 				<input type="text" id="total_yinshu"  style="width:25%">
 			</td>
 			<th class="col_10">压痕</th>
-			<td class="col_20"> <input type="text" id="yaheng"  ></td>
+			<td class="col_20">
+				新刀<input type="radio" name="yaheng" value="1" checked='checked'>
+				老刀<input type="radio" name="yaheng" value="2">
+			</td>
 			<th class="col_10">另印要求</th>
 			<td class="col_20"> <input type="text" id="lingyin" ></td>
 		</tr>
@@ -84,9 +87,21 @@
 	<table class="process_table" >
 		<tr>
 			<th class="col_10">表面处理<span class="red">*</span></th>
-			<td class="col_30"> <input type="text" id="surface"></td>
+			<td class="col_30">
+				<select name="surface" id="surface" style="width:100%;margin-right:0">
+			 		<option value="1">上光</option>
+			 		<option value="2">吸塑</option>
+					<option value="3">光膜</option>
+					<option value="4">压膜</option>
+					<option value="5">烫金</option>
+					<option value="6">撒粉</option>
+					<option value="7">对裱</option>
+					<option value="8">亚膜</option>
+			 	</select>	
+			</td>
 			<th class="col_10">工序</th>
-			<td class="col_20"> 单<input type="radio" name="process" value="1" checked='checked'>
+			<td class="col_20"> 
+				单<input type="radio" name="process" value="1" checked='checked'>
 				多<input type="radio" name="process" value="2"></td>
 			<th class="col_10">备注</th>
 			<td class="col_20"> <input type="text" id="notes" ></td>
@@ -166,28 +181,37 @@
 			<th class="col_10">所开筒尺寸</th>
 			<td class="col_20"> <input type="text" id="wl_size2"  ></td>
 			<th class="col_10">粗细瓦楞</th>
-			<td class="col_20"> <input type="text" id="wl_thin" ></td>
+			<td class="col_20">
+				粗<input type="radio" name="wl_thin" value="1" checked='checked'>
+				细<input type="radio" name="wl_thin" value="2"></td>
+			</td>
 		</tr>
 		<tr>
 			<th class="col_10">瓦楞要求</th>
 			<th class="col_10">底纸用料<span class="red">*</span></th>
 			<td class="col_20">
-				<select name="wl_feizhi" id="wl_feizhi" style="width:100%;margin-right:0">
+				<select name="wl_feizhi" id="wl_feizhi" class="wl_feizhi_sel" style="width:100%;margin-right:0">
  			 			<option value="1">0g</option>
  			 			<option value="2">90g</option>
 						<option value="3">100g</option>
 						<option value="4">110g</option>
 						<option value="5">120g</option>
- 			 		</select>
+						<option value="0">请手动输入</option>
+ 			 	</select>
+ 			 	<input type="text" class="wl_feizhi_ipt" style="display:none" id="wl_feizhi_ipt" placeholder="请输入" val=''>
  			 </td>
+
 			<th class="col_10">瓦楞用料<span class="red">*</span></th>
 			<td class="col_20">
-				<select name="wl_feizhi" id="wl_waleng" style="width:100%;margin-right:0">
+				<select name="wl_waleng" id="wl_waleng" class="wl_waleng_sel" style="width:100%;margin-right:0">
  			 			<option value="1">0g</option>
  			 			<option value="2">90g</option>
 						<option value="3">110g</option>
+						<option value="0">请手动输入</option>
  			 		</select>
+ 			 	<input type="text" class="wl_waleng_ipt" style="display:none" id="wl_waleng_ipt" placeholder="请输入" val=''>
  			 </td>
+
 			<th class="col_10">裱料情况</th>
 			<td class="col_20"> <input type="text" id="wl_biaoliao" ></td>
 		</tr>
@@ -197,75 +221,6 @@
  		<div class="head_row" style="margin-bottom:40px">
  		   <button type="submit" class="btn btn-primary button_below" id="submit">点击生成施工单</button>
  		</div>
-
- 		<div class="surface_pop pop_box">
- 			<h2>表面处理选择：</h2>
- 			 <div class="pop_row">
- 			 	 	<label for="">上光</label>
- 					<input type="radio" id="" name="surface" value="1"  />
- 					<label for="">吸塑</label>
- 					<input type="radio" id="" name="surface" value="2"  />
-  					<label for="">光膜</label>
- 					<input type="radio" id="" name="surface" value="3"  />
- 		 	</div>
- 			 <div class="pop_row">
- 			 	 	<label for="">压膜</label>
- 					<input type="radio" id="" name="surface" value="4"  />
- 					<label for="">烫金</label>
- 					<input type="radio" id="" name="surface" value="5"  />
-  					<label for="">撒粉</label>
- 					<input type="radio" id="" name="surface" value="6"  />
- 		 	</div>
- 			 <div class="pop_row">
- 			 	 	<label for="">对裱</label>
- 					<input type="radio" id="" name="surface" value="7"  />
- 		 	</div>
- 		 	<button type="submit" class="btn btn-primary"style="margin-left:100px;margin-top:20px;" id="surface_sure">确定</button>
- 		</div>
-
- 		<div class="material_pop pop_box">
- 			<h2>原料选择：</h2>
- 			 <div class="pop_row"> 				
- 		 	</div>
- 		 	<button type="submit" class="btn btn-primary"style="margin-left:100px;margin-top:20px;" id="material_sure">确定</button>
- 		</div>
-
- 		<div class="wl_feizhi_pop pop_box">
- 			<h2>底纸用料选择：</h2>
- 			 <div class="pop_row">
- 					<label for="">90g</label>
- 					<input type="radio" id="" name="wl_feizhi" value="1"  />
- 		 	</div>
- 		 	 <div class="pop_row">
- 					<label for="">100g</label>
- 					<input type="radio" id="" name="wl_feizhi" value="2"  />
- 		 	</div>
- 			 <div class="pop_row">
- 			 	 	<label for="">110g</label>
- 					<input type="radio" id="" name="wl_feizhi" value="3"  />
- 		 	</div>
- 			 <div class="pop_row">
- 					<label for="">120g</label>
- 					<input type="radio" id="" name="wl_feizhi" value="4"  />
- 		 	</div>
- 		 	<button type="submit" class="btn btn-primary"style="margin-left:100px;margin-top:20px;" id="wl_feizhi_sure">确定</button>
- 		</div>
-
- 		<div class="wl_waleng_pop pop_box">
- 			<h2>底纸用料选择：</h2>
- 			 <div class="pop_row">
- 					<label for="">90g</label>
- 					<input type="radio" id="" name="wl_waleng" value="1"  />
- 		 	</div>
- 		 	 <div class="pop_row">
- 					<label for="">110g</label>
- 					<input type="radio" id="" name="wl_waleng" value="2"  />
- 		 	</div>
- 		 	<button type="submit" class="btn btn-primary"style="margin-left:100px;margin-top:20px;" id="wl_waleng_sure">确定</button>
- 		</div>
-
-
-
 
   </div>
  
@@ -302,7 +257,7 @@
 			var zhenjiao=$.trim($("#zhenjiao").val());
 
 			var total_yinshu=$.trim($("#total_yinshu").val());
-			var yaheng=$.trim($("#yaheng").val());
+			var yaheng=$.trim($("input[name=yaheng]:checked").val());
 			var lingyin=$.trim($("#lingyin").val());
 
 			var surface=$.trim($("#surface").val());
@@ -320,14 +275,16 @@
 	
 			var wl_size=$.trim($("#wl_size").val());
 			var wl_size2=$.trim($("#wl_size2").val());
-			var wl_thin=$.trim($("#wl_thin").val());
+			var wl_thin=$.trim($("input[name=wl_thin]:checked").val());
 			var wl_feizhi=$.trim($("#wl_feizhi").val());
 			var wl_biaoliao=$.trim($("#wl_biaoliao").val());
 			var wl_waleng=$.trim($("#wl_waleng").val());
-
 			var yinsha2=$.trim($("#yinsha2").val());
 			var total_yinshu_1=$.trim($("#total_yinshu_1").val());
 			var total_yinshu_2=$.trim($("#total_yinshu_2").val());
+
+			var wl_feizhi_ipt=$.trim($("#wl_feizhi_ipt").val());
+			var wl_waleng_ipt=$.trim($("#wl_waleng_ipt").val());
 
 			if(productID.length==0){
 				alert("施工单ID不能为空");
@@ -359,7 +316,7 @@
 				$.ajax({
 				  	type : "POST",
 				  	url : "/sales/fill_process/",
-				  	data:{'productID':productID,'customer':customer,'create_time':create_time,'deadline':deadline,'alerttime':alerttime,'product_name':product_name,'number_2':number_2,'number_1':number_1,'amount':amount,'pinban':pinban,'yinshu':yinshu,'yinsha':yinsha,'jiayinshu':jiayinshu,'zhenjiao':zhenjiao,'total_yinshu':total_yinshu,'yaheng':yaheng,'lingyin':lingyin,'surface':surface,'process':process,'notes':notes,'material':material,'daliao':daliao,'size':size,'kaishu':kaishu,'kaiyin':kaiyin,'fudai':fudai,'quality':quality,'wl_size':wl_size,'wl_size2':wl_size2,'wl_feizhi':wl_feizhi,'wl_thin':wl_thin,'wl_biaoliao':wl_biaoliao,'wl_waleng':wl_waleng,'yinsha2':yinsha2,'total_yinshu_1':total_yinshu_1,'total_yinshu_2':total_yinshu_2},
+				  	data:{'productID':productID,'customer':customer,'create_time':create_time,'deadline':deadline,'alerttime':alerttime,'product_name':product_name,'number_2':number_2,'number_1':number_1,'amount':amount,'pinban':pinban,'yinshu':yinshu,'yinsha':yinsha,'jiayinshu':jiayinshu,'zhenjiao':zhenjiao,'total_yinshu':total_yinshu,'yaheng':yaheng,'lingyin':lingyin,'surface':surface,'process':process,'notes':notes,'material':material,'daliao':daliao,'size':size,'kaishu':kaishu,'kaiyin':kaiyin,'fudai':fudai,'quality':quality,'wl_size':wl_size,'wl_size2':wl_size2,'wl_feizhi':wl_feizhi,'wl_thin':wl_thin,'wl_biaoliao':wl_biaoliao,'wl_waleng':wl_waleng,'yinsha2':yinsha2,'total_yinshu_1':total_yinshu_1,'total_yinshu_2':total_yinshu_2,'wl_feizhi_ipt':wl_feizhi_ipt,'wl_waleng_ipt':wl_waleng_ipt},
 				  	dataType : "json",
 				  	success : function(data){    
 		                if(data==1){
@@ -374,6 +331,23 @@
 			}			
 		})
 
+ $(".wl_feizhi_sel").change(function(){
+ 	var choice=$(this).val();
+ 	if(choice==0){
+ 		$(".wl_feizhi_sel").hide();
+ 		$(".wl_feizhi_ipt").show();
+ 	}
+ })
+
+  $(".wl_waleng_sel").change(function(){
+ 	var choice=$(this).val();
+ 	if(choice==0){
+ 		$(".wl_waleng_sel").hide();
+ 		$(".wl_waleng_ipt").show();
+ 	}
+ })
+
+/*
  //附加处理
  var surface_list=['','上光','吸塑','光膜','压膜','烫金','撒粉','对裱'];
 
@@ -388,7 +362,7 @@
  			})
 
   		})
-/*
+
    var material_list=['','250g灰底白板A级','300g灰底白板A级','230g白卡','300g白底白板A级'];
 
  		$("#material").focus(function(){

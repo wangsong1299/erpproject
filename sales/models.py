@@ -25,7 +25,7 @@ class Quotation(models.Model):
 	packing_fee_price=models.CharField(max_length = 12,default=0)
 	transportation_fee_price=models.CharField(max_length = 12,default=0)
 
-	material =models.CharField(max_length = 10,blank = True)
+	material=models.CharField(max_length = 10,blank = True)
 	size=models.CharField(max_length = 10,blank = True)
 	wl_material=models.CharField(max_length = 10,blank = True)
 	amount=models.CharField(max_length = 10,blank = True)
@@ -137,7 +137,8 @@ class Process(models.Model):
 	yinsha2 =models.CharField(max_length = 10,blank = True)
 	total_yinshu_1=models.CharField(max_length = 30,blank = True)
 	total_yinshu_2=models.CharField(max_length = 30,blank = True)
-
+	wl_feizhi_ipt=models.CharField(max_length = 30,blank = True)
+	wl_waleng_ipt=models.CharField(max_length = 30,blank = True)
 
 class Cost(models.Model):
 	productID=models.CharField(max_length = 10)

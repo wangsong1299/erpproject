@@ -3,6 +3,10 @@
 
 {% block head %}
 <link rel="stylesheet" href="{% static "erp/css/sales.css" %}">
+<style>
+	.block2{width:1480px;}
+	.main{width: 1200px;}
+</style>
 {% endblock %}
 
 
@@ -49,11 +53,11 @@
 	</table>
 	 <table class="order_table">
 		<tr>
-			<th class="col_10">下单日期<span class="red">*</span></th>
-			<th class="col_5">订单号<span class="red">*</span></th>
+			<th class="col_5">下单日期<span class="red">*</span></th>
+			<th class="col_10">订单号<span class="red">*</span></th>
 			<th class="col_10">品名<span class="red">*</span></th>
 			<th class="col_5">尺寸<span class="red">*</span></th>
-			<th class="col_5">条码<span class="red">*</span></th>
+			<th class="col_10">条码<span class="red">*</span></th>
 			<th class="col_5">数量<span class="red">*</span></th>
 			<th class="col_5">单价<span class="red">*</span></th>
 			<th class="col_5">版费<span class="red">*</span></th>
@@ -64,15 +68,15 @@
 			<th class="col_5">刀模<span class="red">*</span></th>
 			<th class="col_5">菲林<span class="red">*</span></th>
 			<th class="col_10">表面处理<span class="red">*</span></th>
-			<th class="col_10">交货日期<span class="red">*</span></th>	
+			<th class="col_5">交货日期<span class="red">*</span></th>	
 		</tr>
 
 		<tr>
-			<th class="col_10"><input type="text" class="create_time" id="create_time_1" onClick="WdatePicker()"></th>
-			<th class="col_5"><input type="number" id="productID_1"  ></th>
+			<th class="col_5"><input type="text" class="create_time" id="create_time_1" onClick="WdatePicker()"></th>
+			<th class="col_10"><input type="number" id="productID_1"  ></th>
 			<th class="col_10"><input type="text" id="product_name_1"  ></th>
 			<th class="col_5"><input type="text" id="size_1"></th>
-			<th class="col_5"><input type="text" id="productID2_1"></th>
+			<th class="col_10"><input type="text" id="productID2_1"></th>
 			<th class="col_5"><input type="number" id="amount_1"  ></th>
 			<th class="col_5"><input type="number" id="price_1"  ></th>
 			<th class="col_5"><input type="number" id="edition_fee_1"  ></th>
@@ -83,14 +87,14 @@
 			<th class="col_5"><input type="text" id="mould_1"  ></th>
 			<th class="col_5"><input type="text" id="feilin_1"  ></th>
 			<th class="col_10"><input type="text" id="surface_1"  ></th>
-			<th class="col_10"><input type="text" id="deadline_1" onClick="WdatePicker()"></th>	
+			<th class="col_5"><input type="text" id="deadline_1" onClick="WdatePicker()"></th>	
 		</tr>
 		<tr>
-			<th class="col_10"><input type="text" class="create_time" id="create_time_2" onClick="WdatePicker()"></th>
-			<th class="col_5"><input type="number" id="productID_2"  ></th>
+			<th class="col_5"><input type="text" class="create_time" id="create_time_2" onClick="WdatePicker()"></th>
+			<th class="col_10"><input type="number" id="productID_2"  ></th>
 			<th class="col_10"><input type="text" id="product_name_2"  ></th>
 			<th class="col_5"><input type="text" id="size_2"></th>
-			<th class="col_5"><input type="text" id="productID2_2"></th>
+			<th class="col_10"><input type="text" id="productID2_2"></th>
 			<th class="col_5"><input type="number" id="amount_2"  ></th>
 			<th class="col_5"><input type="number" id="price_2"  ></th>
 			<th class="col_5"><input type="number" id="edition_fee_2"  ></th>
@@ -101,14 +105,14 @@
 			<th class="col_5"><input type="text" id="mould_2"  ></th>
 			<th class="col_5"><input type="text" id="feilin_2"  ></th>
 			<th class="col_10"><input type="text" id="surface_2"  ></th>
-			<th class="col_10"><input type="text" id="deadline_2" onClick="WdatePicker()"></th>	
+			<th class="col_5"><input type="text" id="deadline_2" onClick="WdatePicker()"></th>	
 		</tr>
 		<tr>
-			<th class="col_10"><input type="text" class="create_time" id="create_time_3" onClick="WdatePicker()"></th>
-			<th class="col_5"><input type="number" id="productID_3"  ></th>
+			<th class="col_5"><input type="text" class="create_time" id="create_time_3" onClick="WdatePicker()"></th>
+			<th class="col_10"><input type="number" id="productID_3"  ></th>
 			<th class="col_10"><input type="text" id="product_name_3"  ></th>
 			<th class="col_5"><input type="text" id="size_3"></th>
-			<th class="col_5"><input type="text" id="productID2_3"></th>
+			<th class="col_10"><input type="text" id="productID2_3"></th>
 			<th class="col_5"><input type="number" id="amount_3"  ></th>
 			<th class="col_5"><input type="number" id="price_3"  ></th>
 			<th class="col_5"><input type="number" id="edition_fee_3"  ></th>
@@ -119,14 +123,14 @@
 			<th class="col_5"><input type="text" id="mould_3"  ></th>
 			<th class="col_5"><input type="text" id="feilin_3"  ></th>
 			<th class="col_10"><input type="text" id="surface_3"  ></th>
-			<th class="col_10"><input type="text" id="deadline_3" onClick="WdatePicker()"></th>	
+			<th class="col_5"><input type="text" id="deadline_3" onClick="WdatePicker()"></th>	
 		</tr>
 		<tr>
-			<th class="col_10"><input type="text" class="create_time" id="create_time_4" onClick="WdatePicker()"></th>
-			<th class="col_5"><input type="number" id="productID_4"  ></th>
+			<th class="col_5"><input type="text" class="create_time" id="create_time_4" onClick="WdatePicker()"></th>
+			<th class="col_10"><input type="number" id="productID_4"  ></th>
 			<th class="col_10"><input type="text" id="product_name_4"  ></th>
 			<th class="col_5"><input type="text" id="size_4"></th>
-			<th class="col_5"><input type="text" id="productID2_4"></th>
+			<th class="col_10"><input type="text" id="productID2_4"></th>
 			<th class="col_5"><input type="number" id="amount_4"  ></th>
 			<th class="col_5"><input type="number" id="price_4"  ></th>
 			<th class="col_5"><input type="number" id="edition_fee_4"  ></th>
@@ -137,14 +141,14 @@
 			<th class="col_5"><input type="text" id="mould_4"  ></th>
 			<th class="col_5"><input type="text" id="feilin_4"  ></th>
 			<th class="col_10"><input type="text" id="surface_4"  ></th>
-			<th class="col_10"><input type="text" id="deadline_4" onClick="WdatePicker()"></th>	
+			<th class="col_5"><input type="text" id="deadline_4" onClick="WdatePicker()"></th>	
 		</tr>
 		<tr>
-			<th class="col_10"><input type="text" class="create_time" id="create_time_5" onClick="WdatePicker()"></th>
-			<th class="col_5"><input type="number" id="productID_5"  ></th>
+			<th class="col_5"><input type="text" class="create_time" id="create_time_5" onClick="WdatePicker()"></th>
+			<th class="col_10"><input type="number" id="productID_5"  ></th>
 			<th class="col_10"><input type="text" id="product_name_5"  ></th>
 			<th class="col_5"><input type="text" id="size_5"></th>
-			<th class="col_5"><input type="text" id="productID2_5"></th>
+			<th class="col_10"><input type="text" id="productID2_5"></th>
 			<th class="col_5"><input type="number" id="amount_5"  ></th>
 			<th class="col_5"><input type="number" id="price_5"  ></th>
 			<th class="col_5"><input type="number" id="edition_fee_5"  ></th>
@@ -155,14 +159,14 @@
 			<th class="col_5"><input type="text" id="mould_5"  ></th>
 			<th class="col_5"><input type="text" id="feilin_5"  ></th>
 			<th class="col_10"><input type="text" id="surface_5"  ></th>
-			<th class="col_10"><input type="text" id="deadline_5" onClick="WdatePicker()"></th>	
+			<th class="col_5"><input type="text" id="deadline_5" onClick="WdatePicker()"></th>	
 		</tr>
 		<tr>
-			<th class="col_10"><input type="text" class="create_time" id="create_time_6" onClick="WdatePicker()"></th>
-			<th class="col_5"><input type="number" id="productID_6"  ></th>
+			<th class="col_5"><input type="text" class="create_time" id="create_time_6" onClick="WdatePicker()"></th>
+			<th class="col_10"><input type="number" id="productID_6"  ></th>
 			<th class="col_10"><input type="text" id="product_name_6"  ></th>
 			<th class="col_5"><input type="text" id="size_6"></th>
-			<th class="col_5"><input type="text" id="productID2_6"></th>
+			<th class="col_10"><input type="text" id="productID2_6"></th>
 			<th class="col_5"><input type="number" id="amount_6"  ></th>
 			<th class="col_5"><input type="number" id="price_6"  ></th>
 			<th class="col_5"><input type="number" id="edition_fee_6"  ></th>
@@ -173,14 +177,14 @@
 			<th class="col_5"><input type="text" id="mould_6"  ></th>
 			<th class="col_5"><input type="text" id="feilin_6"  ></th>
 			<th class="col_10"><input type="text" id="surface_6"  ></th>
-			<th class="col_10"><input type="text" id="deadline_6" onClick="WdatePicker()"></th>	
+			<th class="col_5"><input type="text" id="deadline_6" onClick="WdatePicker()"></th>	
 		</tr>
 		<tr>
-			<th class="col_10"><input type="text" class="create_time" id="create_time_7" onClick="WdatePicker()"></th>
-			<th class="col_5"><input type="number" id="productID_7"  ></th>
+			<th class="col_5"><input type="text" class="create_time" id="create_time_7" onClick="WdatePicker()"></th>
+			<th class="col_10"><input type="number" id="productID_7"  ></th>
 			<th class="col_10"><input type="text" id="product_name_7"  ></th>
 			<th class="col_5"><input type="text" id="size_7"></th>
-			<th class="col_5"><input type="text" id="productID2_7"></th>
+			<th class="col_10"><input type="text" id="productID2_7"></th>
 			<th class="col_5"><input type="number" id="amount_7"  ></th>
 			<th class="col_5"><input type="number" id="price_7"  ></th>
 			<th class="col_5"><input type="number" id="edition_fee_7"  ></th>
@@ -191,7 +195,7 @@
 			<th class="col_5"><input type="text" id="mould_7"  ></th>
 			<th class="col_5"><input type="text" id="feilin_7"  ></th>
 			<th class="col_10"><input type="text" id="surface_7"  ></th>
-			<th class="col_10"><input type="text" id="deadline_7" onClick="WdatePicker()"></th>	
+			<th class="col_5"><input type="text" id="deadline_7" onClick="WdatePicker()"></th>	
 		</tr>
 	</table>
 	<table class="order_table">

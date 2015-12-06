@@ -33,12 +33,24 @@
  	<table class="cost_table">
 		<tr>
 			<th class="col_15">表面处理<span class="red">*</span></th>
-			<td class="col_55"> <input type="text" id="surface"    value={{records.4}} ></td>
+			<td class="col_40">
+				<select name="surface" id="surface" style="width:100%;margin-right:0">
+			 		<option value="1">上光</option>
+			 		<option value="2">吸塑</option>
+					<option value="3">光膜</option>
+					<option value="4">压膜</option>
+					<option value="5">烫金</option>
+					<option value="6">撒粉</option>
+					<option value="7">对裱</option>
+					<option value="8">亚膜</option>
+			 	</select>	
+			</td>
+			<th class="col_15">单价</th>
 			<td class="col_30"> <input type="text" id="surface_price"    value={{records.5 }}></td>
 		</tr>
 		<tr>
 			<th class="col_15">原料名称<span class="red">*</span></th>
-			<td class="col_55">
+			<td class="col_40">
 					<select name="material" id="material" style="width:100%;margin-right:0">
  			 			<option value="1">250克灰底白板</option>
  			 			<option value="2">250克白底白板</option>
@@ -64,6 +76,7 @@
 						<option value="18">350克铜版卡</option>
  			 		</select>				 		
 			</td>
+			<th class="col_15">单价</th>
 			<td class="col_30"> 
 				<select name="material_price" id="material_price" style="width:100%;margin-right:0">
  			 			<option value="1">0.80</option>
@@ -93,7 +106,7 @@
 		</tr>
 		<tr>
 			<th class="col_15">底纸用料<span class="red">*</span></th>
-						<td class="col_55">
+						<td class="col_40">
 				<select name="wl_feizhi" id="wl_feizhi" style="width:100%;margin-right:0">
  			 			<option value="1">0g</option>
  			 			<option value="2">90g</option>
@@ -102,29 +115,23 @@
 						<option value="5">120g</option>
  			 		</select>	
  			 	</td>
+ 			<th class="col_15">单价</th>
 			<td class="col_30">
-			<select name="wl_feizhi_price" id="wl_feizhi_price" style="width:100%;margin-right:0">
- 			 			<option value="1">0</option>
- 			 			<option value="2">0.85</option>
-						<option value="3">0.9</option>
- 			 	</select>
+				<input type="text" id="wl_feizhi_price" value={{ records.9}}>
  			 </td>
 		</tr>
 		<tr>
 			<th class="col_15">瓦楞用料<span class="red">*</span></th>
-		<td class="col_55">
+		<td class="col_40">
 			<select name="wl_waleng" id="wl_waleng" style="width:100%;margin-right:0">
  			 			<option value="1">0g</option>
  			 			<option value="2">90g</option>
 						<option value="3">110g</option>
  			 	</select>
  			 </td>
+ 			 <th class="col_15">单价</th>
 			<td class="col_30">
-			<select name="wl_waleng_price" id="wl_waleng_price" style="width:100%;margin-right:0">
- 			 			<option value="1">0</option>
- 			 			<option value="2">0.85</option>
-						<option value="3">0.9</option>
- 			 	</select>
+			<input type="text" id="wl_waleng_price" value={{ records.11}}>
 			</td>
 		</tr>
 	</table>
@@ -211,6 +218,14 @@
                 }
 		});
 
+		var surface = {{ records.4 }};
+		$("#surface>option").each(function(a,b){
+                if($(b).val()==surface){//判断值
+                    $(b).attr("selected",true);
+                }
+		});		
+
+
 
 
 		 $("#delete").click(function(){
@@ -237,6 +252,8 @@
 		if(cost_show){
 			$('input').attr('disabled',true);
 			$('select').attr('disabled',true);
+			$('input[type=text]').css("background","#fff");
+			$('input[type=number]').css("background","#fff");
 			$('#modify').click(function(){
 				window.location.href='/sales/cost_modify/'+href;
 			})
