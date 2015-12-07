@@ -88,7 +88,7 @@
 		<tr>
 			<th class="col_10">表面处理<span class="red">*</span></th>
 			<td class="col_30">
-				<select name="surface" id="surface" style="width:100%;margin-right:0">
+				<select name="surface" id="surface" class="surface_sel" style="width:100%;margin-right:0">
 			 		<option value="1">上光</option>
 			 		<option value="2">吸塑</option>
 					<option value="3">光膜</option>
@@ -97,7 +97,10 @@
 					<option value="6">撒粉</option>
 					<option value="7">对裱</option>
 					<option value="8">亚膜</option>
+					<option value="0">请手动输入</option>
 			 	</select>	
+			 	 <input type="text" class="surface_ipt" style="display:none" id="surface_ipt" placeholder="请输入" val=''>
+
 			</td>
 			<th class="col_10">工序</th>
 			<td class="col_20"> 
@@ -117,7 +120,7 @@
 		</tr>
 		<tr>
 			<th class="col_20">
-					<select name="material" id="material" style="width:100%;margin-right:0">
+					<select name="material" id="material" class="material_sel" style="width:100%;margin-right:0">
  			 			<option value="1">250克灰底白板</option>
  			 			<option value="2">250克白底白板</option>
 						<option value="3">300克灰底白板</option>
@@ -140,12 +143,50 @@
 						<option value="16">250克铜版卡</option>
 						<option value="17">300克铜版卡</option>
 						<option value="18">350克铜版卡</option>
+						<option value="0">请手动输入</option>
  			 		</select>	
+ 			 		 <input type="text" class="material_ipt" style="display:none" id="material_ipt" placeholder="请输入" val=''>
+
 			</th>
 			<th class="col_20"><input type="text" id="daliao"></th>
 			<th class="col_20"><input type="text" id="size"></th>
 			<th class="col_20"><input type="text" id="kaishu"></th>
 			<th class="col_20"><input type="text" id="kaiyin"></th>
+		</tr>
+		<tr>
+			<th class="col_20">
+					<select name="material2" id="material2" class="material2_sel" style="width:100%;margin-right:0">
+ 			 			<option value="1">250克灰底白板</option>
+ 			 			<option value="2">250克白底白板</option>
+						<option value="3">300克灰底白板</option>
+						<option value="4">300克白底白板</option>
+						<option value="5">350克灰底白板</option>
+						<option value="6">350克白底白板</option>
+						<option value="7">400克灰底白板</option>
+						<option value="8">400克白底白板</option>
+						<option value="9">450克灰底白板</option>
+						<option value="10">450克白底白板</option>
+						<option value="11">80克双胶纸</option>
+						<option value="12">100克双胶纸</option>
+						<option value="13">128克铜版纸</option>
+						<option value="14">157克铜版纸</option>
+						<option value="15">210克白卡</option>
+						<option value="16">230克白卡</option>
+						<option value="17">250克白卡</option>
+						<option value="18">300克白卡</option>
+						<option value="15">350克白卡</option>
+						<option value="16">250克铜版卡</option>
+						<option value="17">300克铜版卡</option>
+						<option value="18">350克铜版卡</option>
+						<option value="0">请手动输入</option>
+ 			 		</select>	
+ 			 		 <input type="text" class="material2_ipt" style="display:none" id="material2_ipt" placeholder="请输入" val=''>
+
+			</th>
+			<th class="col_20"><input type="text" id="daliao2"></th>
+			<th class="col_20"><input type="text" id="size2"></th>
+			<th class="col_20"><input type="text" id="kaishu2"></th>
+			<th class="col_20"><input type="text" id="kaiyin2"></th>
 		</tr>
 	</table>
 	<table class="process_table" >
@@ -179,13 +220,17 @@
 			<th class="col_10">开料尺寸</th>
 			<td class="col_20"> <input type="text" id="wl_size" ></td>
 			<th class="col_10">所开筒尺寸</th>
-			<td class="col_20"> <input type="text" id="wl_size2"  ></td>
+			<td class="col_10"> <input type="text" id="wl_size2"  ></td>
+			<th class="col_10">瓦楞数目</th>
+			<td class="col_10"> <input type="text" id="wl_amount"  ></td>
 			<th class="col_10">粗细瓦楞</th>
-			<td class="col_20">
+			<td class="col_10">
 				粗<input type="radio" name="wl_thin" value="1" checked='checked'>
 				细<input type="radio" name="wl_thin" value="2"></td>
 			</td>
 		</tr>
+	</table>
+	<table class="process_table" >
 		<tr>
 			<th class="col_10">瓦楞要求</th>
 			<th class="col_10">底纸用料<span class="red">*</span></th>
@@ -285,6 +330,17 @@
 
 			var wl_feizhi_ipt=$.trim($("#wl_feizhi_ipt").val());
 			var wl_waleng_ipt=$.trim($("#wl_waleng_ipt").val());
+			var material_ipt=$.trim($("#material_ipt").val());
+			var surface_ipt=$.trim($("#surface_ipt").val());
+	
+			var material2=$.trim($("#material2").val());
+			var daliao2=$.trim($("#daliao2").val());
+			var size2=$.trim($("#size2").val());
+			var kaiyin2=$.trim($("#kaiyin2").val());
+			var kaishu2=$.trim($("#kaishu2").val());
+			var material2_ipt=$.trim($("#material2_ipt").val());
+
+			var wl_amount=$.trim($("#wl_amount").val());
 
 			if(productID.length==0){
 				alert("施工单ID不能为空");
@@ -316,7 +372,7 @@
 				$.ajax({
 				  	type : "POST",
 				  	url : "/sales/fill_process/",
-				  	data:{'productID':productID,'customer':customer,'create_time':create_time,'deadline':deadline,'alerttime':alerttime,'product_name':product_name,'number_2':number_2,'number_1':number_1,'amount':amount,'pinban':pinban,'yinshu':yinshu,'yinsha':yinsha,'jiayinshu':jiayinshu,'zhenjiao':zhenjiao,'total_yinshu':total_yinshu,'yaheng':yaheng,'lingyin':lingyin,'surface':surface,'process':process,'notes':notes,'material':material,'daliao':daliao,'size':size,'kaishu':kaishu,'kaiyin':kaiyin,'fudai':fudai,'quality':quality,'wl_size':wl_size,'wl_size2':wl_size2,'wl_feizhi':wl_feizhi,'wl_thin':wl_thin,'wl_biaoliao':wl_biaoliao,'wl_waleng':wl_waleng,'yinsha2':yinsha2,'total_yinshu_1':total_yinshu_1,'total_yinshu_2':total_yinshu_2,'wl_feizhi_ipt':wl_feizhi_ipt,'wl_waleng_ipt':wl_waleng_ipt},
+				  	data:{'productID':productID,'customer':customer,'create_time':create_time,'deadline':deadline,'alerttime':alerttime,'product_name':product_name,'number_2':number_2,'number_1':number_1,'amount':amount,'pinban':pinban,'yinshu':yinshu,'yinsha':yinsha,'jiayinshu':jiayinshu,'zhenjiao':zhenjiao,'total_yinshu':total_yinshu,'yaheng':yaheng,'lingyin':lingyin,'surface':surface,'process':process,'notes':notes,'material':material,'daliao':daliao,'size':size,'kaishu':kaishu,'kaiyin':kaiyin,'fudai':fudai,'quality':quality,'wl_size':wl_size,'wl_size2':wl_size2,'wl_feizhi':wl_feizhi,'wl_thin':wl_thin,'wl_biaoliao':wl_biaoliao,'wl_waleng':wl_waleng,'yinsha2':yinsha2,'total_yinshu_1':total_yinshu_1,'total_yinshu_2':total_yinshu_2,'wl_feizhi_ipt':wl_feizhi_ipt,'wl_waleng_ipt':wl_waleng_ipt,'material_ipt':material_ipt,'surface_ipt':surface_ipt,'material2':material2,'daliao2':daliao2,'size2':size2,'kaishu2':kaishu2,'kaiyin2':kaiyin2,'material2_ipt':material2_ipt,'wl_amount':wl_amount},
 				  	dataType : "json",
 				  	success : function(data){    
 		                if(data==1){
@@ -347,63 +403,29 @@
  	}
  })
 
-/*
- //附加处理
- var surface_list=['','上光','吸塑','光膜','压膜','烫金','撒粉','对裱'];
+ $(".material_sel").change(function(){
+ 	var choice=$(this).val();
+ 	if(choice==0){
+ 		$(".material_sel").hide();
+ 		$(".material_ipt").show();
+ 	}
+ })
 
- 		$("#surface").focus(function(){
- 			$(".blocklayer").show();
- 			$(".surface_pop").show();
- 			$("#surface_sure").click(function(){
- 				var num = $("input[name=surface][type=radio]:checked").val();
- 				$("#surface").val(surface_list[num]);
- 				$(".pop_box").hide();
- 				$(".blocklayer").hide();
- 			})
+ $(".surface_sel").change(function(){
+ 	var choice=$(this).val();
+ 	if(choice==0){
+ 		$(".surface_sel").hide();
+ 		$(".surface_ipt").show();
+ 	}
+ })
 
-  		})
-
-   var material_list=['','250g灰底白板A级','300g灰底白板A级','230g白卡','300g白底白板A级'];
-
- 		$("#material").focus(function(){
- 			$(".blocklayer").show();
- 			$(".material_pop").show();
- 			$("#material_sure").click(function(){
- 				var num = $("input[name=material][type=radio]:checked").val();
- 				$("#material").val(material_list[num]);
- 				$(".pop_box").hide();
- 				$(".blocklayer").hide();
- 			})
-
-  		})
-   var wl_feizhi_list=['','90g','100g','110g','120g'];
-
- 		$("#wl_feizhi").focus(function(){
- 			$(".blocklayer").show();
- 			$(".wl_feizhi_pop").show();
- 			$("#wl_feizhi_sure").click(function(){
- 				var num = $("input[name=wl_feizhi][type=radio]:checked").val();
- 				$("#wl_feizhi").val(wl_feizhi_list[num]);
- 				$(".pop_box").hide();
- 				$(".blocklayer").hide();
- 			})
-
-  		})
-
-  	   var wl_waleng_list=['','90g','110g'];
-
- 		$("#wl_waleng").focus(function(){
- 			$(".blocklayer").show();
- 			$(".wl_waleng_pop").show();
- 			$("#wl_waleng_sure").click(function(){
- 				var num = $("input[name=wl_waleng][type=radio]:checked").val();
- 				$("#wl_waleng").val(wl_waleng_list[num]);
- 				$(".pop_box").hide();
- 				$(".blocklayer").hide();
- 			})
-
-  		})
-*/
+ $(".material2_sel").change(function(){
+ 	var choice=$(this).val();
+ 	if(choice==0){
+ 		$(".material2_sel").hide();
+ 		$(".material2_ipt").show();
+ 	}
+ })
 
   		$("#productID").blur(function(){
 			var productID2=$("#productID").val();

@@ -1483,6 +1483,15 @@ def fill_process(request):
 	total_yinshu_2 = request.POST.get('total_yinshu_2', None)
 	wl_feizhi_ipt = request.POST.get('wl_feizhi_ipt', None)
 	wl_waleng_ipt = request.POST.get('wl_waleng_ipt', None)
+	material_ipt = request.POST.get('material_ipt', None)
+	surface_ipt = request.POST.get('surface_ipt', None)
+	material2 = request.POST.get('material2', None)	
+	daliao2 = request.POST.get('daliao2', None)
+	size2 = request.POST.get('size2', None)
+	kaiyin2 = request.POST.get('kaiyin2', None)
+	kaishu2 = request.POST.get('kaishu2', None)
+	material2_ipt = request.POST.get('material2_ipt', None)
+	wl_amount= request.POST.get('wl_amount', None)
 
 	try:
 		q = Process(productID=productID,
@@ -1522,7 +1531,16 @@ def fill_process(request):
 				total_yinshu_2=total_yinshu_2,
 				total_yinshu_1=total_yinshu_1,
 				wl_waleng_ipt=wl_waleng_ipt,
-				wl_feizhi_ipt=wl_feizhi_ipt)
+				wl_feizhi_ipt=wl_feizhi_ipt,
+				material_ipt=material_ipt,
+				surface_ipt=surface_ipt,
+				material2=material2,
+				daliao2=daliao2,      
+				size2=size2,
+				kaishu2=kaishu2,
+				kaiyin2=kaiyin2,
+				material2_ipt=material2_ipt,
+				wl_amount=wl_amount)
 		q.save()
 		p = Storage(productID=productID,
 				customer = customer,
@@ -1597,6 +1615,15 @@ def process(request,id):
 		b[35]=r.total_yinshu_2
 		b[36]=r.wl_feizhi_ipt
 		b[37]=r.wl_waleng_ipt
+		b[38]=r.surface_ipt
+		b[39]=r.material_ipt
+		b[40]=r.material2
+		b[41]=r.daliao2
+		b[42]=r.size2
+		b[43]=r.kaishu2
+		b[44]=r.kaiyin2
+		b[45]=r.material2_ipt
+		b[46]=r.wl_amount
 		return render_to_response("sales_process.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":b,'process_show':json.dumps(process_show),'process_modify':json.dumps(process_modify)})
 #api
 #报价单单页
@@ -1648,6 +1675,15 @@ def process_modify(request,id):
 		b[35]=r.total_yinshu_2
 		b[36]=r.wl_feizhi_ipt
 		b[37]=r.wl_waleng_ipt
+		b[38]=r.surface_ipt
+		b[39]=r.material_ipt
+		b[40]=r.material2
+		b[41]=r.daliao2
+		b[42]=r.size2
+		b[43]=r.kaishu2
+		b[44]=r.kaiyin2
+		b[45]=r.material2_ipt
+		b[46]=r.wl_amount
 		return render_to_response("sales_process.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":b,'process_show':json.dumps(process_show),'process_modify':json.dumps(process_modify)})
 #api
 #api
@@ -1690,6 +1726,17 @@ def modify_process(request):
 	yinsha2 = request.POST.get('yinsha2', None)
 	total_yinshu_1 = request.POST.get('total_yinshu_1', None)
 	total_yinshu_2 = request.POST.get('total_yinshu_2', None)
+	material_ipt = request.POST.get('material_ipt', None)
+	surface_ipt = request.POST.get('surface_ipt', None)
+	wl_feizhi_ipt = request.POST.get('wl_feizhi_ipt', None)
+	wl_waleng_ipt = request.POST.get('wl_waleng_ipt', None)
+	material2 = request.POST.get('material2', None)	
+	daliao2 = request.POST.get('daliao2', None)
+	size2 = request.POST.get('size2', None)
+	kaiyin2 = request.POST.get('kaiyin2', None)
+	kaishu2 = request.POST.get('kaishu2', None)
+	material2_ipt = request.POST.get('material2_ipt', None)
+	wl_amount = request.POST.get('wl_amount', None)
 
 	try:
 		Process.objects.filter(productID=productID).update(productID=productID,
@@ -1727,7 +1774,18 @@ def modify_process(request):
 				wl_waleng=wl_waleng,
 				yinsha2=yinsha2,
 				total_yinshu_2=total_yinshu_2,
-				total_yinshu_1=total_yinshu_1)
+				total_yinshu_1=total_yinshu_1,
+				wl_feizhi_ipt=wl_feizhi_ipt,
+				wl_waleng_ipt=wl_waleng_ipt,
+				surface_ipt=surface_ipt,
+				material_ipt=material_ipt,
+				material2=material2,
+				daliao2=daliao2,      
+				size2=size2,
+				kaishu2=kaishu2,
+				kaiyin2=kaiyin2,
+				material2_ipt=material2_ipt,
+				wl_amount=wl_amount)
 	except Exception, e:
 		return comutils.baseresponse(e, 500)
 	

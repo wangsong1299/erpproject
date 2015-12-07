@@ -78,6 +78,8 @@
 			</td>
 			<th class="col_15">单价</th>
 			<td class="col_30"> 
+				<input type="number" id="material_price" value={{records.7}} >
+				<!--
 				<select name="material_price" id="material_price" style="width:100%;margin-right:0">
  			 			<option value="1">0.80</option>
  			 			<option value="2">0.92</option>
@@ -101,7 +103,7 @@
 						<option value="16">1.24</option>
 						<option value="17">1.49</option>
 						<option value="18">1.74</option>
- 			 		</select>	
+ 			 		</select>	-->
  			 	</td>
 		</tr>
 		<tr>
@@ -294,6 +296,7 @@
 				var wl_feizhi=$("#wl_feizhi").val();
 				var surface_price=Number($("#surface_price").val()).toFixed(2);
 				var material_price=Number($("#material_price").val()).toFixed(2);
+				alert(material_price);
 				var wl_waleng_price=Number($("#wl_waleng_price").val()).toFixed(2);
 				var wl_feizhi_price=Number($("#wl_feizhi_price").val()).toFixed(2);
 				var daliao=$("#daliao").val();

@@ -97,7 +97,7 @@
 		<tr>
 			<th class="col_10">表面处理</th>
 			<td class="col_30">
-				<select name="surface" id="surface" style="width:100%;margin-right:0">
+				<select name="surface" id="surface" class="surface_sel" style="width:100%;margin-right:0">
 			 		<option value="1">上光</option>
 			 		<option value="2">吸塑</option>
 					<option value="3">光膜</option>
@@ -106,7 +106,10 @@
 					<option value="6">撒粉</option>
 					<option value="7">对裱</option>
 					<option value="8">亚膜</option>
+					<option value="0">请手动输入</option>
 			 	</select>	
+			 	<input type="text" class="surface_ipt" style="display:none" id="surface_ipt" value={{records.38}} >
+
 			 </td>
 			<th class="col_10">工序{{records.18}}</th>
 			<td class="col_20"> 
@@ -137,7 +140,7 @@
 		</tr>
 		<tr>
 			<th class="col_20">
-					<select name="material" id="material" style="width:100%;margin-right:0">
+					<select name="material" id="material" class="material_sel" style="width:100%;margin-right:0">
  			 			<option value="1">250克灰底白板</option>
  			 			<option value="2">250克白底白板</option>
 						<option value="3">300克灰底白板</option>
@@ -160,12 +163,50 @@
 						<option value="16">250克铜版卡</option>
 						<option value="17">300克铜版卡</option>
 						<option value="18">350克铜版卡</option>
+						<option value="0">请手动输入</option>
  			 		</select>	
+ 			 		<input type="text" class="material_ipt" style="display:none" id="material_ipt" value={{records.39}} >
+
  			 	</th>
 			<th class="col_20"><input type="text" id="daliao" value={{ records.21 }}></th>
 			<th class="col_20"> <input type="text" id="size" value={{ records.22 }}></th>
 			<th class="col_20"><input type="text" id="kaishu" value={{ records.23 }}></th>
 			<th class="col_20"><input type="text" id="kaiyin" value={{ records.24 }}></th>
+		</tr>
+		<tr>
+			<th class="col_20">
+					<select name="material2" id="material2" class="material2_sel" style="width:100%;margin-right:0">
+ 			 			<option value="1">250克灰底白板</option>
+ 			 			<option value="2">250克白底白板</option>
+						<option value="3">300克灰底白板</option>
+						<option value="4">300克白底白板</option>
+						<option value="5">350克灰底白板</option>
+						<option value="6">350克白底白板</option>
+						<option value="7">400克灰底白板</option>
+						<option value="8">400克白底白板</option>
+						<option value="9">450克灰底白板</option>
+						<option value="10">450克白底白板</option>
+						<option value="11">80克双胶纸</option>
+						<option value="12">100克双胶纸</option>
+						<option value="13">128克铜版纸</option>
+						<option value="14">157克铜版纸</option>
+						<option value="15">210克白卡</option>
+						<option value="16">230克白卡</option>
+						<option value="17">250克白卡</option>
+						<option value="18">300克白卡</option>
+						<option value="15">350克白卡</option>
+						<option value="16">250克铜版卡</option>
+						<option value="17">300克铜版卡</option>
+						<option value="18">350克铜版卡</option>
+						<option value="0">请手动输入</option>
+ 			 		</select>	
+ 			 		<input type="text" class="material2_ipt" style="display:none" id="material2_ipt" value={{records.45}} >
+
+ 			 	</th>
+			<th class="col_20"><input type="text" id="daliao2" value={{ records.41 }}></th>
+			<th class="col_20"> <input type="text" id="size2" value={{ records.42 }}></th>
+			<th class="col_20"><input type="text" id="kaishu2" value={{ records.43 }}></th>
+			<th class="col_20"><input type="text" id="kaiyin2" value={{ records.44 }}></th>
 		</tr>
 	</table>
 	<table class="process_table" >
@@ -217,10 +258,27 @@
 			<th class="col_10">开料尺寸</th>
 			<td class="col_20"> <input type="text" id="wl_size" value={{ records.27 }}></td>
 			<th class="col_10">所开筒尺寸</th>
-			<td class="col_20"> <input type="text" id="wl_size2"  value={{ records.28 }} ></td>
+			<td class="col_10"> <input type="text" id="wl_size2"  value={{ records.28 }} ></td>
+			<th class="col_10">瓦楞数目</th>
+			<td class="col_10"> <input type="text" id="wl_amount"  value={{ records.46 }}  ></td>
 			<th class="col_10">粗细瓦楞</th>
-			<td class="col_20"> <input type="text" id="wl_thin" value={{ records.29 }} ></td>
+			<td class="col_10">
+				<div class="process_show_box" style="display:none">
+					<div id="wl_thin_box_1" style="display:none">
+					粗
+					</div>
+					<div id="wl_thin_box_2" style="display:none">
+					细
+					</div>
+				</div>	
+				<div class="process_modify_box" style="display:none">
+						粗<input type="radio" name="wl_thin" value="1" checked='checked'>
+						细<input type="radio" name="wl_thin" value="2"></td>
+				</div>		
+			</td>
 		</tr>
+		</table>
+	<table class="process_table" >
 		<tr>
 			<th class="col_10">瓦楞要求</th>
 			<th class="col_10">底纸用料</th>
@@ -304,21 +362,38 @@
                 }
 		});
 
+		var wl_thin = {{ records.29 }};
+		$("input[name=wl_thin]").each(function(a,b){
+                if($(b).val()==wl_thin){//判断值
+                    $(b).attr("checked",true);
+                }
+		});	
+
 		var mater={{ records.20 }};
 		//console.log(typeof(mater));
-		$("option").each(function(a,b){
+		if(mater==0){
+			$("#material").hide();
+ 			$("#material_ipt").show();
+		}else{
+			$("#material>option").each(function(a,b){
                 if($(b).val()==mater){//判断值
                     $(b).attr("selected",true);
                 }
-		});
+			});
+		}
 
 		var surface = {{ records.17}};
-		$("#surface").each(function(a,b){
-                if($(b).val()==surface){//判断值
-                    $(b).attr("selected",true);
-                }
-		});		
-
+		if(surface==0){
+			$("#surface").hide();
+ 			$("#surface_ipt").show();
+		}else{
+			$("#surface").each(function(a,b){
+	                if($(b).val()==surface){//判断值
+	                    $(b).attr("selected",true);
+	                }
+			});	
+		}
+		
 		var wl_feizhi={{ records.30 }};
 		//console.log(wl_feizhi);
 		if(wl_feizhi==0){
@@ -347,6 +422,18 @@
 
 		}
 
+		var mater2={{ records.40 }};
+		//console.log(typeof(mater));
+		if(mater2==0){
+			$("#material2").hide();
+ 			$("#material2_ipt").show();
+		}else{
+			$("#material2>option").each(function(a,b){
+                if($(b).val()==mater2){//判断值
+                    $(b).attr("selected",true);
+                }
+			});
+		}
 
 
 
@@ -400,6 +487,13 @@
                     $(box_id).show();
                 }
 			});
+			$("input[name=wl_thin]").each(function(a,b){
+                if($(b).val()==wl_thin){//判断值
+                	var box_id = '#wl_thin_box_'+$(b).val();
+                	$(b).attr("checked",true);
+                    $(box_id).show();
+                }
+			});
 
 		}
 
@@ -426,6 +520,30 @@
 			 	if(choice==0){
 			 		$(".wl_waleng_sel").hide();
 			 		$(".wl_waleng_ipt").show();
+			 	}
+			 })
+
+			  $(".material_sel").change(function(){
+			 	var choice=$(this).val();
+			 	if(choice==0){
+			 		$(".material_sel").hide();
+			 		$(".material_ipt").show();
+			 	}
+			 })
+
+			  $(".surface_sel").change(function(){
+			 	var choice=$(this).val();
+			 	if(choice==0){
+			 		$(".surface_sel").hide();
+			 		$(".surface_ipt").show();
+			 	}
+			 })
+
+			  $(".material2_sel").change(function(){
+			 	var choice=$(this).val();
+			 	if(choice==0){
+			 		$(".material2_sel").hide();
+			 		$(".material2_ipt").show();
 			 	}
 			 })
 
@@ -467,7 +585,7 @@
 		
 				var wl_size=$.trim($("#wl_size").val());
 				var wl_size2=$.trim($("#wl_size2").val());
-				var wl_thin=$.trim($("#wl_thin").val());
+				var wl_thin=$.trim($("input[name=wl_thin]:checked").val());
 				var wl_feizhi=$.trim($("#wl_feizhi").val());
 				var wl_biaoliao=$.trim($("#wl_biaoliao").val());
 				var wl_waleng=$.trim($("#wl_waleng").val());
@@ -477,11 +595,22 @@
 
 				var wl_feizhi_ipt=$.trim($("#wl_feizhi_ipt").val());
 				var wl_waleng_ipt=$.trim($("#wl_waleng_ipt").val());
+				var material_ipt=$.trim($("#material_ipt").val());
+				var surface_ipt=$.trim($("#surface_ipt").val());
 
+				var material2=$.trim($("#material2").val());
+				var daliao2=$.trim($("#daliao2").val());
+				var size2=$.trim($("#size2").val());
+				var kaiyin2=$.trim($("#kaiyin2").val());
+				var kaishu2=$.trim($("#kaishu2").val());
+				var material2_ipt=$.trim($("#material2_ipt").val());
+
+				var wl_amount=$.trim($("#wl_amount").val());
+		
 				$.ajax({
 				  	type : "POST",
 				  	url : "/sales/modify_process/",
-				  	data:{'productID':productID,'customer':customer,'create_time':create_time,'deadline':deadline,'alerttime':alerttime,'product_name':product_name,'number_2':number_2,'number_1':number_1,'amount':amount,'pinban':pinban,'yinshu':yinshu,'yinsha':yinsha,'jiayinshu':jiayinshu,'zhenjiao':zhenjiao,'total_yinshu':total_yinshu,'yaheng':yaheng,'lingyin':lingyin,'surface':surface,'process':process,'notes':notes,'material':material,'daliao':daliao,'size':size,'kaishu':kaishu,'kaiyin':kaiyin,'fudai':fudai,'quality':quality,'wl_size':wl_size,'wl_size2':wl_size2,'wl_feizhi':wl_feizhi,'wl_thin':wl_thin,'wl_biaoliao':wl_biaoliao,'wl_waleng':wl_waleng,'yinsha2':yinsha2,'total_yinshu_1':total_yinshu_1,'total_yinshu_2':total_yinshu_2,'wl_feizhi_ipt':wl_feizhi_ipt,'wl_waleng_ipt':wl_waleng_ipt},
+				  	data:{'productID':productID,'customer':customer,'create_time':create_time,'deadline':deadline,'alerttime':alerttime,'product_name':product_name,'number_2':number_2,'number_1':number_1,'amount':amount,'pinban':pinban,'yinshu':yinshu,'yinsha':yinsha,'jiayinshu':jiayinshu,'zhenjiao':zhenjiao,'total_yinshu':total_yinshu,'yaheng':yaheng,'lingyin':lingyin,'surface':surface,'process':process,'notes':notes,'material':material,'daliao':daliao,'size':size,'kaishu':kaishu,'kaiyin':kaiyin,'fudai':fudai,'quality':quality,'wl_size':wl_size,'wl_size2':wl_size2,'wl_feizhi':wl_feizhi,'wl_thin':wl_thin,'wl_biaoliao':wl_biaoliao,'wl_waleng':wl_waleng,'yinsha2':yinsha2,'total_yinshu_1':total_yinshu_1,'total_yinshu_2':total_yinshu_2,'wl_feizhi_ipt':wl_feizhi_ipt,'wl_waleng_ipt':wl_waleng_ipt,'material_ipt':material_ipt,'surface_ipt':surface_ipt,'material2':material2,'daliao2':daliao2,'size2':size2,'kaishu2':kaishu2,'kaiyin2':kaiyin2,'material2_ipt':material2_ipt,'wl_amount':wl_amount},
 				  	dataType : "json",
 				  	success : function(data){    
 		                if(data==1){

@@ -4,8 +4,8 @@
 {% block head %}
 <link rel="stylesheet" href="{% static "erp/css/sales.css" %}">
 <style>
-	.block2{width:1480px;}
-	.main{width: 1200px;}
+	.block2{width:1380px;}
+	.main{width: 1100px;}
 
 </style>
 {% endblock %}
@@ -51,8 +51,8 @@
 			<th class="col_5">下单日期<span class="red">*</span></th>
 			<th class="col_10">订单号<span class="red">*</span></th>
 			<th class="col_10">品名<span class="red">*</span></th>
-			<th class="col_5">尺寸<span class="red">*</span></th>
-			<th class="col_10">条码<span class="red">*</span></th>
+			<th class="col_10">尺寸<span class="red">*</span></th>
+			<th class="col_5">条码<span class="red">*</span></th>
 			<th class="col_5">数量<span class="red">*</span></th>
 			<th class="col_5">单价<span class="red">*</span></th>
 			<th class="col_5">版费<span class="red">*</span></th>
@@ -70,8 +70,8 @@
 			<th class="col_5"><input type="text" class="create_time" id="create_time_{{value.items.25.1}}" onClick="WdatePicker()" value={{value.items.5.1}}></th>
 			<th class="col_10"><input type="text" class="id_{{value.items.26.1}}" id="productID_{{value.items.25.1}}"  value={{value.items.7.1}}></th>
 			<th class="col_10"><input type="text" id="product_name_{{value.items.25.1}}"  value={{value.items.6.1}}></th>
-			<th class="col_5"><input type="text" id="size_{{value.items.25.1}}" value={{value.items.16.1}}></th>
-			<th class="col_10"><input type="text" id="productID2_{{value.items.25.1}}" value={{value.items.24.1}}></th>
+			<th class="col_10"><input type="text" id="size_{{value.items.25.1}}" value={{value.items.16.1}}></th>
+			<th class="col_5"><input type="text" id="productID2_{{value.items.25.1}}" value={{value.items.24.1}}></th>
 			<th class="col_5"><input type="number" id="amount_{{value.items.25.1}}"  value={{value.items.8.1}} ></th>
 			<th class="col_5"><input type="number" id="price_{{value.items.25.1}}"  value={{value.items.9.1}} ></th>
 			<th class="col_5"><input type="number" id="edition_fee_{{value.items.25.1}}" value={{value.items.11.1}} ></th>

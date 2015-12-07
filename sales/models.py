@@ -139,6 +139,15 @@ class Process(models.Model):
 	total_yinshu_2=models.CharField(max_length = 30,blank = True)
 	wl_feizhi_ipt=models.CharField(max_length = 30,blank = True)
 	wl_waleng_ipt=models.CharField(max_length = 30,blank = True)
+	material_ipt=models.CharField(max_length = 30,blank = True)
+	surface_ipt=models.CharField(max_length = 30,blank = True)
+	material2=models.CharField(max_length = 30,blank = True)
+	daliao2=models.CharField(max_length = 30,blank = True)
+	size2=models.CharField(max_length = 30,blank = True)
+	kaishu2=models.CharField(max_length = 30,blank = True)
+	kaiyin2=models.CharField(max_length = 30,blank = True)
+	material2_ipt=models.CharField(max_length = 30,blank = True)
+	wl_amount=models.CharField(max_length = 30,blank = True)
 
 class Cost(models.Model):
 	productID=models.CharField(max_length = 10)
