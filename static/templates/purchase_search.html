@@ -22,17 +22,17 @@
 		</div>	
 		<div class="head_row">
 			<label style="width:45px">兹向</label>
- 			<input type="text" id="customer_name" style="width:120px" value={{ records.0 }}>
+ 			<input type="text" id="customer_name" style="width:120px" value={{ records.0.0 }}>
  			<label  style="width:240px">单位订购以下物品，所用订单</label>
 			<input type="text" id="productID" style="width:50px" value={{productID}} >
 		</div>
 		<div class="head_row">
  			<label for="contacts">联系人</label>
- 			<input type="text" id="contacts" style="width:120px" value={{ records.3 }}>
+ 			<input type="text" id="contacts" style="width:120px" value={{ records.0.3 }}>
  			<label for="contacts_phone">联系电话</label>
- 			<input type="number" id="contacts_phone" style="width:120px" value={{ records.4 }}>
+ 			<input type="number" id="contacts_phone" style="width:120px" value={{ records.0.4 }}>
  			<label for="fax">传真</label>
- 			<input type="text" id="fax" style="width:120px" value={{ records.5 }}>
+ 			<input type="text" id="fax" style="width:120px" value={{ records.0.5 }}>
  		</div>
 
  	 <table class="purchase_table" style="margin-top: 20px;">
@@ -44,60 +44,37 @@
 				<th class="col_10">单价</th>
 				<th class="col_20">金额</th>
 			</tr>
+		{% for key, value in records.items %}
 			<tr>
-				<th class="col_20"><input type="text" id="product_name"  value={{records.1}}></th>
-				<th class="col_20"><input type="text" id="size" value={{records.6}}></th>
-				<th class="col_20"><input type="text" id="amount" value={{records.7}}></th>
-				<th class="col_10"><input type="text" id="danwei" value={{records.8}} ></th>
-				<th class="col_10"><input type="number" id="price" value={{records.9}}></th>
-				<th class="col_20"><input type="number" id="fee" value={{records.10}}></th>
+				<th class="col_20"><input type="text" id="product_name_{{value.items.17.1}}" class="{{value.items.16.1}}_{{value.items.15.1}}" name="product_name" value={{value.items.1.1}}></th>
+				<th class="col_20"><input type="text" id="size_{{value.items.17.1}}" value={{value.items.6.1}}></th>
+				<th class="col_20"><input type="text" id="amount_{{value.items.17.1}}" value={{value.items.7.1}}></th>
+				<th class="col_10"><input type="text" id="danwei_{{value.items.17.1}}" value={{value.items.8.1}}></th>
+				<th class="col_10"><input type="number" id="price_{{value.items.17.1}}" value={{value.items.9.1}}></th>
+				<th class="col_20"><input type="number" id="fee_{{value.items.17.1}}" value={{value.items.10.1}}></th>
 			</tr>
-			<tr>
-				<th class="col_20"></th>
-				<th class="col_20"></th>
-				<th class="col_20"></th>
-				<th class="col_10"></th>
-				<th class="col_10"></th>
-				<th class="col_20"></th>
-			</tr>
-			<tr>
-				<th class="col_20"></th>
-				<th class="col_20"></th>
-				<th class="col_20"></th>
-				<th class="col_10"></th>
-				<th class="col_10"></th>
-				<th class="col_20"></th>
-			</tr>
-			<tr>
-				<th class="col_20"></th>
-				<th class="col_20"></th>
-				<th class="col_20"></th>
-				<th class="col_10"></th>
-				<th class="col_10"></th>
-				<th class="col_20"></th>
-			</tr>
+		{% endfor %}
 		</table>
 		 <table class="purchase_table">
 			 <tr>
 			 	<th class="col_10">合计金额</th>
-				<td class="col_50"><input type="number" id="total_fee" value={{records.11}}></td>
+				<td class="col_50"><input type="number" id="total_fee" value={{records.0.11}}></td>
 				<th class="col_20"></th>
 				<th class="col_20"></th>
 			</tr>
 		</table>
 		<table class="purchase_table" >
 			<tr>
-				<th class="col_100" >
-					<textarea name="" id="notes" cols="30" rows="10" style="">备注:{{records.12}}</textarea>
-				</th>
+				<th class="col_10">备注</th>
+				<td class="col_90"><input type="text" id="notes" value={{records.0.12}}></td>
 			</tr>
 		</table>
 		 <table class="purchase_table">
 			 <tr>
 			 	<th class="col_10">交货期</th>
-				<td class="col_30"><input type="text" id="deadline" onClick="WdatePicker()" value={{records.13}}></td>
+				<td class="col_30"><input type="text" id="deadline" onClick="WdatePicker()" value={{records.0.13}}></td>
 				<th class="col_10">交货地址</th>
-				<th class="col_50"><input type="text" id="address" value={{records.14}}></th>
+				<th class="col_50"><input type="text" id="address" value={{records.0.14}}></th>
 			</tr>
 		</table>
 
@@ -220,36 +197,46 @@
 		})
 //修改但页面
 		$("#modify_single").click(function(){
-			var customer=$.trim($("#customer_name").val());
-			var product_name=$.trim($("#product_name").val());
+ 			var maxnum={{length}};
+ 			var count=0;
+ 			var customer=$.trim($("#customer_name").val());
 			var create_time=newdate;
 			var contacts=$.trim($("#contacts").val());
 			var contacts_phone=$.trim($("#contacts_phone").val());
 			var fax=$.trim($("#fax").val());
-			var size=$.trim($("#size").val());	
-			var amount=$.trim($("#amount").val());	
-			var price=$.trim($("#price").val());
-			var danwei=$.trim($("#danwei").val());
-			var fee=$.trim($("#fee").val());
 			var total_fee=$.trim($("#total_fee").val());
 			var deadline=$.trim($("#deadline").val());
 			var address=$.trim($("#address").val());
 			var notes=$.trim($("#notes").val());
 
-			  $.ajax({
-			  	type : "POST",
-			  	url : "/purchase/modify_single/",
-			  	data:{'productID':productID,'customer':customer,'create_time':create_time,'product_name':product_name,'contacts':contacts,'contacts_phone':contacts_phone,'fax':fax,'size':size,'amount':amount,'price':price,'danwei':danwei,'fee':fee,'total_fee':total_fee,'notes':notes,'deadline':deadline,'address':address},
-			  	dataType : "json",
-			  	success : function(data) {    
-	                if(data==1){
-	                	alert("修改成功");
-	                   window.location.reload();
-	                }else{
-	                  alert("修改失败:"+data.message);
-	                }
-	              }
+			for(var i=1;i<=maxnum;i++){
+				var product_name=$.trim($("#product_name_"+i).val());
+				var size=$.trim($("#size_"+i).val());	
+				var amount=$.trim($("#amount_"+i).val());	
+				var price=$.trim($("#price_"+i).val());
+				var danwei=$.trim($("#danwei_"+i).val());
+				var fee=$.trim($("#fee_"+i).val());
+				var id=$("#product_name_"+i).attr('class').split("_")[0];
+				var id2=$("#product_name_"+i).attr('class').split("_")[1];		
+		
+				$.ajax({
+				  	type : "POST",
+				  	url : "/purchase/modify_single/",
+				  	data:{'productID':productID,'customer':customer,'create_time':create_time,'product_name':product_name,'contacts':contacts,'contacts_phone':contacts_phone,'fax':fax,'size':size,'amount':amount,'price':price,'danwei':danwei,'fee':fee,'total_fee':total_fee,'notes':notes,'deadline':deadline,'address':address,'id':id,'id2':id2},
+				  	dataType : "json",
+				  	success : function(data) {    
+		                if(data==1){
+		             		count=count+1;
+		                }else{
+		                  alert("第"+i+"条项目修改失败");
+		                }
+
+	                	if(count==maxnum){
+							alert("修改成功");
+						}
+		              }
 	          })
+			}
 		})
 
  		$("#modify_multiple").click(function(){

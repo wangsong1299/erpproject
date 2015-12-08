@@ -22,13 +22,14 @@ urlpatterns = patterns('',
     url(r'^fill_single/$', views.fill_single),
     url(r'^fill_multiple/$', views.fill_multiple),
     url(r'^fill_multiple_list/$', views.fill_multiple_list),
+    url(r'^fill_single_list/$', views.fill_single_list),
  
     url(r'^delete_single/$', views.delete_single),
     url(r'^delete_multiple/$', views.delete_multiple),
  
     url(r'^modify_single/$', views.modify_single),
     url(r'^modify_multiple/$', views.modify_multiple),
- 
+
 
 
 )

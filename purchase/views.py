@@ -79,7 +79,15 @@ def fill(request,productID):
 		if(process_step==1):
 			records[0]=p.material
 			records[1]=p.size
-			records[2]=p.daliao
+			records[2]=p.kaiyin
+			records[3]=p.material2
+			records[4]=p.size2
+			records[5]=p.kaiyin2
+			records[6]=p.wl_waleng
+			records[7]=p.wl_size
+			records[8]=p.wl_amount
+			records[9]=p.material_ipt
+			records[10]=p.material2_ipt
 		return render_to_response("purchase_fill.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'process_step':process_step,'records':records,'productID':productID})
 
 def search(request,productID):
@@ -94,23 +102,30 @@ def search(request,productID):
 		multiple_records={}
 		i=0
 		if(process_step==1):
-			p=Purchase_single.objects.filter(productID=productID)[0]		
-			single_records[0]=p.customer
-			single_records[1]=p.product_name
-			single_records[2]=p.create_time
-			single_records[3]=p.contacts
-			single_records[4]=p.contacts_phone
-			single_records[5]=p.fax
-			single_records[6]=p.size
-			single_records[7]=p.amount
-			single_records[8]=p.danwei
-			single_records[9]=p.price
-			single_records[10]=p.fee
-			single_records[11]=p.total_fee
-			single_records[12]=p.notes
-			single_records[13]=p.deadline
-			single_records[14]=p.address
-			return render_to_response("purchase_search.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'process_step':process_step,'records':single_records,'productID':productID,'length':0})
+			singles=Purchase_single.objects.filter(productID=productID)
+			for m in singles:
+				a={}
+				a[0]=m.customer
+				a[1]=m.product_name
+				a[2]=m.create_time
+				a[3]=m.contacts
+				a[4]=m.contacts_phone
+				a[5]=m.fax
+				a[6]=m.size
+				a[7]=m.amount
+				a[8]=m.danwei
+				a[9]=m.price
+				a[10]=m.fee
+				a[11]=m.total_fee
+				a[12]=m.notes
+				a[13]=m.deadline
+				a[14]=m.address
+				a[15]=Purchase.objects.filter(productID=m.productID)[0].id
+				a[16]=m.id
+				a[17]=int(i)+1
+				single_records[i]=a
+				i=i+1
+			return render_to_response("purchase_search.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'process_step':process_step,'records':single_records,'productID':productID,'length':i})
 		else:
 			muls=Purchase_multiple.objects.filter(productID=productID)
 			for m in muls:
@@ -207,17 +222,23 @@ def fill_single(request):
 		q.save()
 	except Exception, e:
 		return comutils.baseresponse(e, 500)
+	return HttpResponse(json.dumps(1))
+
+@csrf_exempt
+def fill_single_list(request):
+	productID = request.POST.get('productID', None)
+	customer = request.POST.get('customer', None)
+	create_time = request.POST.get('create_time', None)
 	try:
 		q = Purchase(productID=productID,
 				customer = customer,
-				product_name=product_name,	
 				process_step=1,
-				create_time=create_time,
-				notes=notes)
+				create_time=create_time)
 		q.save()
 	except Exception, e:
 		return comutils.baseresponse("system error", 500)
 	return HttpResponse(json.dumps(1))
+
 
 @csrf_exempt
 def fill_multiple_list(request):
@@ -287,11 +308,11 @@ def fill_multiple(request):
 def delete_single(request):
 	productID = request.POST.get('productID', None)
 	try:
-		Purchase_single.objects.filter(productID=productID)[0].delete()
+		Purchase_single.objects.filter(productID=productID).delete()
 	except Exception, e:
 		return comutils.baseresponse('system error', 500)
 	try:
-		Purchase.objects.filter(productID=productID)[0].delete()
+		Purchase.objects.filter(productID=productID).delete()
 	except Exception, e:
 		return comutils.baseresponse('system error', 500)
 	return HttpResponse(json.dumps(1))
@@ -330,9 +351,12 @@ def modify_single(request):
 	notes = request.POST.get('notes', None)
 	deadline = request.POST.get('deadline', None)
 	address = request.POST.get('address', None)
+	id = request.POST.get('id', None)
+	id2 = request.POST.get('id2', None)
+	print id2
 
 	try:
-		Purchase_single.objects.filter(productID=productID).update(customer = customer,
+		Purchase_single.objects.filter(id=id).update(customer = customer,
 				create_time=create_time,
 				product_name=product_name,	
 				contacts_phone=contacts_phone,
@@ -350,7 +374,7 @@ def modify_single(request):
 	except Exception, e:
 		return comutils.baseresponse(e, 500)
 	try:
-		Purchase.objects.filter(productID=productID).update(customer = customer,product_name=product_name)
+		Purchase.objects.filter(id=id2).update(customer = customer)
 	except Exception, e:
 		return comutils.baseresponse(e, 500)	
 	return HttpResponse(json.dumps(1))

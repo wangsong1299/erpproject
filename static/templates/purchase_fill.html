@@ -46,37 +46,63 @@
 				<th class="col_20">金额</th>
 			</tr>
 			<tr>
-				<th class="col_20"><input type="text" id="product_name"  value={{records.0}}></th>
-				<th class="col_20"><input type="text" id="size" value={{records.1}}></th>
-				<th class="col_20"><input type="text" id="size" value={{records.2}}></th>
-				<th class="col_10"><input type="text" id="danwei" ></th>
-				<th class="col_10"><input type="number" id="price"></th>
-				<th class="col_20"><input type="number" id="fee"></th>
+				<th class="col_20"><input type="text" id="product_name_2" name="product_name" value={{records.9}}></th>
+				<th class="col_20"><input type="text" id="size_1" value={{records.1}}></th>
+				<th class="col_20"><input type="text" id="amount_1" value={{records.2}}></th>
+				<th class="col_10"><input type="text" id="danwei_1" ></th>
+				<th class="col_10"><input type="number" id="price_1"></th>
+				<th class="col_20"><input type="number" id="fee_1"></th>
 			</tr>
 			<tr>
-				<th class="col_20"></th>
-				<th class="col_20"></th>
-				<th class="col_20"></th>
-				<th class="col_10"></th>
-				<th class="col_10"></th>
-				<th class="col_20"></th>
+				<th class="col_20"><input type="text" id="product_name_2" name="product_name" value={{records.10}}></th>
+				<th class="col_20"><input type="text" id="size_2" value={{records.4}}></th>
+				<th class="col_20"><input type="text" id="amount_2" value={{records.5}}></th>
+				<th class="col_10"><input type="text" id="danwei_2" ></th>
+				<th class="col_10"><input type="number" id="price_2"></th>
+				<th class="col_20"><input type="number" id="fee_2"></th>
 			</tr>
 			<tr>
-				<th class="col_20"></th>
-				<th class="col_20"></th>
-				<th class="col_20"></th>
-				<th class="col_10"></th>
-				<th class="col_10"></th>
-				<th class="col_20"></th>
+				<th class="col_20"><input type="text" id="product_name_3" name="product_name" value={{records.11}}></th>
+				<th class="col_20"><input type="text" id="size_3" value={{records.7}}></th>
+				<th class="col_20"><input type="text" id="amount_3" value={{records.8}}></th>
+				<th class="col_10"><input type="text" id="danwei_3" ></th>
+				<th class="col_10"><input type="number" id="price_3"></th>
+				<th class="col_20"><input type="number" id="fee_3"></th>
 			</tr>
 			<tr>
-				<th class="col_20"></th>
-				<th class="col_20"></th>
-				<th class="col_20"></th>
-				<th class="col_10"></th>
-				<th class="col_10"></th>
-				<th class="col_20"></th>
+				<th class="col_20"><input type="text" id="product_name_4" name="product_name"></th>
+				<th class="col_20"><input type="text" id="size_4" ></th>
+				<th class="col_20"><input type="text" id="amount_4" ></th>
+				<th class="col_10"><input type="text" id="danwei_4" ></th>
+				<th class="col_10"><input type="number" id="price_4"></th>
+				<th class="col_20"><input type="number" id="fee_4"></th>
 			</tr>
+			<tr>
+				<th class="col_20"><input type="text" id="product_name_5" name="product_name"></th>
+				<th class="col_20"><input type="text" id="size_5" ></th>
+				<th class="col_20"><input type="text" id="amount_5" ></th>
+				<th class="col_10"><input type="text" id="danwei_5" ></th>
+				<th class="col_10"><input type="number" id="price_5"></th>
+				<th class="col_20"><input type="number" id="fee_5"></th>
+			</tr>
+
+			<tr>
+				<th class="col_20"><input type="text" id="product_name_6" name="product_name"></th>
+				<th class="col_20"><input type="text" id="size_6" ></th>
+				<th class="col_20"><input type="text" id="amount_6" ></th>
+				<th class="col_10"><input type="text" id="danwei_6" ></th>
+				<th class="col_10"><input type="number" id="price_6"></th>
+				<th class="col_20"><input type="number" id="fee_6"></th>
+			</tr>
+			<tr>
+				<th class="col_20"><input type="text" id="product_name_7" name="product_name"></th>
+				<th class="col_20"><input type="text" id="size_7" ></th>
+				<th class="col_20"><input type="text" id="amount_7" ></th>
+				<th class="col_10"><input type="text" id="danwei_7" ></th>
+				<th class="col_10"><input type="number" id="price_7"></th>
+				<th class="col_20"><input type="number" id="fee_7"></th>
+			</tr>
+
 		</table>
 		 <table class="purchase_table">
 			 <tr>
@@ -88,9 +114,8 @@
 		</table>
 		<table class="purchase_table" >
 			<tr>
-				<th class="col_100" >
-					<textarea name="" id="notes" cols="30" rows="10" style="">备注</textarea>
-				</th>
+				<th class="col_10">备注</th>
+				<td class="col_90"><input type="text" id="notes" ></td>
 			</tr>
 		</table>
 		 <table class="purchase_table">
@@ -249,62 +274,94 @@
 			var barcode_src='/barcode/'+productID;
 			$("#barcode_iframe").attr("src",barcode_src);
 
+
+		var mater_list=['','250克灰底白板','250克白底白板','300克灰底白板','300克白底白板','350克灰底白板','350克白底白板','400克灰底白板','400克白底白板','450克灰底白板','450克白底白板','80克双胶纸','100克双胶纸','128克铜版纸','157克铜版纸','210克白卡','230克白卡','250克白卡','300克白卡','350克白卡','250克铜版卡','300克铜版卡','350克铜版卡'];
+		var mater={{ records.0 }};
+		if(mater!=0){
+			$("#product_name_1").val(mater_list[mater]);
+		}
+		
+
+		var mater2={{ records.3 }};
+		if(mater2!=0){
+			$("#product_name_2").val(mater_list[mater2]);
+		}
+		
+		var wl_waleng_list=['','瓦楞0g','瓦楞90g','瓦楞110g'];
+		var wl_waleng={{ records.6 }};
+		if(wl_waleng!=0){
+			$("#product_name_3").val(wl_waleng_list[wl_waleng]);
+		}
+		
+
 //录入单工序表
 		$("#purchase_fill_single").click(function(){
+			var maxnum=3;
 			var customer=$.trim($("#customer_name").val());
-			var product_name=$.trim($("#product_name").val());
 			var create_time=newdate;
 			var contacts=$.trim($("#contacts").val());
 			var contacts_phone=$.trim($("#contacts_phone").val());
 			var fax=$.trim($("#fax").val());
-			var size=$.trim($("#size").val());	
-			var amount=$.trim($("#amount").val());	
-			var price=$.trim($("#price").val());
-			var danwei=$.trim($("#danwei").val());
-			var fee=$.trim($("#fee").val());
+			
 			var total_fee=$.trim($("#total_fee").val());
 			var deadline=$.trim($("#deadline").val());
 			var address=$.trim($("#address").val());
 			var notes=$.trim($("#notes").val());
 
-			  $.ajax({
-			  	type : "POST",
-			  	url : "/purchase/fill_single/",
-			  	data:{'productID':productID,'customer':customer,'create_time':create_time,'product_name':product_name,'contacts':contacts,'contacts_phone':contacts_phone,'fax':fax,'size':size,'amount':amount,'price':price,'danwei':danwei,'fee':fee,'total_fee':total_fee,'notes':notes,'deadline':deadline,'address':address},
-			  	dataType : "json",
-			  	success : function(data) {    
-	                if(data==1){
-	                	alert("录入成功");
-	                   window.location.href='/purchase/purchase_list/1';
-	                }else{
-	                  alert("录入失败:"+data.message);
-	                }
-	              }
-	          })
-		})
- //多工序表格生成
- /*
-		$("#showtables").click(function(){
-			multi_length=$("#length").val();
-			if(multi_length==''){
-				alert('请输入采购的项目数');
-			}else{
-				$(".purchase_box").show();
-				for(var i=0;i<multi_length;i++){
-					var html='<div>\
-					<div class="col-md-3 ws-8"><input type="text" id="col1_'+i+'"></div>\
-					<div class="col-md-3 ws-8"><input type="text" id="col2_'+i+'"></div>\
-					<div class="col-md-3 ws-8"><input type="text" id="col3_'+i+'"></div>\
-					<div class="col-md-3 ws-8"><input type="text" id="col4_'+i+'"></div>\
-					<div class="col-md-3 ws-8"><input type="text" id="col5_'+i+'"></div>\
-					<div class="col-md-3 ws-8"><input type="text" id="col6_'+i+'"></div>\
-					<div class="col-md-3 ws-8"><input type="text" id="col7_'+i+'"></div>\
-					<div class="col-md-3 ws-8"><input type="text" id="col8_'+i+'"></div>\
-				</div>';
-					$(".purchase_box").append(html);
+			$("input[name=product_name]").each(function(a,b){
+				var temp = $.trim($(b).val());
+				if(temp.length!=0){
+					var num = $(b).attr("id").split("_")[2];
+					if(num>maxnum){
+						maxnum=num;
+					}
 				}
+			});
+			//写入列表
+			$.ajax({
+                  type : "POST",
+                  url : "/purchase/fill_single_list/",
+                  data:{'productID':productID,'customer':customer,'create_time':create_time},
+                  dataType : "json",
+                  success : function(data){  
+                  		  if(data==1){
+								console.log("ok");
+			                }else{
+			                  alert("录入失败");
+			                }	    
+                  }
+            })
+
+			//console.log(maxnum);
+			var count=0;
+			for(var i=1;i<=maxnum;i++){
+				var product_name=$.trim($("#product_name_"+i).val());
+				var size=$.trim($("#size_"+i).val());	
+				var amount=$.trim($("#amount_"+i).val());	
+				var price=$.trim($("#price_"+i).val());
+				var danwei=$.trim($("#danwei_"+i).val());
+				var fee=$.trim($("#fee_"+i).val());
+				$.ajax({
+				  	type : "POST",
+				  	url : "/purchase/fill_single/",
+				  	data:{'productID':productID,'customer':customer,'create_time':create_time,'product_name':product_name,'contacts':contacts,'contacts_phone':contacts_phone,'fax':fax,'size':size,'amount':amount,'price':price,'danwei':danwei,'fee':fee,'total_fee':total_fee,'notes':notes,'deadline':deadline,'address':address},
+				  	dataType : "json",
+				  	success : function(data) {    
+		                if(data==1){
+		             		count=count+1;
+		                }else{
+		                  alert("第"+i+"条项目录入失败");
+		                }
+
+	                	if(count==maxnum){
+							alert("录入成功");
+							window.location.href='/purchase/purchase_list/1';
+						}
+		              }
+	          })
 			}
-		})*/
+		})
+
 //多工序提交
 		$("#purchase_fill_multiple").click(function(){
 			var maxnum=0;
