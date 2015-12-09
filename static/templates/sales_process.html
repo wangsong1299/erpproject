@@ -387,7 +387,7 @@
 			$("#surface").hide();
  			$("#surface_ipt").show();
 		}else{
-			$("#surface").each(function(a,b){
+			$("#surface>option").each(function(a,b){
 	                if($(b).val()==surface){//判断值
 	                    $(b).attr("selected",true);
 	                }
