@@ -16,19 +16,8 @@
 $(document).ready(function(){
 
 	var code = {{ code }};
-
-	var zero_length=8-parseInt(String(code).length);
-	if(zero_length<0){
-		$("#bcTarget").html("无法生成条形码");
-	}else{
-		var zero_query='';
-		for(i=0;i<zero_length;i++){
-			zero_query=zero_query+'0';
-		};
-		var newcode=zero_query+code;
-		console.log(code);
-		$("#bcTarget").barcode(newcode,"code11");
-	}
+	console.log(code);
+	$("#bcTarget").empty().barcode(String(code), "code128",{barWidth:1, barHeight:30,showHRI:false});
 	
 	
   	
