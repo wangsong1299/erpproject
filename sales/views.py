@@ -1848,7 +1848,8 @@ def get_process_search_list(records):
 		b[7]=r.kaiyin
 		b[8]=int(r.surface)
 		b[9]=int(r.yaheng)
-		b[10]=r.deadline		
+		b[10]=r.deadline
+		b[11]=r.notes		
 		a[i]=b
 		i=i+1
 	return a
