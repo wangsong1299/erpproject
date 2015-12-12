@@ -1,0 +1,127 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "erp/css/sales.css" %}">
+{% endblock %}
+
+			{% block inner_header %}
+					
+			{% endblock %}			
+
+ {% block main %}
+ <div class="main" style="overflow:hidden;">
+ 			<div class="line2">
+							施工单单日查询
+				</div>	
+				
+	{% if isValue %}
+		<table class="process_table">
+			<tr>
+				<th class="col_5">开单日期</th>
+				<th class="col_5">机型</th>
+				<th class="col_5">客户名</th>
+				<th class="col_10">品名</th>
+				<th class="col_5">用料</th>
+				<th class="col_5">施工单号</th>
+				<th class="col_5">规格</th>
+				<th class="col_5">产量</th>
+				<th class="col_5">上光</th>
+				<th class="col_5">复膜</th>
+				<th class="col_5">吸塑</th>
+				<th class="col_5">新刀</th>
+				<th class="col_5">交付时间</th>
+			</tr>
+			{% for key, value in records.items %}
+				<tr>
+					<th class="col_5">{{value.items.1.1}}</th>
+					<th class="col_5" contenteditable></th>
+					<th class="col_5">{{value.items.2.1}}</th>
+					<th class="col_10"><a href="/sales/process_modify/{{value.items.5.1}}/">{{value.items.3.1}}</a></th>
+					<th class="col_5">
+						<select name="material" id="material_{{value.items.0.1}}" class="material_{{value.items.0.1}}_{{value.items.4.1}}" style="width:100%;margin-right:0">
+	 			 			<option value="1">250克灰底白板</option>
+	 			 			<option value="2">250克白底白板</option>
+							<option value="3">300克灰底白板</option>
+							<option value="4">300克白底白板</option>
+							<option value="5">350克灰底白板</option>
+							<option value="6">350克白底白板</option>
+							<option value="7">400克灰底白板</option>
+							<option value="8">400克白底白板</option>
+							<option value="9">450克灰底白板</option>
+							<option value="10">450克白底白板</option>
+							<option value="11">80克双胶纸</option>
+							<option value="12">100克双胶纸</option>
+							<option value="13">128克铜版纸</option>
+							<option value="14">157克铜版纸</option>
+							<option value="15">210克白卡</option>
+							<option value="16">230克白卡</option>
+							<option value="17">250克白卡</option>
+							<option value="18">300克白卡</option>
+							<option value="15">350克白卡</option>
+							<option value="16">250克铜版卡</option>
+							<option value="17">300克铜版卡</option>
+							<option value="18">350克铜版卡</option>
+	 			 		</select>	
+					</th>
+					<th class="col_5">{{value.items.5.1}}</th>
+					<th class="col_5">{{value.items.6.1}}</th>
+					<th class="col_5">{{value.items.7.1}}</th>
+					<th class="col_5">
+						{% ifequal value.items.8.1 1 %}
+						是
+						{% endifequal %}
+					</th>
+					<th class="col_5" contenteditable></th>
+					<th class="col_5">
+						{% ifequal value.items.8.1 2 %}
+						是
+						{% endifequal %}
+					</th>
+					<th class="col_5">
+						{% ifequal value.items.9.1 1 %}
+						是
+						{% else %}
+						否
+						{% endifequal %}
+					</th>
+					<th class="col_5">{{value.items.10.1}}</th>
+				</tr>
+		{% endfor %}
+		</table>
+	{% endif %}
+
+	{% if not isValue %}
+		当天没有记录
+	{% endif %}
+
+  </div>
+
+
+ {% endblock %}
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#sales_box").show();	
+		$("#process").addClass('subtitle_focus');
+
+
+		$("select").each(function(a,b){
+			var mclass=$(this).attr("class");
+			var mid="material_"+mclass.split("_")[1];
+			var mvalue=mclass.split("_")[2];
+			$("#"+mid+">option").each(function(a,b){
+                if($(b).val()==mvalue){//判断值
+                    $(b).attr("selected",true);
+                }
+			});
+
+		});
+	
+	
+
+	})</script>
+
+{% endblock %}

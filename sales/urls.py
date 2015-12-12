@@ -86,6 +86,10 @@ urlpatterns = patterns('',
     # 施工单单页（修改）
     url(r'^process_modify/(\d{1,6})/$', views.process_modify),
 
+    # 施工单单日汇总
+    url(r'^process_search/$', views.process_search),
+    url(r'^process_search/(\d{4})/(\d{1,2})/(\d{1,2})/$', views.process_search_date),
+
     url(r'^fill_process/$', views.fill_process),
     url(r'^modify_process/$', views.modify_process),
     url(r'^delete_process/$', views.delete_process),

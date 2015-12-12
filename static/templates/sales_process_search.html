@@ -1,0 +1,50 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "erp/css/sales.css" %}">
+{% endblock %}
+
+			{% block inner_header %}
+					
+			{% endblock %}			
+
+ {% block main %}
+ <div class="main" style="overflow:hidden;">
+ 			<div class="line2">
+							施工单单日查询
+				</div>	
+				
+	 <div class="head_row" style="margin-bottom:40px">
+ 		   <button type="submit" class="btn btn-primary" id="find" style="float:right">查询</button>
+ 		   <input type="text" id="search_time" onClick="WdatePicker()" style="float:right;margin-right:50px;" >
+
+  		</div>
+ 		
+
+
+  </div>
+
+
+ {% endblock %}
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#sales_box").show();	
+		$("#process").addClass('subtitle_focus');
+
+		var date=new Date();
+		var newdate= date.getFullYear()+'-'+(parseInt(date.getMonth())+1)+'-'+date.getDate();
+		$("#search_time").val(newdate);
+
+		$("#find").click(function(){
+			var arr=$("#search_time").val().split("-");
+			window.location.href="/sales/process_search/"+arr[0]+'/'+arr[1]+'/'+arr[2];
+		})
+	
+
+	})</script>
+
+{% endblock %}
