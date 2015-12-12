@@ -399,6 +399,7 @@
 		if(wl_feizhi==0){
 			$("#wl_feizhi").hide();
  			$("#wl_feizhi_ipt").show();
+ 			$("#wl_feizhi_ipt").val("");
 		}else{
 			$("#wl_feizhi>option").each(function(a,b){
 	                if($(b).val()==wl_feizhi){//判断值
@@ -413,6 +414,7 @@
 		if(wl_waleng==0){
 			$("#wl_waleng").hide();
  			$("#wl_waleng_ipt").show();
+ 			$("#wl_waleng_ipt").val("");
 		}else{
 			$("#wl_waleng>option").each(function(a,b){
                 if($(b).val()==wl_waleng){//判断值
@@ -423,10 +425,11 @@
 		}
 
 		var mater2={{ records.40 }};
-		//console.log(typeof(mater));
+		console.log("3:"+mater2);
 		if(mater2==0){
 			$("#material2").hide();
  			$("#material2_ipt").show();
+ 			$("#material2_ipt").val("");			
 		}else{
 			$("#material2>option").each(function(a,b){
                 if($(b).val()==mater2){//判断值
