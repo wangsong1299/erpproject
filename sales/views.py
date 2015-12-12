@@ -1076,9 +1076,11 @@ def modify_delivery(request):
 def delete_delivery(request):
 	deliveryID = request.POST.get('deliveryID', None)
 	try:
+		productID=Delivery.objects.filter(deliveryID=deliveryID)[0].productID
 		Delivery.objects.filter(deliveryID=deliveryID).delete()
+		Finance.objects.filter(productID=productID).delete()
 	except Exception, e:
-		return comutils.baseresponse('system error', 500)
+		return comutils.baseresponse(e, 500)
 	return HttpResponse(json.dumps(1))
 #api
 
