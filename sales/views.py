@@ -1031,7 +1031,7 @@ def fill_delivery(request):
 		print delivery_time
 		Storage.objects.filter(productID=productID).update(out_time=delivery_time,amount=now_amount)
 	except Exception, e:
-		return comutils.baseresponse(e, 500)
+		return comutils.baseresponse("送货单输入成功,更新库存单失败", productID)
 	return HttpResponse(json.dumps(1))
 
 

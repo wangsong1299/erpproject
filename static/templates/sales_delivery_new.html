@@ -178,6 +178,7 @@
 						}
 					}
 				});
+
 				var deliveryID=$("#deliveryID").val();
 				var delivery_name=$("#delivery_name").val();
 				var delivery_time=$("#delivery_time").val();
@@ -188,6 +189,7 @@
 				var choice=1;
 
 				for(var i=1;i<=maxnum;i++){
+					console.log(i);
 					var productID=$("#productID_"+i).val();
 					var product_name=$.trim($("#product_name_"+i).val());
 					var order_amount=$.trim($("#order_amount_"+i).val());
@@ -228,7 +230,7 @@
 			                      			window.location.href='/sales/delivery_list/1';
 			                      		}
 		                      		}else{
-		                      			alert("录入失败："+data.message);
+		                      			alert("订单号为"+data.code+"录入失败："+data.message);
 		                      			i=maxnum;
 		                      		}
 		                      }
@@ -240,26 +242,27 @@
 
  			$(".productID_1").blur(function(){
  				var productID = $(this).val();
- 				var num = $(this).attr("id").split("_")[1];
- 				$.ajax({
-                      type : "POST",
-                      url : "/sales/get_details_from_order/",
-                      data:{'productID':productID},
-                      dataType : "json",
-                      success : function(data){  
-                      		if(data==0){
-                      			alert("没有订单号为"+productID+"的订单信息")
-                      		}else{
-                      			$("#product_name_"+num).val(data[0]);
-	                      	    $("#order_amount_"+num).val(data[1]);
-	                      		$("#delivery_amount_"+num).val(data[1]);
-	                      		$("#price_"+num).val(data[2]);
-	                      		$("#fee_"+num).val(data[3]);
-	                      		$("#notes_"+num).val(data[4]);
-                      		}
-                      }
-                  })
-
+ 				if(productID!=''){
+ 					var num = $(this).attr("id").split("_")[1];
+	 				$.ajax({
+	                      type : "POST",
+	                      url : "/sales/get_details_from_order/",
+	                      data:{'productID':productID},
+	                      dataType : "json",
+	                      success : function(data){  
+	                      		if(data==0){
+	                      			alert("没有订单号为"+productID+"的订单信息")
+	                      		}else{
+	                      			$("#product_name_"+num).val(data[0]);
+		                      	    $("#order_amount_"+num).val(data[1]);
+		                      		$("#delivery_amount_"+num).val(data[1]);
+		                      		$("#price_"+num).val(data[2]);
+		                      		$("#fee_"+num).val(data[3]);
+		                      		$("#notes_"+num).val(data[4]);
+	                      		}
+	                      }
+	                  })
+ 				}
  			})
 		}
 //choice1 end

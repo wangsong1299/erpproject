@@ -37,7 +37,7 @@
 					<th class="col_5">{{value.items.1.1}}</th>
 					<th class="col_5">{{value.items.11.1}}</th>
 					<th class="col_5">{{value.items.2.1}}</th>
-					<th class="col_10"><a href="/sales/process_modify/{{value.items.5.1}}/">{{value.items.3.1}}</a></th>
+					<th class="col_10 product_name" id="{{value.items.5.1}}" style="cursor:pointer"><a href="#">{{value.items.3.1}}</a></th>
 					<th class="col_5">
 						<select name="material" id="material_{{value.items.0.1}}" class="material_{{value.items.0.1}}_{{value.items.4.1}}" style="width:100%;margin-right:0">
 	 			 			<option value="1">250克灰底白板</option>
@@ -119,6 +119,11 @@
 			});
 
 		});
+
+		$(".product_name").click(function(){
+			var pid=$(this).attr("id");
+			window.location.href="/sales/process_modify/"+pid;
+		})
 	
 	
 

@@ -10,7 +10,8 @@ from storage.models import Storage,Storage_in,Storage_out,Storage_material
 import datetime
 
 # Create your views here.
-def get_alert_list(records):	
+def get_alert_list(records):
+	c={}	
 	a={}
 	i=0
 	for r in records:
@@ -30,7 +31,9 @@ def get_alert_list(records):
 			b[4]=int(i+1)
 			a[i]=b
 			i=i+1
-	return a
+	c[0]=i
+	c[1]=a
+	return c
 
 def alert_list(request,num):
 	is_login=request.session.get('is_login',False)
@@ -42,24 +45,28 @@ def alert_list(request,num):
 		return HttpResponseRedirect("/")
 	else:
 		records_all=Process.objects.all()
-		page_all=int(len(records_all)-1)/10+1
 		num=int(num)
 		if(num==1):			
 			if((len(records_all)<11)):	
 				records=Process.objects.all().order_by('alerttime')
-				a=get_alert_list(records)
+				a=get_alert_list(records)[1]
+				records_value_num=get_alert_list(records)[0]
 			else:
 				records=Process.objects.all().order_by('alerttime')[0:10]
-				a=get_alert_list(records)
+				a=get_alert_list(records)[1]
+				records_value_num=get_alert_list(records)[0]
 		else:
 			if(num==page_all):
 				last=int(page_all-1)*10
 				records=Process.objects.all().order_by('alerttime')[last:]
-				a=get_alert_list(records)
+				a=get_alert_list(records)[1]
+				records_value_num=get_alert_list(records)[0]
 			else:
 				first=int(num)*10
 				records=Process.objects.all().order_by('alerttime')[first:int(first+10)]
-				a=get_alert_list(records)
+				a=get_alert_list(records)[1]
+				records_value_num=get_alert_list(records)[0]
+		page_all=int(records_value_num-1)/10+1
 		if(num>1):
 			pre_click=True
 		if(num<int(page_all)):

@@ -142,6 +142,10 @@
 			$('#modify').click(function(){
 				window.location.href='/sales/order_modify/'+href;
 			})
+			$("input[type=number]").each(function(a,b){
+                console.log($(b));
+                $(this).attr("type","text");
+			});
 		}
 
 		var order_modify={{ order_modify }};
