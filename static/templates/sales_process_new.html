@@ -210,7 +210,7 @@
 	<table class="process_table">
 		<tr>
 			<td class="col_100">
-				<iframe src="" id="order_img_iframe" frameborder="0" scrolling="no" style="width:100%;height:100%;"></iframe>
+				<iframe src="" name="img_iframe" id="order_img_iframe" frameborder="0" scrolling="no" style="width:100%;height:100%;"></iframe>
 			</td>
 		</tr>
 	</table>
@@ -283,6 +283,17 @@
 		$("#order_img_iframe").attr("src",order_img_iframe_src);
 
 		$("#submit").click(function(){
+			var img_flag=0;
+			$.ajax({
+				  	type : "POST",
+				  	url : "/sales/check_img/",
+				  	data:{'productID':productID},
+				  	dataType : "json",
+				  	success : function(data){    
+		              	img_flag=0;
+		             }
+		          })
+
 			var productID=$.trim($('#productID').val());
 
 			var customer=$.trim($("#customer_name").val());
@@ -342,7 +353,9 @@
 
 			var wl_amount=$.trim($("#wl_amount").val());
 
-			if(productID.length==0){
+			if(img_flag==0){
+				alert("请点击上传图片");
+			}else if(productID.length==0){
 				alert("施工单ID不能为空");
 			}else if(customer.length==0){
 				alert("客户名不能为空");

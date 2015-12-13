@@ -95,6 +95,7 @@ urlpatterns = patterns('',
     url(r'^delete_process/$', views.delete_process),
     url(r'^get_processID_by_customer/$', views.get_processID_by_customer),
     url(r'^get_processID_by_product/$', views.get_processID_by_product),
+    url(r'^check_img/$', views.check_img),
 
  ##########################################################
   #成本单

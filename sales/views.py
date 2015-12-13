@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response
 from django.views.decorators.csrf import csrf_exempt
 import simplejson as json
 from users import utils as comutils
-from sales.models import Quotation,Order,Process,Delivery,Cost
+from sales.models import Quotation,Order,Process,Delivery,Cost,Image
 from storage.models import Storage
 from finance.models import Finance
 from work.models import Tracking
@@ -1867,6 +1867,15 @@ def process_search_date(request,year,month,day):
 		else:
 			a=get_process_search_list(records)
 			return render_to_response("sales_process_search_date.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'records':a,'isValue':True})
+
+@csrf_exempt
+def check_img(request):
+	productID = request.POST.get('productID', None)
+	r=Image.objects.filter(productID=productID)
+	if r:
+		return HttpResponse(1)
+	else:
+		return HttpResponse(0)
 
 ################################################################################
 
