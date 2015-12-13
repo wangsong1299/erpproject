@@ -80,7 +80,7 @@
 			<th class="col_5"><input type="text" id="mould_{{value.items.25.1}}"  value={{value.items.20.1}}></th>
 			<th class="col_5"><input type="text" id="feilin_{{value.items.25.1}}" value={{value.items.14.1}} ></th>
 			<th class="col_10"><input type="text" id="surface_{{value.items.25.1}}" value={{value.items.17.1}}  ></th>
-			<th class="col_5"><input type="text" id="deadline_{{value.items.25.1}}" onClick="WdatePicker()" value={{value.items.13.1}}></th>
+			<th class="col_5"><input type="text" class="deadline" id="deadline_{{value.items.25.1}}" onClick="WdatePicker()" value={{value.items.13.1}}></th>
 			</tr>
 	{% endfor %}
 
@@ -143,9 +143,19 @@
 				window.location.href='/sales/order_modify/'+href;
 			})
 			$("input[type=number]").each(function(a,b){
-                console.log($(b));
                 $(this).attr("type","text");
 			});
+			$(".create_time").each(function(a,b){
+                var datearr=$(this).val().split("-");
+                var newdate=datearr[1]+"-"+datearr[2];
+                $(this).val(newdate);
+			});
+			$(".deadline").each(function(a,b){
+                var datearr=$(this).val().split("-");
+                var newdate=datearr[1]+"-"+datearr[2];
+                $(this).val(newdate);
+			});
+
 		}
 
 		var order_modify={{ order_modify }};
