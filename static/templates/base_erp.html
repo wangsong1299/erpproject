@@ -8,17 +8,14 @@
 </script>
 <link rel="stylesheet" href="{% static "erp/css/bootstrap.min.css" %}">
 <link rel="stylesheet" href="{% static "erp/css/index.css" %}">
-<link rel="stylesheet" href="{% static "erp/css/print.css" %}">
 <script type="text/javascript" src="{% static "erp/js/jquery-barcode.js" %}">
 </script>
 <script type="text/javascript" src="{% static "erp/js/md5.js" %}">
 </script>
 <script type="text/javascript" src="{% static "erp/js/My97DatePicker/WdatePicker.js" %}"></script>
-
-
 {% block head %}
 {% endblock %}
-
+<link rel="stylesheet" href="{% static "erp/css/print.css" %}">
 </head>
 
 <body>
@@ -76,10 +73,11 @@
 						 <img src="{% static "erp/img/info_icon_5.png" %}" class='info_icon' alt="">库存</div>
 						<div id="storage_box" class="inner_box" style="height:120px">
 							<a href='/storage/storage_list/1' id="storage_1" class="subtitle">产品库存</a>
-							<a href='/storage/storage_in_list/1' id="storage_2" class="subtitle">原料入库</a>
-							<a href='/storage/storage_out_list/1' id="storage_3" class="subtitle">原料出库</a>
-							<a href='/storage/storage_material_list/1' id="storage_4" class="subtitle">原料库存</a>
+							<a href='/storage/storage_in/' id="storage_2" class="subtitle">原料入库</a>
+							<a href='/storage/storage_out/' id="storage_3" class="subtitle">原料出库</a>
+							<a href='/storage/storage_material/' id="storage_4" class="subtitle">原料库存</a>
 						</div>
+
 						<div class="title" id="finance"> 
 							<img src="{% static "erp/img/info_icon_5.png" %}" class='info_icon' alt="">财务</div>
 						<div id="finance_box" class="inner_box" style="height:30px">
@@ -91,6 +89,7 @@
 							<a href='/work/tracking_list/1' id="work_1" class="subtitle">产品追踪</a>
 							<a href='/work/worker_list/1' id="work_2" class="subtitle">员工计件</a>
 						</div>
+
 
 						<div class="title" id="user">
 							<img src="{% static "erp/img/info_icon_3.png" %}" class='info_icon' alt="">员工情况</div>
