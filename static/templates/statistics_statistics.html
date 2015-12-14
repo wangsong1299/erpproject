@@ -30,7 +30,33 @@
 	{% for key, value in records.items %}
 				<tr>
 					<th class="col_30">{{ value.items.0.1 }}</th>
-					<th class="col_30">{{ value.items.1.1 }}</th>			
+					<th class="col_30">
+						<div id="material_{{value.items.4.1}}_div"></div>
+						<select name="material" id="material_{{value.items.4.1}}" class="material_{{value.items.4.1}}_{{value.items.1.1}}" style="width:100%;margin-right:0;border:none;display:none">
+	 			 			<option value="1">250克灰底白板</option>
+	 			 			<option value="2">250克白底白板</option>
+							<option value="3">300克灰底白板</option>
+							<option value="4">300克白底白板</option>
+							<option value="5">350克灰底白板</option>
+							<option value="6">350克白底白板</option>
+							<option value="7">400克灰底白板</option>
+							<option value="8">400克白底白板</option>
+							<option value="9">450克灰底白板</option>
+							<option value="10">450克白底白板</option>
+							<option value="11">80克双胶纸</option>
+							<option value="12">100克双胶纸</option>
+							<option value="13">128克铜版纸</option>
+							<option value="14">157克铜版纸</option>
+							<option value="15">210克白卡</option>
+							<option value="16">230克白卡</option>
+							<option value="17">250克白卡</option>
+							<option value="18">300克白卡</option>
+							<option value="15">350克白卡</option>
+							<option value="16">250克铜版卡</option>
+							<option value="17">300克铜版卡</option>
+							<option value="18">350克铜版卡</option>
+	 			 		</select>
+	 			 	</th>			
 					<th class="col_20">{{ value.items.2.1 }}</th>
 					<th class="col_20">{{ value.items.3.1 }}</th>
 				</tr>
@@ -74,6 +100,23 @@
  			}else{
  				$("#later_click").attr('disabled',true);
  			}
+
+	 		$("select").each(function(a,b){
+				var mclass=$(this).attr("class");
+				var mid="material_"+mclass.split("_")[1];
+				var mvalue=mclass.split("_")[2];
+				var vhtml;
+				$("#"+mid+">option").each(function(a,b){
+	                if($(b).val()==mvalue){//判断值
+	                    $(b).attr("selected",true);
+	                    vhtml= $(b).html();
+	                }
+				});
+				$("#"+mid+"_div").html(vhtml);
+			});
+
+
+
 
 
 	})</script>
