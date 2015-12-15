@@ -284,120 +284,119 @@
 
 		$("#submit").click(function(){
 			var img_flag=0;
+			var productID=$.trim($('#productID').val());
 			$.ajax({
 				  	type : "POST",
 				  	url : "/sales/check_img/",
 				  	data:{'productID':productID},
 				  	dataType : "json",
 				  	success : function(data){    
-		              	img_flag=0;
+		              	img_flag=data;
+		              					              	
+						var customer=$.trim($("#customer_name").val());
+						var create_time=$.trim($("#create_time").val());
+						var deadline=$.trim($("#deadline").val());
+						var alerttime=$.trim($("#alerttime").val());
+						
+						var product_name=$.trim($("#product_name").val());
+						var number_1=$.trim($("#number_1").val());
+						var number_2=$.trim($("#number_2").val());
+						var amount=$.trim($("#amount").val());
+
+						var pinban=$.trim($("#pinban").val());
+						var yinshu=$.trim($("#yinshu").val());
+						var yinsha=$.trim($("#yinsha").val());
+						var jiayinshu=$.trim($("#jiayinshu").val());
+						var zhenjiao=$.trim($("#zhenjiao").val());
+
+						var total_yinshu=$.trim($("#total_yinshu").val());
+						var yaheng=$.trim($("input[name=yaheng]:checked").val());
+						var lingyin=$.trim($("#lingyin").val());
+
+						var surface=$.trim($("#surface").val());
+						var process=$.trim($("input[name=process]:checked").val());
+						var notes=$.trim($("#notes").val());
+
+						var material=$.trim($("#material").val());
+						var daliao=$.trim($("#daliao").val());
+						var size=$.trim($("#size").val());
+						var kaiyin=$.trim($("#kaiyin").val());
+						var kaishu=$.trim($("#kaishu").val());
+
+						var fudai=$("input[name=fudai]:checked").val();
+						var quality=$.trim($("#quality").val());
+				
+						var wl_size=$.trim($("#wl_size").val());
+						var wl_size2=$.trim($("#wl_size2").val());
+						var wl_thin=$.trim($("input[name=wl_thin]:checked").val());
+						var wl_feizhi=$.trim($("#wl_feizhi").val());
+						var wl_biaoliao=$.trim($("#wl_biaoliao").val());
+						var wl_waleng=$.trim($("#wl_waleng").val());
+						var yinsha2=$.trim($("#yinsha2").val());
+						var total_yinshu_1=$.trim($("#total_yinshu_1").val());
+						var total_yinshu_2=$.trim($("#total_yinshu_2").val());
+
+						var wl_feizhi_ipt=$.trim($("#wl_feizhi_ipt").val());
+						var wl_waleng_ipt=$.trim($("#wl_waleng_ipt").val());
+						var material_ipt=$.trim($("#material_ipt").val());
+						var surface_ipt=$.trim($("#surface_ipt").val());
+				
+						var material2=$.trim($("#material2").val());
+						var daliao2=$.trim($("#daliao2").val());
+						var size2=$.trim($("#size2").val());
+						var kaiyin2=$.trim($("#kaiyin2").val());
+						var kaishu2=$.trim($("#kaishu2").val());
+						var material2_ipt=$.trim($("#material2_ipt").val());
+
+						var wl_amount=$.trim($("#wl_amount").val());
+
+						if(img_flag==0){
+							alert("请点击上传图片");
+						}else if(productID.length==0){
+							alert("施工单ID不能为空");
+						}else if(customer.length==0){
+							alert("客户名不能为空");
+						}else if(deadline.length==0){
+							alert("交货日期不能为空");
+						}else if(alerttime.length==0){
+							alert("预警日期不能为空");
+						}else if(product_name.length==0){
+							alert("产品名称不能为空");
+						}else if(amount.length==0){
+							alert("数目不能为空");
+						}else if(surface.length==0){
+							alert("表面处理不能为空");
+						}else if(material.length==0){
+							alert("原料不能为空");
+						}else if(daliao.length==0){
+							alert("大料张数不能为空");
+						}else if(size.length==0){
+							alert("开料尺寸不能为空");
+						}else if(kaishu.length==0){
+							alert("开数不能为空");
+						}else if(wl_feizhi.length==0){
+							alert("底纸用料不能为空");
+						}else if(wl_waleng.length==0){
+							alert("瓦楞用料不能为空");
+						}else{
+							$.ajax({
+							  	type : "POST",
+							  	url : "/sales/fill_process/",
+							  	data:{'productID':productID,'customer':customer,'create_time':create_time,'deadline':deadline,'alerttime':alerttime,'product_name':product_name,'number_2':number_2,'number_1':number_1,'amount':amount,'pinban':pinban,'yinshu':yinshu,'yinsha':yinsha,'jiayinshu':jiayinshu,'zhenjiao':zhenjiao,'total_yinshu':total_yinshu,'yaheng':yaheng,'lingyin':lingyin,'surface':surface,'process':process,'notes':notes,'material':material,'daliao':daliao,'size':size,'kaishu':kaishu,'kaiyin':kaiyin,'fudai':fudai,'quality':quality,'wl_size':wl_size,'wl_size2':wl_size2,'wl_feizhi':wl_feizhi,'wl_thin':wl_thin,'wl_biaoliao':wl_biaoliao,'wl_waleng':wl_waleng,'yinsha2':yinsha2,'total_yinshu_1':total_yinshu_1,'total_yinshu_2':total_yinshu_2,'wl_feizhi_ipt':wl_feizhi_ipt,'wl_waleng_ipt':wl_waleng_ipt,'material_ipt':material_ipt,'surface_ipt':surface_ipt,'material2':material2,'daliao2':daliao2,'size2':size2,'kaishu2':kaishu2,'kaiyin2':kaiyin2,'material2_ipt':material2_ipt,'wl_amount':wl_amount},
+							  	dataType : "json",
+							  	success : function(data){    
+					                if(data==1){
+					                	alert("录入成功");
+					                   window.location.href='/sales/process_list/1';
+					                }else{
+					                  alert("录入失败:"+data.message);
+					                }
+					              }
+					          })
+
+						}			
 		             }
 		          })
-
-			var productID=$.trim($('#productID').val());
-
-			var customer=$.trim($("#customer_name").val());
-			var create_time=$.trim($("#create_time").val());
-			var deadline=$.trim($("#deadline").val());
-			var alerttime=$.trim($("#alerttime").val());
-			
-			var product_name=$.trim($("#product_name").val());
-			var number_1=$.trim($("#number_1").val());
-			var number_2=$.trim($("#number_2").val());
-			var amount=$.trim($("#amount").val());
-
-			var pinban=$.trim($("#pinban").val());
-			var yinshu=$.trim($("#yinshu").val());
-			var yinsha=$.trim($("#yinsha").val());
-			var jiayinshu=$.trim($("#jiayinshu").val());
-			var zhenjiao=$.trim($("#zhenjiao").val());
-
-			var total_yinshu=$.trim($("#total_yinshu").val());
-			var yaheng=$.trim($("input[name=yaheng]:checked").val());
-			var lingyin=$.trim($("#lingyin").val());
-
-			var surface=$.trim($("#surface").val());
-			var process=$.trim($("input[name=process]:checked").val());
-			var notes=$.trim($("#notes").val());
-
-			var material=$.trim($("#material").val());
-			var daliao=$.trim($("#daliao").val());
-			var size=$.trim($("#size").val());
-			var kaiyin=$.trim($("#kaiyin").val());
-			var kaishu=$.trim($("#kaishu").val());
-
-			var fudai=$("input[name=fudai]:checked").val();
-			var quality=$.trim($("#quality").val());
-	
-			var wl_size=$.trim($("#wl_size").val());
-			var wl_size2=$.trim($("#wl_size2").val());
-			var wl_thin=$.trim($("input[name=wl_thin]:checked").val());
-			var wl_feizhi=$.trim($("#wl_feizhi").val());
-			var wl_biaoliao=$.trim($("#wl_biaoliao").val());
-			var wl_waleng=$.trim($("#wl_waleng").val());
-			var yinsha2=$.trim($("#yinsha2").val());
-			var total_yinshu_1=$.trim($("#total_yinshu_1").val());
-			var total_yinshu_2=$.trim($("#total_yinshu_2").val());
-
-			var wl_feizhi_ipt=$.trim($("#wl_feizhi_ipt").val());
-			var wl_waleng_ipt=$.trim($("#wl_waleng_ipt").val());
-			var material_ipt=$.trim($("#material_ipt").val());
-			var surface_ipt=$.trim($("#surface_ipt").val());
-	
-			var material2=$.trim($("#material2").val());
-			var daliao2=$.trim($("#daliao2").val());
-			var size2=$.trim($("#size2").val());
-			var kaiyin2=$.trim($("#kaiyin2").val());
-			var kaishu2=$.trim($("#kaishu2").val());
-			var material2_ipt=$.trim($("#material2_ipt").val());
-
-			var wl_amount=$.trim($("#wl_amount").val());
-
-			if(img_flag==0){
-				alert("请点击上传图片");
-			}else if(productID.length==0){
-				alert("施工单ID不能为空");
-			}else if(customer.length==0){
-				alert("客户名不能为空");
-			}else if(deadline.length==0){
-				alert("交货日期不能为空");
-			}else if(alerttime.length==0){
-				alert("预警日期不能为空");
-			}else if(product_name.length==0){
-				alert("产品名称不能为空");
-			}else if(amount.length==0){
-				alert("数目不能为空");
-			}else if(surface.length==0){
-				alert("表面处理不能为空");
-			}else if(material.length==0){
-				alert("原料不能为空");
-			}else if(daliao.length==0){
-				alert("大料张数不能为空");
-			}else if(size.length==0){
-				alert("开料尺寸不能为空");
-			}else if(kaishu.length==0){
-				alert("开数不能为空");
-			}else if(wl_feizhi.length==0){
-				alert("底纸用料不能为空");
-			}else if(wl_waleng.length==0){
-				alert("瓦楞用料不能为空");
-			}else{
-				$.ajax({
-				  	type : "POST",
-				  	url : "/sales/fill_process/",
-				  	data:{'productID':productID,'customer':customer,'create_time':create_time,'deadline':deadline,'alerttime':alerttime,'product_name':product_name,'number_2':number_2,'number_1':number_1,'amount':amount,'pinban':pinban,'yinshu':yinshu,'yinsha':yinsha,'jiayinshu':jiayinshu,'zhenjiao':zhenjiao,'total_yinshu':total_yinshu,'yaheng':yaheng,'lingyin':lingyin,'surface':surface,'process':process,'notes':notes,'material':material,'daliao':daliao,'size':size,'kaishu':kaishu,'kaiyin':kaiyin,'fudai':fudai,'quality':quality,'wl_size':wl_size,'wl_size2':wl_size2,'wl_feizhi':wl_feizhi,'wl_thin':wl_thin,'wl_biaoliao':wl_biaoliao,'wl_waleng':wl_waleng,'yinsha2':yinsha2,'total_yinshu_1':total_yinshu_1,'total_yinshu_2':total_yinshu_2,'wl_feizhi_ipt':wl_feizhi_ipt,'wl_waleng_ipt':wl_waleng_ipt,'material_ipt':material_ipt,'surface_ipt':surface_ipt,'material2':material2,'daliao2':daliao2,'size2':size2,'kaishu2':kaishu2,'kaiyin2':kaiyin2,'material2_ipt':material2_ipt,'wl_amount':wl_amount},
-				  	dataType : "json",
-				  	success : function(data){    
-		                if(data==1){
-		                	alert("录入成功");
-		                   window.location.href='/sales/process_list/1';
-		                }else{
-		                  alert("录入失败:"+data.message);
-		                }
-		              }
-		          })
-
-			}			
 		})
 
  $(".wl_feizhi_sel").change(function(){
