@@ -199,11 +199,15 @@ def delete_storage_in(request):
 def storage_in_new(request):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
-	temp=Storage_in.objects.all().order_by('-id')[0].id
-	storage_in_id=int(temp)+1
 	if not is_login:
 		return HttpResponseRedirect("/")
 	else:
+		r = Storage_in.objects.all().order_by('-id')
+		if r:
+			temp=r[0].id
+			storage_in_id=int(temp)+1
+		else:
+			storage_in_id=1
 		return render_to_response("storage_storage_in_new.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"storage_in_id":storage_in_id})
 
 #api
@@ -377,11 +381,15 @@ def delete_storage_out(request):
 def storage_out_new(request):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
-	temp=Storage_out.objects.all().order_by('-id')[0].id
-	storage_out_id=int(temp)+1
 	if not is_login:
 		return HttpResponseRedirect("/")
 	else:
+		r = Storage_out.objects.all().order_by('-id')
+		if r:
+			temp=r[0].id
+			storage_in_id=int(temp)+1
+		else:
+			storage_in_id=1
 		return render_to_response("storage_storage_out_new.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'storage_out_id':storage_out_id})
 
 #api
