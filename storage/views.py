@@ -387,9 +387,9 @@ def storage_out_new(request):
 		r = Storage_out.objects.all().order_by('-id')
 		if r:
 			temp=r[0].id
-			storage_in_id=int(temp)+1
+			storage_out_id=int(temp)+1
 		else:
-			storage_in_id=1
+			storage_out_id=1
 		return render_to_response("storage_storage_out_new.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'storage_out_id':storage_out_id})
 
 #api
