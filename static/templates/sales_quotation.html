@@ -17,9 +17,9 @@
 				</div>	
  		<div class="head_row">
  			<label for="customer_name">客户名</label>
- 			<input type="text" id="customer_name" value={{ records.0}} />
+ 			<input type="text" id="customer_name" style="width:25%" value={{ records.0}} >
  			<label for="product_name">产品名称</label>
- 			<input type="text" id="product_name" value={{ records.1}} style="width:40%">
+ 			<input type="text" id="product_name" style="width:30%" value={{ records.1}} >
  		</div>
  		<div class="head_row">
  			<label for="contacts">联系人</label>
@@ -240,7 +240,7 @@
                   success : function(data) {    
                     if(data==1){
                     	alert("修改成功");
-                       window.location.href='/sales/quotation/';
+                       window.location.href='/sales/quotation/'+href;
                     }else{
                       alert("修改失败:"+data.message);
                     }
