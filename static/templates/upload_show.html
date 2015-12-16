@@ -12,12 +12,18 @@ img{height: 290px;width: auto;}
 </style>
 </head>
 <body>
-	<img src="" id="upload_show" alt="">
+	<div id="show">
+		<img src="" id="upload_show" alt="">
+	</div>
 <script type="text/javascript">
 $(document).ready(function(){
 	var productImg='{{ productImg|safe }}';
+	if(productImg==0){
+		$("#show").html("无图片");
+	}else{
 	var productImg2 = '/media/'+productImg;
 	$("#upload_show").attr("src",productImg2);
+	}
 })
 </script>
 </body>
