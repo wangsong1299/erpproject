@@ -53,7 +53,7 @@ def statistics_list(request,num):
 				records=Process.objects.filter(create_time__range=(start, end)).order_by('-id')[last:]
 				a=get_statistics_list(records)
 			else:
-				first=int(num)*10
+				first=int(num-1)*10
 				records=Process.objects.filter(create_time__range=(start, end)).order_by('-id')[first:int(first+10)]
 				a=get_statistics_list(records)
 		if(num>1):
