@@ -61,13 +61,13 @@ def finance_list(request,num):
 		return render_to_response("finance_finance.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click)})
 
 
-def search(request,productID):
+def search(request,financeID):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
 	if not is_login:
 		return HttpResponseRedirect("/")
 	else:
-		records=Finance.objects.filter(productID=productID)
+		records=Finance.objects.filter(financeID=financeID)
 		a={}
 		i=0
 		for r in records:
@@ -153,8 +153,8 @@ def get_productID_by_product(request):
 	product_name = request.POST.get('finance_search', None)
 	r=Finance.objects.filter(product_name=product_name)
 	if r:
-		productID=r[0].productID
-		return HttpResponse(productID)
+		financeID=r[0].financeID
+		return HttpResponse(financeID)
 	else:
 		return HttpResponse(0)
 		
@@ -163,8 +163,8 @@ def get_productID_by_productID(request):
 	productID = request.POST.get('finance_search', None)
 	r=Finance.objects.filter(productID=productID)
 	if r:
-		productID=r[0].productID
-		return HttpResponse(productID)
+		financeID=r[0].financeID
+		return HttpResponse(financeID)
 	else:
 		return HttpResponse(0)
 

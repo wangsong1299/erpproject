@@ -1016,6 +1016,7 @@ def fill_delivery(request):
 	try:
 		q = Finance(delivery_time=delivery_time,
                 productID = productID,
+                financeID=deliveryID,
                 product_name = product_name,
                 order_amount=order_amount,
                 delivery_amount=delivery_amount,

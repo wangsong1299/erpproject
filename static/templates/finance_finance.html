@@ -219,7 +219,6 @@
  	//查询对账单	
 		$("#find_finance").click(function(){
 			var finance_search=$.trim($("#finance_search").val());
-
 			if(finance_search==''){
 				alert("请至少填写ID和名字中的一个");
 			}else{
@@ -228,7 +227,8 @@
                       url : "/finance/get_productID_by_productID/",
                       data:{'finance_search':finance_search},
                       dataType : "json",
-                      success : function(data){  
+                      success : function(data){ 
+                      	console.log(data); 
                       	if(data!=0){
                       		window.location.href='/finance/search/'+data;
                       	}else{
