@@ -20,6 +20,7 @@ def get_statistics_list(records):
 		b[2]=r.daliao
 		b[3]=r.size
 		b[4]=r.id
+		b[5]=r.material_ipt
 		a[i]=b
 		i=i+1
 	return a
