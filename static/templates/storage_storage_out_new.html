@@ -178,11 +178,11 @@
 					  	url : "/storage/fill_storage_out/",
 					  	data:{'storage_out_id':storage_out_id,'create_time':create_time,'customer':customer,'total_fee_sum':total_fee_sum,'deliveryman':deliveryman,'storeman':storeman,'col1':col1,'col2':col2,'col3':col3,'col4':col4,'col5':col5,'col6':col6,'col7':col7},
 					  	dataType : "json",
-					  	success : function(data) {    
+					  	success : function(data) { 
 			                if(data==1){
 			             		count=count+1;
 			                }else{
-			                  alert("第"+i+"条项目录入失败");
+			                  alert("第"+parseInt(i-1)+"条项目录入失败:"+data.message);
 			                }
 
 		                	if(count==maxnum){

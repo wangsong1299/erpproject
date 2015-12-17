@@ -408,6 +408,9 @@ def fill_storage_out(request):
 	col5 = request.POST.get('col5', None)
 	col6 = request.POST.get('col6', None)
 	col7 = request.POST.get('col7', None)
+	r=Storage_material.objects.filter(material_name=col1)
+	if not r:
+		return comutils.baseresponse('没有该种原料', 500)
 	try:
 		q = Storage_out(create_time=create_time,
 				deliveryman=deliveryman,
