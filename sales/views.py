@@ -54,7 +54,7 @@ def quotation_list(request,num):
 				records=Quotation.objects.all().order_by('-id')[last:]
 				a=get_quotation_list(records)
 			else:
-				first=int(num)*10
+				first=int(num-1)*10
 				records=Quotation.objects.all().order_by('-id')[first:int(first+10)]
 				a=get_quotation_list(records)
 		if(num>1):
@@ -415,7 +415,7 @@ def order_list(request,num):
 				records=Order.objects.all().order_by('-id')[last:]
 				a=get_order_list(records)
 			else:
-				first=int(num)*10
+				first=int(num-1)*10
 				records=Order.objects.all().order_by('-id')[first:int(first+10)]
 				a=get_order_list(records)
 		if(num>1):
@@ -744,7 +744,7 @@ def delivery_list(request,num):
 				records=Delivery.objects.all().order_by('-id')[last:]
 				a=get_delivery_list(records)
 			else:
-				first=int(num)*10
+				first=int(num-1)*10
 				records=Delivery.objects.all().order_by('-id')[first:int(first+10)]
 				a=get_delivery_list(records)
 		if(num>1):
@@ -1421,7 +1421,7 @@ def process_list(request,num):
 				records=Process.objects.all().order_by('-id')[last:]
 				a=get_process_list(records)
 			else:
-				first=int(num)*10
+				first=int(num-1)*10
 				records=Process.objects.all().order_by('-id')[first:int(first+10)]
 				a=get_process_list(records)
 		if(num>1):
@@ -1926,7 +1926,7 @@ def cost_list(request,num):
 				records=Cost.objects.all().order_by('-id')[last:]
 				a=get_cost_list(records)
 			else:
-				first=int(num)*10
+				first=int(num-1)*10
 				records=Process.objects.all().order_by('-id')[first:int(first+10)]
 				a=get_process_list(records)
 		if(num>1):

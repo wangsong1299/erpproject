@@ -53,7 +53,7 @@ def storage_list(request,num):
 				records=Storage.objects.all().order_by('-id')[last:]
 				a=get_storage_list(records)
 			else:
-				first=int(num)*10
+				first=int(num-1)*10
 				records=Storage.objects.all().order_by('-id')[first:int(first+10)]
 				a=get_storage_list(records)
 		if(num>1):
@@ -126,7 +126,7 @@ def storage_in_list(request,num):
 				records=Storage_in.objects.all().order_by('-id')[last:]
 				a=get_storageIn_list(records)
 			else:
-				first=int(num)*10
+				first=int(num-1)*10
 				records=Storage_in.objects.all().order_by('-id')[first:int(first+10)]
 				a=get_storageIn_list(records)
 		if(num>1):
@@ -308,7 +308,7 @@ def storage_out_list(request,num):
 				records=Storage_out.objects.all().order_by('-id')[last:]
 				a=get_storageOut_list(records)
 			else:
-				first=int(num)*10
+				first=int(num-1)*10
 				records=Storage_out.objects.all().order_by('-id')[first:int(first+10)]
 				a=get_storageOut_list(records)
 		if(num>1):
@@ -495,7 +495,7 @@ def storage_material_list(request,num):
 				records=Storage_material.objects.all().order_by('-id')[last:]
 				a=get_storageMaterial_list(records)
 			else:
-				first=int(num)*10
+				first=int(num-1)*10
 				records=Storage_material.objects.all().order_by('-id')[first:int(first+10)]
 				a=get_storageMaterial_list(records)
 		if(num>1):

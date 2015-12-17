@@ -51,7 +51,7 @@ def finance_list(request,num):
 				records=Finance.objects.all().order_by('-id')[last:]
 				a=get_finance_list(records)
 			else:
-				first=int(num)*10
+				first=int(num-1)*10
 				records=Finance.objects.all().order_by('-id')[first:int(first+10)]
 				a=get_finance_list(records)
 		if(num>1):

@@ -51,7 +51,7 @@ def tracking_list(request,num):
 				records=Tracking.objects.all().order_by('-id')[last:]
 				a=get_tracking_list(records)
 			else:
-				first=int(num)*10
+				first=int(num-1)*10
 				records=Tracking.objects.all().order_by('-id')[first:int(first+10)]
 				a=get_tracking_list(records)
 		if(num>1):
@@ -202,7 +202,7 @@ def worker_list(request,num):
 				records=Worker.objects.all().order_by('-id')[last:]
 				a=get_worker_list(records)
 			else:
-				first=int(num)*10
+				first=int(num-1)*10
 				records=Worker.objects.all().order_by('-id')[first:int(first+10)]
 				a=get_worker_list(records)
 		if(num>1):

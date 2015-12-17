@@ -62,7 +62,7 @@ def alert_list(request,num):
 				a=get_alert_list(records)[1]
 				records_value_num=get_alert_list(records)[0]
 			else:
-				first=int(num)*10
+				first=int(num-1)*10
 				records=Process.objects.all().order_by('alerttime')[first:int(first+10)]
 				a=get_alert_list(records)[1]
 				records_value_num=get_alert_list(records)[0]

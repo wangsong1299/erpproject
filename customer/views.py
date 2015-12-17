@@ -52,7 +52,7 @@ def customer_list(request,num):
 				records=Customer.objects.all().order_by('-id')[last:]
 				a=get_customer_list(records)
 			else:
-				first=int(num)*10
+				first=int(num-1)*10
 				records=Customer.objects.all().order_by('-id')[first:int(first+10)]
 				a=get_customer_list(records)
 		if(num>1):
@@ -126,7 +126,7 @@ def supplier_list(request,num):
 				records=Supplier.objects.all().order_by('-id')[last:]
 				a=get_supplier_list(records)
 			else:
-				first=int(num)*10
+				first=int(num-1)*10
 				records=Supplier.objects.all().order_by('-id')[first:int(first+10)]
 				a=get_supplier_list(records)
 		if(num>1):

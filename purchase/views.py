@@ -49,7 +49,7 @@ def purchase_list(request,num):
 				records=Purchase.objects.all().order_by('-id')[last:]
 				a=get_purchase_list(records)
 			else:
-				first=int(num)*10
+				first=int(num-1)*10
 				records=Purchase.objects.all().order_by('-id')[first:int(first+10)]
 				a=get_purchase_list(records)
 		if(num>1):
