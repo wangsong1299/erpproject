@@ -143,7 +143,7 @@
 
 
 		var date=new Date();
-		var newdate= date.getFullYear()+'-'+(parseInt(date.getMonth())+1)+'-'+date.getDate();
+		var newdate= date.getFullYear()+'-'+(parseFloat(date.getMonth())+1)+'-'+date.getDate();
 		$("#create_time").val(newdate);
 
 		$("#sum").click(function(){
@@ -173,7 +173,7 @@
 			if(packing_box_price==''){packing_box_price=0;}
 			if(packing_fee_price==''){packing_fee_price=0;}
 			if(transportation_fee_price==''){transportation_fee_price=0;}
-			var sum=parseInt(material_price)+parseInt(size_price)+parseInt(wl_material_price)+parseInt(amount_price)+parseInt(print_fee_price)+parseInt(print_color_price)+parseInt(print_parts_price)+parseInt(surface_price)+parseInt(tangjin_price)+parseInt(safen_price)+parseInt(packing_fee_price)+parseInt(packing_box_price)+parseInt(transportation_fee_price);
+			var sum=parseFloat(material_price)+parseFloat(size_price)+parseFloat(wl_material_price)+parseFloat(amount_price)+parseFloat(print_fee_price)+parseFloat(print_color_price)+parseFloat(print_parts_price)+parseFloat(surface_price)+parseFloat(tangjin_price)+parseFloat(safen_price)+parseFloat(packing_fee_price)+parseFloat(packing_box_price)+parseFloat(transportation_fee_price);
 			$("#total_fee").val(sum);
 			$("#total_fee").addClass('sum');
 		})
