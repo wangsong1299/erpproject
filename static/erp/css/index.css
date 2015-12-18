@@ -2,6 +2,7 @@
 .content{width: 100%;height: auto;overflow: hidden;min-height: 350px;}
 a {text-decoration:none;}
 body{background: #fff;color: #343434}
+input[type=text],input[type=number]{background: #fff}
 
 .block{margin-left: auto;margin-right: auto;left: 0;right:0;width:1280px;height: 100%;}
 .block2{margin-left: auto;margin-right: auto;left: 0;right:0;width:1280px;height: 100%;}
