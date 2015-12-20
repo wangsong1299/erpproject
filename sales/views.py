@@ -9,6 +9,7 @@ from storage.models import Storage
 from finance.models import Finance
 from work.models import Tracking
 from customer.models import Customer,Supplier
+import datetime
 #报价单列表
 def get_quotation_list(records):
 	a={}
@@ -1824,15 +1825,6 @@ def get_processID_by_customer(request):
 	else:
 		return HttpResponse(0)
 ###单日汇总
-
-def process_search(request):
-	is_login=request.session.get('is_login',False)
-	nick_name = request.session.get('nick_name',False)
-	if not is_login:
-		return HttpResponseRedirect("/")
-	else:
-		return render_to_response("sales_process_search.html",{'is_login':json.dumps(is_login),'nick_name':nick_name})
-
 def get_process_search_list(records):
 	a={}
 	i=0
@@ -1854,6 +1846,22 @@ def get_process_search_list(records):
 		a[i]=b
 		i=i+1
 	return a
+
+def process_search(request):
+	is_login=request.session.get('is_login',False)
+	nick_name = request.session.get('nick_name',False)
+	if not is_login:
+		return HttpResponseRedirect("/")
+	else:
+		now=datetime.datetime.now()
+		date=now.strftime('%Y-%m-%d')
+		print date
+		records=Process.objects.filter(create_time=date)
+		if (len(records)==0):
+			return render_to_response("sales_process_search.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'records':records,'isValue':False})
+		else:
+			a=get_process_search_list(records)
+			return render_to_response("sales_process_search.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'records':a,'isValue':True})
 
 def process_search_date(request,year,month,day):
 	is_login=request.session.get('is_login',False)
