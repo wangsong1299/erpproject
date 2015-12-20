@@ -143,3 +143,6 @@ def modify_password(request):
 	user.signin_passwd=new_password
 	return HttpResponse(json.dumps(1))
 
+@csrf_exempt
+def get_test(request):
+	return HttpResponse(json.dumps(1234567890))

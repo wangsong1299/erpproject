@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from view import index,logout,barcode,upload_iframe,upload_show
-from view import api_test,get_process_info,count_work,login_in,modify_password,upload
+from view import api_test,get_process_info,count_work,login_in,modify_password,upload,get_test
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -38,5 +38,6 @@ urlpatterns = patterns('',
     url(r'^count_work/$',count_work),
     url(r'^login_in/$',login_in),
     url(r'^modify_password/$',modify_password),
+    url(r'^get_test/$',get_test),
 
 )+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 

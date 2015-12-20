@@ -41,6 +41,8 @@
  	<input type="button" id="modify_password" value="修改">
  	<div id="content_4" style="width:800px;height:200px;border:solid 1px;margin-left:100px;">		
  	</div>
+ 	<h2>get_test</h2><br>
+ 	<input type="button" id="get_test" value="测试">
 
  {% endblock %}
 
@@ -146,6 +148,19 @@
 	    	    })
 
 		})
+
+		$("#get_test").click(function(){	
+				$.ajax({
+				  	type : "GET",
+				  	url : "/get_test/",
+				  	dataType : "json",
+				  	success : function(data) {    
+		             	console.log(data);
+		              }
+	    	    })
+
+		})
+
 	
 	})</script>
 
