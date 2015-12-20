@@ -322,7 +322,7 @@
 	                      dataType : "json",
 	                      success : function(data){  
 	                      		if(data!=0){
-	                      			window.location.href='/sales/quotation/'+data;
+	                      			window.location.href='/sales/quotation/c/'+data;
 	                      		}else{
 	                      			$.ajax({
 					                      type : "POST",
@@ -331,7 +331,7 @@
 					                      dataType : "json",
 					                      success : function(data){ 
 					                      		if(data!=0){
-					                      			window.location.href='/sales/quotation/'+data;
+					                      			window.location.href='/sales/quotation/p/'+data;
 					                      		}else{
 					                      			alert("没有相关报价单");
 					                      		}				                      		

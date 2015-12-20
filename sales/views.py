@@ -64,6 +64,27 @@ def quotation_list(request,num):
 			later_click=True
 		return render_to_response("sales_list.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,"quotation":quotation,'order':order,'delivery':delivery,'process':process,'cost':cost,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click)})
 
+def quotation_c(request,id):
+	is_login=request.session.get('is_login',False)
+	nick_name = request.session.get('nick_name',False)
+	if not is_login:
+		return HttpResponseRedirect("/")
+	else:
+		customer=Quotation.objects.filter(id=id)[0].customer
+		records=Quotation.objects.filter(customer=customer)
+		a=get_quotation_list(records)
+		return render_to_response("sales_list_search_q.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a})
+
+def quotation_p(request,id):
+	is_login=request.session.get('is_login',False)
+	nick_name = request.session.get('nick_name',False)
+	if not is_login:
+		return HttpResponseRedirect("/")
+	else:
+		product_name=Quotation.objects.filter(id=id)[0].product_name
+		records=Quotation.objects.filter(product_name=product_name)
+		a=get_quotation_list(records)
+		return render_to_response("sales_list_search_q.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a})
 
 
 #新建报价单

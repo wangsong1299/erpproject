@@ -24,7 +24,9 @@ urlpatterns = patterns('',
     url(r'^get_quotationID_by_product/$', views.get_quotationID_by_product),
     #有客户名得到客户ID
     url(r'^get_quotationID_by_customer/$', views.get_quotationID_by_customer),
- 
+     # 报价单搜索页
+    url(r'^quotation/c/(\d{1,6})/$', views.quotation_c),
+    url(r'^quotation/p/(\d{1,6})/$', views.quotation_p),
 ##########################################################
 
   #订单
