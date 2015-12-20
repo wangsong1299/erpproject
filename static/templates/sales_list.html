@@ -411,7 +411,7 @@
 	                      dataType : "json",
 	                      success : function(data){  
 	                      		if(data!=0){
-	                      			window.location.href='/sales/order/'+data;
+	                      			window.location.href='/sales/order/c/'+data;
 	                      		}else{
 	                      			$.ajax({
 					                      type : "POST",
@@ -420,7 +420,7 @@
 					                      dataType : "json",
 					                      success : function(data){ 
 					                      		if(data!=0){
-					                      			window.location.href='/sales/order/'+data;
+					                      			window.location.href='/sales/order/p/'+data;
 					                      		}else{
 					                      			alert("没有相关订单");
 					                      		}					                      		

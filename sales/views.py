@@ -446,6 +446,28 @@ def order_list(request,num):
 			later_click=True
 		return render_to_response("sales_list.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,"quotation":quotation,'order':order,'delivery':delivery,'process':process,'cost':cost,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click)})
 
+def order_c(request,id):
+	is_login=request.session.get('is_login',False)
+	nick_name = request.session.get('nick_name',False)
+	if not is_login:
+		return HttpResponseRedirect("/")
+	else:
+		customer=Order.objects.filter(id=id)[0].customer
+		records=Order.objects.filter(customer=customer)
+		a=get_order_list(records)
+		return render_to_response("sales_list_search_o.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a})
+
+def order_p(request,id):
+	is_login=request.session.get('is_login',False)
+	nick_name = request.session.get('nick_name',False)
+	if not is_login:
+		return HttpResponseRedirect("/")
+	else:
+		product_name=Order.objects.filter(id=id)[0].product_name
+		records=Order.objects.filter(product_name=product_name)
+		a=get_order_list(records)
+		return render_to_response("sales_list_search_o.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a})
+
 def order_new(request):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)

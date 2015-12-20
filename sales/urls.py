@@ -47,7 +47,9 @@ urlpatterns = patterns('',
     url(r'^get_orderID_by_product/$', views.get_orderID_by_product),
     #有客户名得到客户ID
     url(r'^get_orderID_by_customer/$', views.get_orderID_by_customer),
- 
+    url(r'^order/c/(\d{1,6})/$', views.order_c),
+    url(r'^order/p/(\d{1,6})/$', views.order_p),
+
 
 ##########################################################
   #送货单
