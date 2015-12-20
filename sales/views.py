@@ -1071,12 +1071,14 @@ def fill_delivery(request):
 	except Exception, e:
 		return comutils.baseresponse(e, 500)
 	try:
-		total_amount=Storage.objects.filter(productID=productID)[0].amount
+		print product_name
+		r=Storage.objects.filter(product_name=product_name)
+		id=r[0].id
+		total_amount=r[0].amount
 		now_amount=int(total_amount)-int(delivery_amount)
-		print delivery_time
-		Storage.objects.filter(productID=productID).update(out_time=delivery_time,amount=now_amount)
+		Storage.objects.filter(product_name=product_name,id=id).update(out_time=delivery_time,amount=now_amount)
 	except Exception, e:
-		return comutils.baseresponse("送货单输入成功,更新库存单失败", productID)
+		return comutils.baseresponse('送货单输入成功,更新库存单失败', 500)
 	return HttpResponse(json.dumps(1))
 
 
