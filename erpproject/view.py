@@ -145,4 +145,7 @@ def modify_password(request):
 
 @csrf_exempt
 def get_test(request):
-	return HttpResponse(json.dumps(1234567890))
+	obj={}
+	obj['name']='ws'
+	obj['age']='25'
+	return HttpResponse(json.dumps(obj))
