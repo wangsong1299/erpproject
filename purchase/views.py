@@ -58,6 +58,16 @@ def purchase_list(request,num):
 			later_click=True
 		return render_to_response("purchase_list.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click)})
 
+def search_c(request,id):
+	is_login=request.session.get('is_login',False)
+	nick_name = request.session.get('nick_name',False)
+	if not is_login:
+		return HttpResponseRedirect("/")
+	else:
+		customer=Purchase.objects.filter(productID=id)[0].customer
+		records=Purchase.objects.filter(customer=customer)
+		a=get_purchase_list(records)
+		return render_to_response("purchase_list_search.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a})
 
 def choice(request):
 	is_login=request.session.get('is_login',False)
@@ -156,7 +166,7 @@ def search(request,productID):
 @csrf_exempt
 def get_productID_by_product(request):
 	product_name = request.POST.get('product_name', None)
-	r=Process.objects.filter(product_name=product_name)
+	r=Purchase.objects.filter(product_name=product_name)
 	if r:
 		productID=r[0].productID
 		return HttpResponse(productID)
@@ -166,7 +176,7 @@ def get_productID_by_product(request):
 @csrf_exempt
 def get_productID_by_customer(request):
 	customer = request.POST.get('customer', None)
-	r=Process.objects.filter(customer=customer)
+	r=Purchase.objects.filter(customer=customer)
 	if r:
 		productID=r[0].productID
 		return HttpResponse(productID)
@@ -176,7 +186,7 @@ def get_productID_by_customer(request):
 @csrf_exempt
 def get_productID_by_productID(request):
 	productID = request.POST.get('productID', None)
-	r=Process.objects.filter(productID=productID)
+	r=Purchase.objects.filter(productID=productID)
 	if r:
 		productID=r[0].productID
 		return HttpResponse(productID)

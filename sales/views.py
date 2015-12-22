@@ -797,6 +797,18 @@ def delivery_list(request,num):
 			later_click=True
 		return render_to_response("sales_list.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,"quotation":quotation,'order':order,'delivery':delivery,'process':process,'cost':cost,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click)})
 
+def delivery_p(request,id):
+	is_login=request.session.get('is_login',False)
+	nick_name = request.session.get('nick_name',False)
+	if not is_login:
+		return HttpResponseRedirect("/")
+	else:
+		product_name=Delivery.objects.filter(deliveryID=id)[0].product_name
+		records=Delivery.objects.filter(product_name=product_name)
+		a=get_delivery_list(records)
+		return render_to_response("sales_list_search_d.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a})
+
+
 
 def delivery_new(request,choice):
 	is_login=request.session.get('is_login',False)
@@ -1476,6 +1488,28 @@ def process_list(request,num):
 			later_click=True
 		return render_to_response("sales_list.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,"quotation":quotation,'order':order,'delivery':delivery,'process':process,'cost':cost,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click)})
 
+def process_c(request,id):
+	is_login=request.session.get('is_login',False)
+	nick_name = request.session.get('nick_name',False)
+	if not is_login:
+		return HttpResponseRedirect("/")
+	else:
+		customer=Process.objects.filter(productID=id)[0].customer
+		records=Process.objects.filter(customer=customer)
+		a=get_process_list(records)
+		return render_to_response("sales_list_search_p.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a})
+
+def process_p(request,id):
+	is_login=request.session.get('is_login',False)
+	nick_name = request.session.get('nick_name',False)
+	if not is_login:
+		return HttpResponseRedirect("/")
+	else:
+		product_name=Process.objects.filter(productID=id)[0].product_name
+		records=Process.objects.filter(product_name=product_name)
+		a=get_process_list(records)
+		return render_to_response("sales_list_search_p.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a})
+
 
 def process_new(request):
 	is_login=request.session.get('is_login',False)
@@ -1987,6 +2021,29 @@ def cost_list(request,num):
 		if(num<int(page_all)):
 			later_click=True
 		return render_to_response("sales_list.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,"quotation":quotation,'order':order,'delivery':delivery,'process':process,'cost':cost,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click)})
+
+def cost_c(request,id):
+	is_login=request.session.get('is_login',False)
+	nick_name = request.session.get('nick_name',False)
+	if not is_login:
+		return HttpResponseRedirect("/")
+	else:
+		customer=Cost.objects.filter(productID=id)[0].customer
+		records=Cost.objects.filter(customer=customer)
+		a=get_cost_list(records)
+		return render_to_response("sales_list_search_c.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a})
+
+def cost_p(request,id):
+	is_login=request.session.get('is_login',False)
+	nick_name = request.session.get('nick_name',False)
+	if not is_login:
+		return HttpResponseRedirect("/")
+	else:
+		product_name=Cost.objects.filter(productID=id)[0].product_name
+		records=Cost.objects.filter(product_name=product_name)
+		a=get_cost_list(records)
+		return render_to_response("sales_list_search_c.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a})
+
 
 
 def cost_new(request):

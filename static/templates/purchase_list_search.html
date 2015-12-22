@@ -1,0 +1,96 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "erp/css/purchase.css" %}">
+{% endblock %}
+
+{% block inner_header %}
+{% endblock %}
+
+ {% block main %}
+ <div class="main" style="overflow:hidden">
+ 				<div class="line2">
+							采购单搜索列表	
+				</div>	
+
+ 	<div class="list_hr" style="margin-top:20px"></div>
+	<table class="list_table" style="margin-top: 5px;">
+		<tr>
+			<th class="col_10">产品ID</th>
+			<th class="col_20">产品名</th>
+			<th class="col_10">客户名</th>
+			<th class="col_10">工序</th>
+			<th class="col_10">创建日期</th>
+			<th class="col_20">备注</th>
+			<th class="col_10">修改</th>
+			<th class="col_10">删除</th>
+		</tr>
+	</table>
+ 	<div class="list_hr" style="margin-top:5px"></div>
+
+	<table class="list_table">
+	{% for key, value in records.items %}
+
+		<tr>
+		  <th class="col_10"> <a href='/purchase/search/{{ value.items.0.1 }}/' style="cursor:pointer">{{ value.items.0.1 }}</a></th>
+		  <th class="col_20">{{ value.items.1.1 }}</th>
+		  <th class="col_10">{{ value.items.2.1 }}</th>
+		  <th class="col_10">{{ value.items.3.1 }}</th>
+		  <th class="col_10">{{ value.items.4.1 }}</th>
+		  <th class="col_20">{{ value.items.5.1 }}</th>
+		  <th class="col_2"><a href='/purchase/search/{{ value.items.0.1 }}/'><input type="button" value="修改"></a></th>
+		  <th class="col_2"><input type="button" value="删除" class="delete_purchase" id="delete_purchase_{{ value.items.3.1 }}_{{ value.items.0.1 }}"></th>
+		</tr>
+	{% endfor %}		
+	</table>
+  </div>
+ 
+ {% endblock %}
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#purchase_box").show();	
+		$("#purchase_aside").addClass('subtitle_focus');	
+	
+ 			$(".delete_purchase").click(function(){
+ 				var process_step=$(this).attr("id").split("_")[2];
+ 				var productID=$(this).attr("id").split("_")[3];
+ 				if(process_step==1){
+	 				$.ajax({
+	                      type : "POST",
+	                      url : "/purchase/delete_single/",
+	                      data:{'productID':productID},
+	                      dataType : "json",
+	                      success : function(data){
+	                      		if(data==1){
+	                      			alert("删除成功");
+	                      			window.location.href='/purchase/purchase_list/1';
+	                      		}  
+	                      }
+	                })
+  				}else{
+	  					$.ajax({
+	                      type : "POST",
+	                      url : "/purchase/delete_multiple/",
+	                      data:{'productID':productID},
+	                      dataType : "json",
+	                      success : function(data){  
+	                      		if(data==1){
+	                      			alert("删除成功");
+	                      			window.location.href='/purchase/purchase_list/1';
+	                      		}else{
+	                      			alert("error");
+	                      		}
+	                      		
+	                      }
+	                })
+  				}
+ 			})
+
+		
+	})</script>
+
+{% endblock %}

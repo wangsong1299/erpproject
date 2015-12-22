@@ -78,6 +78,7 @@ urlpatterns = patterns('',
 
 #根据产品号自动填充
     url(r'^get_details_from_order/$', views.get_details_from_order),
+    url(r'^delivery/p/(\d{1,6})/$', views.delivery_p),
 
  ##########################################################
   #施工单
@@ -101,6 +102,9 @@ urlpatterns = patterns('',
     url(r'^get_processID_by_product/$', views.get_processID_by_product),
     url(r'^check_img/$', views.check_img),
 
+    url(r'^process/c/(\d{1,6})/$', views.process_c),
+    url(r'^process/p/(\d{1,6})/$', views.process_p),
+
  ##########################################################
   #成本单
     # 新建成本单  
@@ -121,5 +125,7 @@ urlpatterns = patterns('',
     url(r'^delete_cost/$', views.delete_cost),
     url(r'^get_costID_by_customer/$', views.get_costID_by_customer),
     url(r'^get_costID_by_product/$', views.get_costID_by_product),
+    url(r'^cost/c/(\d{1,6})/$', views.cost_c),
+    url(r'^cost/p/(\d{1,6})/$', views.cost_p),
 
 )

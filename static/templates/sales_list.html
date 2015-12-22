@@ -514,7 +514,7 @@
 					                      dataType : "json",
 					                      success : function(data){  
 					                      	if(data!=0){
-					                      		window.location.href='/sales/delivery/'+data;
+					                      		window.location.href='/sales/delivery/p/'+data;
 					                      	}else{
 					                      		alert("没有相关送货单");
 					                      	}        		
@@ -599,7 +599,7 @@
 	                      dataType : "json",
 	                      success : function(data){ 
 	                      		if(data!=0){
-	                      			window.location.href='/sales/process/'+data;
+	                      			window.location.href='/sales/process/c/'+data;
 	                      		}else{
 	                      			$.ajax({
 					                      type : "POST",
@@ -608,7 +608,7 @@
 					                      dataType : "json",
 					                      success : function(data){  
 					                      		if(data!=0){
-					                      			window.location.href='/sales/process/'+data;
+					                      			window.location.href='/sales/process/p/'+data;
 					                      		}else{
 					                      			alert("没有相关施工单");
 					                      		} 
@@ -689,7 +689,7 @@
 	                      dataType : "json",
 	                      success : function(data){ 
 	                      		if(data!=0){
-	                      			window.location.href='/sales/cost/'+data;
+	                      			window.location.href='/sales/cost/c/'+data;
 	                      		}else{
 	                      			$.ajax({
 					                      type : "POST",
@@ -698,7 +698,7 @@
 					                      dataType : "json",
 					                      success : function(data){  
 					                      	if(data!=0){
-					                      		window.location.href='/sales/cost/'+data;
+					                      		window.location.href='/sales/cost/p/'+data;
 					                      	}else{
 					                      		alert("没有相关成本单");
 					                      	}		                      		

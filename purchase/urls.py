@@ -12,7 +12,7 @@ urlpatterns = patterns('',
     # 采购单历史查询 
     url(r'^search/(\d{1,6})/$', views.search),
  
-
+    url(r'^search/c/(\d{1,6})/$', views.search_c),
 
  #api
     url(r'^get_productID_by_product/$', views.get_productID_by_product),

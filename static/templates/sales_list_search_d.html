@@ -1,0 +1,87 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "erp/css/sales.css" %}">
+{% endblock %}
+
+{% block inner_header %}
+{% endblock %}
+
+ {% block main %}
+ <div class="main" style="overflow:hidden">
+ 				<div class="line2">
+							送货单搜索列表	
+				</div>	
+
+
+ 	 	<div class="list_hr" style="margin-top:20px"></div>
+	<table class="list_table" style="margin-top: 5px;">
+		<tr>
+			<th class="col_3">送货单号</th>
+			<th class="col_1">产品名</th>
+			<th class="col_3">订单数目</th>
+			<th class="col_3">送货数目</th>
+			<th class="col_1">金额</th>
+			<th class="col_2">修改</th>
+			<th class="col_2">删除</th>
+		</tr>
+	</table>
+ 	<div class="list_hr" style="margin-top:5px"></div>
+
+	<table class="list_table">
+	{% for key, value in records.items %}
+
+		<tr>
+		  <th class="col_3"> <a href='/sales/delivery/{{ value.items.0.1 }}/' style="cursor:pointer">{{ value.items.0.1 }}</a></th>
+		  <th class="col_1">{{ value.items.1.1 }}</th>
+		  <th class="col_3">{{ value.items.2.1 }}</th>
+		  <th class="col_3">{{ value.items.3.1 }}</th>
+		  <th class="col_1">{{ value.items.4.1 }}</th>
+		  <th class="col_2"><input type="button" value="修改" class="modify_delivery" id="modify_delivery_{{ value.items.0.1 }}"></th>
+		  <th class="col_2"><input type="button" value="删除" class="delete_delivery" id="modify_delivery_{{ value.items.0.1 }}"></th>
+		</tr>
+	{% endfor %}
+
+		
+	</table>
+
+
+  </div>
+ 
+ {% endblock %}
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#sales_box").show();	
+		$("#delivery").addClass('subtitle_focus');	
+
+
+		$(".modify_delivery").click(function(){
+			var id=$(this).attr("id").split("_")[2];
+			window.location.href="/sales/delivery_modify/"+id;
+		})
+
+		$(".delete_delivery").click(function(){
+			var id=$(this).attr("id").split("_")[2];
+				$.ajax({
+                  type : "POST",
+                  url : "/sales/delete_delivery/",
+                  data:{'deliveryID':id},
+                  dataType : "json",
+                  success : function(data) {    
+                    if(data==1){
+                    	alert("删除成功");
+                       window.location.href='/sales/delivery_list/1';
+                    }else{
+                      alert("删除失败:"+data.message);
+                    }
+                  }
+             })
+		})
+
+	})</script>
+
+{% endblock %}
