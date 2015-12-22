@@ -83,11 +83,12 @@
 
 	</table>
  
-
+	{% if not jc %}
 	 <div class="head_row">
 		   <button type="submit" class="btn btn-primary" id="later_click">下一页</button>
  		   <button type="submit" class="btn btn-primary" id="pre_click">上一页</button>
  	</div>
+ 	{% endif %}
 
   </div>
  
@@ -216,7 +217,7 @@
 	                      dataType : "json",
 	                      success : function(data){  
 	                      		if(data!=0){
-	                      			window.location.href='/storage/storage/'+data;
+	                      			window.location.href='/storage/storage/c/'+data;
 	                      		}else{
 	                      			$.ajax({
 					                      type : "POST",
@@ -225,7 +226,7 @@
 					                      dataType : "json",
 					                      success : function(data){  
 					                      		if(data!=0){
-					                      			window.location.href='/storage/storage/'+data;
+					                      			window.location.href='/storage/storage/p/'+data;
 					                      		}else{
 					                      			alert("没有相关信息");
 					                      		}

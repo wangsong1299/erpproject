@@ -7,6 +7,8 @@ urlpatterns = patterns('',
     # 库存
     url(r'^storage_list/(\d{1,6})/$', views.storage_list),
     url(r'^storage/(\d{1,6})/$', views.storage),
+    url(r'^storage/c/(\d{1,6})/$', views.storage_c),
+    url(r'^storage/p/(\d{1,6})/$', views.storage_p),
 
 
     url(r'^storage_out/new/$', views.storage_out_new),

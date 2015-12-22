@@ -60,8 +60,36 @@ def storage_list(request,num):
 			pre_click=True
 		if(num<int(page_all)):
 			later_click=True
-		return render_to_response("storage_storage.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click)})
+		jc=False
+		return render_to_response("storage_storage.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click),'jc':json.dumps(jc)})
 
+def storage_c(request,id):
+	is_login=request.session.get('is_login',False)
+	nick_name = request.session.get('nick_name',False)
+	if not is_login:
+		return HttpResponseRedirect("/")
+	else:
+		customer=Storage.objects.filter(id=id)[0].customer
+		records=Storage.objects.filter(customer=customer)
+		a=get_storage_list(records)
+		pre_click=False
+		later_click=False
+		jc=True
+		return render_to_response("storage_storage.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click),'jc':json.dumps(jc)})
+
+def storage_p(request,id):
+	is_login=request.session.get('is_login',False)
+	nick_name = request.session.get('nick_name',False)
+	if not is_login:
+		return HttpResponseRedirect("/")
+	else:
+		product_name=Storage.objects.filter(id=id)[0].product_name
+		records=Storage.objects.filter(product_name=product_name)
+		a=get_storage_list(records)
+		pre_click=False
+		later_click=False
+		jc=True
+		return render_to_response("storage_storage.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click),'jc':json.dumps(jc)})
 
 def storage(request,num):
 	is_login=request.session.get('is_login',False)
