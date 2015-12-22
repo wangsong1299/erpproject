@@ -177,7 +177,7 @@ def supplier_c(request,id):
 		pre_click=False
 		later_click=False
 		jc=True
-		return render_to_response("customer_customer.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'length':len(records),'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click),'jc':json.dumps(jc)})
+		return render_to_response("customer_supplier.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'length':len(records),'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click),'jc':json.dumps(jc)})
 
 def supplier_p(request,id):
 	is_login=request.session.get('is_login',False)
@@ -191,7 +191,7 @@ def supplier_p(request,id):
 		pre_click=False
 		later_click=False
 		jc=True
-		return render_to_response("customer_customer.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'length':len(records),'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click),'jc':json.dumps(jc)})
+		return render_to_response("customer_supplier.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'length':len(records),'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click),'jc':json.dumps(jc)})
 
 def supplier_search(request,id):
 	is_login=request.session.get('is_login',False)
