@@ -8,6 +8,8 @@ urlpatterns = patterns('',
     url(r'^tracking_list/(\d{1,6})/$', views.tracking_list),
 
     url(r'^tracking/(\d{1,6})/$', views.tracking),
+    url(r'^tracking/c/(\d{1,6})/$', views.tracking_c),
+    url(r'^tracking/p/(\d{1,6})/$', views.tracking_p),
 
 #api
     url(r'^check_productID/$', views.check_productID),

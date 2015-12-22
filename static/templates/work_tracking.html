@@ -82,12 +82,10 @@
 	{% endfor %}
 
 		</table>
-
-	 <div class="head_row">
+	 <div class="head_row" id="jc">
 		   <button type="submit" class="btn btn-primary" id="later_click">下一页</button>
  		   <button type="submit" class="btn btn-primary" id="pre_click">上一页</button>
  	</div>
-
 
  		<div class="state_pop pop_box">
  			<h2>状态选择：</h2>
@@ -251,7 +249,7 @@
                       dataType : "json",
                       success : function(data){  
                       		if(data!=0){
-                      			window.location.href='/work/tracking/'+data;
+                      			window.location.href='/work/tracking/c/'+data;
                       		}else{
                       			$.ajax({
 				                      type : "POST",
@@ -260,7 +258,7 @@
 				                      dataType : "json",
 				                      success : function(data){  
 				                      		if(data!=0){
-				                      			window.location.href='/work/tracking/'+data;
+				                      			window.location.href='/work/tracking/p/'+data;
 				                      		}else{
 				                      			alert("没有相关信息");
 				                      		}  		
@@ -328,6 +326,11 @@
  			}else{
  				$("#later_click").attr('disabled',true);
  			}
+
+ 		var jc={{jc}};
+ 		if(jc){
+ 			$("#jc").hide();
+ 		}
 
 	})</script>
 
