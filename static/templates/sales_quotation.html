@@ -196,6 +196,38 @@
 		if(quotation_modify){
 			$('#print').attr('disabled',true);
 			$('#modify').html('确认修改');
+
+			$("input").blur(function(){
+				var material_price=$.trim($("#material_price").val());
+				var size_price=$.trim($("#size_price").val());
+				var wl_material_price=$.trim($("#wl_material_price").val());
+				var amount_price=$.trim($("#amount_price").val());
+				var print_fee_price=$.trim($("#print_fee_price").val());
+				var print_color_price=$.trim($("#print_color_price").val());
+				var print_parts_price=$.trim($("#print_parts_price").val());
+				var surface_price=$.trim($("#surface_price").val());
+				var tangjin_price=$.trim($("#tangjin_price").val());
+				var safen_price=$.trim($("#safen_price").val());
+				var packing_box_price=$.trim($("#packing_box_price").val());
+				var packing_fee_price=$.trim($("#packing_fee_price").val());
+				var transportation_fee_price=$.trim($("#transportation_fee_price").val());
+				if(material_price==''){material_price=0;}
+				if(size_price==''){size_price=0;}
+				if(amount_price==''){amount_price=0;}
+				if(wl_material_price==''){wl_material_price=0;}
+				if(print_fee_price==''){print_fee_price=0;}
+				if(print_color_price==''){print_color_price=0;}
+				if(print_parts_price==''){print_parts_price=0;}
+				if(surface_price==''){surface_price=0;}
+				if(tangjin_price==''){tangjin_price=0;}
+				if(safen_price==''){safen_price=0;}
+				if(packing_box_price==''){packing_box_price=0;}
+				if(packing_fee_price==''){packing_fee_price=0;}
+				if(transportation_fee_price==''){transportation_fee_price=0;}
+				var sum=parseFloat(material_price)+parseFloat(size_price)+parseFloat(wl_material_price)+parseFloat(amount_price)+parseFloat(print_fee_price)+parseFloat(print_color_price)+parseFloat(print_parts_price)+parseFloat(surface_price)+parseFloat(tangjin_price)+parseFloat(safen_price)+parseFloat(packing_fee_price)+parseFloat(packing_box_price)+parseFloat(transportation_fee_price);
+				$("#total_fee").val(sum);
+				$("#total_fee").addClass('sum');				
+			})
 			$("#modify").click(function(){
 				var total_fee=$("#total_fee").val();
 				var customer=$.trim($("#customer_name").val());
