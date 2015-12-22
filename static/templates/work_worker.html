@@ -82,7 +82,7 @@
 	</table>
 
 
-	 <div class="head_row">
+	 <div class="head_row" id="jc">
 		   <button type="submit" class="btn btn-primary" id="later_click">下一页</button>
  		   <button type="submit" class="btn btn-primary" id="pre_click">上一页</button>
  	</div>
@@ -220,7 +220,7 @@
                       dataType : "json",
                       success : function(data){  
                       	if(data!=0){
-                      			window.location.href='/work/worker/'+data;
+                      			window.location.href='/work/worker/c/'+data;
                       		}else{
                       			$.ajax({
 				                      type : "POST",
@@ -229,7 +229,7 @@
 				                      dataType : "json",
 				                      success : function(data){  
 				                      	if(data!=0){
-				                      			window.location.href='/work/worker/'+data;
+				                      			window.location.href='/work/worker/p/'+data;
 				                      		}else{
 				                      			alert("没有相关信息");
 				                      		}
@@ -279,6 +279,10 @@
  				$("#later_click").attr('disabled',true);
  			}
 
+ 		var jc={{jc}};
+ 		if(jc){
+ 			$("#jc").hide();
+ 		}
 
 
 

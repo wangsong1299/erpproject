@@ -37,7 +37,9 @@ urlpatterns = patterns('',
 ####
     #查询单个员工完成情况
     url(r'^worker/(\d{1,6})/$', views.worker_worker),
- 
+    url(r'^worker/c/(\d{1,6})/$', views.worker_c),
+    url(r'^worker/p/(\d{1,6})/$', views.worker_p),
+
 
 
 
