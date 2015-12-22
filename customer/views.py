@@ -59,7 +59,36 @@ def customer_list(request,num):
 			pre_click=True
 		if(num<int(page_all)):
 			later_click=True
-		return render_to_response("customer_customer.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'records':a,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click)})
+		jc=False
+		return render_to_response("customer_customer.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'records':a,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click),'jc':json.dumps(jc)})
+
+def customer_c(request,id):
+	is_login=request.session.get('is_login',False)
+	nick_name = request.session.get('nick_name',False)
+	if not is_login:
+		return HttpResponseRedirect("/")
+	else:
+		customers=Customer.objects.filter(id=id)[0].customers
+		records=Customer.objects.filter(customers=customers)
+		a=get_customer_list(records)
+		pre_click=False
+		later_click=False
+		jc=True
+		return render_to_response("customer_customer.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'length':len(records),'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click),'jc':json.dumps(jc)})
+
+def customer_p(request,id):
+	is_login=request.session.get('is_login',False)
+	nick_name = request.session.get('nick_name',False)
+	if not is_login:
+		return HttpResponseRedirect("/")
+	else:
+		product_name=Customer.objects.filter(id=id)[0].product_name
+		records=Customer.objects.filter(product_name=product_name)
+		a=get_customer_list(records)
+		pre_click=False
+		later_click=False
+		jc=True
+		return render_to_response("customer_customer.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'length':len(records),'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click),'jc':json.dumps(jc)})
 
 
 def customer_search(request,id):
