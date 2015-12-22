@@ -1,0 +1,115 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "erp/css/purchase.css" %}">
+{% endblock %}
+
+{% block inner_header %}
+{% endblock %}
+
+ {% block main %}
+ <div class="main" style="overflow:hidden">
+
+<div id="in_box">
+ 				<div class="line2">
+							入库单搜索列表	
+				</div>	
+
+ <div class="list_hr" style="margin-top:20px"></div>
+	<table class="list_table" style="margin-top: 5px;">
+		<tr>
+			<th class="col_10">入库单号</th>
+			<th class="col_20">名称</th>
+			<th class="col_10">产生时间</th>
+			<th class="col_20">买入单位</th>
+			<th class="col_10">数量</th>
+			<th class="col_10">金额</th>
+			<th class="col_10">修改</th>
+			<th class="col_10">删除</th>
+		</tr>
+	</table>
+ 	<div class="list_hr" style="margin-top:5px"></div>
+
+   	<table class="list_table">
+		{% for key, value in records.items %}
+		<tr>
+			<th class="col_10"><a href="/storage/storage_in/{{ value.items.0.1 }}">{{ value.items.0.1 }}</a></th>
+			<th class="col_20">{{ value.items.1.1 }}</th>
+			<th class="col_10">{{ value.items.2.1 }}</th>
+			<th class="col_20">{{ value.items.3.1 }}</th>
+			<th class="col_10">{{ value.items.4.1 }}</th>
+			<th class="col_10">{{ value.items.5.1 }}</th>
+			<th class="col_10"><a href="/storage/storage_in/{{ value.items.0.1 }}">修改</a></th>
+			<th class="col_10"><a href="/storage/storage_in/{{ value.items.0.1 }}">删除</a></th>
+		</tr>
+
+{% endfor %}
+
+	</table>
+
+
+</div>
+<div id="out_box">
+	<div class="line2">
+				出库单搜索列表	
+	</div>	
+
+ 	 <div class="list_hr" style="margin-top:20px"></div>
+	<table class="list_table" style="margin-top: 5px;">
+		<tr>
+			<th class="col_10">出库单号</th>
+			<th class="col_20">名称</th>
+			<th class="col_10">产生时间</th>
+			<th class="col_20">卖出单位</th>
+			<th class="col_10">数量</th>
+			<th class="col_10">金额</th>
+			<th class="col_10">修改</th>
+			<th class="col_10">删除</th>
+		</tr>
+	</table>
+ 	<div class="list_hr" style="margin-top:5px"></div>
+
+   	<table class="list_table">
+		{% for key, value in records.items %}
+		<tr>
+			<th class="col_10"><a href="/storage/storage_out/{{ value.items.0.1 }}">{{ value.items.0.1 }}</a></th>
+			<th class="col_20">{{ value.items.1.1 }}</th>
+			<th class="col_10">{{ value.items.2.1 }}</th>
+			<th class="col_20">{{ value.items.3.1 }}</th>
+			<th class="col_10">{{ value.items.4.1 }}</th>
+			<th class="col_10">{{ value.items.5.1 }}</th>
+			<th class="col_10"><a href="/storage/storage_out/{{ value.items.0.1 }}">修改</a></th>
+			<th class="col_10"><a href="/storage/storage_out/{{ value.items.0.1 }}">删除</a></th>
+		</tr>
+{% endfor %}
+	</table>
+ 
+  </div>
+</div>
+ 
+ {% endblock %}
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#storage_box").show();
+
+		var inflag={{inflag}};
+		if(inflag){
+			$("#storage_2").addClass('subtitle_focus');
+			$("#in_box").show();
+			$("#out_box").hide();		
+		}
+		var outflag={{outflag}};
+		if(outflag){
+			$("#storage_3").addClass('subtitle_focus');
+			$("#out_box").show();
+			$("#in_box").hide();		
+		}
+
+		
+	})</script>
+
+{% endblock %}

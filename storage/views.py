@@ -163,6 +163,19 @@ def storage_in_list(request,num):
 			later_click=True
 		return render_to_response("storage_storage_in.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click)})
 
+def storage_in_p(request,id):
+	is_login=request.session.get('is_login',False)
+	nick_name = request.session.get('nick_name',False)
+	if not is_login:
+		return HttpResponseRedirect("/")
+	else:
+		material_name=Storage_in.objects.filter(storage_in_id=id)[0].material_name
+		records=Storage_in.objects.filter(material_name=material_name)
+		a=get_storageIn_list(records)
+		inflag=True
+		outflag=False	
+		return render_to_response("storage_search_list.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'inflag':json.dumps(inflag),'outflag':json.dumps(outflag)})
+
 def storage_in_show(request,id):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
@@ -344,6 +357,20 @@ def storage_out_list(request,num):
 		if(num<int(page_all)):
 			later_click=True
 		return render_to_response("storage_storage_out.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click)})
+
+def storage_out_p(request,id):
+	is_login=request.session.get('is_login',False)
+	nick_name = request.session.get('nick_name',False)
+	if not is_login:
+		return HttpResponseRedirect("/")
+	else:
+		material_name=Storage_out.objects.filter(storage_out_id=id)[0].material_name
+		records=Storage_out.objects.filter(material_name=material_name)
+		a=get_storageOut_list(records)
+		inflag=False
+		outflag=True	
+		print inflag,outflag
+		return render_to_response("storage_search_list.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'inflag':json.dumps(inflag),'outflag':json.dumps(outflag)})
 
 def storage_out_show(request,id):
 	is_login=request.session.get('is_login',False)

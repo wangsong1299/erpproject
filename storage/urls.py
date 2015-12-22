@@ -10,8 +10,6 @@ urlpatterns = patterns('',
     url(r'^storage/c/(\d{1,6})/$', views.storage_c),
     url(r'^storage/p/(\d{1,6})/$', views.storage_p),
 
-
-    url(r'^storage_out/new/$', views.storage_out_new),
     #原料仓库
     url(r'^storage_material_list/(\d{1,6})/$', views.storage_material_list),
     url(r'^storage_material/(\d{1,6})/$', views.storage_material),
@@ -34,6 +32,8 @@ urlpatterns = patterns('',
     url(r'^storage_in_list/(\d{1,6})/$', views.storage_in_list),
     url(r'^storage_in/new/$', views.storage_in_new),
     url(r'^storage_in/(\d{1,6})/$', views.storage_in_show),
+    url(r'^storage_in/p/(\d{1,6})/$', views.storage_in_p),
+
 
     url(r'^modify_storage_in/$', views.modify_storage_in),
     url(r'^delete_storage_in/$', views.delete_storage_in),
@@ -43,6 +43,7 @@ urlpatterns = patterns('',
     url(r'^storage_out_list/(\d{1,6})/$', views.storage_out_list),
     url(r'^storage_out/new/$', views.storage_out_new),
     url(r'^storage_out/(\d{1,6})/$', views.storage_out_show),
+    url(r'^storage_out/p/(\d{1,6})/$', views.storage_out_p),
  
     url(r'^modify_storage_out/$', views.modify_storage_out),
     url(r'^delete_storage_out/$', views.delete_storage_out),
