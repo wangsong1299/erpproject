@@ -115,12 +115,10 @@
 
 	</table>
 
-	{% if not jc %}
-	 <div class="head_row">
+	 <div class="head_row" id="jc">
 		   <button type="submit" class="btn btn-primary" id="later_click">下一页</button>
  		   <button type="submit" class="btn btn-primary" id="pre_click">上一页</button>
  	</div>
- 	{% endif %}
 
 
 
@@ -134,6 +132,10 @@
 	$(document).ready(function(){
 		$("#finance_box").show();	
 		$("#finance_1").addClass('subtitle_focus');	
+ 		var jc={{jc}};
+ 		if(jc){
+ 			$("#jc").hide();
+ 		}
 
 		$("#add_new").click(function(){
 			$("#finance_new_box").show();
