@@ -115,10 +115,12 @@
 
 	</table>
 
+	{% if not jc %}
 	 <div class="head_row">
 		   <button type="submit" class="btn btn-primary" id="later_click">下一页</button>
  		   <button type="submit" class="btn btn-primary" id="pre_click">上一页</button>
  	</div>
+ 	{% endif %}
 
 
 
@@ -239,7 +241,7 @@
 			                      dataType : "json",
 			                      success : function(data){  
 			                      	if(data!=0){
-			                      		window.location.href='/finance/search/'+data;
+			                      		window.location.href='/finance/finance/p/'+data;
 			                      	}else{
 			                      		alert("没有相关信息");
 			                      	}		

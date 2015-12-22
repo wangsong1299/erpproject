@@ -7,6 +7,7 @@ urlpatterns = patterns('',
     url(r'^finance_list/(\d{1,6})/$', views.finance_list),
     #财务搜索结果页
     url(r'^search/(\d{1,6})/$', views.search),
+    url(r'^finance/p/(\d{1,6})/$', views.finance_p),
 
 #api
     # 填写对账单

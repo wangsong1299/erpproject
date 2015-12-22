@@ -58,7 +58,22 @@ def finance_list(request,num):
 			pre_click=True
 		if(num<int(page_all)):
 			later_click=True
-		return render_to_response("finance_finance.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click)})
+		jc=False
+		return render_to_response("finance_finance.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click),'jc':json.dumps(jc)})
+
+def finance_p(request,id):
+	is_login=request.session.get('is_login',False)
+	nick_name = request.session.get('nick_name',False)
+	if not is_login:
+		return HttpResponseRedirect("/")
+	else:
+		product_name=Finance.objects.filter(financeID=id)[0].product_name
+		records=Finance.objects.filter(product_name=product_name)
+		a=get_finance_list(records)
+		pre_click=False
+		later_click=False
+		jc=True
+		return render_to_response("finance_finance.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click),'jc':json.dumps(jc)})
 
 
 def search(request,financeID):
@@ -85,7 +100,6 @@ def search(request,financeID):
 			i=i+1
 		return render_to_response("finance_search.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'records':a})
 	
-
 #api
 @csrf_exempt
 def fill_finance(request):
