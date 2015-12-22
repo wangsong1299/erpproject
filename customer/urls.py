@@ -13,6 +13,8 @@ urlpatterns = patterns('',
     # 供应商和应付列表  
     url(r'^supplier_list/(\d{1,6})/$', views.supplier_list),
    # 客户和应收搜索页结果
+    url(r'^supplier/c/(\d{1,6})/$', views.supplier_c),
+    url(r'^supplier/p/(\d{1,6})/$', views.supplier_p),
     url(r'^supplier_search/(\d{1,6})/$', views.supplier_search),
 
 
