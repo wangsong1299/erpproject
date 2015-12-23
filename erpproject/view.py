@@ -88,7 +88,7 @@ def get_process_info(request):
 
 @csrf_exempt
 def count_work(request):
-	workerID = request.POST.get('workerID', None)
+	phone = request.POST.get('phone', None)
 	worker_name = request.POST.get('worker_name', None)
 	productID = request.POST.get('productID', None)
 	product_name = request.POST.get('product_name', None)
@@ -100,10 +100,9 @@ def count_work(request):
 	if r:
 		step=r[0].count_work
 		if(int(pipline_step)==int(step)+1):
-			print "ws"
 			Process.objects.filter(productID=productID).update(count_work=pipline_step)
 			try:
-				p = Worker(productID=productID,workerID=workerID,worker_name=worker_name,product_name=product_name,pipline_step=pipline_step,count=count,notes=notes)
+				p = Worker(productID=productID,workerID=phone,worker_name=worker_name,product_name=product_name,pipline_step=pipline_step,count=count,notes=notes)
 				p.save()
 			except Exception, e:
 				return comutils.baseresponse('system error', 500)

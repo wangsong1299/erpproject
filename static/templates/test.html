@@ -16,8 +16,8 @@
  	<div id="content_1" style="width:800px;height:200px;border:solid 1px;margin-left:100px;">
  		
  	</div>
- 	<h2>提交输入员工计件信息</h2><br>员工ID
- 	<input type="text" id="workerID"><br>员工姓名
+ 	<h2>提交输入员工计件信息</h2><br>员工手机号
+ 	<input type="text" id="phone"><br>员工姓名
  	<input type="text" id="worker_name"><br>产品ID
  	<input type="text" id="productID2"><br>产品名称
  	<input type="text" id="product_name"><br>操作项目
@@ -128,7 +128,7 @@
 
 
 		$("#submit_worker_count").click(function(){
-				var workerID=$("#workerID").val();
+				var phone=$("#phone").val();
 				var worker_name=$("#worker_name").val();
 				var productID2=$("#productID2").val();	
 				var product_name=$("#product_name").val();
@@ -139,7 +139,7 @@
 				$.ajax({
 				  	type : "POST",
 				  	url : "/count_work/",
-				  	data:{'workerID':workerID,'worker_name':worker_name,'productID':productID2,'product_name':product_name,'pipline_step':pipline_step,'count':count,'notes':notes},
+				  	data:{'phone':phone,'worker_name':worker_name,'productID':productID2,'product_name':product_name,'pipline_step':pipline_step,'count':count,'notes':notes},
 				  	dataType : "json",
 				  	success : function(data) {    
 		             	console.log(data);
