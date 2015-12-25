@@ -319,8 +319,8 @@ def get_workerID_by_worker(request):
 	worker_name = request.POST.get('worker_name', None)
 	r=Worker.objects.filter(worker_name=worker_name)
 	if r:
-		workerID=r[0].workerID
-		return HttpResponse(workerID)
+		id=r[0].id
+		return HttpResponse(id)
 	else:
 		return HttpResponse(0)
 		

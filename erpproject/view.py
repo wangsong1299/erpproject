@@ -96,11 +96,21 @@ def count_work(request):
 	count = request.POST.get('count', None)
 	notes = request.POST.get('notes', None)
 
-	r=Process.objects.filter(productID=productID)
+	r=Tracking.objects.filter(productID=productID)
 	if r:
-		step=r[0].count_work
+		step=r[0].pipline_step
 		if(int(pipline_step)==int(step)+1):
+			num = Worker.objects.filter(productID=productID,pipline_step=(int(pipline_step)-1))[0],count
+			print num
+			if(count>num):
+				return comutils.baseresponse('数目超过可完成总数目', 500)
 			Process.objects.filter(productID=productID).update(count_work=pipline_step)
+			Tracking.objects.filter(productID=productID).update(pipline_step=pipline_step)
+			if(int(pipline_step)<7):
+				Tracking.objects.filter(productID=productID).update(state=1)
+			else:
+				Process.objects.filter(productID=productID).update(finished=2)
+				Tracking.objects.filter(productID=productID).update(state=2)
 			try:
 				p = Worker(productID=productID,workerID=phone,worker_name=worker_name,product_name=product_name,pipline_step=pipline_step,count=count,notes=notes)
 				p.save()
