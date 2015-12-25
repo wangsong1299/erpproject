@@ -300,6 +300,31 @@
  				$("#later_click").attr('disabled',true);
  			}
 
+ 			//金额相加
+ 			$("#col7").focus(function(){
+ 				var a = $("#col5").val();
+ 				var b = $("#col6").val();
+ 				if(a==''){
+ 					alert("请输入送货数");
+ 				}else if(b==''){
+ 					alert("请输入单价");
+ 				}else{
+					var sum = parseInt(parseFloat(a)*parseFloat(b)*100)/parseFloat(100.0);
+ 					$("#col7").val(sum);
+ 				}
+ 			})
+ 			$("#modify_col7").focus(function(){
+ 				var a = $("#modify_col5").val();
+ 				var b = $("#modify_col6").val();
+ 				if(a==''){
+ 					alert("请输入送货数");
+ 				}else if(b==''){
+ 					alert("请输入单价");
+ 				}else{
+					var sum = parseInt(parseFloat(a)*parseFloat(b)*100)/parseFloat(100.0);
+ 					$("#modify_col7").val(sum);
+ 				}
+ 			})
 
 	})</script>
 
