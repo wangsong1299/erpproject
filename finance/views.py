@@ -82,7 +82,8 @@ def search(request,financeID):
 	if not is_login:
 		return HttpResponseRedirect("/")
 	else:
-		records=Finance.objects.filter(financeID=financeID)
+		product_name=Finance.objects.filter(financeID=financeID)[0].product_name
+		records=Finance.objects.filter(product_name=product_name)
 		a={}
 		i=0
 		for r in records:
