@@ -171,5 +171,18 @@ def modify_user(request):
 		return comutils.baseresponse('system error', 500)	
 	return HttpResponse(json.dumps(1))
 
+#api
+@csrf_exempt
+def get_id_by_username(request):
+	nick_name = request.POST.get('user_search', None)
+	r = User.objects.filter(nick_name=nick_name)
+	if r:
+		id=r[0].id
+		return HttpResponse(id)
+	else:
+		return HttpResponse(json.dumps(0))
+
+
+
 
 

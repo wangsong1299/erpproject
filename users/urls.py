@@ -18,5 +18,7 @@ urlpatterns = patterns('',
     url(r'^delete_user/$', views.delete_user),
     url(r'^modify_user/$', views.modify_user),
 
+    url(r'^get_id_by_username/$', views.get_id_by_username),
+
 )
 
