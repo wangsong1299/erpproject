@@ -641,7 +641,7 @@ def fill_order(request):
 				product_name=product_name,				
 				amount = amount,
 				price=price,
-				total_fee = total_fee,	
+				total_fee = fee,	
 				create_time=create_time,      
 				notes=notes)
 		q.save()
