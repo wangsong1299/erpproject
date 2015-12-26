@@ -28,7 +28,7 @@
   	<div id="content_2" style="margin-left:100px;width:800px;height:200px;border:solid 1px;">
  	</div>
  	<h2>移动端登录</h2><br>手机号
- 	<input type="text" id="phone"><br>密码
+ 	<input type="text" id="phone3"><br>密码
  	<input type="password" id="password"><br>
  	<input type="button" id="login_in" value="登录">
  	<div id="content_3" style="width:800px;height:200px;border:solid 1px;margin-left:100px;">		
@@ -89,7 +89,7 @@
 		})
 
 		$("#login_in").click(function(){
-				var phone=$("#phone").val();
+				var phone=$("#phone3").val();
 				var password=$("#password").val();	
 				var password_md5=hex_md5(password);	
 				$.ajax({
@@ -98,10 +98,7 @@
 				  	data:{'phone':phone,'password':password_md5},
 				  	dataType : "json",
 				  	success : function(data) {    
-		             	console.log(data);
-		             	var html="手机号："+data[1]+'<br/>昵称：'+data[2]+'<br/>角色：'+data[3]+'<br/>部门：'+data[4];
-		       			console.log(html);
-		             	$("#content_3").html(html);
+		             	$("#content_3").html(JSON.stringify(data));
 		              }
 	    	    })
 

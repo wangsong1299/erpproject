@@ -126,17 +126,22 @@ def count_work(request):
 def login_in(request):
 	phone = request.POST.get('phone', None)
 	password = request.POST.get('password', None)
-	user=User.objects.filter(phone=phone)[0]
-	if not user:
-		return comutils.baseresponse('用户不存在', 404)
-	if password != user.signin_passwd:
-		return comutils.baseresponse('密码不正确', 404)
 	b={}
-	b[0]=1
-	b[1]=user.phone
-	b[2]=user.nick_name
-	b[3]=user.role
-	b[4]=user.department
+	users=User.objects.filter(phone=phone)
+	if not users:
+		b[0]=0
+		b[1]='用户不存在'
+	else:
+		user=users[0]
+		if password != user.signin_passwd:
+			b[0]=0
+			b[1]='密码错误'
+		else:
+			b[0]=1
+			b[1]=user.phone
+			b[2]=user.nick_name
+			b[3]=user.role
+			b[4]=user.department
 	return HttpResponse(json.dumps(b))
 
 @csrf_exempt
