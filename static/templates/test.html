@@ -18,9 +18,9 @@
  	</div>
  	<h2>提交输入员工计件信息</h2><br>员工手机号
  	<input type="text" id="phone"><br>员工姓名
- 	<input type="text" id="worker_name"><br>产品ID
+ 	<input type="text" id="worker_name" disabled><br>产品ID
  	<input type="text" id="productID2"><br>产品名称
- 	<input type="text" id="product_name"><br>操作项目
+ 	<input type="text" id="product_name" disabled><br>操作项目
  	<input type="text" id="pipline_step"><br>操作数目
  	<input type="text" id="count"><br>备注
   	<input type="text" id="notes"><br>
@@ -62,27 +62,7 @@
 				  	data:{'productID':productID},
 				  	dataType : "json",
 				  	success : function(data) {    
-		             	console.log(data);
-		             	var html="施工单号："+data[0]+'<br/>产品名称：'+data[1]+'<br/>客户名：'+data[2]+'<br/>数目：'+data[3]+'<br/>开单时间：'+data[4]+'<br/>交货时间：'+data[5];
-		       			console.log(html);
-		             	$("#content_1").html(html);
-		              }
-	    	    })
-
-		})
-
-		$("#get_process_info").click(function(){
-			var productID=$("#productID").val();
-			$.ajax({
-				  	type : "POST",
-				  	url : "/get_process_info/",
-				  	data:{'productID':productID},
-				  	dataType : "json",
-				  	success : function(data) {    
-		             	console.log(data);
-		             	var html="施工单号："+data[0]+'<br/>产品名称：'+data[1]+'<br/>客户名：'+data[2]+'<br/>数目：'+data[3]+'<br/>开单时间：'+data[4]+'<br/>交货时间：'+data[5];
-		       			console.log(html);
-		             	$("#content_2").html(html);
+		             	$("#content_1").html(JSON.stringify(data));
 		              }
 	    	    })
 
@@ -117,7 +97,7 @@
 				  	dataType : "json",
 				  	success : function(data) {    
 		             	console.log(data);
-		             	$("#content_4").html(data);
+		             	$("#content_4").html(JSON.stringify(data));
 		              }
 	    	    })
 
@@ -126,9 +106,9 @@
 
 		$("#submit_worker_count").click(function(){
 				var phone=$("#phone").val();
-				var worker_name=$("#worker_name").val();
+				var worker_name='';
 				var productID2=$("#productID2").val();	
-				var product_name=$("#product_name").val();
+				var product_name='';
 				var pipline_step=$("#pipline_step").val();
 				var count=$("#count").val();	
 				var notes=$("#notes").val();
@@ -139,8 +119,7 @@
 				  	data:{'phone':phone,'worker_name':worker_name,'productID':productID2,'product_name':product_name,'pipline_step':pipline_step,'count':count,'notes':notes},
 				  	dataType : "json",
 				  	success : function(data) {    
-		             	console.log(data);
-		             	$("#content_2").html(data[0].message);
+		             	$("#content_2").html(JSON.stringify(data));
 		              }
 	    	    })
 

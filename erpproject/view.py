@@ -95,14 +95,19 @@ def count_work(request):
 	pipline_step = request.POST.get('pipline_step', None)
 	count = request.POST.get('count', None)
 	notes = request.POST.get('notes', None)
+	worker_name=User.objects.filter(phone=phone)[0].nick_name
+	product_name=Process.objects.filter(productID=productID)[0].product_name
 
 	r=Tracking.objects.filter(productID=productID)
 	if r:
 		step=r[0].pipline_step
-		if(int(pipline_step)==int(step)+1):
-			num = Worker.objects.filter(productID=productID,pipline_step=(int(pipline_step)-1))[0],count
-			print num
-			if(count>num):
+		print step
+		if((int(pipline_step)==int(step)+1) or int(step)==0):
+			if(int(step)==0):
+				num=0
+			else:
+				num = Worker.objects.filter(productID=productID,pipline_step=(int(pipline_step)-1))[0].count
+			if((int(count)>num) and (num!=0)):
 				return comutils.baseresponse('数目超过可完成总数目', 500)
 			Process.objects.filter(productID=productID).update(count_work=pipline_step)
 			Tracking.objects.filter(productID=productID).update(pipline_step=pipline_step)
@@ -115,7 +120,7 @@ def count_work(request):
 				p = Worker(productID=productID,workerID=phone,worker_name=worker_name,product_name=product_name,pipline_step=pipline_step,count=count,notes=notes)
 				p.save()
 			except Exception, e:
-				return comutils.baseresponse('system error', 500)
+				return comutils.baseresponse('写入员工计件表失败', 500)
 			return HttpResponse(json.dumps(1))
 		else:
 			return comutils.baseresponse('没有按流水顺序执行', 500)
