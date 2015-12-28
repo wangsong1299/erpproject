@@ -425,3 +425,12 @@ def modify_multiple(request):
 		return comutils.baseresponse('system error', 500)
 	return HttpResponse(json.dumps(1))
 
+@csrf_exempt
+def productID_is_valued(request):
+	productID = request.POST.get('productID', None)
+	r = Process.objects.filter(productID=productID)
+	if r:
+		return HttpResponse(productID)
+	else:
+		return HttpResponse(json.dumps(0))
+

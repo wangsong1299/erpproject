@@ -21,7 +21,7 @@
 			</div>
   		   <button type="submit" class="btn btn-primary" id="new">新建采购单</button>
   		   	<div class="searchbar">			
-			  <input class="input-medium search-query" id="purchase_new" type="text" placeholder="客户/产品名/产品ID">
+			  <input class="input-medium search-query" id="purchase_new" type="text" placeholder="施工单ID">
 			</div>
  	</div>
  	<div class="list_hr" style="margin-top:20px"></div>
@@ -77,42 +77,14 @@
 			}else{
 				$.ajax({
                       type : "POST",
-                      url : "/purchase/get_productID_by_productID/",
+                      url : "/purchase/productID_is_valued/",
                       data:{'productID':purchase_new},
                       dataType : "json",
                       success : function(data){ 
                       		if(data!=0){
                       			 window.location.href='/purchase/fill/'+data;
                       		}else{
-				                 $.ajax({
-				                      type : "POST",
-				                      url : "/purchase/get_productID_by_product/",
-				                      data:{'product_name':purchase_new},
-				                      dataType : "json",
-				                      success : function(data){ 
-				                      		if(data!=0){
-				                      			 window.location.href='/purchase/fill/'+data;
-				                      		}else{
-				                      			$.ajax({
-								                      type : "POST",
-								                      url : "/purchase/get_productID_by_customer/",
-								                      data:{'customer':purchase_new},
-								                      dataType : "json",
-								                      success : function(data){ 
-								                      		if(data!=0){
-								                      			 window.location.href='/purchase/fill/'+data;
-								                      		}else{
-								                      			alert("没有相关订单号");
-								                      		}
-								                         
-								                      }
-								                })
-
-				                      		}
-				                         
-				                      }
-				                })
-
+                      			alert("没有对应的施工单ID");
                       		}
                          
                       }

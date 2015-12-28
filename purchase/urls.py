@@ -30,6 +30,6 @@ urlpatterns = patterns('',
     url(r'^modify_single/$', views.modify_single),
     url(r'^modify_multiple/$', views.modify_multiple),
 
-
+    url(r'^productID_is_valued/$', views.productID_is_valued),
 
 )
