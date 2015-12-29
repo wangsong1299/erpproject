@@ -25,7 +25,7 @@ button{float: right;margin-right: 40px;}
 .list_hr{width:95%;float: left;margin-left: 2%;height: 1px;background: #999}
 
 /*列表页*/
-.list_table{width: 95%;float: left;margin-left: 2%;height: auto;min-height: 400px;font-size: 14px;}
+.list_table{width: 95%;float: left;margin-left: 2%;height: auto;font-size: 14px;}
 .list_table .col_10{width: 10%;text-align: center;}
 .list_table .col_20{width: 20%;text-align: center;}
 .list_table .col_30{width: 30%;text-align: center;}
@@ -44,7 +44,7 @@ button{float: right;margin-right: 40px;}
 .purchase_part{float: left;width: 50%;height: auto;}
 
 /*单工序填入页*/
-.purchase_table{width: 90%;float: left;margin-left: 2%;height: auto;min-height: 400px;border: solid 1px;}
+.purchase_table{width: 90%;float: left;margin-left: 2%;height: auto;border: solid 1px;}
 .purchase_table .col_10{width: 10%;text-align: center;}
 .purchase_table .col_20{width: 20%;text-align: center;}
 .purchase_table .col_30{width: 30%;text-align: center;}
