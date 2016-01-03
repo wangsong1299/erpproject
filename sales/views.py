@@ -1933,7 +1933,7 @@ def process_search(request):
 		return HttpResponseRedirect("/")
 	else:
 		now=datetime.datetime.now()
-		date=now.strftime('%Y-%m-%d')
+		date=str(now.strftime('%Y-%m-%d')).replace('-0','-')
 		print date
 		records=Process.objects.filter(create_time=date)
 		if (len(records)==0):

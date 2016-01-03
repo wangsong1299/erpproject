@@ -120,7 +120,7 @@
 
 		$("#find").click(function(){
 			var arr=$("#search_time").val().split("-");
-			window.location.href="/sales/process_search/"+arr[0]+'/'+arr[1]+'/'+arr[2];
+			window.location.href="/sales/process_search/"+arr[0]+'/'+arr[1].replace(/^0/,'')+'/'+arr[2].replace(/^0/,'');
 		})
 	
 
