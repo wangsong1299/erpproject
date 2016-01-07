@@ -9,6 +9,7 @@ from storage.models import Storage
 from finance.models import Finance
 from work.models import Tracking
 from customer.models import Customer,Supplier
+from users.models import User
 import datetime
 #报价单列表
 def get_quotation_list(records):
@@ -28,6 +29,10 @@ def get_quotation_list(records):
 def quotation_list(request,num):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
+	pk = request.session.get('pk',False)
+	p1 = User.objects.filter(id=pk)[0].p1
+	if int(p1)==0:
+		return HttpResponseRedirect("/denied")
 	quotation=True
 	order=False
 	delivery=False
@@ -410,6 +415,10 @@ def get_order_list(records):
 def order_list(request,num):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
+	pk = request.session.get('pk',False)
+	p1 = User.objects.filter(id=pk)[0].p1
+	if int(p1)==0:
+		return HttpResponseRedirect("/denied")
 	quotation=False
 	order=True
 	delivery=False
@@ -761,6 +770,10 @@ def get_delivery_list(records):
 def delivery_list(request,num):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
+	pk = request.session.get('pk',False)
+	p1 = User.objects.filter(id=pk)[0].p1
+	if int(p1)==0:
+		return HttpResponseRedirect("/denied")
 	quotation=False
 	order=False
 	delivery=True
@@ -1452,6 +1465,10 @@ def get_process_list(records):
 def process_list(request,num):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
+	pk = request.session.get('pk',False)
+	p1 = User.objects.filter(id=pk)[0].p1
+	if int(p1)==0:
+		return HttpResponseRedirect("/denied")
 	quotation=False
 	order=False
 	delivery=False
@@ -1986,6 +2003,10 @@ def get_cost_list(records):
 def cost_list(request,num):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
+	pk = request.session.get('pk',False)
+	p1 = User.objects.filter(id=pk)[0].p1
+	if int(p1)==0:
+		return HttpResponseRedirect("/denied")
 	quotation=False
 	order=False
 	delivery=False

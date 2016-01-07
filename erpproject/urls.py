@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from view import index,logout,barcode,upload_iframe,upload_show
+from view import index,logout,denied,barcode,upload_iframe,upload_show
 from view import api_test,get_process_info,count_work,login_in,modify_password,upload,get_test
 from django.conf import settings
 from django.conf.urls.static import static
@@ -14,6 +14,7 @@ urlpatterns = patterns('',
 
     url(r'^$',index),
     url(r'^logout/$',logout),
+    url(r'^denied/$',denied),
 
     url(r'^users/', include('users.urls')),
     url(r'^sales/', include('sales.urls')),

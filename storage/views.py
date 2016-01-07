@@ -7,7 +7,7 @@ from users import utils as comutils
 from sales.models import Quotation,Order,Process,Delivery,Cost
 from work.models import Worker
 from storage.models import Storage,Storage_in,Storage_out,Storage_material
-
+from users.models import User
 
 def get_storage_list(records):	
 	a={}
@@ -31,6 +31,10 @@ def get_storage_list(records):
 def storage_list(request,num):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
+	pk = request.session.get('pk',False)
+	p = User.objects.filter(id=pk)[0].p3
+	if int(p)==0:
+		return HttpResponseRedirect("/denied")
 	a={}
 	pre_click=False
 	later_click=False
@@ -132,6 +136,10 @@ def get_storageIn_list(records):
 def storage_in_list(request,num):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
+	pk = request.session.get('pk',False)
+	p = User.objects.filter(id=pk)[0].p3
+	if int(p)==0:
+		return HttpResponseRedirect("/denied")
 	a={}
 	pre_click=False
 	later_click=False
@@ -327,6 +335,10 @@ def get_storageOut_list(records):
 def storage_out_list(request,num):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
+	pk = request.session.get('pk',False)
+	p = User.objects.filter(id=pk)[0].p3
+	if int(p)==0:
+		return HttpResponseRedirect("/denied")
 	a={}
 	pre_click=False
 	later_click=False
@@ -531,6 +543,10 @@ def get_storageMaterial_list(records):
 def storage_material_list(request,num):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
+	pk = request.session.get('pk',False)
+	p = User.objects.filter(id=pk)[0].p3
+	if int(p)==0:
+		return HttpResponseRedirect("/denied")
 	a={}
 	pre_click=False
 	later_click=False

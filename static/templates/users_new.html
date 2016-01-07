@@ -45,24 +45,27 @@
 			  <div class="form-group">
 			    <label for="InputRole">角色<span class="red">*</span></label>
 				   <select class="form-control" id='InputRole'>
-					  <option value='0'>系统管理员</option>
-					  <option value='1'>公司领导</option>
-					  <option value='2'>部门经理</option>
-					  <option value='3'>操作员</option>
-					</select>
-			  </div>
-			  <div class="form-group">
-			    <label for="InputDepartment">部门<span class="red">*</span></label>
-				   <select class="form-control" id='InputDepartment'>
-					  <option value='0'>销售部</option>
-					  <option value='1'>管理部</option>
-					  <option value='2'>财务部</option>
-					  <option value='3'>生产部</option>
+					  <option value='0'>超级管理员</option>
+					  <option value='1'>系统管理员</option>
+					  <option value='2'>销售</option>
+					  <option value='3'>生产</option>
+					  <option value='4'>财务</option>
 					</select>
 			  </div>
 			  <div class="form-group">
 			    <label for="InputPermission">权限</label>
-			    <input type="text" class="form-control" id="InputPermission" placeholder="暂时不用填" disabled>
+			    <div>
+			    	<input type="checkbox" id='p1'><label for="p1">销售</label>
+			    	<input type="checkbox" id='p2'><label for="p2">采购</label>
+			    	<input type="checkbox" id='p3'><label for="p3">库存</label>
+			    	<input type="checkbox" id='p4'><label for="p4">财务</label>
+			    	<input type="checkbox" id='p5'><label for="p5">生产管理</label><br>
+			    	<input type="checkbox" id='p6'><label for="p6">客户</label>
+			    	<input type="checkbox" id='p7'><label for="p7">供应商</label>
+			    	<input type="checkbox" id='p8'><label for="p8">员工列表</label>
+			    	<input type="checkbox" id='p9'><label for="p9">每日统计</label>
+			    	<input type="checkbox" id='p10'><label for="p10">预警信息</label>
+			    </div>
 			  </div>
 
 
@@ -83,6 +86,38 @@
 	$(document).ready(function(){
 		$("#user_box").show();	
 		$("#user_2").addClass('subtitle_focus');
+		$("input[type=checkbox]").prop("checked",true);
+
+		$("#InputRole").change(function(){
+			var choice = $("#InputRole").val();
+			if(choice==0){
+				$("input[type=checkbox]").prop("checked",true);
+			}else if(choice==1){
+				$("input[type=checkbox]").prop("checked",true);
+				$("#p8").prop("checked",false);
+			}else if(choice==2){
+				$("input[type=checkbox]").prop("checked",false);
+				$("#p1").prop("checked",true);
+				$("#p2").prop("checked",true);
+				$("#p6").prop("checked",true);
+				$("#p7").prop("checked",true);
+				$("#p9").prop("checked",true);
+				$("#p10").prop("checked",true);
+			}else if(choice==3){
+				$("input[type=checkbox]").prop("checked",false);
+				$("#p5").prop("checked",true);
+				$("#p2").prop("checked",true);
+				$("#p3").prop("checked",true);
+				$("#p9").prop("checked",true);
+				$("#p10").prop("checked",true);
+			}else if(choice==4){
+				$("input[type=checkbox]").prop("checked",false);
+				$("#p5").prop("checked",true);
+				$("#p2").prop("checked",true);
+				$("#p6").prop("checked",true);
+				$("#p7").prop("checked",true);
+			}
+		})
 
 		$("#submit").click(function(){
 			var phone=$.trim($("#InputPhone").val());
@@ -91,8 +126,16 @@
 			var sexy=$.trim($("#InputSexy").val());
 			var qq=$.trim($("#InputQq").val());
 			var role=$.trim($("#InputRole").val());
-			var department=$.trim($("#InputDepartment").val());
-			var permission = 1;
+			var p1 = $("#p1").prop("checked")?1:0;
+			var p2 = $("#p2").prop("checked")?1:0;
+			var p3 = $("#p3").prop("checked")?1:0;
+			var p4 = $("#p4").prop("checked")?1:0;
+			var p5 = $("#p5").prop("checked")?1:0;
+			var p6 = $("#p6").prop("checked")?1:0;
+			var p7 = $("#p7").prop("checked")?1:0;
+			var p8 = $("#p8").prop("checked")?1:0;
+			var p9 = $("#p9").prop("checked")?1:0;
+			var p10 = $("#p10").prop("checked")?1:0;
 			password_md5 = hex_md5(password);
  
 			if(phone.length==0){
@@ -105,12 +148,12 @@
 				  $.ajax({
                       type : "POST",
                       url : "/users/signup/",
-                      data:{'phone':phone,'password':password_md5,'nickname':nickname,'sexy':sexy,'qq':qq,'role':role,'department':department,'permission':permission},
+                      data:{'phone':phone,'password':password_md5,'nickname':nickname,'sexy':sexy,'qq':qq,'role':role,'p1':p1,'p2':p2,'p3':p3,'p4':p4,'p5':p5,'p6':p6,'p7':p7,'p8':p8,'p9':p9,'p10':p10},
                       dataType : "json",
                       success : function(data) {    
                         if(data==1){
                         	alert("注册成功");
-                           window.location.href='/user/list/1';
+                           window.location.href='/users/list/1';
                         }else{
                           alert("注册失败:"+data.message);
                         }

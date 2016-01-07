@@ -63,6 +63,8 @@ def logout(request):
 	request.session['is_login']=False
 	return HttpResponseRedirect("/")
 
+def denied(request):
+	return render_to_response('denied.html');
 
 def api_test(request):
 	is_login=request.session.get('is_login',False)

@@ -8,6 +8,7 @@ from sales.models import Quotation,Order,Process,Delivery,Cost
 from work.models import Worker
 from storage.models import Storage,Storage_in,Storage_out,Storage_material
 import datetime
+from users.models import User
 
 # Create your views here.
 def get_alert_list(records):
@@ -38,6 +39,10 @@ def get_alert_list(records):
 def alert_list(request,num):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
+	pk = request.session.get('pk',False)
+	p = User.objects.filter(id=pk)[0].p10
+	if int(p)==0:
+		return HttpResponseRedirect("/denied")
 	a={}
 	pre_click=False
 	later_click=False

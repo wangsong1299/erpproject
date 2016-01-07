@@ -7,6 +7,7 @@ from users import utils as comutils
 from sales.models import Quotation,Order,Process,Delivery,Cost
 from work.models import Worker
 from finance.models import Finance
+from users.models import User
 
 def get_finance_list(records):	
 	a={}
@@ -29,6 +30,10 @@ def get_finance_list(records):
 def finance_list(request,num):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
+	pk = request.session.get('pk',False)
+	p = User.objects.filter(id=pk)[0].p4
+	if int(p)==0:
+		return HttpResponseRedirect("/denied")
 	a={}
 	pre_click=False
 	later_click=False

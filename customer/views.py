@@ -7,6 +7,7 @@ from users import utils as comutils
 from sales.models import Quotation,Order,Process,Delivery,Cost
 from purchase.models import Purchase_single,Purchase_multiple
 from customer.models import Customer,Supplier
+from users.models import User
 
 def get_customer_list(records):	
 	a={}
@@ -30,6 +31,10 @@ def get_customer_list(records):
 def customer_list(request,num):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
+	pk = request.session.get('pk',False)
+	p = User.objects.filter(id=pk)[0].p6
+	if int(p)==0:
+		return HttpResponseRedirect("/denied")
 	a={}
 	pre_click=False
 	later_click=False
@@ -133,6 +138,10 @@ def get_supplier_list(records):
 def supplier_list(request,num):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
+	pk = request.session.get('pk',False)
+	p = User.objects.filter(id=pk)[0].p7
+	if int(p)==0:
+		return HttpResponseRedirect("/denied")
 	a={}
 	pre_click=False
 	later_click=False

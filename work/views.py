@@ -6,6 +6,7 @@ import simplejson as json
 from users import utils as comutils
 from sales.models import Quotation,Order,Process,Delivery,Cost
 from work.models import Worker,Tracking
+from users.models import User
 
 def get_tracking_list(records):	
 	a={}
@@ -29,6 +30,10 @@ def get_tracking_list(records):
 def tracking_list(request,num):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
+	pk = request.session.get('pk',False)
+	p = User.objects.filter(id=pk)[0].p5
+	if int(p)==0:
+		return HttpResponseRedirect("/denied")
 	a={}
 	pre_click=False
 	later_click=False
@@ -209,6 +214,10 @@ def get_worker_list(records):
 def worker_list(request,num):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
+	pk = request.session.get('pk',False)
+	p = User.objects.filter(id=pk)[0].p5
+	if int(p)==0:
+		return HttpResponseRedirect("/denied")
 	a={}
 	pre_click=False
 	later_click=False

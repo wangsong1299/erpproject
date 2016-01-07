@@ -15,7 +15,6 @@ def get_user_list(records):
 		b[1]=user.phone
 		b[2]=user.nick_name
 		b[3]=user.role
-		b[4]=user.department
 		b[5]=int(i+1)
 		a[i]=b
 		i=i+1
@@ -24,12 +23,16 @@ def get_user_list(records):
 def list(request,num):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
-	a={}
 	pre_click=False
 	later_click=False
 	if not is_login:
 		return HttpResponseRedirect("/")
 	else:
+		pk = request.session.get('pk',False)
+		p = User.objects.filter(id=pk)[0].p8
+		if int(p)==0:
+			return HttpResponseRedirect("/denied")
+		a={}
 		records_all=User.objects.all()
 		page_all=int(len(records_all)-1)/10+1
 		num=int(num)
@@ -58,6 +61,10 @@ def list(request,num):
 def new(request):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
+	pk = request.session.get('pk',False)
+	p = User.objects.filter(id=pk)[0].p8
+	if int(p)==0:
+		return HttpResponseRedirect("/denied")
 	if not is_login:
 		return HttpResponseRedirect("/")
 	else:
@@ -77,7 +84,6 @@ def user(request,id):
 		b[3]=user.qq
 		b[4]=user.sexy
 		b[5]=user.role
-		b[6]=user.department
 		return render_to_response("users_user.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'records':b})
 
 
@@ -117,8 +123,16 @@ def signup(request):
 	sexy = request.POST.get('sexy', None)
 	qq = request.POST.get('qq', None)
 	role = request.POST.get('role', None)
-	department = request.POST.get('department', None)
-	permission = request.POST.get('permission', None)
+	p1 = request.POST.get('p1', None)
+	p2 = request.POST.get('p2', None)
+	p3 = request.POST.get('p3', None)
+	p4 = request.POST.get('p4', None)
+	p5 = request.POST.get('p5', None)
+	p6 = request.POST.get('p6', None)
+	p7 = request.POST.get('p7', None)
+	p8 = request.POST.get('p8', None)
+	p9 = request.POST.get('p9', None)
+	p10 = request.POST.get('p10', None)
 
 	try:
 		user = User(phone = phone,
@@ -127,8 +141,16 @@ def signup(request):
                 sexy=sexy,
                 qq=qq,
                 role=role,
-                department=department,
-                permission=permission)
+                p1=p1,
+                p2=p2,
+                p3=p3,
+                p4=p4,
+                p5=p5,
+                p6=p6,
+                p7=p7,
+                p8=p8,
+                p9=p9,
+                p10=p10)
 		user.save()
 	except Exception, e:
 		return comutils.baseresponse('system error', 500)	
@@ -155,8 +177,16 @@ def modify_user(request):
 	sexy = request.POST.get('sexy', None)
 	qq = request.POST.get('qq', None)
 	role = request.POST.get('role', None)
-	department = request.POST.get('department', None)
-	permission = request.POST.get('permission', None)
+	p1 = request.POST.get('p1', None)
+	p2 = request.POST.get('p2', None)
+	p3 = request.POST.get('p3', None)
+	p4 = request.POST.get('p4', None)
+	p5 = request.POST.get('p5', None)
+	p6 = request.POST.get('p6', None)
+	p7 = request.POST.get('p7', None)
+	p8 = request.POST.get('p8', None)
+	p9 = request.POST.get('p9', None)
+	p10 = request.POST.get('p10', None)
 
 	try:
 		User.objects.filter(id=id).update(phone = phone,
@@ -165,8 +195,16 @@ def modify_user(request):
                 sexy=sexy,
                 qq=qq,
                 role=role,
-                department=department,
-                permission=permission)
+                p1=p1,
+                p2=p2,
+                p3=p3,
+                p4=p4,
+                p5=p5,
+                p6=p6,
+                p7=p7,
+                p8=p8,
+                p9=p9,
+                p10=p10)
 	except Exception, e:
 		return comutils.baseresponse('system error', 500)	
 	return HttpResponse(json.dumps(1))

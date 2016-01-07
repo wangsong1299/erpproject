@@ -8,6 +8,7 @@ from sales.models import Quotation,Order,Process,Delivery,Cost
 from work.models import Worker
 from storage.models import Storage,Storage_in,Storage_out,Storage_material
 from django.utils.timezone import now, timedelta
+from users.models import User
 
 # Create your views here.
 def get_statistics_list(records):	
@@ -28,10 +29,12 @@ def get_statistics_list(records):
 def statistics_list(request,num):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
+	pk = request.session.get('pk',False)
+	p = User.objects.filter(id=pk)[0].p9
+	if int(p)==0:
+		return HttpResponseRedirect("/denied")
 	start = now().date()
 	end = start + timedelta(days=1)
-	print start
-	print end
 	a={}
 	pre_click=False
 	later_click=False
