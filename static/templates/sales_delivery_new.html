@@ -9,20 +9,20 @@
 			{% endblock %}	
 
  {% block main %}
- <div class="main" style="overflow:hidden;">
+ <div class="main long_main" style="overflow:hidden;">
 		<div class="line2">
 							销售：送货单	
 				</div>
 
  	<div id="choice_1_box">
- 		 <div class="head_row">
+ 		 <div class="head_row"  style="margin-top:0;text-align:center">
  			鄞州联城包装彩印有限公司送货单
  		</div>
- 		 <div class="head_row">
+ 		 <div class="head_row" style="margin-top:0">
  			<label for="deliveryID">送货单号</label>
  			<input type="text" id="deliveryID" value="{{deliveryID}}"/> 	
  		</div>
- 		 <div class="head_row">
+ 		 <div class="head_row" style="margin-top:0">
  			<label for="delivery_name" style="width:150px">收货单位或姓名</label>
  			<input type="text" id="delivery_name" style="width:250px" value=''>
  			<label for="delivery_time">填写时间</label>
@@ -87,48 +87,12 @@
 			<th class="col_10"><input type="number" id="fee_5"></th>
 			<th class="col_20"><input type="text" id="notes_5"></th>
 		</tr>
-		<tr>
-			<th class="col_10"><input type="text" class="productID_1" id="productID_6"></th>
-			<th class="col_30"><input type="text" id="product_name_6"></th>
-			<th class="col_10"><input type="number" id="order_amount_6"></th>
-			<th class="col_10"><input type="number" id="delivery_amount_6"></th>
-			<th class="col_10"><input type="number" id="price_6"></th>
-			<th class="col_10"><input type="number" id="fee_6"></th>
-			<th class="col_20"><input type="text" id="notes_6"></th>
-		</tr>
-		<tr>
-			<th class="col_10"><input type="text" class="productID_1" id="productID_7"></th>
-			<th class="col_30"><input type="text" id="product_name_7"></th>
-			<th class="col_10"><input type="number" id="order_amount_7"></th>
-			<th class="col_10"><input type="number" id="delivery_amount_7"></th>
-			<th class="col_10"><input type="number" id="price_7"></th>
-			<th class="col_10"><input type="number" id="fee_7"></th>
-			<th class="col_20"><input type="text" id="notes_7"></th>
-		</tr>
-		<tr>
-			<th class="col_10"><input type="text" class="productID_1" id="productID_8"></th>
-			<th class="col_30"><input type="text" id="product_name_8"></th>
-			<th class="col_10"><input type="number" id="order_amount_8"></th>
-			<th class="col_10"><input type="number" id="delivery_amount_8"></th>
-			<th class="col_10"><input type="number" id="price_8"></th>
-			<th class="col_10"><input type="number" id="fee_8"></th>
-			<th class="col_20"><input type="text" id="notes_8"></th>
-		</tr>
-		<tr>
-			<th class="col_10"><input type="text" class="productID_1" id="productID_9"></th>
-			<th class="col_30"><input type="text" id="product_name_9"></th>
-			<th class="col_10"><input type="number" id="order_amount_9"></th>
-			<th class="col_10"><input type="number" id="delivery_amount_9"></th>
-			<th class="col_10"><input type="number" id="price_9"></th>
-			<th class="col_10"><input type="number" id="fee_9"></th>
-			<th class="col_20"><input type="text" id="notes_9"></th>
-		</tr>
 		</table>
 		<table class="delivery_table">
 		<tr>
 			<th class="col_10">交货地址</th>
 			<th class="col_50"><input type="text" id="delivery_address"></th>
-			<th class="col_10">总金额合计</th>
+			<th class="col_10">金额合计</th>
 			<th class="col_30"><input type="number" id="total_fee"></th>
 		</tr>
 		</table>		

@@ -109,7 +109,6 @@ def count_work(request):
 				num=0
 			else:
 				num = Worker.objects.filter(productID=productID,pipline_step=(int(pipline_step)-1))[0].count
-				print num,count,(int(count)>int(num)),(num!=0)
 			if((int(count)>int(num)) and (num!=0)):
 				return comutils.baseresponse('数目超过可完成总数目', 500)
 			Process.objects.filter(productID=productID).update(count_work=pipline_step)
