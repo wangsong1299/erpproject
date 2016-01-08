@@ -108,11 +108,13 @@ def count_work(request):
 			return comutils.baseresponse('必须从第一步材料到货开始', 500)
 		elif((int(pipline_step)==int(step)+1) or int(step)==0):
 			if(int(step)==0):
-				num=0
+				num = Process.objects.filter(productID=productID)[0].amount
+				if(int(count)<int(num)):
+					return comutils.baseresponse('必须大于施工单上的数目', 500)
 			else:
 				num = Worker.objects.filter(productID=productID,pipline_step=(int(pipline_step)-1))[0].count
-			if((int(count)>int(num)) and (num!=0)):
-				return comutils.baseresponse('数目超过可完成总数目', 500)
+				if((int(count)>int(num)) and (num!=0)):
+					return comutils.baseresponse('数目超过可完成总数目', 500)
 			Process.objects.filter(productID=productID).update(count_work=pipline_step)
 			Tracking.objects.filter(productID=productID).update(pipline_step=pipline_step)
 			if(int(pipline_step)<7):

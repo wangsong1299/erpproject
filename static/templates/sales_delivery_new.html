@@ -15,18 +15,18 @@
 				</div>
 
  	<div id="choice_1_box">
- 		 <div class="head_row"  style="margin-top:0;text-align:center">
+ 		 <div class="head_row"  style="margin-top:0;text-align:center;font-size:20px">
  			鄞州联城包装彩印有限公司送货单
  		</div>
  		 <div class="head_row" style="margin-top:0">
  			<label for="deliveryID">送货单号</label>
- 			<input type="text" id="deliveryID" value="{{deliveryID}}"/> 	
+ 			<input type="text" id="deliveryID" style="font-size:16px" value="{{deliveryID}}"> 	
  		</div>
  		 <div class="head_row" style="margin-top:0">
  			<label for="delivery_name" style="width:150px">收货单位或姓名</label>
- 			<input type="text" id="delivery_name" style="width:250px" value=''>
+ 			<input type="text" id="delivery_name" style="width:250px;font-size:16px" value=''>
  			<label for="delivery_time">填写时间</label>
- 			<input type="text" id="delivery_time" onClick="WdatePicker()">
+ 			<input type="text" id="delivery_time" style="font-size:16px" onClick="WdatePicker()">
  		</div>
 
 
@@ -41,7 +41,7 @@
 			<th class="col_20">备注</th>
 		</tr>
 
-		<tr>
+		<tr style="font-size:16px">
 			<th class="col_10"><input type="text" class="productID_1" id="productID_1"></th>
 			<th class="col_30"><input type="text" id="product_name_1"></th>
 			<th class="col_10"><input type="number" id="order_amount_1"></th>
@@ -51,7 +51,7 @@
 			<th class="col_20"><input type="text" id="notes_1"></th>
 		</tr>
 
-		<tr>
+		<tr style="font-size:16px">
 			<th class="col_10"><input type="text" class="productID_1" id="productID_2"></th>
 			<th class="col_30"><input type="text" id="product_name_2"></th>
 			<th class="col_10"><input type="number" id="order_amount_2"></th>
@@ -60,7 +60,7 @@
 			<th class="col_10"><input type="number" id="fee_2"></th>
 			<th class="col_20"><input type="text" id="notes_2"></th>
 		</tr>	
-		<tr>
+		<tr style="font-size:16px">
 			<th class="col_10"><input type="text" class="productID_1" id="productID_3"></th>
 			<th class="col_30"><input type="text" id="product_name_3"></th>
 			<th class="col_10"><input type="number" id="order_amount_3"></th>
@@ -69,7 +69,7 @@
 			<th class="col_10"><input type="number" id="fee_3"></th>
 			<th class="col_20"><input type="text" id="notes_3"></th>
 		</tr>
-		<tr>
+		<tr style="font-size:16px">
 			<th class="col_10"><input type="text" class="productID_1" id="productID_4"></th>
 			<th class="col_30"><input type="text" id="product_name_4"></th>
 			<th class="col_10"><input type="number" id="order_amount_4"></th>
@@ -78,7 +78,7 @@
 			<th class="col_10"><input type="number" id="fee_4"></th>
 			<th class="col_20"><input type="text" id="notes_4"></th>
 		</tr>
-		<tr>
+		<tr style="font-size:16px">
 			<th class="col_10"><input type="text" class="productID_1" id="productID_5"></th>
 			<th class="col_30"><input type="text" id="product_name_5"></th>
 			<th class="col_10"><input type="number" id="order_amount_5"></th>
@@ -93,17 +93,17 @@
 			<th class="col_10">交货地址</th>
 			<th class="col_50"><input type="text" id="delivery_address"></th>
 			<th class="col_10">金额合计</th>
-			<th class="col_30"><input type="number" id="total_fee"></th>
+			<th class="col_30"><input type="number" id="total_fee" style="font-size:16px"></th>
 		</tr>
 		</table>		
-		<div class="head_row">
+		<div class="head_row" style="margin-top:5px;">
  			<label for="receive_man" style="width:150px">送货单位经办人</label>
- 			<input type="text" id="receive_man" style="width:250px" value=''>
+ 			<input type="text" id="receive_man" style="width:250px;font-size:16px" value=''>
  			<label for="delivery_man">经办人</label>
- 			<input type="text" id="delivery_man" value=''>
+ 			<input type="text" id="delivery_man" style="font-size:16px" value=''>
  		</div>
 
- 		<div class="head_row" style="margin-bottom:40px">
+ 		<div class="head_row last_row" style="margin-bottom:40px">
  		   <button type="submit" class="btn btn-primary" id="submit_1">点击生成送货单</button>
  		</div>
 
@@ -170,9 +170,6 @@
 						i=maxnum;
 					}else if(delivery_amount.length==0){
 						alert("第"+i+"行的送货数目不能为空");
-						i=maxnum;
-					}else if(price.length==0){
-						alert("第"+i+"行的单价不能为空");
 						i=maxnum;
 					}else if(product_name.length==0){
 						alert("第"+i+"行的产品名称不能为空");

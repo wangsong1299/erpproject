@@ -14,18 +14,18 @@
 				 		销售：送货单	
 				</div>
 	 	<div id="choice_1_box">
-	 		 <div class="head_row">
+	 		 <div class="head_row" style="margin-top:0;text-align:center;font-size:20px">
 	 			鄞州联城包装彩印有限公司送货单
 		 		</div>
-	 		 <div class="head_row">
+	 		 <div class="head_row" style="margin-top:0">
 	 			<label for="deliveryID">送货单号</label>
-	 			<input type="text" id="deliveryID" value={{ records.0.0 }} > 	
+	 			<input type="text" id="deliveryID" style="font-size:16px" value={{ records.0.0 }} > 	
 	 		</div>
-	 		 <div class="head_row">
+	 		 <div class="head_row" style="margin-top:0">
 	 			<label for="delivery_name" style="width:150px">收货单位或姓名</label>
-	 			<input type="text" id="delivery_name" style="width:250px" value={{ records.0.1 }} >
+	 			<input type="text" id="delivery_name" style="width:250px;font-size:16px" value={{ records.0.1 }} >
 	 			<label for="delivery_time">填写时间</label>
-	 			<input type="text" id="delivery_time" value={{ records.0.2 }} onClick="WdatePicker()">
+	 			<input type="text" id="delivery_time" style="font-size:16px" onClick="WdatePicker()" value={{ records.0.2 }} >
 	 		</div>
 
 
@@ -40,7 +40,7 @@
 				<th class="col_20">备注</th>
 			</tr>
 	{% for key, value in records.items %}
-			<tr>
+			<tr style="font-size:16px">
 				<th class="col_10"><input type="text" id="productID_{{value.items.14.1}}" value={{value.items.3.1}}></th>
 				<th class="col_30"><input type="text" id="product_name_{{value.items.14.1}}"  value={{value.items.4.1}}></th>
 		{% if delivery_modify %}
@@ -59,14 +59,14 @@
 				<th class="col_10">交货地址</th>
 				<th class="col_50"><input type="text" id="delivery_address" value={{ records.0.10 }}></th>
 				<th class="col_10">总金额合计</th>
-				<th class="col_30"><input type="text" id="total_fee" value={{ records.0.11 }}></th>
+				<th class="col_30"><input type="text" id="total_fee" style="font-size:16px" value={{ records.0.11 }}></th>
 			</tr>
 			</table>		
-			<div class="head_row">
+			<div class="head_row" style="margin-top:5px;">
 	 			<label for="receive_man" style="width:150px">送货单位经办人</label>
-	 			<input type="text" id="receive_man" style="width:250px" value={{ records.0.12 }} >
+	 			<input type="text" id="receive_man" style="width:250px;font-size:16px" value={{ records.0.12 }} >
 	 			<label for="delivery_man">经办人</label>
-	 			<input type="text" id="delivery_man" value={{ records.0.13 }} >
+	 			<input type="text" id="delivery_man" style="font-size:16px" value={{ records.0.13 }} >
 	 		</div>
 
 		 <div class="head_row last_row" style="margin-bottom:40px">
