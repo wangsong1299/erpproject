@@ -84,6 +84,16 @@ def user(request,id):
 		b[3]=user.qq
 		b[4]=user.sexy
 		b[5]=user.role
+		b[6]=user.p1
+		b[7]=user.p2
+		b[8]=user.p3
+		b[9]=user.p4
+		b[10]=user.p5
+		b[11]=user.p6
+		b[12]=user.p7
+		b[13]=user.p8
+		b[14]=user.p9
+		b[15]=user.p10
 		return render_to_response("users_user.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'records':b})
 
 

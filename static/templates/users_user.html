@@ -96,12 +96,33 @@
                 }
 		});
 		var role={{records.5}};
-		chooseP(role);
  		$("#InputRole>option").each(function(a,b){
  			if($(b).val()==role){//判断值
                     $(b).attr("selected",true);
                 }                
 		});
+		var p1={{records.6}};
+		if(p1){$("#p1").prop('checked',true)};
+		var p2={{records.7}};
+		if(p2){$("#p2").prop('checked',true)};
+		var p3={{records.8}};
+		if(p3){$("#p3").prop('checked',true)};
+		var p4={{records.9}};
+		if(p4){$("#p4").prop('checked',true)};
+		var p5={{records.10}};
+		if(p5){$("#p5").prop('checked',true)};
+		var p6={{records.11}};
+		if(p6){$("#p6").prop('checked',true)};
+		var p7={{records.12}};
+		if(p7){$("#p7").prop('checked',true)};
+		var p8={{records.13}};
+		if(p8){$("#p8").prop('checked',true)};
+		var p9={{records.14}};
+		if(p9){$("#p9").prop('checked',true)};
+		var p10={{records.15}};
+		if(p10){$("#p10").prop('checked',true)};
+
+
 
 		$("#InputRole").change(function(){
 			var choice = $("#InputRole").val();
