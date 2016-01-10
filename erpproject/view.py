@@ -152,7 +152,6 @@ def login_in(request):
 			b[1]=user.phone
 			b[2]=user.nick_name
 			b[3]=user.role
-			b[4]=user.department
 	return HttpResponse(json.dumps(b))
 
 @csrf_exempt
