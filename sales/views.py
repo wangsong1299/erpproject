@@ -1117,7 +1117,7 @@ def modify_delivery(request):
 	delivery_name = request.POST.get('delivery_name', None)
 	delivery_time = request.POST.get('delivery_time', None)
 	receive_man = request.POST.get('receive_man', None)
-	delivery_man = request.POST.get('delivery_name', None)
+	delivery_man = request.POST.get('delivery_man', None)
 	delivery_address = request.POST.get('delivery_address', None)
 	total_fee = request.POST.get('total_fee', None)
 	productID = request.POST.get('productID', None)		
