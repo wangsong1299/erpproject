@@ -15,7 +15,7 @@ def get_purchase_list(records):
 	for r in records:
 		b={}
 		b[0]=r.productID
-		b[1]=r.product_name
+		b[1]=Process.objects.filter(productID=r.productID)[0].product_name
 		#b[3]=r.create_time.strftime('%Y-%m-%d')
 		b[2]=r.customer
 		b[3]=r.process_step
