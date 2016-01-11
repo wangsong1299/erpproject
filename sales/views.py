@@ -1095,6 +1095,8 @@ def fill_delivery(request):
 		q.save()
 	except Exception, e:
 		return comutils.baseresponse(e, 500)
+	return HttpResponse(json.dumps(1))
+'''
 	try:
 		print product_name
 		r=Storage.objects.filter(product_name=product_name)
@@ -1104,7 +1106,8 @@ def fill_delivery(request):
 		Storage.objects.filter(product_name=product_name,id=id).update(out_time=delivery_time,amount=now_amount)
 	except Exception, e:
 		return comutils.baseresponse('送货单输入成功,更新库存单失败', 500)
-	return HttpResponse(json.dumps(1))
+'''
+
 
 
 @csrf_exempt
@@ -1253,13 +1256,16 @@ def fill_delivery_2(request):
 		q.save()
 	except Exception, e:
 		return comutils.baseresponse(e, 500)
+	return HttpResponse(json.dumps(1))
+'''
 	try:
 		total_amount=Storage.objects.filter(productID=productID)[0].amount
 		now_amount=int(total_amount)-int(delivery_amount)
 		Storage.objects.filter(productID=productID).update(out_time=delivery_time,amount=now_amount)
 	except Exception, e:
 		return comutils.baseresponse("库存中没有该产品", 500)
-	return HttpResponse(json.dumps(1))
+'''
+
 
 @csrf_exempt
 def modify_delivery_2(request):
@@ -1378,13 +1384,16 @@ def fill_delivery_3(request):
 		q.save()
 	except Exception, e:
 		return comutils.baseresponse(e, 500)
+	return HttpResponse(json.dumps(1))
+'''
 	try:
 		total_amount=Storage.objects.filter(productID=productID)[0].amount
 		now_amount=int(total_amount)-int(delivery_amount)
 		Storage.objects.filter(productID=productID).update(out_time=delivery_time,amount=now_amount)
 	except Exception, e:
 		return comutils.baseresponse("库存中没有该产品", 500)
-	return HttpResponse(json.dumps(1))
+'''
+
 
 @csrf_exempt
 def modify_delivery_3(request):
