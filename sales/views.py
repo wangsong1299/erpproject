@@ -1467,6 +1467,7 @@ def get_process_list(records):
 		b[3]=r.create_time
 		b[4]=r.finished
 		b[0]=r.productID
+		b[5]=int(i+1)
 		a[i]=b
 		i=i+1
 	return a
@@ -1512,7 +1513,7 @@ def process_list(request,num):
 			pre_click=True
 		if(num<int(page_all)):
 			later_click=True
-		return render_to_response("sales_list.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,"quotation":quotation,'order':order,'delivery':delivery,'process':process,'cost':cost,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click)})
+		return render_to_response("sales_list.html",{'is_login':json.dumps(is_login),'length':len(a),'nick_name':nick_name,"records":a,"quotation":quotation,'order':order,'delivery':delivery,'process':process,'cost':cost,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click)})
 
 def process_c(request,id):
 	is_login=request.session.get('is_login',False)

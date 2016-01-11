@@ -198,7 +198,7 @@
 		  <th class="col_1">{{ value.items.1.1 }}</th>
 		  <th class="col_3">{{ value.items.2.1 }}</th>
 		  <th class="col_3">{{ value.items.3.1 }}</th>
-		  <th class="col_1">{{ value.items.4.1 }}</th>
+		  <th class="col_1" id="finish_{{ value.items.5.1 }}">{{ value.items.4.1 }}</th>
 		  <th class="col_2"><input type="button" value="修改" class="modify_process" id="modify_process_{{ value.items.0.1 }}"></th>
 		  <th class="col_2"><input type="button" value="删除" class="delete_process" id="modify_process_{{ value.items.0.1 }}"></th>
 		</tr>
@@ -581,6 +581,15 @@
 	                  }
 	             })
 			})
+
+		var finish_dict = ['未完成','进行中','已完成'];
+		var length={{length|safe}};
+
+		for(var i=1;i<=length;i++){
+			var num=$("#finish_"+i).html();
+			$("#finish_"+i).html(finish_dict[num]);
+		}
+
 
 
 			$("#find_process").click(function(){
