@@ -15,7 +15,7 @@ def get_user_list(records):
 		b[1]=user.phone
 		b[2]=user.nick_name
 		b[3]=user.role
-		b[5]=int(i+1)
+		b[4]=int(i+1)
 		a[i]=b
 		i=i+1
 	return a

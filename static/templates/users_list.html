@@ -35,14 +35,13 @@
  	<div class="list_hr" style="margin-top:5px"></div>
 
 	<table class="list_table">
-
 {% for key, value in records.items %}
 			<tr>
 				<th class="col_10"><a href='/users/{{ value.items.0.1 }}/'>{{ value.items.0.1 }}</a></th>
 				<th class="col_20">{{ value.items.1.1 }}</th>
 				<th class="col_20">{{ value.items.2.1 }}</th>
-				<th class="col_20" id="roles_{{ value.items.5.1 }}">{{ value.items.3.1 }}</th>
-				<th class="col_10" id="department_{{ value.items.5.1 }}">{{ value.items.4.1 }}</th>
+				<th class="col_20" id="roles_{{ value.items.4.1 }}">{{ value.items.3.1 }}</th>
+				<th class="col_10" id="department_{{ value.items.4.1 }}"></th>
 				<th class="col_10"><a href='/users/{{ value.items.0.1 }}/'><input type="button" value="修改" class="modify_user" id="modify_user_{{ value.items.0.1 }}"></a></th>
 				<th class="col_10"><input type="button" value="删除" class="delete_user" id="delete_user_{{ value.items.0.1 }}"></th>
 
@@ -74,15 +73,14 @@
 			window.location.href='/users/new/';
 		})
 
-		var roles_dict = ['系统管理员','公司老板','部门经理','操作员'];
-		var department_dict=['销售部','管理部','财务部','生产部'];
+		var roles_dict = ['超级管理员','系统管理员','销售','生产','财务'];
+		var department_dict=['管理部','管理部','销售部','生产部','财务部'];
 		var length={{length|safe}};
 
 		for(var i=1;i<=length;i++){
 			var roles_num=$("#roles_"+i).html();
 			$("#roles_"+i).html(roles_dict[roles_num]);
-			var department_num=$("#department_"+i).html();
-			$("#department_"+i).html(department_dict[department_num]);
+			$("#department_"+i).html(department_dict[roles_num]);
 		}
 
 		$(".delete_user").click(function(){
