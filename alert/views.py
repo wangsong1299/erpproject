@@ -15,6 +15,7 @@ def get_alert_list(records):
 	c={}	
 	a={}
 	i=0
+	print len(records)
 	for r in records:
 		alert_date=r.alerttime
 		split_date=alert_date.split("-")
@@ -54,23 +55,27 @@ def alert_list(request,num):
 		if(num==1):			
 			if((len(records_all)<11)):	
 				records=Process.objects.all().order_by('alerttime')
-				a=get_alert_list(records)[1]
-				records_value_num=get_alert_list(records)[0]
+				rec = get_alert_list(records)
+				a=rec[1]
+				records_value_num=rec[0]
 			else:
 				records=Process.objects.all().order_by('alerttime')[0:10]
-				a=get_alert_list(records)[1]
-				records_value_num=get_alert_list(records)[0]
+				rec = get_alert_list(records)
+				a=rec[1]
+				records_value_num=rec[0]
 		else:
 			if(num==page_all):
 				last=int(page_all-1)*10
 				records=Process.objects.all().order_by('alerttime')[last:]
-				a=get_alert_list(records)[1]
-				records_value_num=get_alert_list(records)[0]
+				rec = get_alert_list(records)
+				a=rec[1]
+				records_value_num=rec[0]
 			else:
 				first=int(num-1)*10
 				records=Process.objects.all().order_by('alerttime')[first:int(first+10)]
-				a=get_alert_list(records)[1]
-				records_value_num=get_alert_list(records)[0]
+				rec = get_alert_list(records)
+				a=rec[1]
+				records_value_num=rec[0]
 		page_all=int(records_value_num-1)/10+1
 		if(num>1):
 			pre_click=True
