@@ -895,8 +895,8 @@ def delivery(request,id):
 				b[9]=r.notes
 				b[10]=r.delivery_address
 				b[11]=r.total_fee
-				b[12]=r.receive_man
-				b[13]=r.delivery_man
+				b[13]=r.receive_man
+				b[12]=r.delivery_man
 				b[14]=int(i+1)
 				b[15]=r.send_name
 				b[16]=r.purchase_man
@@ -1204,7 +1204,7 @@ def fill_delivery_2(request):
 	delivery_name = request.POST.get('delivery_name', None)
 	delivery_time = request.POST.get('delivery_time', None)
 	receive_man = request.POST.get('receive_man', None)
-	delivery_man = request.POST.get('delivery_name', None)
+	delivery_man = request.POST.get('delivery_man', None)
 	delivery_address = request.POST.get('delivery_address', None)
 	total_fee = request.POST.get('total_fee', None)
 	productID = request.POST.get('productID', None)		
@@ -1274,7 +1274,7 @@ def modify_delivery_2(request):
 	delivery_name = request.POST.get('delivery_name', None)
 	delivery_time = request.POST.get('delivery_time', None)
 	receive_man = request.POST.get('receive_man', None)
-	delivery_man = request.POST.get('delivery_name', None)
+	delivery_man = request.POST.get('delivery_man', None)
 	delivery_address = request.POST.get('delivery_address', None)
 	total_fee = request.POST.get('total_fee', None)
 	productID = request.POST.get('productID', None)		

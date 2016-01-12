@@ -12,7 +12,7 @@
  			<div class="line2">
 							对账单
 				</div>	
-	<div class="head_row">
+	<div class="head_row last_row">
  		   <button type="submit" class="btn btn-primary" id="find_finance">查询对账单</button>
  		   <div class="searchbar">			
 			  <input class="input-medium search-query" id="finance_search" type="text" placeholder="产品名/产品ID">
@@ -89,8 +89,8 @@
 				<th class="col_10">单价</th>
 				<th class="col_10">金额</th>
 				<th class="col_10">备注</th>
-				<th class="col_5">修改</th>
-				<th class="col_5">删除</th>
+				<th class="col_5 print_none">修改</th>
+				<th class="col_5 print_none">删除</th>
 			</tr>
 	</table>
  	<div class="list_hr" style="margin-top:5px"></div>
@@ -106,8 +106,8 @@
 				<th class="col_10">{{ value.items.5.1 }}</th>
 				<th class="col_10">{{ value.items.6.1 }}</th>
 				<th class="col_10">{{ value.items.7.1 }}</th>
-				<th class="col_5"><input type="button" value="修改" class="modify_finance" id="modify_finance_{{ value.items.8.1 }}"></th>
-				<th class="col_5"><input type="button" value="删除" class="delete_finance" id="delete_finance_{{ value.items.8.1 }}"></th>
+				<th class="col_5 print_none"><input type="button" value="修改" class="modify_finance" id="modify_finance_{{ value.items.8.1 }}"></th>
+				<th class="col_5 print_none"><input type="button" value="删除" class="delete_finance" id="delete_finance_{{ value.items.8.1 }}"></th>
 
 			</tr>
 
@@ -115,7 +115,7 @@
 
 	</table>
 
-	 <div class="head_row" id="jc">
+	 <div class="head_row last_row" id="jc">
 		   <button type="submit" class="btn btn-primary" id="later_click">下一页</button>
  		   <button type="submit" class="btn btn-primary" id="pre_click">上一页</button>
  	</div>

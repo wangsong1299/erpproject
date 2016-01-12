@@ -9,7 +9,7 @@
 			{% endblock %}	
 
  {% block main %}
- <div class="main" style="overflow:hidden;">
+ <div class="main long_main" style="overflow:hidden;">
 		<div class="line2">
 							销售：送货单	
 				</div>
@@ -18,7 +18,7 @@
 	 			<label for="deliveryID">送货单号</label>
 	 			<input type="text" id="deliveryID" value={{ records.0.0 }} > 	
 	 		</div>
-	 		 <div class="head_row">
+	 		 <div class="head_row" style="margin-top:0">
 	 		 	<label for="send_name" style="width:120px">送货单位</label>
 	 			<input type="text" id="send_name" style="width:250px" value={{ records.0.15 }}>
 	 		</div>
@@ -70,7 +70,7 @@
 	 			<input type="text" id="receive_man" value={{ records.0.13 }}>
 	 		</div>
 
-		 <div class="head_row" style="margin-bottom:40px">
+		 <div class="head_row last_row" style="margin-bottom:40px">
  		   <button type="submit" class="btn btn-primary" id="delete">删除</button>
  		   <button type="submit" class="btn btn-primary" id="modify">修改</button>
    <button type="submit" class="btn btn-primary" id="print" onclick="javascript:window.print()" />打印</button>
