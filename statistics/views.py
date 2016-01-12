@@ -22,6 +22,14 @@ def get_statistics_list(records):
 		b[3]=r.size
 		b[4]=r.id
 		b[5]=r.material_ipt
+		b[6]=r.material2
+		b[7]=r.size2
+		b[8]=r.material2_ipt
+		b[9]=r.daliao2
+		b[10]=r.wl_waleng
+		b[11]=r.wl_waleng_ipt
+		b[12]=r.wl_size2
+		b[13]=r.wl_amount
 		a[i]=b
 		i=i+1
 	return a
@@ -41,29 +49,10 @@ def statistics_list(request,num):
 	if not is_login:
 		return HttpResponseRedirect("/")
 	else:
+		print start
 		records_all=Process.objects.filter(create_time__range=(start, end))
-		page_all=int(len(records_all)-1)/10+1
-		num=int(num)
-		if(num==1):			
-			if((len(records_all)<11)):	
-				records=Process.objects.filter(create_time__range=(start, end)).order_by('-id')
-				a=get_statistics_list(records)
-			else:
-				records=Process.objects.filter(create_time__range=(start, end)).order_by('-id')[0:10]
-				a=get_statistics_list(records)
-		else:
-			if(num==page_all):
-				last=int(page_all-1)*10
-				records=Process.objects.filter(create_time__range=(start, end)).order_by('-id')[last:]
-				a=get_statistics_list(records)
-			else:
-				first=int(num-1)*10
-				records=Process.objects.filter(create_time__range=(start, end)).order_by('-id')[first:int(first+10)]
-				a=get_statistics_list(records)
-		if(num>1):
-			pre_click=True
-		if(num<int(page_all)):
-			later_click=True
+		records=Process.objects.filter(create_time__range=(start, end)).order_by('-id')
+		a=get_statistics_list(records)
 		return render_to_response("statistics_statistics.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'records':a,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click)})
 
 

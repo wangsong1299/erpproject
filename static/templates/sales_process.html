@@ -503,8 +503,10 @@
 			$('#print').attr('disabled',true);
 			$('#modify').html('确认修改');
 
-			var date=new Date();
-			var newdate= date.getFullYear()+'-'+(parseInt(date.getMonth())+1)+'-'+date.getDate();
+		    var date=new Date();
+		    var month = (parseInt(date.getMonth())+1)<10?'0'+(parseInt(date.getMonth())+1):parseInt(date.getMonth())+1;
+		    var day = date.getDate()<10?'0'+date.getDate():date.getDate();
+			var newdate= date.getFullYear()+'-'+month+'-'+day;
 			$("#create_time").val(newdate);
 
 			 $(".wl_feizhi_sel").change(function(){

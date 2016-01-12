@@ -2,6 +2,9 @@
  {% load i18n admin_static %}
 {% block head %}
 <link rel="stylesheet" href="{% static "erp/css/finance.css" %}">
+<style>
+	.list_table{font-size: 12px;}
+</style>
 {% endblock %}
 
 {% block inner_header %}
@@ -17,10 +20,16 @@
  	<div class="list_hr" style="margin-top:20px"></div>
 	<table class="list_table" style="margin-top: 5px;">
 		<tr>
-			<th class="col_30">产品名称</th>
-			<th class="col_30">原料名称</th>
-			<th class="col_20">大料张数</th>
-			<th class="col_20">开料尺寸</th>
+			<th class="col_10">产品名称</th>
+			<th class="col_10">原料名称</th>
+			<th class="col_10">大料张数</th>
+			<th class="col_10">开料尺寸</th>
+			<th class="col_10">原料名称2</th>
+			<th class="col_10">大料张数2</th>
+			<th class="col_10">开料尺寸2</th>
+			<th class="col_10">瓦楞用料</th>
+			<th class="col_10">瓦楞尺寸</th>
+			<th class="col_10">瓦楞数目</th>
 		</tr>
 	</table>
  	<div class="list_hr" style="margin-top:5px"></div>
@@ -29,8 +38,8 @@
 
 	{% for key, value in records.items %}
 				<tr>
-					<th class="col_30">{{ value.items.0.1 }}</th>
-					<th class="col_30">
+					<th class="col_10">{{ value.items.0.1 }}</th>
+					<th class="col_10">
 						<div id="material_{{value.items.4.1}}_div">{{value.items.5.1}}</div>
 						<select name="material" id="material_{{value.items.4.1}}" class="material_{{value.items.4.1}}_{{value.items.1.1}}" style="width:100%;margin-right:0;border:none;display:none">
 	 			 			<option value="1">250克灰底白板</option>
@@ -57,15 +66,54 @@
 							<option value="22">350克铜版卡</option>
 	 			 		</select>
 	 			 	</th>			
-					<th class="col_20">{{ value.items.2.1 }}</th>
-					<th class="col_20">{{ value.items.3.1 }}</th>
+					<th class="col_10">{{ value.items.2.1 }}</th>
+					<th class="col_10">{{ value.items.3.1 }}</th>
+					<th class="col_10">
+						<div id="material2_{{value.items.4.1}}_div">{{value.items.8.1}}</div>
+						<select name="material2" id="material2_{{value.items.4.1}}" class="material2_{{value.items.4.1}}_{{value.items.6.1}}" style="width:100%;margin-right:0;border:none;display:none">
+	 			 			<option value="1">250克灰底白板</option>
+	 			 			<option value="2">250克白底白板</option>
+							<option value="3">300克灰底白板</option>
+							<option value="4">300克白底白板</option>
+							<option value="5">350克灰底白板</option>
+							<option value="6">350克白底白板</option>
+							<option value="7">400克灰底白板</option>
+							<option value="8">400克白底白板</option>
+							<option value="9">450克灰底白板</option>
+							<option value="10">450克白底白板</option>
+							<option value="11">80克双胶纸</option>
+							<option value="12">100克双胶纸</option>
+							<option value="13">128克铜版纸</option>
+							<option value="14">157克铜版纸</option>
+							<option value="15">210克白卡</option>
+							<option value="16">230克白卡</option>
+							<option value="17">250克白卡</option>
+							<option value="18">300克白卡</option>
+							<option value="19">350克白卡</option>
+							<option value="20">250克铜版卡</option>
+							<option value="21">300克铜版卡</option>
+							<option value="22">350克铜版卡</option>
+	 			 		</select>
+	 			 	</th>			
+					<th class="col_10">{{ value.items.9.1 }}</th>
+					<th class="col_10">{{ value.items.7.1 }}</th>
+					<th class="col_10">
+						<div id="waleng_{{value.items.4.1}}_div">{{value.items.11.1}}</div>
+						<select name="waleng" id="waleng_{{value.items.4.1}}" class="waleng_{{value.items.4.1}}_{{value.items.10.1}}" style="width:100%;margin-right:0;border:none;display:none">
+	 			 			<option value="1">0g</option>
+	 			 			<option value="2">90g</option>
+							<option value="3">110g</option>
+	 			 		</select>
+					</th>
+					<th class="col_10">{{ value.items.12.1 }}</th>
+					<th class="col_10">{{ value.items.13.1 }}</th>
 				</tr>
 
 	{% endfor %}
 
 		</table>
 
-	 <div class="head_row">
+	 <div class="head_row" style="display:none">
 		   <button type="submit" class="btn btn-primary" id="later_click">下一页</button>
  		   <button type="submit" class="btn btn-primary" id="pre_click">上一页</button>
  	</div>
@@ -101,9 +149,35 @@
  				$("#later_click").attr('disabled',true);
  			}
 
-	 		$("select").each(function(a,b){
+	 		$("select[name=material]").each(function(a,b){
 				var mclass=$(this).attr("class");
 				var mid="material_"+mclass.split("_")[1];
+				var mvalue=mclass.split("_")[2];
+				var vhtml;
+				$("#"+mid+">option").each(function(a,b){
+	                if($(b).val()==mvalue){//判断值
+	                    $(b).attr("selected",true);
+	                    vhtml= $(b).html();
+	                }
+				});
+				$("#"+mid+"_div").html(vhtml);
+			});
+	 		$("select[name=material2]").each(function(a,b){
+				var mclass=$(this).attr("class");
+				var mid="material2_"+mclass.split("_")[1];
+				var mvalue=mclass.split("_")[2];
+				var vhtml;
+				$("#"+mid+">option").each(function(a,b){
+	                if($(b).val()==mvalue){//判断值
+	                    $(b).attr("selected",true);
+	                    vhtml= $(b).html();
+	                }
+				});
+				$("#"+mid+"_div").html(vhtml);
+			});
+	 		$("select[name=waleng]").each(function(a,b){
+				var mclass=$(this).attr("class");
+				var mid="waleng_"+mclass.split("_")[1];
 				var mvalue=mclass.split("_")[2];
 				var vhtml;
 				$("#"+mid+">option").each(function(a,b){
