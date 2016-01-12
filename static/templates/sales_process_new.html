@@ -451,7 +451,9 @@
 			$("#bcTarget_row").slideDown(1000);
 		})
 	    var date=new Date();
-		var newdate= date.getFullYear()+'-'+(parseInt(date.getMonth())+1)+'-'+date.getDate();
+	    var month = (parseInt(date.getMonth())+1)<10?'0'+(parseInt(date.getMonth())+1):parseInt(date.getMonth())+1;
+	    var day = date.getDate()<10?'0'+date.getDate():date.getDate();
+		var newdate= date.getFullYear()+'-'+month+'-'+day;
 		$("#create_time").val(newdate);
 
 
