@@ -28,7 +28,7 @@ def get_statistics_list(records):
 		b[9]=r.daliao2
 		b[10]=r.wl_waleng
 		b[11]=r.wl_waleng_ipt
-		b[12]=r.wl_size2
+		b[12]=r.wl_size
 		b[13]=r.wl_amount
 		a[i]=b
 		i=i+1
