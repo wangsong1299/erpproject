@@ -133,27 +133,6 @@
 		$("#statistics_box").show();
 		$("#statistics_1").addClass('subtitle_focus');
 
-
-	var href=window.location.href.split("/")[5];
-  			var pre_click={{pre_click}}
- 			if(pre_click){
- 				var pre_num=parseInt(href)-1;
- 				$("#pre_click").click(function(){
-	 				window.location.href='/statistics/statistics_list/'+pre_num+'/';
-	 			})
- 			}else{
- 				$("#pre_click").attr('disabled',true);
- 			}
- 			 var later_click={{later_click}}
- 			if(later_click){
- 				var later_num=parseInt(href)+1;
- 				$("#later_click").click(function(){
-	 				window.location.href='/statistics/statistics_list/'+later_num+'/';
-	 			})
- 			}else{
- 				$("#later_click").attr('disabled',true);
- 			}
-
 	 		$("select[name=material]").each(function(a,b){
 				var mclass=$(this).attr("class");
 				var mid="material_"+mclass.split("_")[1];
