@@ -55,4 +55,18 @@ def statistics_list(request,num):
 		a=get_statistics_list(records)
 		return render_to_response("statistics_statistics.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'records':a,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click)})
 
+def statistics_search(request,year,month,day):
+	is_login=request.session.get('is_login',False)
+	nick_name = request.session.get('nick_name',False)
+	if not is_login:
+		return HttpResponseRedirect("/")
+	else:
+		date=year+"-"+month+"-"+day
+		records=Process.objects.filter(create_time=date)
+		if (len(records)==0):
+			return render_to_response("statistics_search.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'records':records,'isValue':False})
+		else:
+			a=get_statistics_list(records)
+			return render_to_response("statistics_search.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'records':a,'isValue':True})
+
 
