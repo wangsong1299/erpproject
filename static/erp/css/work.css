@@ -3,7 +3,7 @@
 .head_row>input{width: 180px;float: left;margin-left: 10px;margin-top: 5px;height: 30px;}
 
 td, th{border:1px solid;}
-th{text-align: center;height: 40px;line-height: 40px;}
+th{text-align: center;height: 40px;}
 td{text-align: center;height: 30px;}
 td>input[type='text']{width: 100%;border: none;height: 100%;}
 th>input[type='text']{width: 100%;border: none;height: 100%;}

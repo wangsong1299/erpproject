@@ -1,7 +1,7 @@
  {% extends "base_erp.html" %}
  {% load i18n admin_static %}
 {% block head %}
-<link rel="stylesheet" href="{% static "erp/css/finance.css" %}">
+<link rel="stylesheet" href="{% static "erp/css/statistic.css" %}">
 <style>
 	.list_table{font-size: 12px;}
 </style>
@@ -20,16 +20,16 @@
  	<div class="list_hr" style="margin-top:20px"></div>
 	<table class="list_table" style="margin-top: 5px;">
 		<tr>
-			<th class="col_10">产品名称</th>
+			<th class="col_20">产品名称</th>
 			<th class="col_10">原料名称</th>
-			<th class="col_10">大料张数</th>
-			<th class="col_10">开料尺寸</th>
+			<th class="col_8">大料张数</th>
+			<th class="col_8">开料尺寸</th>
 			<th class="col_10">原料名称2</th>
-			<th class="col_10">大料张数2</th>
-			<th class="col_10">开料尺寸2</th>
+			<th class="col_8">大料张数2</th>
+			<th class="col_8">开料尺寸2</th>
 			<th class="col_10">瓦楞用料</th>
 			<th class="col_10">瓦楞尺寸</th>
-			<th class="col_10">瓦楞数目</th>
+			<th class="col_8">瓦楞数目</th>
 		</tr>
 	</table>
  	<div class="list_hr" style="margin-top:5px"></div>
@@ -38,7 +38,7 @@
 
 	{% for key, value in records.items %}
 				<tr>
-					<th class="col_10">{{ value.items.0.1 }}</th>
+					<th class="col_20">{{ value.items.0.1 }}</th>
 					<th class="col_10">
 						<div id="material_{{value.items.4.1}}_div">{{value.items.5.1}}</div>
 						<select name="material" id="material_{{value.items.4.1}}" class="material_{{value.items.4.1}}_{{value.items.1.1}}" style="width:100%;margin-right:0;border:none;display:none">
@@ -66,8 +66,8 @@
 							<option value="22">350克铜版卡</option>
 	 			 		</select>
 	 			 	</th>			
-					<th class="col_10">{{ value.items.2.1 }}</th>
-					<th class="col_10">{{ value.items.3.1 }}</th>
+					<th class="col_8">{{ value.items.2.1 }}</th>
+					<th class="col_8">{{ value.items.3.1 }}</th>
 					<th class="col_10">
 						<div id="material2_{{value.items.4.1}}_div">{{value.items.8.1}}</div>
 						<select name="material2" id="material2_{{value.items.4.1}}" class="material2_{{value.items.4.1}}_{{value.items.6.1}}" style="width:100%;margin-right:0;border:none;display:none">
@@ -95,8 +95,8 @@
 							<option value="22">350克铜版卡</option>
 	 			 		</select>
 	 			 	</th>			
-					<th class="col_10">{{ value.items.9.1 }}</th>
-					<th class="col_10">{{ value.items.7.1 }}</th>
+					<th class="col_8">{{ value.items.9.1 }}</th>
+					<th class="col_8">{{ value.items.7.1 }}</th>
 					<th class="col_10">
 						<div id="waleng_{{value.items.4.1}}_div">{{value.items.11.1}}</div>
 						<select name="waleng" id="waleng_{{value.items.4.1}}" class="waleng_{{value.items.4.1}}_{{value.items.10.1}}" style="width:100%;margin-right:0;border:none;display:none">
@@ -106,7 +106,7 @@
 	 			 		</select>
 					</th>
 					<th class="col_10">{{ value.items.12.1 }}</th>
-					<th class="col_10">{{ value.items.13.1 }}</th>
+					<th class="col_8">{{ value.items.13.1 }}</th>
 				</tr>
 
 	{% endfor %}
