@@ -9,13 +9,12 @@ from work.models import Worker
 from storage.models import Storage,Storage_in,Storage_out,Storage_material
 import datetime
 from users.models import User
-
+from django.utils.timezone import now, timedelta
 # Create your views here.
 def get_alert_list(records):
 	c={}	
 	a={}
 	i=0
-	print len(records)
 	for r in records:
 		alert_date=r.alerttime
 		split_date=alert_date.split("-")
@@ -50,33 +49,34 @@ def alert_list(request,num):
 	if not is_login:
 		return HttpResponseRedirect("/")
 	else:
-		records_all=Process.objects.all()
+		start = now().date() + timedelta(days=-1)
+		records_all=Process.objects.filter(alerttime__gt=start)
+		page_all=int(len(records_all)-1)/10+1
 		num=int(num)
 		if(num==1):			
 			if((len(records_all)<11)):	
-				records=Process.objects.all().order_by('alerttime')
+				records=records_all.order_by('alerttime')
 				rec = get_alert_list(records)
 				a=rec[1]
 				records_value_num=rec[0]
 			else:
-				records=Process.objects.all().order_by('alerttime')[0:10]
+				records=records_all.order_by('alerttime')[0:10]
 				rec = get_alert_list(records)
 				a=rec[1]
 				records_value_num=rec[0]
 		else:
 			if(num==page_all):
 				last=int(page_all-1)*10
-				records=Process.objects.all().order_by('alerttime')[last:]
+				records=records_all.order_by('alerttime')[last:]
 				rec = get_alert_list(records)
 				a=rec[1]
 				records_value_num=rec[0]
 			else:
 				first=int(num-1)*10
-				records=Process.objects.all().order_by('alerttime')[first:int(first+10)]
+				records=records_all.order_by('alerttime')[first:int(first+10)]
 				rec = get_alert_list(records)
 				a=rec[1]
 				records_value_num=rec[0]
-		page_all=int(records_value_num-1)/10+1
 		if(num>1):
 			pre_click=True
 		if(num<int(page_all)):
