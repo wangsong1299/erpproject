@@ -84,10 +84,11 @@
  	<div class="list_hr" style="margin-top:20px"></div>
 	<table class="list_table" style="margin-top: 5px;">
 		<tr>
-			<th class="col_1">客户名</th>
-			<th class="col_1">产品名</th>
+			<th class="col_2">客户名</th>
+			<th class="col_2">产品名</th>
 			<th class="col_2">产生时间</th>
 			<th class="col_2">客户订单号</th>
+			<th class="col_3">是否完成</th>
 			<th class="col_2">修改</th>
 			<th class="col_2">删除</th>
 		</tr>
@@ -98,10 +99,12 @@
 	{% for key, value in records.items %}
 
 		<tr>
-		  <th class="col_1"> <a href='/sales/order/{{ value.items.4.1 }}/' style="cursor:pointer">{{ value.items.0.1 }}</a></th>
-		  <th class="col_1">{{ value.items.1.1 }}</th>
+		  <th class="col_2"> <a href='/sales/order/{{ value.items.4.1 }}/' style="cursor:pointer">{{ value.items.0.1 }}</a></th>
+		  <th class="col_2">{{ value.items.1.1 }}</th>
 		  <th class="col_2">{{ value.items.2.1 }}</th>
 		  <th class="col_2">{{ value.items.3.1 }}</th>
+		  <th class="col_3">{% ifequal value.items.6.1 1 %}已完成{% endifequal %}
+		 				 	{% ifequal value.items.6.1 0 %}未完成{% endifequal %}</th>
 		  <th class="col_2"><input type="button" value="修改" class="modify_order" id="modify_order_{{ value.items.4.1 }}"></th>
 		  <th class="col_2"><input type="button" value="删除" class="delete_order" id="modify_order_{{ value.items.4.1 }}"></th>
 		</tr>

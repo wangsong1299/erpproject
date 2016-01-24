@@ -30,6 +30,7 @@ def get_statistics_list(records):
 		b[11]=r.wl_waleng_ipt
 		b[12]=r.wl_size
 		b[13]=r.wl_amount
+		b[14]=r.customer
 		a[i]=b
 		i=i+1
 	return a
@@ -49,7 +50,6 @@ def statistics_list(request,num):
 	if not is_login:
 		return HttpResponseRedirect("/")
 	else:
-		print start
 		records_all=Process.objects.filter(create_time__range=(start, end))
 		records=Process.objects.filter(create_time__range=(start, end)).order_by('-id')
 		a=get_statistics_list(records)

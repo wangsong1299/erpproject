@@ -20,10 +20,10 @@
  		   <button type="submit" class="btn btn-primary" id="find" style="float:right">查询</button>
  		   <input type="text" id="search_time" onClick="WdatePicker()" style="float:right;margin-right:50px;" >
   		</div>
- 	<div class="list_hr" style="margin-top:20px"></div>
-	<table class="list_table" style="margin-top: 5px;">
+	<table class="list_table" style="margin-top: 25px;">
 		<tr>
-			<th class="col_20">产品名称</th>
+			<th class="col_10">客户名</th>
+			<th class="col_10">产品名称</th>
 			<th class="col_10">原料名称</th>
 			<th class="col_8">大料张数</th>
 			<th class="col_8">开料尺寸</th>
@@ -35,13 +35,13 @@
 			<th class="col_8">瓦楞数目</th>
 		</tr>
 	</table>
- 	<div class="list_hr" style="margin-top:5px"></div>
 
 	<table class="list_table">
 
 	{% for key, value in records.items %}
 				<tr>
-					<th class="col_20">{{ value.items.0.1 }}</th>
+					<th class="col_10">{{ value.items.14.1 }}</th>
+					<th class="col_10">{{ value.items.0.1 }}</th>
 					<th class="col_10">
 						<div id="material_{{value.items.4.1}}_div">{{value.items.5.1}}</div>
 						<select name="material" id="material_{{value.items.4.1}}" class="material_{{value.items.4.1}}_{{value.items.1.1}}" style="width:100%;margin-right:0;border:none;display:none">

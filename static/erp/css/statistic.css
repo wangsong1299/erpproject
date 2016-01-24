@@ -34,19 +34,8 @@ button{float: right;margin-right: 40px;}
 .list_table .col_100{width: 100%;height:300px;}
 .list_table .col_5{width: 5%;text-align: center;}
 .list_table .col_8{width: 8%;text-align: center;}
-.list_table th{border: none}
-.list_table td{border: none}
 
-/*list页*/
-.finance_table{width: 95%;float: left;margin-left: 2%;height: auto;border: solid 1px;font-size: 18px;}
-.finance_table .col_10{width: 10%;text-align: center;}
-.finance_table .col_20{width: 20%;text-align: center;}
-.finance_table .col_30{width: 30%;text-align: center;}
-.finance_table .col_40{width: 40%;text-align: center;}
-.finance_table .col_12{width: 25%;text-align: center;}
-.finance_table .col_80{width: 80%;text-align: center;}
-.finance_table .col_100{width: 100%;height:300px;}
-.finance_table .col_5{width: 5%;text-align: center;}
+
 
 #find_finance_table{display: none}
 #find_material_table{display: none}

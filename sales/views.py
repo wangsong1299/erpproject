@@ -408,6 +408,11 @@ def get_order_list(records):
 		b[3]=r.productID
 		b[4]=r.id
 		b[5]=r.orderID
+		d = Delivery.objects.filter(productID=r.productID)
+		if(d):
+			b[6]=1
+		else:
+			b[6]=0
 		a[i]=b
 		i=i+1
 	return a
