@@ -1,0 +1,70 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+{% block head %}
+<link rel="stylesheet" href="{% static "erp/css/statistic.css" %}">
+<style>
+	.list_table{font-size: 12px;}
+</style>
+{% endblock %}
+
+{% block inner_header %}
+{% endblock %}
+
+
+ {% block main %}
+ <div class="main long_main" style="overflow:hidden">
+			<div class="line2">
+						查询
+				</div>	
+	 <div class="head_row last_row" style="height:150px;width:800px;">
+	 	   <h3 style="text-align:center;padding-bottom:20px;">送货单阶段查询</h3>
+ 		   <button type="submit" class="btn btn-primary" id="find" style="float:right">查询</button>
+ 		   <input type="text" id="end_time" onClick="WdatePicker()" style="float:right;margin-right:50px;" ><label for="" style="float:right;width:30px">至</label>
+ 		   <input type="text" id="start_time" onClick="WdatePicker()" style="float:right;margin-right:50px;" ><label for="" style="float:right;width:30px">从</label>
+  		</div>
+
+	 <div class="head_row last_row" style="height:150px;width:800px;">
+	 	   <h3 style="text-align:center;padding-bottom:20px;">对账单阶段查询</h3>
+ 		   <button type="submit" class="btn btn-primary" id="find2" style="float:right">查询</button>
+ 		   <input type="text" id="end_time2" onClick="WdatePicker()" style="float:right;margin-right:50px;" ><label for="" style="float:right;width:30px">至</label>
+ 		   <input type="text" id="start_time2" onClick="WdatePicker()" style="float:right;margin-right:50px;" ><label for="" style="float:right;width:30px">从</label>
+  		</div>
+
+
+  </div>
+ 
+ {% endblock %}
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#statistics_box").show();
+		$("#statistics_2").addClass('subtitle_focus');
+
+	    var date=new Date();
+	    var month = (parseInt(date.getMonth())+1)<10?'0'+(parseInt(date.getMonth())+1):parseInt(date.getMonth())+1;
+	    var day = date.getDate()<10?'0'+date.getDate():date.getDate();
+		var newdate= date.getFullYear()+'-'+month+'-'+day;
+		$("#end_time").val(newdate);
+		$("#end_time2").val(newdate);
+
+		$("#find").click(function(){
+			var arr=$("#end_time").val().split("-");
+			var end=arr.join("");
+			var arr2=$("#start_time").val().split("-");
+			var start=arr2.join("");
+			window.location.href="/statistics/time_search_d/"+start+'/'+end+'/';
+		})
+
+		$("#find2").click(function(){
+			var arr=$("#end_time2").val().split("-");
+			var end=arr.join("");
+			var arr2=$("#start_time2").val().split("-");
+			var start=arr2.join("");
+			window.location.href="/statistics/time_search_f/"+start+'/'+end+'/';
+		})
+
+	})</script>
+
+{% endblock %}

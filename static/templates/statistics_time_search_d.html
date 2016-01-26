@@ -1,0 +1,63 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "erp/css/statistic.css" %}">
+{% endblock %}
+
+			{% block inner_header %}
+					
+			{% endblock %}			
+
+ {% block main %}
+ <div class="main long_main" style="overflow:hidden">
+			<div class="line2">
+						送货单阶段查询
+				</div>	
+	{% if isValue %}
+	<table class="list_table" style="margin-top: 25px;">
+		<tr>
+			<th class="col_10">送货单号</th>
+			<th class="col_20">产品名</th>
+			<th class="col_20">订单数目</th>
+			<th class="col_20">送货数目</th>
+			<th class="col_10">金额</th>
+			<th class="col_20">送货时间</th>
+		</tr>
+	</table>
+	<table class="list_table">
+
+	{% for key, value in records.items %}
+		<tr>
+			<th class="col_10">{{ value.items.0.1 }}</th>
+			<th class="col_20">{{ value.items.1.1 }}</th>
+			<th class="col_20">{{ value.items.2.1 }}</th>
+			<th class="col_20">{{ value.items.3.1 }}</th>
+			<th class="col_10">{{ value.items.4.1 }}</th>
+			<th class="col_20">{{ value.items.6.1 }}</th>
+		</tr>
+
+	{% endfor %}
+
+		</table>
+
+	{% endif %}
+
+	{% if not isValue %}
+		当天没有记录
+	{% endif %}
+
+  </div>
+
+
+ {% endblock %}
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#statistics_box").show();
+		$("#statistics_2").addClass('subtitle_focus');
+	})</script>
+
+{% endblock %}
