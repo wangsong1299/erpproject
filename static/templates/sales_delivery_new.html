@@ -16,7 +16,7 @@
 
  	<div id="choice_1_box">
  		 <div class="head_row"  style="margin-top:0;text-align:center;font-size:20px">
- 			鄞州联城包装彩印有限公司送货单
+ 			鄞州联城包装彩印有限公司送货单2222
  		</div>
  		 <div class="head_row" style="margin-top:0">
  			<label for="deliveryID">送货单号</label>
@@ -46,8 +46,8 @@
 			<th class="col_30"><input type="text" id="product_name_1"></th>
 			<th class="col_10"><input type="number" id="order_amount_1"></th>
 			<th class="col_10"><input type="number" id="delivery_amount_1"></th>
-			<th class="col_10"><input type="number" id="price_1"></th>
-			<th class="col_10"><input type="number" id="fee_1"></th>
+			<th class="col_10"><input type="hidden" id="price_1" ><input type="hidden" id="customer_1" ></th>
+			<th class="col_10"><input type="hidden" id="fee_1" ></th>
 			<th class="col_20"><input type="text" id="notes_1"></th>
 		</tr>
 
@@ -56,8 +56,8 @@
 			<th class="col_30"><input type="text" id="product_name_2"></th>
 			<th class="col_10"><input type="number" id="order_amount_2"></th>
 			<th class="col_10"><input type="number" id="delivery_amount_2"></th>
-			<th class="col_10"><input type="number" id="price_2"></th>
-			<th class="col_10"><input type="number" id="fee_2"></th>
+			<th class="col_10"><input type="hidden" id="price_2"></th>
+			<th class="col_10"><input type="hidden" id="fee_2"></th>
 			<th class="col_20"><input type="text" id="notes_2"></th>
 		</tr>	
 		<tr style="font-size:16px">
@@ -65,8 +65,8 @@
 			<th class="col_30"><input type="text" id="product_name_3"></th>
 			<th class="col_10"><input type="number" id="order_amount_3"></th>
 			<th class="col_10"><input type="number" id="delivery_amount_3"></th>
-			<th class="col_10"><input type="number" id="price_3"></th>
-			<th class="col_10"><input type="number" id="fee_3"></th>
+			<th class="col_10"><input type="hidden" id="price_3"></th>
+			<th class="col_10"><input type="hidden" id="fee_3"></th>
 			<th class="col_20"><input type="text" id="notes_3"></th>
 		</tr>
 		<tr style="font-size:16px">
@@ -74,8 +74,8 @@
 			<th class="col_30"><input type="text" id="product_name_4"></th>
 			<th class="col_10"><input type="number" id="order_amount_4"></th>
 			<th class="col_10"><input type="number" id="delivery_amount_4"></th>
-			<th class="col_10"><input type="number" id="price_4"></th>
-			<th class="col_10"><input type="number" id="fee_4"></th>
+			<th class="col_10"><input type="hidden" id="price_4"></th>
+			<th class="col_10"><input type="hidden" id="fee_4"></th>
 			<th class="col_20"><input type="text" id="notes_4"></th>
 		</tr>
 		<tr style="font-size:16px">
@@ -83,8 +83,8 @@
 			<th class="col_30"><input type="text" id="product_name_5"></th>
 			<th class="col_10"><input type="number" id="order_amount_5"></th>
 			<th class="col_10"><input type="number" id="delivery_amount_5"></th>
-			<th class="col_10"><input type="number" id="price_5"></th>
-			<th class="col_10"><input type="number" id="fee_5"></th>
+			<th class="col_10"><input type="hidden" id="price_5"></th>
+			<th class="col_10"><input type="hidden" id="fee_5"></th>
 			<th class="col_20"><input type="text" id="notes_5"></th>
 		</tr>
 		</table>
@@ -163,6 +163,7 @@
 					var price=$.trim($("#price_"+i).val());
 					var fee=$.trim($("#fee_"+i).val());
 					var notes=$.trim($("#notes_"+i).val());
+					var customer=$.trim($("#customer_"+i).val());
 
 					if(productID.length==0){
 						alert("第"+i+"行的订单号不能为空");
@@ -180,7 +181,7 @@
 						$.ajax({
 		                      type : "POST",
 		                      url : "/sales/fill_delivery/",
-		                      data:{'deliveryID':deliveryID,'choice':choice,'delivery_name':delivery_name,'delivery_time':delivery_time,'receive_man':receive_man,'delivery_man':delivery_man,'delivery_address':delivery_address,'total_fee':total_fee,'productID':productID,'product_name':product_name,'order_amount':order_amount,'delivery_amount':delivery_amount,'price':price,'fee':fee,'notes':notes},
+		                      data:{'deliveryID':deliveryID,'choice':choice,'delivery_name':delivery_name,'delivery_time':delivery_time,'receive_man':receive_man,'delivery_man':delivery_man,'delivery_address':delivery_address,'total_fee':total_fee,'productID':productID,'product_name':product_name,'order_amount':order_amount,'delivery_amount':delivery_amount,'price':price,'fee':fee,'notes':notes,'customer':customer},
 		                      dataType : "json",
 		                      success : function(data) {  
 		                      		if(data==1){
@@ -219,6 +220,7 @@
 		                      		$("#price_"+num).val(data[2]);
 		                      		$("#fee_"+num).val(data[3]);
 		                      		$("#notes_"+num).val(data[4]);
+		                      		$("#customer_"+num).val(data[5]);
 	                      		}
 	                      }
 	                  })

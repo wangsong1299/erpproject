@@ -26,7 +26,8 @@
 			<tr>
 				<th class="col_10">送货日期</th>
 				<th class="col_10">订货单</th>
-				<th class="col_20">产品名称</th>
+				<th class="col_10">客户名</th>
+				<th class="col_10">产品名称</th>
 				<th class="col_10">订货数</th>
 				<th class="col_10">送货数</th>
 				<th class="col_10">单价</th>
@@ -36,7 +37,8 @@
 			<tr>
 				<th class="col_10"><input type="text" id="modify_col1" onClick="WdatePicker()"></th>
 				<th class="col_10"><input type="text" id="modify_col2"></th>
-				<th class="col_20"><input type="text" id="modify_col3"></th>
+				<th class="col_10"><input type="text" id="modify_col9"></th>
+				<th class="col_10"><input type="text" id="modify_col3"></th>
 				<th class="col_10"><input type="text" id="modify_col4"></th>
 				<th class="col_10"><input type="text" id="modify_col5"></th>
 				<th class="col_10"><input type="text" id="modify_col6"></th>
@@ -55,7 +57,8 @@
 			<tr>
 				<th class="col_10">送货日期</th>
 				<th class="col_10">订货单</th>
-				<th class="col_20">产品名称</th>
+				<th class="col_10">客户名</th>
+				<th class="col_10">产品名称</th>
 				<th class="col_10">订货数</th>
 				<th class="col_10">送货数</th>
 				<th class="col_10">单价</th>
@@ -65,6 +68,7 @@
 			<tr>
 				<th class="col_10"><input type="text" id="col1" onClick="WdatePicker()"></th>
 				<th class="col_10"><input type="text" id="col2"></th>
+				<th class="col_10"><input type="text" id="col9"></th>
 				<th class="col_20"><input type="text" id="col3"></th>
 				<th class="col_10"><input type="text" id="col4"></th>
 				<th class="col_10"><input type="text" id="col5"></th>
@@ -83,7 +87,8 @@
 			<tr>
 				<th class="col_10">送货日期</th>
 				<th class="col_10">订货单</th>
-				<th class="col_20">产品名称</th>
+				<th class="col_10">客户名</th>
+				<th class="col_10">产品名称</th>
 				<th class="col_10">订货数</th>
 				<th class="col_10">送货数</th>
 				<th class="col_10">单价</th>
@@ -100,7 +105,8 @@
 			<tr>
 				<th class="col_10">{{ value.items.0.1 }}</th>
 				<th class="col_10">{{ value.items.1.1 }}</th>
-				<th class="col_20">{{ value.items.2.1 }}</th>
+				<th class="col_10">{{ value.items.9.1 }}</th>
+				<th class="col_10">{{ value.items.2.1 }}</th>
 				<th class="col_10">{{ value.items.3.1 }}</th>
 				<th class="col_10">{{ value.items.4.1 }}</th>
 				<th class="col_10">{{ value.items.5.1 }}</th>
@@ -148,10 +154,11 @@
 					var col6=$.trim($("#col6").val());
 					var col7=$.trim($("#col7").val());
 					var col8=$.trim($("#col8").val());
+					var col9=$.trim($("#col9").val());
 					$.ajax({
 					  	type : "POST",
 					  	url : "/finance/fill_finance/",
-					  	data:{'col1':col1,'col2':col2,'col3':col3,'col4':col4,'col5':col5,'col6':col6,'col7':col7,'col8':col8},
+					  	data:{'col1':col1,'col2':col2,'col3':col3,'col9':col9,'col4':col4,'col5':col5,'col6':col6,'col7':col7,'col8':col8},
 					  	dataType : "json",
 					  	success : function(data) {    
 			                if(data==1){
@@ -186,6 +193,7 @@
 			  		$("#modify_col6").val(data[5]);
 			  		$("#modify_col7").val(data[6]);
 			  		$("#modify_col8").val(data[7]);
+			  		$("#modify_col9").val(data[9]);
 					var modify_id="modify_submit_"+data[8];
 					$('.modify_submit').attr("id",modify_id);
 
@@ -203,10 +211,11 @@
 					var col6=$.trim($("#modify_col6").val());
 					var col7=$.trim($("#modify_col7").val());
 					var col8=$.trim($("#modify_col8").val());
+					var col9=$.trim($("#modify_col9").val());
 					$.ajax({
 					  	type : "POST",
 					  	url : "/finance/modify_finance/",
-					  	data:{'col1':col1,'col2':col2,'col3':col3,'col4':col4,'col5':col5,'col6':col6,'col7':col7,'col8':col8,'id':id},
+					  	data:{'col1':col1,'col2':col2,'col3':col3,'col4':col4,'col5':col5,'col6':col6,'col7':col7,'col8':col8,'col9':col9,'id':id},
 					  	dataType : "json",
 					  	success : function(data) {    
 			                if(data==1){

@@ -9,7 +9,7 @@
 			{% endblock %}	
 
  {% block main %}
- <div class="main" style="overflow:hidden;">
+ <div class="main long_main" style="overflow:hidden;">
 		<div class="line2">
 							宁波杰力进出口有限公司	
 				</div>
@@ -19,32 +19,32 @@
  			<label for="deliveryID">送货单号</label>
  			<input type="text" id="deliveryID" value="{{deliveryID}}"/> 	
  		 	<label for="purchase_man" style="width:120px">杰力跟单员</label>
- 			<input type="text" id="purchase_man" style="width:250px"/>
+ 			<input type="text" id="purchase_man" style="width:25%"/>
  		</div>
  		 <div class="head_row"  style="margin-top:5px">
  			<label for="send_name" style="width:120px">发货公司</label>
- 			<input type="text" id="send_name" style="width:250px">
+ 			<input type="text" id="send_name" style="width:25%">
  			<label for="delivery_name" style="width:120px;margin-left:80px">收货公司</label> 			
- 			<input type="text" id="delivery_name" style="width:250px">
+ 			<input type="text" id="delivery_name" style="width:25%">
  		</div>
  		 <div class="head_row"  style="margin-top:5px">
  			<label for="delivery_time" >发货日期</label>
- 			<input type="text" id="delivery_time" onClick="WdatePicker()"  style="width:90px">
- 	 		<label for="delivery_man" style="width:80px">联系人</label>
+ 			<input type="text" id="delivery_time" onClick="WdatePicker()"  style="width:9%">
+ 	 		<label for="delivery_man" style="width:8%">联系人</label>
  			<input type="text" id="delivery_man">
  			<label for="">收货日期</label>
- 			<input type="text" id="" disabled style="width:90px">
- 	 		<label for="receive_man" style="width:80px">联系人</label>
+ 			<input type="text" id="" disabled style="width:9%">
+ 	 		<label for="receive_man" style="width:8%">联系人</label>
  			<input type="text" id="receive_man">
  		</div>
  		 <div class="head_row"  style="margin-top:5px">
  			<label for="send_phone" >电话</label>
- 			<input type="text" id="send_phone" style="width:90px">
- 	 		<label for="send_fax" style="width:80px">传真</label>
+ 			<input type="text" id="send_phone" style="width:9%">
+ 	 		<label for="send_fax" style="width:8%">传真</label>
  			<input type="text" id="send_fax">
  			<label for="receive_phone">电话</label>
- 			<input type="text" id="receive_phone" style="width:90px">
- 	 		<label for="receive_fax" style="width:80px">传真</label>
+ 			<input type="text" id="receive_phone" style="width:9%">
+ 	 		<label for="receive_fax" style="width:8%">传真</label>
  			<input type="text" id="receive_fax">
  		</div>
 
@@ -175,7 +175,7 @@
 					var product_name=$.trim($("#product_name_"+i).val());
 					var delivery_amount=$.trim($("#delivery_amount_"+i).val());
 					var order_amount=delivery_amount;
-					var price='';
+					var price=0;
 					var fee=0;
 					var notes='';
 					var total_fee=0;
@@ -184,6 +184,7 @@
 					var inner_amount=$.trim($("#inner_amount_"+i).val());
 					var box=$.trim($("#box_"+i).val());
 					var huoID=$.trim($("#huoID_"+i).val());
+					var customer='杰力';
 
 					if(productID.length==0){
 						alert("第"+i+"行的订单号不能为空");
@@ -192,7 +193,7 @@
 						$.ajax({
 		                      type : "POST",
 		                      url : "/sales/fill_delivery_3/",
-		                      data:{'deliveryID':deliveryID,'choice':choice,'delivery_name':delivery_name,'delivery_time':delivery_time,'receive_man':receive_man,'delivery_man':delivery_man,'delivery_address':delivery_address,'total_fee':total_fee,'productID':productID,'product_name':product_name,'order_amount':order_amount,'delivery_amount':delivery_amount,'price':price,'fee':fee,'notes':notes,'box':box,'inner_amount':inner_amount,'outer_amount':outer_amount,'send_phone':send_phone,'send_fax':send_fax,'receive_phone':receive_phone,'receive_fax':receive_fax,'total_notes':total_notes,'purchase_man':purchase_man,'send_name':send_name,'huoID':huoID},
+		                      data:{'deliveryID':deliveryID,'choice':choice,'delivery_name':delivery_name,'delivery_time':delivery_time,'receive_man':receive_man,'delivery_man':delivery_man,'delivery_address':delivery_address,'total_fee':total_fee,'productID':productID,'product_name':product_name,'order_amount':order_amount,'delivery_amount':delivery_amount,'price':price,'fee':fee,'notes':notes,'box':box,'inner_amount':inner_amount,'outer_amount':outer_amount,'send_phone':send_phone,'send_fax':send_fax,'receive_phone':receive_phone,'receive_fax':receive_fax,'total_notes':total_notes,'purchase_man':purchase_man,'send_name':send_name,'huoID':huoID,'customer':customer},
 		                      dataType : "json",
 		                      success : function(data) {  
 		                      		if(data==1){

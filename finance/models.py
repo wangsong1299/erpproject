@@ -11,4 +11,5 @@ class Finance(models.Model):
 	price=models.CharField(max_length = 30,blank = True)
 	total_fee=models.CharField(max_length = 11,blank = True)
 	notes=models.CharField(max_length = 15,blank = True)
+	customer=models.CharField(max_length = 15,blank = True)
 

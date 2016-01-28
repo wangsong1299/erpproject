@@ -1067,6 +1067,7 @@ def fill_delivery(request):
 	price = request.POST.get('price', None)
 	fee = request.POST.get('fee', None)
 	notes = request.POST.get('notes', None)
+	customer = request.POST.get('customer', None)
 
 	try:
 		q = Delivery(deliveryID = deliveryID,
@@ -1081,8 +1082,6 @@ def fill_delivery(request):
                 product_name = product_name,
                 order_amount=order_amount,
                 delivery_amount=delivery_amount,
-                price=price,
-                fee=fee,
                 notes=notes)
 		q.save()
 	except Exception, e:
@@ -1096,7 +1095,8 @@ def fill_delivery(request):
                 delivery_amount=delivery_amount,
                 price=price,
                 total_fee=fee,
-                notes=notes)
+                notes=notes,
+                customer=customer)
 		q.save()
 	except Exception, e:
 		return comutils.baseresponse(e, 500)
@@ -1195,6 +1195,7 @@ def get_details_from_order(request):
 		a[2]=r.price
 		a[3]=r.fee
 		a[4]=r.notes
+		a[5]=r.customer
 		return HttpResponse(json.dumps(a))
 	else:
 		return HttpResponse(json.dumps(0))
@@ -1224,6 +1225,7 @@ def fill_delivery_2(request):
 	product_number = request.POST.get('product_number', None)
 	perbox = request.POST.get('perbox', None)
 	box = request.POST.get('box', None)
+	customer = request.POST.get('customer', None)
 
 	try:
 		q = Delivery(deliveryID = deliveryID,
@@ -1257,7 +1259,8 @@ def fill_delivery_2(request):
                 delivery_amount=delivery_amount,
                 price=price,
                 total_fee=fee,
-                notes=notes)
+                notes=notes,
+                customer=customer)
 		q.save()
 	except Exception, e:
 		return comutils.baseresponse(e, 500)
@@ -1346,6 +1349,7 @@ def fill_delivery_3(request):
 	purchase_man = request.POST.get('purchase_man', None)
 	send_name = request.POST.get('send_name', None)
 	huoID = request.POST.get('huoID', None)
+	customer = request.POST.get('customer', None)
 
 	try:
 		q = Delivery(deliveryID = deliveryID,
@@ -1360,8 +1364,6 @@ def fill_delivery_3(request):
                 product_name = product_name,
                 order_amount=order_amount,
                 delivery_amount=delivery_amount,
-                price=price,
-                fee=fee,
                 notes=notes,
                 send_phone=send_phone,
                 send_fax=send_fax,
@@ -1385,7 +1387,8 @@ def fill_delivery_3(request):
                 delivery_amount=delivery_amount,
                 price=price,
                 total_fee=fee,
-                notes=notes)
+                notes=notes,
+                customer=customer)
 		q.save()
 	except Exception, e:
 		return comutils.baseresponse(e, 500)

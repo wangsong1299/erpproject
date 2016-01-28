@@ -23,6 +23,7 @@ def get_finance_list(records):
 		b[6]=r.total_fee
 		b[7]=r.notes
 		b[8]=r.id
+		b[9]=r.customer
 		a[i]=b
 		i=i+1
 	return a
@@ -102,6 +103,7 @@ def search(request,financeID):
 			b[6]=r.total_fee
 			b[7]=r.notes
 			b[8]=r.id
+			b[9]=r.customer
 			a[i]=b
 			i=i+1
 		return render_to_response("finance_search.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'records':a})
@@ -117,6 +119,7 @@ def fill_finance(request):
 	col6 = request.POST.get('col6', None)
 	col7 = request.POST.get('col7', None)
 	col8 = request.POST.get('col8', None)
+	col9 = request.POST.get('col9', None)
 	try:
 		q = Finance(delivery_time=col1,
 				productID=col2,
@@ -125,7 +128,8 @@ def fill_finance(request):
 				delivery_amount=col5,
 				price=col6,
 				total_fee=col7,
-				notes=col8)
+				notes=col8,
+				customer=col9)
 		q.save()
 	except Exception, e:
 		return comutils.baseresponse('system error', 500)
@@ -146,6 +150,7 @@ def get_details_by_ID(request):
 		b[6]=r.total_fee
 		b[7]=r.notes
 		b[8]=r.id
+		b[9]=r.customer
 	except Exception, e:
 		return comutils.baseresponse('system error', 500)
 	return HttpResponse(json.dumps(b))
@@ -160,9 +165,10 @@ def modify_finance(request):
 	col6 = request.POST.get('col6', None)
 	col7 = request.POST.get('col7', None)
 	col8 = request.POST.get('col8', None)
+	col9 = request.POST.get('col9', None)
 	id=request.POST.get('id', None)
 	try:
-		Finance.objects.filter(id=id).update(delivery_time=col1,productID=col2,product_name=col3,order_amount=col4,delivery_amount=col5,price=col6,total_fee=col7,notes=col8)
+		Finance.objects.filter(id=id).update(delivery_time=col1,productID=col2,product_name=col3,order_amount=col4,delivery_amount=col5,price=col6,total_fee=col7,notes=col8,customer=col9)
 	except Exception, e:
 		return comutils.baseresponse('system error', 500)
 	return HttpResponse(json.dumps(1))

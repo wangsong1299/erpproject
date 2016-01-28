@@ -49,7 +49,7 @@
 			<th class="col_10"><input type="number" id="perbox_1"></th>
 			<th class="col_10"><input type="number" id="box_1"></th>
 			<th class="col_10"><input type="number" id="delivery_amount_1"></th>
-			<th class="col_10"><input type="number" id="price_1"></th>
+			<th class="col_10"><input type="hidden" id="price_1"></th>
 			<th class="col_20"><input type="text" id="notes_1"></th>
 		</tr>
 
@@ -60,7 +60,7 @@
 			<th class="col_10"><input type="number" id="perbox_2"></th>
 			<th class="col_10"><input type="number" id="box_2"></th>
 			<th class="col_10"><input type="number" id="delivery_amount_2"></th>
-			<th class="col_10"><input type="number" id="price_2"></th>
+			<th class="col_10"><input type="hidden" id="price_2"></th>
 			<th class="col_20"><input type="text" id="notes_2"></th>
 		</tr>	
 		<tr>
@@ -70,7 +70,7 @@
 			<th class="col_10"><input type="number" id="perbox_3"></th>
 			<th class="col_10"><input type="number" id="box_3"></th>
 			<th class="col_10"><input type="number" id="delivery_amount_3"></th>
-			<th class="col_10"><input type="number" id="price_3"></th>
+			<th class="col_10"><input type="hidden" id="price_3"></th>
 			<th class="col_20"><input type="text" id="notes_3"></th>
 		</tr>
 		<tr>
@@ -80,7 +80,7 @@
 			<th class="col_10"><input type="number" id="perbox_4"></th>
 			<th class="col_10"><input type="number" id="box_4"></th>
 			<th class="col_10"><input type="number" id="delivery_amount_4"></th>
-			<th class="col_10"><input type="number" id="price_4"></th>
+			<th class="col_10"><input type="hidden" id="price_4"></th>
 			<th class="col_20"><input type="text" id="notes_4"></th>
 		</tr>
 		<tr>
@@ -90,7 +90,7 @@
 			<th class="col_10"><input type="number" id="perbox_5"></th>
 			<th class="col_10"><input type="number" id="box_5"></th>
 			<th class="col_10"><input type="number" id="delivery_amount_5"></th>
-			<th class="col_10"><input type="number" id="price_5"></th>
+			<th class="col_10"><input type="hidden" id="price_5"></th>
 			<th class="col_20"><input type="text" id="notes_5"></th>
 		</tr>
 
@@ -158,6 +158,7 @@
 				var total_fee=$("#total_fee").val();
 				var delivery_address=$("#delivery_address").val();
 				var choice=2;
+				var customer='东川';
 
 				var send_name=$("#send_name").val();
 				var purchase_man=$("#purchase_man").val();
@@ -184,9 +185,6 @@
 					}else if(delivery_amount.length==0){
 						alert("第"+i+"行的送货数目不能为空");
 						i=maxnum;
-					}else if(price.length==0){
-						alert("第"+i+"行的单价不能为空");
-						i=maxnum;
 					}else if(product_name.length==0){
 						alert("第"+i+"行的产品名称不能为空");
 						i=maxnum;
@@ -194,7 +192,7 @@
 						$.ajax({
 		                      type : "POST",
 		                      url : "/sales/fill_delivery_2/",
-		                      data:{'deliveryID':deliveryID,'choice':choice,'delivery_name':delivery_name,'delivery_time':delivery_time,'receive_man':receive_man,'delivery_man':delivery_man,'delivery_address':delivery_address,'total_fee':total_fee,'productID':productID,'product_name':product_name,'order_amount':order_amount,'delivery_amount':delivery_amount,'price':price,'fee':fee,'notes':notes,'send_name':send_name,'purchase_man':purchase_man,'product_number':product_number,'perbox':perbox,'box':box},
+		                      data:{'deliveryID':deliveryID,'choice':choice,'delivery_name':delivery_name,'delivery_time':delivery_time,'receive_man':receive_man,'delivery_man':delivery_man,'delivery_address':delivery_address,'total_fee':total_fee,'productID':productID,'product_name':product_name,'order_amount':order_amount,'delivery_amount':delivery_amount,'price':price,'fee':fee,'notes':notes,'send_name':send_name,'purchase_man':purchase_man,'product_number':product_number,'perbox':perbox,'box':box,'customer':customer},
 		                      dataType : "json",
 		                      success : function(data) {  
 		                      		if(data==1){
