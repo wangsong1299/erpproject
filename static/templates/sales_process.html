@@ -372,6 +372,7 @@
 		var mater={{ records.20 }};
 		//console.log(typeof(mater));
 		if(mater==0){
+			$("#material").val(0);
 			$("#material").hide();
  			$("#material_ipt").show();
 		}else{
@@ -386,6 +387,7 @@
 		if(surface==0){
 			$("#surface").hide();
  			$("#surface_ipt").show();
+ 			$("#surface").val(0);
 		}else{
 			$("#surface>option").each(function(a,b){
 	                if($(b).val()==surface){//判断值
@@ -424,7 +426,7 @@
 
 		var mater2={{ records.40 }};
 		if(mater2==0){
-			console.log("3:"+mater2);
+			$("#material2").val(0);
 			$("#material2").hide();
  			$("#material2_ipt").show();			
 		}else{
@@ -438,6 +440,7 @@
 
 
 		 $("#delete").click(function(){
+		 if(confirm("确认删除？")){
 			$.ajax({
               type : "POST",
               url : "/sales/delete_process/",
@@ -451,7 +454,8 @@
                   alert("删除失败:"+data.message);
                 }
               }
-         })
+	         })
+			}
 		})
   	var href =window.location.href.split("/")[5];
 		//show页

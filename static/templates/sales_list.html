@@ -294,21 +294,23 @@
 			})
 		
 			$(".delete_quotation").click(function(){
-				var id=$(this).attr("id").split("_")[2];
-					$.ajax({
-	                  type : "POST",
-	                  url : "/sales/delete_quotation/",
-	                  data:{'id':id},
-	                  dataType : "json",
-	                  success : function(data) {    
-	                    if(data==1){
-	                    	alert("删除成功");
-	                       window.location.reload();
-	                    }else{
-	                      alert("删除失败:"+data.message);
-	                    }
-	                  }
-	             })
+				if(confirm("确认删除？")){
+					var id=$(this).attr("id").split("_")[2];
+						$.ajax({
+		                  type : "POST",
+		                  url : "/sales/delete_quotation/",
+		                  data:{'id':id},
+		                  dataType : "json",
+		                  success : function(data) {    
+		                    if(data==1){
+		                    	alert("删除成功");
+		                       window.location.reload();
+		                    }else{
+		                      alert("删除失败:"+data.message);
+		                    }
+		                  }
+		             })
+				}
 			})
 
 
@@ -383,6 +385,7 @@
 			})
 		
 			$(".delete_order").click(function(){
+				if(confirm("确认删除？")){
 				var id=$(this).attr("id").split("_")[2];
 					$.ajax({
 	                  type : "POST",
@@ -398,6 +401,7 @@
 	                    }
 	                  }
 	             })
+				}
 			})
 
 
@@ -474,6 +478,7 @@
 			})
 
 			$(".delete_delivery").click(function(){
+				if(confirm("确认删除？")){
 				var id=$(this).attr("id").split("_")[2];
 					$.ajax({
 	                  type : "POST",
@@ -489,6 +494,7 @@
 	                    }
 	                  }
 	             })
+				}
 			})
 
 
@@ -568,6 +574,7 @@
 			})
 		
 			$(".delete_process").click(function(){
+				if(confirm("确认删除？")){
 				var id=$(this).attr("id").split("_")[2];
 					$.ajax({
 	                  type : "POST",
@@ -583,6 +590,7 @@
 	                    }
 	                  }
 	             })
+				}
 			})
 
 		var finish_dict = ['未完成','进行中','已完成'];
@@ -667,6 +675,7 @@
 			})
 		
 			$(".delete_cost").click(function(){
+				if(confirm("确认删除？")){
 				var id=$(this).attr("id").split("_")[2];
 					$.ajax({
 	                  type : "POST",
@@ -682,6 +691,7 @@
 	                    }
 	                  }
 	             })
+				}
 			})
 
 
