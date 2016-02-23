@@ -333,7 +333,7 @@
 		$("#process").addClass('subtitle_focus');
 
 		var productID2={{records.0}};
-		console.log(productID2);
+		//console.log(productID2);
 		var order_img_iframe_src = '/upload_show/'+productID2;
 		$("#order_img_iframe").attr("src",order_img_iframe_src);
 
@@ -401,6 +401,7 @@
 		if(wl_feizhi==0){
 			$("#wl_feizhi").hide();
  			$("#wl_feizhi_ipt").show();
+ 			$("#wl_feizhi").val(0);
 		}else{
 			$("#wl_feizhi>option").each(function(a,b){
 	                if($(b).val()==wl_feizhi){//判断值
@@ -415,6 +416,7 @@
 		if(wl_waleng==0){
 			$("#wl_waleng").hide();
  			$("#wl_waleng_ipt").show();
+ 			$("#wl_waleng").val(0);
 		}else{
 			$("#wl_waleng>option").each(function(a,b){
                 if($(b).val()==wl_waleng){//判断值
