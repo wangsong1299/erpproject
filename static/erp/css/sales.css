@@ -1,5 +1,5 @@
 .head_row{height:40px;float: left;margin-top: 30px;width: 100%;font-size: 14px;}
-.head_row>label{width: 10%;float: left;margin-left: 2%;line-height: 40px;}
+.head_row>label{width: 10%;float: left;margin-left: 2%;line-height: 30px;}
 .head_row>input{width: 15%;float: left;margin-left: 1%;margin-top: 5px;height: 30px;}
 
 /*报价单表格*/

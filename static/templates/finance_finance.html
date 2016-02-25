@@ -15,7 +15,7 @@
 	<div class="head_row last_row">
  		   <button type="submit" class="btn btn-primary" id="find_finance">查询对账单</button>
  		   <div class="searchbar">			
-			  <input class="input-medium search-query" id="finance_search" type="text" placeholder="产品名/产品ID">
+			  <input class="input-medium search-query" id="finance_search" type="text" placeholder="产品名/客户名">
 			</div>
   		   <button type="submit" class="btn btn-primary" id="add_new">新建对账单</button>
  	</div>
@@ -233,26 +233,25 @@
 		$("#find_finance").click(function(){
 			var finance_search=$.trim($("#finance_search").val());
 			if(finance_search==''){
-				alert("请至少填写ID和名字中的一个");
+				alert("请至少填写产品名和客户名中的一个");
 			}else{
 				$.ajax({
                       type : "POST",
-                      url : "/finance/get_productID_by_productID/",
+                      url : "/finance/get_productID_by_product/",
                       data:{'finance_search':finance_search},
                       dataType : "json",
                       success : function(data){ 
-                      	console.log(data); 
                       	if(data!=0){
-                      		window.location.href='/finance/search/'+data;
+                      		window.location.href='/finance/finance/p/'+data;
                       	}else{
                       		$.ajax({
 			                      type : "POST",
-			                      url : "/finance/get_productID_by_product/",
+			                      url : "/finance/get_productID_by_customer/",
 			                      data:{'finance_search':finance_search},
 			                      dataType : "json",
 			                      success : function(data){  
 			                      	if(data!=0){
-			                      		window.location.href='/finance/finance/p/'+data;
+			                      		window.location.href='/finance/finance/c/'+data;
 			                      	}else{
 			                      		alert("没有相关信息");
 			                      	}		

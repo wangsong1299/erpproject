@@ -73,8 +73,22 @@ def finance_p(request,id):
 	if not is_login:
 		return HttpResponseRedirect("/")
 	else:
-		product_name=Finance.objects.filter(financeID=id)[0].product_name
+		product_name=Finance.objects.filter(id=id)[0].product_name
 		records=Finance.objects.filter(product_name=product_name)
+		a=get_finance_list(records)
+		pre_click=False
+		later_click=False
+		jc=True
+		return render_to_response("finance_finance.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a,'pre_click':json.dumps(pre_click),'later_click':json.dumps(later_click),'jc':json.dumps(jc)})
+
+def finance_c(request,id):
+	is_login=request.session.get('is_login',False)
+	nick_name = request.session.get('nick_name',False)
+	if not is_login:
+		return HttpResponseRedirect("/")
+	else:
+		customer=Finance.objects.filter(id=id)[0].customer
+		records=Finance.objects.filter(customer=customer)
 		a=get_finance_list(records)
 		pre_click=False
 		later_click=False
@@ -178,19 +192,20 @@ def modify_finance(request):
 def get_productID_by_product(request):
 	product_name = request.POST.get('finance_search', None)
 	r=Finance.objects.filter(product_name=product_name)
+	print r
 	if r:
-		financeID=r[0].financeID
-		return HttpResponse(financeID)
+		id=r[0].id
+		return HttpResponse(id)
 	else:
 		return HttpResponse(0)
 		
 @csrf_exempt
-def get_productID_by_productID(request):
-	productID = request.POST.get('finance_search', None)
-	r=Finance.objects.filter(productID=productID)
+def get_productID_by_customer(request):
+	customer = request.POST.get('finance_search', None)
+	r=Finance.objects.filter(customer=customer)
 	if r:
-		financeID=r[0].financeID
-		return HttpResponse(financeID)
+		id=r[0].id
+		return HttpResponse(id)
 	else:
 		return HttpResponse(0)
 

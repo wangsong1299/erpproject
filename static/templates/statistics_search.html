@@ -14,6 +14,10 @@
 			<div class="line2">
 						每日统计
 				</div>	
+ 	<div class="head_row" style="margin-bottom:10px">
+	   <button type="submit" class="btn btn-primary last_row" id="find" style="float:right">查询</button>
+	   <input type="text" id="search_time" onClick="WdatePicker()" style="float:right;margin-right:50px;">
+	</div>
 	{% if isValue %}
 	<table class="list_table" style="margin-top: 25px;">
 		<tr>
@@ -131,6 +135,8 @@
 	$(document).ready(function(){
 		$("#statistics_box").show();
 		$("#statistics_1").addClass('subtitle_focus');
+		var temp=window.location.href.split("/");
+		$("#search_time").val(temp[5]+"-"+temp[6]+"-"+temp[7]);
 
 	 		$("select[name=material]").each(function(a,b){
 				var mclass=$(this).attr("class");
