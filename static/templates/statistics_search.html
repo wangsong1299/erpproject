@@ -178,6 +178,12 @@
 				$("#"+mid+"_div").html(vhtml);
 			});	
 
+			$("#find").click(function(){
+				var arr=$("#search_time").val().split("-");
+				window.location.href="/statistics/statistics_search/"+arr[0]+'/'+arr[1]+'/'+arr[2];
+			})
+
+
 	})</script>
 
 {% endblock %}
