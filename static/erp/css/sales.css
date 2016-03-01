@@ -62,6 +62,8 @@ select{float: right;margin-right: 20px;height: 35px;}
 .delivery_table .col_30{width: 30%;text-align: center;}
 .delivery_table .col_50{width: 50%;text-align: center;}
 .delivery_table .col_80{width: 80%;text-align: center;}
+.delivery_table .col_15{width: 15%;text-align: center;}
+.delivery_table .col_25{width: 25%;text-align: center;}
 
 /*施工页表格*/
 .process_table{width: 80%;float: left;margin-left: 2%;height: auto;font-size: 14px;border: none;}

@@ -33,7 +33,7 @@
 	 		</div>
 
 
-		<table class="delivery_table">
+		<table class="delivery_table delivery_table2">
 			<tr>
 				<th class="col_10">订单号<span class="red">*</span></th>
 				<th class="col_10">品号</th>
@@ -49,10 +49,10 @@
 				<th class="col_10"><input type="text" id="productID_{{value.items.14.1}}" value={{value.items.3.1}}></th>
 				<th class="col_10"><input type="text" id="product_number_{{value.items.14.1}}" value={{value.items.17.1}}></th>
 				<th class="col_20"><input type="text" id="product_name_{{value.items.14.1}}"  value={{value.items.4.1}}></th>
-				<th class="col_10"><input type="number" id="perbox_{{value.items.14.1}}"  value={{value.items.18.1}}></th>
-				<th class="col_10"><input type="number" id="box_{{value.items.14.1}}"  value={{value.items.19.1}}></th>
-				<th class="col_10"><input type="number" id="delivery_amount_{{value.items.14.1}}"  value={{value.items.6.1}}></th>
-				<th class="col_10"><input type="number" id="price_{{value.items.14.1}}"  value={{value.items.7.1}}></th>
+				<th class="col_10"><input type="text" id="perbox_{{value.items.14.1}}"  value={{value.items.18.1}}></th>
+				<th class="col_10"><input type="text" id="box_{{value.items.14.1}}"  value={{value.items.19.1}}></th>
+				<th class="col_10"><input type="text" id="delivery_amount_{{value.items.14.1}}"  value={{value.items.6.1}}></th>
+				<th class="col_10"><input type="text" id="price_{{value.items.14.1}}"  value={{value.items.7.1}}></th>
 				<th class="col_20"><input type="text" id="notes_{{value.items.14.1}}"  value={{value.items.9.1}}></th>
 			</tr>
 	{% endfor %}
@@ -69,7 +69,7 @@
 	 			<input type="text" id="delivery_man"  value={{ records.0.12 }}>
 	 		 	<label for="purchase_man">采购</label>
 	 			<input type="text" id="purchase_man" value={{ records.0.16 }}>
-	 			<label for="receive_man" style="width:150px">收货人</label>
+	 			<label for="receive_man" style="width:80px">收货人</label>
 	 			<input type="text" id="receive_man" value={{ records.0.13 }}>
 	 		</div>
 
@@ -93,9 +93,6 @@
 		$("#sales_box").show();	
 		$("#delivery").addClass('subtitle_focus');
 
-		var date=new Date();
-		var newdate= date.getFullYear()+'-'+(parseInt(date.getMonth())+1)+'-'+date.getDate();
-		$("#delivery_time").val(newdate);
 
 		 var href =window.location.href.split("/");
 		 var deliveryID = href[5];
@@ -132,6 +129,11 @@
 		//modify页
 		var modify={{ delivery_modify }};
 		if(modify){
+
+			var date=new Date();
+			var newdate= date.getFullYear()+'-'+(parseInt(date.getMonth())+1)+'-'+date.getDate();
+			$("#delivery_time").val(newdate);
+
 			$('#print').attr('disabled',true);
 			$('#modify').html('确认修改');
 			$("#modify").click(function(){

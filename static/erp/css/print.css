@@ -6,11 +6,12 @@
     .last_row{display: none}
     .main{width:750px;font-size: 10.5px}
     .long_main{width:600px;font-size: 10.5px}
-    table{font-size: 12px}
+    table{font-size: 10px}
     label{font-size: 14px;}
     .head_row>input{border: none;background: transparent;width: 100px;margin-top: 5px;height:20px;}
     .head_row{font-size: 12.5px;height:20px;margin-top: 0;}
     .print_order_main{width: 600px;font-size: 10.5px}
     .print_none{display:none;}
-    .delivery_table{margin-top:0px;}
+    .delivery_table2{margin-top: 15px;}
+    .delivery_table3{margin-top:0px;}
     }

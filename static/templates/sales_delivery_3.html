@@ -51,7 +51,7 @@
  		</div>
 
 
-		<table class="delivery_table" style="margin-top:15px">
+		<table class="delivery_table delivery_table3" style="margin-top:15px">
 			<tr>
 				<th class="col_20">合同号<span class="red">*</span></th>
 				<th class="col_20">品名<span class="red">*</span></th>
@@ -102,10 +102,6 @@
 		$("#sales_box").show();	
 		$("#delivery").addClass('subtitle_focus');
 
-		var date=new Date();
-		var newdate= date.getFullYear()+'-'+(parseInt(date.getMonth())+1)+'-'+date.getDate();
-		$("#delivery_time").val(newdate);
-
 		 var href =window.location.href.split("/");
 		 var deliveryID = href[5];
 
@@ -141,6 +137,10 @@
 		//modify页
 		var modify={{ delivery_modify }};
 		if(modify){
+			var date=new Date();
+			var newdate= date.getFullYear()+'-'+(parseInt(date.getMonth())+1)+'-'+date.getDate();
+			$("#delivery_time").val(newdate);
+
 			$('#print').attr('disabled',true);
 			$('#modify').html('确认修改');
 			$("#modify").click(function(){
