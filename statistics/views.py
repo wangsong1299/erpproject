@@ -123,7 +123,7 @@ def time_search_d(request,start,end):
 			a=get_delivery_list(records)
 			return render_to_response("statistics_time_search_d.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'records':a,'isValue':True})
 
-def time_search_f(request,start,end):
+def time_search_f(request,start,end,customer):
 	is_login=request.session.get('is_login',False)
 	nick_name = request.session.get('nick_name',False)
 	if not is_login:
@@ -131,9 +131,15 @@ def time_search_f(request,start,end):
 	else:
 		startdate=start[0:4]+"-"+start[4:6]+"-"+start[6:8]
 		enddate=end[0:4]+"-"+end[4:6]+"-"+end[6:8]
-		records=Finance.objects.filter(delivery_time__range=(startdate, enddate))
+		if customer:
+			records=Finance.objects.filter(delivery_time__range=(startdate, enddate)).filter(customer__contains=customer)
+		else:
+			records=Finance.objects.filter(delivery_time__range=(startdate, enddate))
+		total=0
+		for r in records:
+			total=total+int(r.total_fee)
 		if (len(records)==0):
-			return render_to_response("statistics_time_search_f.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'records':records,'isValue':False})
+			return render_to_response("statistics_time_search_f.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'records':records,'isValue':False,'customer':customer})
 		else:
 			a=get_finance_list(records)
-			return render_to_response("statistics_time_search_f.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'records':a,'isValue':True})
+			return render_to_response("statistics_time_search_f.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'records':a,'isValue':True,'total':total})

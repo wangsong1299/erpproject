@@ -9,7 +9,7 @@ urlpatterns = patterns('',
 
     url(r'^time_search/$', views.time_search),
     url(r'^time_search_d/(\d{8})/(\d{8})/$', views.time_search_d),
-    url(r'^time_search_f/(\d{8})/(\d{8})/$', views.time_search_f),
+    url(r'^time_search_f/(\d{8})/(\d{8})/(\w*)$', views.time_search_f),
 
 
 )

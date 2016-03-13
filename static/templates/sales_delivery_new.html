@@ -34,8 +34,8 @@
 		<tr>
 			<th class="col_15">订单号<span class="red">*</span></th>
 			<th class="col_25">名称与规格<span class="red">*</span></th>
-			<th class="col_10">订单数目<span class="red">*</span></th>
-			<th class="col_10">送货数目<span class="red">*</span></th>
+			<th class="col_10">订单数量<span class="red">*</span></th>
+			<th class="col_10">送货数量<span class="red">*</span></th>
 			<th class="col_10">单价<span class="red">*</span></th>
 			<th class="col_10">金额<span class="red">*</span></th>
 			<th class="col_20">备注</th>
@@ -56,7 +56,7 @@
 			<th class="col_25"><input type="text" id="product_name_2"></th>
 			<th class="col_10"><input type="number" id="order_amount_2"></th>
 			<th class="col_10"><input type="number" id="delivery_amount_2"></th>
-			<th class="col_10"><input type="hidden" id="price_2"></th>
+			<th class="col_10"><input type="hidden" id="price_2"><input type="hidden" id="customer_2" ></th>
 			<th class="col_10"><input type="hidden" id="fee_2"></th>
 			<th class="col_20"><input type="text" id="notes_2"></th>
 		</tr>	
@@ -65,7 +65,7 @@
 			<th class="col_25"><input type="text" id="product_name_3"></th>
 			<th class="col_10"><input type="number" id="order_amount_3"></th>
 			<th class="col_10"><input type="number" id="delivery_amount_3"></th>
-			<th class="col_10"><input type="hidden" id="price_3"></th>
+			<th class="col_10"><input type="hidden" id="price_3"><input type="hidden" id="customer_3" ></th>
 			<th class="col_10"><input type="hidden" id="fee_3"></th>
 			<th class="col_20"><input type="text" id="notes_3"></th>
 		</tr>
@@ -74,7 +74,7 @@
 			<th class="col_25"><input type="text" id="product_name_4"></th>
 			<th class="col_10"><input type="number" id="order_amount_4"></th>
 			<th class="col_10"><input type="number" id="delivery_amount_4"></th>
-			<th class="col_10"><input type="hidden" id="price_4"></th>
+			<th class="col_10"><input type="hidden" id="price_4"><input type="hidden" id="customer_4" ></th>
 			<th class="col_10"><input type="hidden" id="fee_4"></th>
 			<th class="col_20"><input type="text" id="notes_4"></th>
 		</tr>
@@ -83,7 +83,7 @@
 			<th class="col_25"><input type="text" id="product_name_5"></th>
 			<th class="col_10"><input type="number" id="order_amount_5"></th>
 			<th class="col_10"><input type="number" id="delivery_amount_5"></th>
-			<th class="col_10"><input type="hidden" id="price_5"></th>
+			<th class="col_10"><input type="hidden" id="price_5"><input type="hidden" id="customer_5" ></th>
 			<th class="col_10"><input type="hidden" id="fee_5"></th>
 			<th class="col_20"><input type="text" id="notes_5"></th>
 		</tr>
@@ -99,7 +99,7 @@
 		<div class="head_row" style="margin-top:5px;">
  			<label for="receive_man" style="width:150px">送货单位经办人</label>
  			<input type="text" id="receive_man" style="width:250px;font-size:16px" value=''>
- 			<label for="delivery_man">经办人</label>
+ 			<label for="delivery_man">经办人电话</label>
  			<input type="text" id="delivery_man" style="font-size:16px" value=''>
  		</div>
 
@@ -169,10 +169,10 @@
 						alert("第"+i+"行的订单号不能为空");
 						i=maxnum;
 					}else if(order_amount.length==0){
-						alert("第"+i+"行的订单数目不能为空");
+						alert("第"+i+"行的订单数量不能为空");
 						i=maxnum;
 					}else if(delivery_amount.length==0){
-						alert("第"+i+"行的送货数目不能为空");
+						alert("第"+i+"行的送货数量不能为空");
 						i=maxnum;
 					}else if(product_name.length==0){
 						alert("第"+i+"行的产品名称不能为空");

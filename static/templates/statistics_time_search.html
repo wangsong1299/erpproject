@@ -28,6 +28,7 @@
  		   <button type="submit" class="btn btn-primary" id="find2" style="float:right">查询</button>
  		   <input type="text" id="end_time2" onClick="WdatePicker()" style="float:right;margin-right:50px;" ><label for="" style="float:right;width:30px">至</label>
  		   <input type="text" id="start_time2" onClick="WdatePicker()" style="float:right;margin-right:50px;" ><label for="" style="float:right;width:30px">从</label>
+ 		   <input type="text" id="customer2"><label for="customer2">客户名</label>
   		</div>
 
 
@@ -52,17 +53,24 @@
 		$("#find").click(function(){
 			var arr=$("#end_time").val().split("-");
 			var end=arr.join("");
+			if($("#start_time").val()==''){
+				alert("请输入起始日期");return;
+			}
 			var arr2=$("#start_time").val().split("-");
 			var start=arr2.join("");
 			window.location.href="/statistics/time_search_d/"+start+'/'+end+'/';
 		})
 
 		$("#find2").click(function(){
+			var customer2=$("#customer2").val();
 			var arr=$("#end_time2").val().split("-");
 			var end=arr.join("");
+			if($("#start_time2").val()==''){
+				alert("请输入起始日期");return;
+			}
 			var arr2=$("#start_time2").val().split("-");
 			var start=arr2.join("");
-			window.location.href="/statistics/time_search_f/"+start+'/'+end+'/';
+			window.location.href="/statistics/time_search_f/"+start+'/'+end+'/'+customer2;
 		})
 
 	})</script>

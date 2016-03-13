@@ -821,7 +821,7 @@ def delivery_p(request,id):
 	if not is_login:
 		return HttpResponseRedirect("/")
 	else:
-		product_name=Delivery.objects.filter(deliveryID=id)[0].product_name
+		product_name=Delivery.objects.filter(id=id)[0].product_name
 		records=Delivery.objects.filter(product_name=product_name)
 		a=get_delivery_list(records)
 		return render_to_response("sales_list_search_d.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,"records":a})
@@ -1178,7 +1178,7 @@ def get_deliveryID_by_product(request):
 	product_name = request.POST.get('product_name', None)
 	r=Delivery.objects.filter(product_name=product_name)
 	if r:
-		deliveryID=r[0].deliveryID
+		deliveryID=r[0].id
 		return HttpResponse(deliveryID)
 	else:
 		return HttpResponse(0)
