@@ -64,7 +64,7 @@
 		})
 
 		$("#find2").click(function(){
-			var customer2=$("#customer2").val();
+			var customer2=$("#customer2").val()?$("#customer2").val():0;
 			var arr=$("#end_time2").val().split("-");
 			var end=arr.join("");
 			if($("#start_time2").val()==''){

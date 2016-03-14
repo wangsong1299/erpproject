@@ -131,7 +131,7 @@ def time_search_f(request,start,end,customer):
 	else:
 		startdate=start[0:4]+"-"+start[4:6]+"-"+start[6:8]
 		enddate=end[0:4]+"-"+end[4:6]+"-"+end[6:8]
-		if customer:
+		if customer and (str(customer)!='0'):
 			records=Finance.objects.filter(delivery_time__range=(startdate, enddate)).filter(customer__contains=customer)
 		else:
 			records=Finance.objects.filter(delivery_time__range=(startdate, enddate))
