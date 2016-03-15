@@ -85,6 +85,7 @@ def get_finance_list(records):
 		b[6]=r.total_fee
 		b[7]=r.notes
 		b[8]=r.id
+		b[9]=r.customer
 		a[i]=b
 		i=i+1
 	return a
@@ -137,7 +138,8 @@ def time_search_f(request,start,end,customer):
 			records=Finance.objects.filter(delivery_time__range=(startdate, enddate))
 		total=0
 		for r in records:
-			total=total+int(r.total_fee)
+			if(r.total_fee):
+				total=total+float(r.total_fee)
 		if (len(records)==0):
 			return render_to_response("statistics_time_search_f.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'records':records,'isValue':False,'customer':customer})
 		else:
