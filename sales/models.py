@@ -41,7 +41,7 @@ class Quotation(models.Model):
 
 
 class Order(models.Model):
-	productID=models.CharField(max_length = 10,blank=True)
+	productID=models.CharField(max_length = 20,blank=True)
 	orderID=models.CharField(max_length = 10,blank=True)
 	customer=models.CharField(max_length = 30,default=0)
 	contacts=models.CharField(max_length = 30,default=0)
