@@ -3,6 +3,9 @@
 
 {% block head %}
 <link rel="stylesheet" href="{% static "erp/css/sales.css" %}">
+<style>
+.head_row{font-size: 12px;}
+</style>
 {% endblock %}
 			{% block inner_header %}
 					
@@ -31,21 +34,21 @@
  		</div>
  		 <div class="head_row"  style="margin-top:5px;height:30px">
  			<label for="delivery_time" >发货日期</label>
- 			<input type="text" id="delivery_time" onClick="WdatePicker()"  style="width:9%" value={{ records.0.2 }}>
- 	 		<label for="delivery_man" style="width:8%">联系人</label>
- 			<input type="text" id="delivery_man" value={{ records.0.1 }}> 
- 			<label for="">收货日期</label>
- 			<input type="text" id="" disabled style="width:9%">
- 	 		<label for="receive_man" style="width:8%">联系人</label>
- 			<input type="text" id="receive_man" value={{ records.0.12 }}>
+ 			<input type="text" id="delivery_time" onClick="WdatePicker()"  style="width:12%" value={{ records.0.2 }}>
+ 	 		<label for="delivery_man" style="width:7%">联系人</label>
+ 			<input type="text" id="delivery_man" style="width:13%" value={{ records.0.1 }}> 
+ 			<label for="" >收货日期</label>
+ 			<input type="text" id="" disabled style="width:12%">
+ 	 		<label for="receive_man" style="width:7%">联系人</label>
+ 			<input type="text" id="receive_man" style="width:13%" value={{ records.0.12 }}>
  		</div>
  		 <div class="head_row"  style="margin-top:5px;height:30px">
- 			<label for="send_phone" >电话</label>
- 			<input type="text" id="send_phone" style="width:9%" value={{ records.0.15 }}>
+ 			<label for="send_phone" style="width:6%" >电话</label>
+ 			<input type="text" id="send_phone" style="width:13%;" value={{ records.0.15 }}>
  	 		<label for="send_fax" style="width:8%">传真</label>
  			<input type="text" id="send_fax" value={{ records.0.16 }}>
- 			<label for="receive_phone">电话</label>
- 			<input type="text" id="receive_phone" style="width:9%" value={{ records.0.17 }}>
+ 			<label for="receive_phone" style="width:6%">电话</label>
+ 			<input type="text" id="receive_phone" style="width:13%" value={{ records.0.17 }}>
  	 		<label for="receive_fax" style="width:8%">传真</label>
  			<input type="text" id="receive_fax" value={{ records.0.18 }}>
  		</div>
@@ -67,9 +70,9 @@
 				<th class="col_20"><input type="text" id="productID_{{value.items.14.1}}" value={{value.items.3.1}}></th>
 				<th class="col_20"><input type="text" id="product_name_{{value.items.14.1}}" value={{value.items.4.1}}></th>
 				<th class="col_10"><input type="text" id="huoID_{{value.items.14.1}}"  value={{value.items.24.1}}></th>
-				<th class="col_10"><input type="number" id="delivery_amount_{{value.items.14.1}}"  value={{value.items.6.1}}></th>
-				<th class="col_10"><input type="number" id="inner_amount_{{value.items.14.1}}"  value={{value.items.20.1}}></th>
-				<th class="col_10"><input type="number" id="outer_amount_{{value.items.14.1}}"  value={{value.items.21.1}}></th>
+				<th class="col_10"><input type="text" id="delivery_amount_{{value.items.14.1}}"  value={{value.items.6.1}}></th>
+				<th class="col_10"><input type="text" id="inner_amount_{{value.items.14.1}}"  value={{value.items.20.1}}></th>
+				<th class="col_10"><input type="text" id="outer_amount_{{value.items.14.1}}"  value={{value.items.21.1}}></th>
 				<th class="col_20"><input type="text" id="box_{{value.items.14.1}}"  value={{value.items.19.1}}></th>
 			</tr>
 	{% endfor %}
