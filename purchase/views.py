@@ -248,6 +248,7 @@ def fill_single_list(request):
 		q = Purchase(productID=productID,
 				customer = customer,
 				process_step=1,
+				product_name=Process.objects.filter(productID=productID)[0].product_name,
 				create_time=create_time)
 		q.save()
 	except Exception, e:

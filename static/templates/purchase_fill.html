@@ -51,7 +51,7 @@
 				<th class="col_20"><input type="text" id="amount_1" value={{records.2}}></th>
 				<th class="col_10"><input type="text" id="danwei_1" ></th>
 				<th class="col_10"><input type="number" id="price_1"></th>
-				<th class="col_20"><input type="number" id="fee_1"></th>
+				<th class="col_20"><input type="number" id="fee_1" name='fee'></th>
 			</tr>
 			<tr>
 				<th class="col_20"><input type="text" id="product_name_2" name="product_name" value={{records.10}}></th>
@@ -59,7 +59,7 @@
 				<th class="col_20"><input type="text" id="amount_2" value={{records.5}}></th>
 				<th class="col_10"><input type="text" id="danwei_2" ></th>
 				<th class="col_10"><input type="number" id="price_2"></th>
-				<th class="col_20"><input type="number" id="fee_2"></th>
+				<th class="col_20"><input type="number" id="fee_2" name='fee'></th>
 			</tr>
 			<tr>
 				<th class="col_20"><input type="text" id="product_name_3" name="product_name" value={{records.11}}></th>
@@ -67,7 +67,7 @@
 				<th class="col_20"><input type="text" id="amount_3" value={{records.8}}></th>
 				<th class="col_10"><input type="text" id="danwei_3" ></th>
 				<th class="col_10"><input type="number" id="price_3"></th>
-				<th class="col_20"><input type="number" id="fee_3"></th>
+				<th class="col_20"><input type="number" id="fee_3" name='fee'></th>
 			</tr>
 			<tr>
 				<th class="col_20"><input type="text" id="product_name_4" name="product_name"></th>
@@ -75,7 +75,7 @@
 				<th class="col_20"><input type="text" id="amount_4" ></th>
 				<th class="col_10"><input type="text" id="danwei_4" ></th>
 				<th class="col_10"><input type="number" id="price_4"></th>
-				<th class="col_20"><input type="number" id="fee_4"></th>
+				<th class="col_20"><input type="number" id="fee_4" name='fee'></th>
 			</tr>
 			<tr>
 				<th class="col_20"><input type="text" id="product_name_5" name="product_name"></th>
@@ -83,7 +83,7 @@
 				<th class="col_20"><input type="text" id="amount_5" ></th>
 				<th class="col_10"><input type="text" id="danwei_5" ></th>
 				<th class="col_10"><input type="number" id="price_5"></th>
-				<th class="col_20"><input type="number" id="fee_5"></th>
+				<th class="col_20"><input type="number" id="fee_5" name='fee'></th>
 			</tr>
 
 			<tr>
@@ -92,7 +92,7 @@
 				<th class="col_20"><input type="text" id="amount_6" ></th>
 				<th class="col_10"><input type="text" id="danwei_6" ></th>
 				<th class="col_10"><input type="number" id="price_6"></th>
-				<th class="col_20"><input type="number" id="fee_6"></th>
+				<th class="col_20"><input type="number" id="fee_6" name='fee'></th>
 			</tr>
 			<tr>
 				<th class="col_20"><input type="text" id="product_name_7" name="product_name"></th>
@@ -100,7 +100,7 @@
 				<th class="col_20"><input type="text" id="amount_7" ></th>
 				<th class="col_10"><input type="text" id="danwei_7" ></th>
 				<th class="col_10"><input type="number" id="price_7"></th>
-				<th class="col_20"><input type="number" id="fee_7"></th>
+				<th class="col_20"><input type="number" id="fee_7" name='fee'></th>
 			</tr>
 			<tr>
 				<th class="col_20"><input type="text" id="product_name_8" name="product_name"></th>
@@ -108,7 +108,7 @@
 				<th class="col_20"><input type="text" id="amount_8" ></th>
 				<th class="col_10"><input type="text" id="danwei_8" ></th>
 				<th class="col_10"><input type="number" id="price_8"></th>
-				<th class="col_20"><input type="number" id="fee_8"></th>
+				<th class="col_20"><input type="number" id="fee_8" name='fee'></th>
 			</tr>
 
 			<tr>
@@ -117,7 +117,7 @@
 				<th class="col_20"><input type="text" id="amount_9" ></th>
 				<th class="col_10"><input type="text" id="danwei_9" ></th>
 				<th class="col_10"><input type="number" id="price_9"></th>
-				<th class="col_20"><input type="number" id="fee_9"></th>
+				<th class="col_20"><input type="number" id="fee_9" name='fee'></th>
 			</tr>
 		</table>
 		 <table class="purchase_table">
@@ -331,6 +331,26 @@
 		
 
 //录入单工序表
+		$("input[name=fee]").focus(function(){
+			var id=$(this).attr("id").split("_")[1];
+			var price=$("#price_"+id).val();
+			if(price==''){price=0}
+			var amount=$("#amount_"+id).val();
+			var fee=parseFloat(price)*parseInt(amount);
+			$(this).val(fee);
+		})
+
+		$("#total_fee").focus(function(){
+			var sum=0;
+			for(var i=1;i<=7;i++){
+				var fee=$("#fee_"+i).val();
+				if(fee==''){fee=0;}
+				sum+=parseFloat(fee);
+			}
+			$(this).val(sum);
+
+		})
+	
 		$("#purchase_fill_single").click(function(){
 			var maxnum=3;
 			var customer=$.trim($("#customer_name").val());
