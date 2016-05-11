@@ -1,0 +1,63 @@
+ {% extends "base_erp.html" %}
+ {% load i18n admin_static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "erp/css/statistic.css" %}">
+{% endblock %}
+
+			{% block inner_header %}
+					
+			{% endblock %}			
+
+ {% block main %}
+ <div class="main long_main" style="overflow:hidden">
+			<div class="line2">
+						采购单阶段查询
+				</div>	
+	{% if isValue %}
+	<table class="list_table" style="margin-top: 25px;">
+		<tr>
+			<th class="col_10">产品ID</th>
+			<th class="col_30">产品名</th>
+			<th class="col_10">供应商</th>
+			<th class="col_10">工序</th>
+			<th class="col_20">创建日期</th>
+			<th class="col_20">备注</th>
+		</tr>
+	</table>
+	<table class="list_table">
+
+	{% for key, value in records.items %}
+		<tr>
+		  <th class="col_10"> <a href='/purchase/search/{{ value.items.0.1 }}/' style="cursor:pointer">{{ value.items.0.1 }}</a></th>
+		  <th class="col_30">{{ value.items.1.1 }}</th>
+		  <th class="col_10">{{ value.items.2.1 }}</th>
+		  <th class="col_10">{{ value.items.3.1 }}</th>
+		  <th class="col_20">{{ value.items.4.1 }}</th>
+		  <th class="col_20">{{ value.items.5.1 }}</th>
+		</tr>
+
+	{% endfor %}
+
+		</table>
+
+	{% endif %}
+
+	{% if not isValue %}
+		该时间段内没有 {% if customer %}客户 {{customer}} 的{% endif %}记录
+	{% endif %}
+
+  </div>
+
+
+ {% endblock %}
+
+{% block javascript %}
+
+ 	<script type="text/javascript">
+	$(document).ready(function(){
+		$("#statistics_box").show();
+		$("#statistics_2").addClass('subtitle_focus');
+	})</script>
+
+{% endblock %}

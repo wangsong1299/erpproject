@@ -10,6 +10,8 @@ from storage.models import Storage,Storage_in,Storage_out,Storage_material
 from django.utils.timezone import now, timedelta
 from users.models import User
 from finance.models import Finance
+from purchase.models import Purchase_single,Purchase_multiple,Purchase
+
 # Create your views here.
 def get_statistics_list(records):	
 	a={}
@@ -145,3 +147,37 @@ def time_search_f(request,start,end,customer):
 		else:
 			a=get_finance_list(records)
 			return render_to_response("statistics_time_search_f.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'records':a,'isValue':True,'total':total})
+
+def get_purchase_list(records):
+	a={}
+	i=0
+	for r in records:
+		b={}
+		b[0]=r.productID
+		b[1]=r.product_name
+		b[2]=r.customer
+		b[3]=r.process_step
+		b[4]=r.create_time
+		b[5]=r.notes
+		a[i]=b
+		i=i+1
+	return a
+
+def time_search_p(request,start,end,customer):
+	is_login=request.session.get('is_login',False)
+	nick_name = request.session.get('nick_name',False)
+	if not is_login:
+		return HttpResponseRedirect("/")
+	else:
+		startdate=start[0:4]+"-"+start[4:6]+"-"+start[6:8]
+		enddate=end[0:4]+"-"+end[4:6]+"-"+end[6:8]
+		if customer and (str(customer)!='0'):
+			records=Purchase.objects.filter(create_time__range=(startdate, enddate)).filter(customer__contains=customer)
+		else:
+			print startdate,enddate
+			records=Purchase.objects.filter(create_time__range=(startdate, enddate))
+		if (len(records)==0):
+			return render_to_response("statistics_time_search_p.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'records':records,'isValue':False,'customer':customer})
+		else:
+			a=get_purchase_list(records)
+			return render_to_response("statistics_time_search_p.html",{'is_login':json.dumps(is_login),'nick_name':nick_name,'records':a,'isValue':True})

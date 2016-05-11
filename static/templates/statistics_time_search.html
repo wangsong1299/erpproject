@@ -34,6 +34,16 @@
  		   <input type="text" id="start_time2" onClick="WdatePicker()" style="float:right;margin-right:50px;" ><label for="" style="float:right;width:30px">从</label>
   		</div>
 
+	 <div class="head_row last_row" style="height:150px;width:800px;">
+	 	   <h3 style="text-align:center;padding-bottom:20px;">采购单阶段查询</h3>
+	 	    <div style="margin-left:135px;">
+		  		<label for="customer3">供应商</label><input type="text" id="customer2">
+		  	</div>
+ 		   <button type="submit" class="btn btn-primary" id="find3" style="float:right">查询</button>
+ 		   <input type="text" id="end_time3" onClick="WdatePicker()" style="float:right;margin-right:50px;" ><label for="" style="float:right;width:30px">至</label>
+ 		   <input type="text" id="start_time3" onClick="WdatePicker()" style="float:right;margin-right:50px;" ><label for="" style="float:right;width:30px">从</label>
+  		</div>
+
   </div>
  
  {% endblock %}
@@ -51,6 +61,7 @@
 		var newdate= date.getFullYear()+'-'+month+'-'+day;
 		$("#end_time").val(newdate);
 		$("#end_time2").val(newdate);
+		$("#end_time3").val(newdate);
 
 		$("#find").click(function(){
 			var arr=$("#end_time").val().split("-");
@@ -73,6 +84,18 @@
 			var arr2=$("#start_time2").val().split("-");
 			var start=arr2.join("");
 			window.location.href="/statistics/time_search_f/"+start+'/'+end+'/'+customer2;
+		})
+
+		$("#find3").click(function(){
+			var customer3=$("#customer3").val()?$("#customer3").val():0;
+			var arr=$("#end_time3").val().split("-");
+			var end=arr.join("");
+			if($("#start_time3").val()==''){
+				alert("请输入起始日期");return;
+			}
+			var arr2=$("#start_time3").val().split("-");
+			var start=arr2.join("");
+			window.location.href="/statistics/time_search_p/"+start+'/'+end+'/'+customer3;
 		})
 
 	})</script>
